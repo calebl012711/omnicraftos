@@ -1,0 +1,1089 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <title>BandForge Studio — GarageBand-Style Track, Smart Chords, Amp Rig &amp; Live Loops</title>
+    <style>
+      :root {
+        --brand-color: #f59e0b;
+        --bg-0: #111318;
+        --bg-1: #181b22;
+        --bg-2: #212630;
+        --bg-3: #2b3240;
+        --text-0: #f8fafc;
+        --text-1: #cbd5e1;
+        --text-2: #8b98ad;
+        --border: rgba(255, 255, 255, 0.1);
+        --green: #22c55e;
+        --blue: #3b82f6;
+        --purple: #a855f7;
+        --amber: #f59e0b;
+        --red: #ef4444;
+        --teal: #14b8a6;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg-0);
+        color: var(--text-0);
+        font-family: var(--font-sans);
+        font-size: 12.5px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        accent-color: var(--brand-color);
+      }
+
+      /* Modern Web Guidance: Brand-Consistent Range Slider */
+      input[type="range"] {
+        --slider-track-size: 0.35rem;
+        --slider-thumb-size: 0.95rem;
+        --slider-track-radius: 999px;
+        --slider-thumb-radius: 50%;
+        --slider-track-color: #334155;
+        --slider-fill-color: var(--brand-color);
+        --slider-thumb-color: #ffffff;
+        --slider-direction: to right;
+        --attr-min: attr(min type(<number>), 0);
+        --attr-max: attr(max type(<number>), 100);
+        --control-value: attr(value type(<number>), 80);
+        --slider-progress: calc(
+          progress(var(--control-value), var(--attr-min), var(--attr-max)) * 100%
+        );
+        appearance: none;
+        inline-size: 100%;
+        block-size: 1.5rem;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      @supports not (opacity: progress(1, 0, 100)) {
+        input[type="range"] {
+          --slider-progress: calc(
+            (var(--control-value) - var(--attr-min)) /
+            (var(--attr-max) - var(--attr-min)) * 100%
+          );
+        }
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        block-size: var(--slider-track-size);
+        border: 0;
+        border-radius: var(--slider-track-radius);
+        background: linear-gradient(
+          var(--slider-direction),
+          var(--slider-fill-color) var(--slider-progress),
+          var(--slider-track-color) var(--slider-progress)
+        );
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        inline-size: var(--slider-thumb-size);
+        block-size: var(--slider-thumb-size);
+        margin-block-start: calc(
+          (var(--slider-track-size) - var(--slider-thumb-size)) / 2
+        );
+        border: 2px solid var(--slider-fill-color);
+        border-radius: var(--slider-thumb-radius);
+        background: var(--slider-thumb-color);
+      }
+
+      input[type="range"]::-moz-range-track {
+        block-size: var(--slider-track-size);
+        border: 0;
+        border-radius: var(--slider-track-radius);
+        background: var(--slider-track-color);
+      }
+
+      input[type="range"]::-moz-range-progress {
+        block-size: var(--slider-track-size);
+        border-radius: var(--slider-track-radius);
+        background: var(--slider-fill-color);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        inline-size: var(--slider-thumb-size);
+        block-size: var(--slider-thumb-size);
+        border: 2px solid var(--slider-fill-color);
+        border-radius: var(--slider-thumb-radius);
+        background: var(--slider-thumb-color);
+      }
+
+      input[type="range"]:focus-visible {
+        outline: 2px solid var(--slider-fill-color);
+        outline-offset: 4px;
+      }
+
+      /* GarageBand Brushed Metal Top Transport & LCD */
+      .gb-transport {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 14px;
+        background: linear-gradient(180deg, #282e3a 0%, #1a1e26 100%);
+        border-bottom: 1px solid var(--border);
+        gap: 12px;
+      }
+
+      .gb-lcd {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: #0b0e14;
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        border-radius: 7px;
+        padding: 5px 14px;
+        font-family: var(--font-mono);
+        color: #fbbf24;
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7);
+      }
+
+      .gb-lcd-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .gb-lcd-val {
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .gb-lcd-lbl {
+        font-size: 9px;
+        text-transform: uppercase;
+        color: #94a3b8;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 11px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--bg-2);
+        color: var(--text-0);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background: var(--bg-3);
+      }
+
+      .btn-amber {
+        background: var(--amber);
+        border-color: #fbbf24;
+        color: #090d16;
+        font-weight: 700;
+      }
+
+      .btn-rec {
+        background: var(--red);
+        border-color: #f87171;
+        color: #fff;
+      }
+
+      /* Arrangement Area */
+      .gb-arrangement {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        background: var(--bg-0);
+        border-bottom: 1px solid var(--border);
+        overflow-y: auto;
+      }
+
+      .ruler-row {
+        display: grid;
+        grid-template-columns: 270px 1fr;
+        background: #141821;
+        border-bottom: 1px solid var(--border);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-2);
+      }
+
+      .ruler-bars {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        padding: 4px 0;
+      }
+
+      .ruler-bars span {
+        padding-left: 6px;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .track-strip {
+        display: grid;
+        grid-template-columns: 270px 1fr;
+        border-bottom: 1px solid var(--border);
+        min-height: 46px;
+      }
+
+      .track-strip.selected .track-info {
+        background: rgba(245, 158, 11, 0.14);
+        border-left: 3px solid var(--amber);
+      }
+
+      .track-info {
+        background: var(--bg-1);
+        border-right: 1px solid var(--border);
+        padding: 6px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .track-grid {
+        position: relative;
+        background: repeating-linear-gradient(
+          90deg,
+          #10131a 0%,
+          #10131a 12.4%,
+          rgba(255, 255, 255, 0.05) 12.5%
+        );
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .region-pill {
+        position: absolute;
+        top: 5px;
+        bottom: 5px;
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+      }
+
+      .gb-playhead {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #fbbf24;
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      /* Bottom Smart Instrument / Amp Designer / Live Loops Dock */
+      .gb-dock {
+        height: 285px;
+        background: var(--bg-1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .gb-dock-tabs {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 14px;
+        background: var(--bg-2);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .dock-tab-btn {
+        padding: 5px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--bg-1);
+        color: var(--text-1);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .dock-tab-btn.active {
+        background: var(--amber);
+        color: #090d16;
+        border-color: #fbbf24;
+      }
+
+      .dock-content {
+        flex: 1;
+        padding: 12px;
+        overflow-y: auto;
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 14px;
+      }
+
+      .chord-strips-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 6px;
+      }
+
+      .chord-strip {
+        background: linear-gradient(180deg, #2d3545 0%, #1c222d 100%);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 7px;
+        padding: 10px 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        user-select: none;
+        transition: transform 0.08s, border-color 0.12s;
+      }
+
+      .chord-strip:hover,
+      .chord-strip.active {
+        border-color: var(--amber);
+        background: linear-gradient(180deg, #4b3918 0%, #272014 100%);
+        transform: translateY(-2px);
+      }
+
+      .piano-keys {
+        display: grid;
+        grid-template-columns: repeat(14, 1fr);
+        gap: 3px;
+        height: 120px;
+      }
+
+      .piano-key {
+        background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+        color: #0f172a;
+        border: 1px solid #64748b;
+        border-radius: 0 0 6px 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        padding-bottom: 8px;
+        font-weight: 700;
+        font-size: 11px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .piano-key.sharp {
+        background: linear-gradient(180deg, #1e293b 0%, #090d16 100%);
+        color: #f8fafc;
+        border-color: #334155;
+      }
+
+      .piano-key:active,
+      .piano-key.playing {
+        background: var(--amber);
+        color: #090d16;
+      }
+
+      .amp-rig-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 12px;
+        grid-column: 1 / -1;
+      }
+
+      .tweed-amp {
+        background: linear-gradient(180deg, #452c16 0%, #26180c 100%);
+        border: 2px solid #b45309;
+        border-radius: 10px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .pedalboard {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      .stompbox {
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .live-loops-matrix {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 160px repeat(4, 1fr);
+        gap: 6px;
+      }
+
+      .loop-cell {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        font-weight: 600;
+        font-size: 11.5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .loop-cell.playing {
+        outline: 2px solid #fff;
+        box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- GarageBand Top Transport & LCD Display -->
+    <header class="gb-transport">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--amber);color:#090d16;padding:3px 8px;border-radius:5px;font-weight:800;font-size:11px;">
+          BANDFORGE
+        </span>
+        <strong>GarageBand Workstation</strong>
+        <button type="button" class="btn btn-amber" id="btnGbPlay" data-testid="btn-gb-play">▶ Play</button>
+        <button type="button" class="btn" id="btnGbStop">⏹ Stop</button>
+        <button type="button" class="btn btn-rec" id="btnGbRec" data-testid="btn-gb-rec">● Record Note/Chord</button>
+        <button type="button" class="btn" id="btnGbCycle">🔁 Cycle (8 Bars)</button>
+      </div>
+
+      <!-- GarageBand Amber LCD -->
+      <div class="gb-lcd" data-testid="gb-lcd-display">
+        <div class="gb-lcd-item">
+          <span class="gb-lcd-val" id="lcdBarBeat">001 | 01 | 01</span>
+          <span class="gb-lcd-lbl">Bar | Beat | Tick</span>
+        </div>
+        <div class="gb-lcd-item">
+          <span class="gb-lcd-val" id="lcdTempo">118</span>
+          <span class="gb-lcd-lbl">Tempo BPM</span>
+        </div>
+        <div class="gb-lcd-item">
+          <span class="gb-lcd-val" id="lcdKey">C Maj</span>
+          <span class="gb-lcd-lbl">Key / Scale</span>
+        </div>
+        <div class="gb-lcd-item">
+          <span class="gb-lcd-val" id="lcdLastNote">Cmaj9</span>
+          <span class="gb-lcd-lbl">Chord / MIDI</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button type="button" class="btn btn-amber" id="btnBounceWav" data-testid="btn-gb-bounce-wav">
+          ⬇ Bounce Song to Stereo WAV (.wav)
+        </button>
+        <button type="button" class="btn" id="btnSendToSoundCraft">
+          🎚 Open in SoundCraft WASM
+        </button>
+      </div>
+    </header>
+
+    <!-- Multi-Track Arrangement -->
+    <main class="gb-arrangement" id="gbArrangement">
+      <div class="ruler-row">
+        <div style="padding:4px 10px;border-right:1px solid var(--border);display:flex;justify-content:space-between;">
+          <span>6 Instrument &amp; Audio Tracks</span>
+          <span id="regionCountLabel">9 Regions</span>
+        </div>
+        <div class="ruler-bars">
+          <span>Bar 1</span><span>Bar 2</span><span>Bar 3</span><span>Bar 4</span>
+          <span>Bar 5</span><span>Bar 6</span><span>Bar 7</span><span>Bar 8</span>
+        </div>
+      </div>
+
+      <div id="tracksListContainer"></div>
+    </main>
+
+    <!-- Bottom Smart Instruments, Guitar Amp Designer & Live Loops Dock -->
+    <section class="gb-dock">
+      <div class="gb-dock-tabs">
+        <div style="display:flex;gap:6px;">
+          <button type="button" class="dock-tab-btn active" data-tab="smart-keys" data-testid="tab-smart-keys">
+            🎹 Smart Chords &amp; 2-Octave Keyboard
+          </button>
+          <button type="button" class="dock-tab-btn" data-tab="amp-rig" data-testid="tab-amp-rig">
+            🎸 Guitar Amp Designer &amp; Stompbox Pedalboard
+          </button>
+          <button type="button" class="dock-tab-btn" data-tab="live-loops" data-testid="tab-live-loops">
+            🔄 GarageBand Live Loops Matrix
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <label for="sliderMasterVol" style="font-size:11.5px;">Master Out</label>
+          <div style="width:120px;">
+            <input type="range" id="sliderMasterVol" min="0" max="100" value="85" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 1: Smart Chords + Playable Keyboard -->
+      <div class="dock-content" id="panelSmartKeys">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <strong style="font-size:12px;">Smart Chords Strips (Click to Strum &amp; Record to Armed Track)</strong>
+            <select id="selSynthVoice" style="background:var(--bg-2);color:var(--text-0);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:11.5px;">
+              <option value="rhodes">70s Suitcase Rhodes EP</option>
+              <option value="juno">Juno-106 Warm Poly Pad</option>
+              <option value="grand">Concert Grand Piano</option>
+              <option value="pluck">Acoustic Nylon Strum</option>
+            </select>
+          </div>
+          <div class="chord-strips-grid" id="chordStripsGrid"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <strong style="font-size:12px;">Playable 2-Octave Studio Keyboard (C3 – B4)</strong>
+            <span style="font-size:11px;color:var(--text-2);">WebAudio Polyphonic Synth Engine Active</span>
+          </div>
+          <div class="piano-keys" id="pianoKeysGrid"></div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Guitar Amp Designer & Stompbox Pedalboard -->
+      <div class="dock-content" id="panelAmpRig" style="display:none;">
+        <div class="amp-rig-grid">
+          <div class="tweed-amp">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong style="color:#fde68a;font-size:13px;">🔥 '59 Tweed Boutique Valve Amplifier</strong>
+              <button type="button" class="btn btn-amber" id="btnStrumAmpTest" data-testid="btn-strum-amp">
+                🎸 Strum Electric Guitar Chord Through Amp
+              </button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px;">
+              <label style="font-size:11px;">
+                Drive Gain
+                <input type="range" id="ampGain" min="0" max="100" value="68" />
+              </label>
+              <label style="font-size:11px;">
+                Bass Stack
+                <input type="range" id="ampBass" min="0" max="100" value="72" />
+              </label>
+              <label style="font-size:11px;">
+                Mid Contour
+                <input type="range" id="ampMid" min="0" max="100" value="58" />
+              </label>
+              <label style="font-size:11px;">
+                Spring Reverb
+                <input type="range" id="ampReverb" min="0" max="100" value="45" />
+              </label>
+            </div>
+          </div>
+
+          <div class="pedalboard">
+            <div class="stompbox" style="background:#15803d;" data-pedal="overdrive">
+              <span>TUBE SCREAMER</span>
+              <span style="font-size:10px;">● ACTIVE</span>
+            </div>
+            <div class="stompbox" style="background:#1d4ed8;" data-pedal="chorus">
+              <span>DIMENSION CHORUS</span>
+              <span style="font-size:10px;">● ACTIVE</span>
+            </div>
+            <div class="stompbox" style="background:#b91c1c;" data-pedal="delay">
+              <span>TAPE ECHO</span>
+              <span style="font-size:10px;">● ACTIVE</span>
+            </div>
+            <div class="stompbox" style="background:#6d28d9;" data-pedal="fuzz">
+              <span>VELVET FUZZ</span>
+              <span style="font-size:10px;">○ BYPASS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: GarageBand Live Loops Matrix -->
+      <div class="dock-content" id="panelLiveLoops" style="display:none;">
+        <div class="live-loops-matrix" id="liveLoopsMatrix"></div>
+      </div>
+    </section>
+
+    <script src="/editors/mosaic-forge-bridge.js"></script>
+    <script>
+      (function () {
+        document.querySelectorAll('input[type="range"]').forEach((slider) => {
+          const sync = () => {
+            slider.style.setProperty('--attr-min', slider.min || '0');
+            slider.style.setProperty('--attr-max', slider.max || '100');
+            slider.style.setProperty('--control-value', slider.value);
+          };
+          sync();
+          slider.addEventListener('input', sync);
+        });
+
+        let audioCtx = null;
+        function getAudioCtx() {
+          if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (Ctx) audioCtx = new Ctx();
+          }
+          if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume().catch(() => {});
+          }
+          return audioCtx;
+        }
+
+        const TRACKS = [
+          {
+            id: 'trk-rhodes',
+            name: '🎹 Classic Suitcase Rhodes',
+            color: '#f59e0b',
+            volume: 85,
+            muted: false,
+            solo: false,
+            regions: [
+              { id: 'r1', startPct: 0, widthPct: 48, label: 'Cmaj9 → Am7 → Fmaj7 Voicings' },
+              { id: 'r2', startPct: 50, widthPct: 48, label: 'Chorus Rhodes Progression' }
+            ]
+          },
+          {
+            id: 'trk-drums',
+            name: '🥁 SoCal Studio Drummer',
+            color: '#eab308',
+            volume: 90,
+            muted: false,
+            solo: false,
+            regions: [
+              { id: 'r3', startPct: 0, widthPct: 98, label: 'SoCal Live Kit · Pocket Groove (118 BPM)' }
+            ]
+          },
+          {
+            id: 'trk-bass',
+            name: '🎸 Liverpool Fingered Bass',
+            color: '#3b82f6',
+            volume: 84,
+            muted: false,
+            solo: false,
+            regions: [
+              { id: 'r4', startPct: 0, widthPct: 48, label: 'Warm Motown Sub Line' },
+              { id: 'r5', startPct: 50, widthPct: 48, label: 'Octave Walking Bass' }
+            ]
+          },
+          {
+            id: 'trk-guitar',
+            name: '⚡ Tweed Boutique Amp Guitar',
+            color: '#ef4444',
+            volume: 78,
+            muted: false,
+            solo: false,
+            regions: [
+              { id: 'r6', startPct: 25, widthPct: 73, label: 'Tweed Clean Arpeggio + Spring Reverb' }
+            ]
+          },
+          {
+            id: 'trk-pad',
+            name: '🌌 Juno-106 Warm Synth Pad',
+            color: '#a855f7',
+            volume: 74,
+            muted: false,
+            solo: false,
+            regions: [
+              { id: 'r7', startPct: 0, widthPct: 98, label: 'Analog Chorus Lush Pad' }
+            ]
+          },
+          {
+            id: 'trk-vocal',
+            name: '🎙 Studio Condenser Vocal / Mic',
+            color: '#14b8a6',
+            volume: 82,
+            muted: false,
+            solo: false,
+            regions: [
+              { id: 'r8', startPct: 12, widthPct: 35, label: 'Verse Vocal Take 1' },
+              { id: 'r9', startPct: 52, widthPct: 40, label: 'Chorus Doubler Harmonies' }
+            ]
+          }
+        ];
+
+        let selectedTrackId = 'trk-rhodes';
+        let isPlaying = false;
+        let isRecording = false;
+        let playheadPct = 0;
+        let triggeredChordsCount = 0;
+
+        function renderTracks() {
+          const container = document.getElementById('tracksListContainer');
+          container.innerHTML = '';
+          let totalRegions = 0;
+
+          TRACKS.forEach((trk) => {
+            totalRegions += trk.regions.length;
+            const row = document.createElement('div');
+            row.className = 'track-strip' + (trk.id === selectedTrackId ? ' selected' : '');
+
+            const info = document.createElement('div');
+            info.className = 'track-info';
+            info.innerHTML = `
+              <div>
+                <div style="font-weight:700;font-size:12px;">${trk.name}</div>
+                <div style="font-size:10.5px;color:var(--text-2);">Vol: ${trk.volume}% · Stereo Bus</div>
+              </div>
+              <div style="display:flex;gap:4px;">
+                <span style="padding:2px 6px;border-radius:4px;background:var(--bg-2);font-size:10px;">M</span>
+                <span style="padding:2px 6px;border-radius:4px;background:var(--bg-2);font-size:10px;">S</span>
+              </div>
+            `;
+            info.addEventListener('click', () => {
+              selectedTrackId = trk.id;
+              renderTracks();
+            });
+
+            const grid = document.createElement('div');
+            grid.className = 'track-grid';
+            trk.regions.forEach((reg) => {
+              const pill = document.createElement('div');
+              pill.className = 'region-pill';
+              pill.style.left = reg.startPct + '%';
+              pill.style.width = reg.widthPct + '%';
+              pill.style.background = trk.color;
+              pill.textContent = reg.label;
+              grid.appendChild(pill);
+            });
+
+            const ph = document.createElement('div');
+            ph.className = 'gb-playhead';
+            ph.style.left = playheadPct + '%';
+            grid.appendChild(ph);
+
+            row.appendChild(info);
+            row.appendChild(grid);
+            container.appendChild(row);
+          });
+
+          document.getElementById('regionCountLabel').textContent = `${totalRegions} Regions`;
+        }
+
+        // Play polyphonic chord or note via WebAudio
+        function playFreqs(freqs, duration = 0.55) {
+          try {
+            const ctx = getAudioCtx();
+            if (!ctx) return;
+            const now = ctx.currentTime;
+            const voice = document.getElementById('selSynthVoice').value;
+            freqs.forEach((f, idx) => {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = voice === 'juno' ? 'sawtooth' : voice === 'pluck' ? 'triangle' : 'sine';
+              osc.frequency.setValueAtTime(f, now + idx * 0.018);
+              gain.gain.setValueAtTime(0.001, now);
+              gain.gain.exponentialRampToValueAtTime(0.12 / freqs.length, now + 0.03);
+              gain.gain.exponentialRampToValueAtTime(0.0008, now + duration);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(now + idx * 0.018);
+              osc.stop(now + duration + 0.04);
+            });
+          } catch {}
+        }
+
+        // Build Smart Chords Strips
+        const SMART_CHORDS = [
+          { name: 'Cmaj9', notes: [261.63, 329.63, 392.0, 493.88, 587.33], role: 'I Maj9' },
+          { name: 'Am7', notes: [220.0, 261.63, 329.63, 392.0], role: 'vi min7' },
+          { name: 'Fmaj7', notes: [174.61, 220.0, 261.63, 329.63], role: 'IV Maj7' },
+          { name: 'G13', notes: [196.0, 246.94, 293.66, 349.23, 440.0], role: 'V 13th' },
+          { name: 'Dm9', notes: [293.66, 349.23, 440.0, 523.25, 659.25], role: 'ii min9' },
+          { name: 'Em7', notes: [329.63, 392.0, 493.88, 587.33], role: 'iii min7' },
+          { name: 'Bbmaj7', notes: [233.08, 293.66, 349.23, 440.0], role: 'bVII Maj7' },
+          { name: 'E7#9', notes: [164.81, 207.65, 246.94, 293.66, 392.0], role: 'V7 Alt' }
+        ];
+
+        const chordGrid = document.getElementById('chordStripsGrid');
+        SMART_CHORDS.forEach((ch) => {
+          const strip = document.createElement('div');
+          strip.className = 'chord-strip';
+          strip.setAttribute('data-chord', ch.name);
+          strip.setAttribute('data-testid', `chord-strip-${ch.name}`);
+          strip.innerHTML = `
+            <span style="font-size:10px;color:var(--text-2);">${ch.role}</span>
+            <strong style="font-size:14px;color:#fbbf24;margin:8px 0;">${ch.name}</strong>
+            <span style="font-size:10px;color:var(--text-1);">Strum ▶</span>
+          `;
+          strip.addEventListener('click', () => {
+            document.querySelectorAll('.chord-strip').forEach((s) => s.classList.remove('active'));
+            strip.classList.add('active');
+            document.getElementById('lcdLastNote').textContent = ch.name;
+            triggeredChordsCount++;
+            playFreqs(ch.notes, 0.65);
+
+            if (isRecording) {
+              const target = TRACKS.find((t) => t.id === selectedTrackId) || TRACKS[0];
+              target.regions.push({
+                id: 'reg-' + Date.now(),
+                startPct: Math.min(82, Math.round(playheadPct)),
+                widthPct: 16,
+                label: `${ch.name} Recorded`
+              });
+              renderTracks();
+            }
+          });
+          chordGrid.appendChild(strip);
+        });
+
+        // Build 2-Octave Keyboard
+        const KEYS = [
+          { note: 'C3', freq: 130.81, sharp: false },
+          { note: 'C#3', freq: 138.59, sharp: true },
+          { note: 'D3', freq: 146.83, sharp: false },
+          { note: 'Eb3', freq: 155.56, sharp: true },
+          { note: 'E3', freq: 164.81, sharp: false },
+          { note: 'F3', freq: 174.61, sharp: false },
+          { note: 'F#3', freq: 185.0, sharp: true },
+          { note: 'G3', freq: 196.0, sharp: false },
+          { note: 'Ab3', freq: 207.65, sharp: true },
+          { note: 'A3', freq: 220.0, sharp: false },
+          { note: 'Bb3', freq: 233.08, sharp: true },
+          { note: 'B3', freq: 246.94, sharp: false },
+          { note: 'C4', freq: 261.63, sharp: false },
+          { note: 'D4', freq: 293.66, sharp: false }
+        ];
+        const pianoGrid = document.getElementById('pianoKeysGrid');
+        KEYS.forEach((k) => {
+          const btn = document.createElement('div');
+          btn.className = 'piano-key' + (k.sharp ? ' sharp' : '');
+          btn.textContent = k.note;
+          btn.addEventListener('click', () => {
+            document.getElementById('lcdLastNote').textContent = k.note;
+            playFreqs([k.freq, k.freq * 2], 0.4);
+          });
+          pianoGrid.appendChild(btn);
+        });
+
+        // Build Live Loops Matrix
+        const LOOP_ROWS = [
+          { name: '🥁 Drums', color: '#ca8a04', cells: ['Brush Kit', 'Pocket Break', 'Stadium Fill', 'Halftime'] },
+          { name: '🎸 Bass', color: '#2563eb', cells: ['Sub Root', 'Motown Walk', 'Slap Funk', 'Octave Drive'] },
+          { name: '🎹 Keys', color: '#d97706', cells: ['Rhodes Maj9', 'Wurlitzer Comp', 'Clavinet', 'Glass Arp'] },
+          { name: '⚡ Guitar', color: '#dc2626', cells: ['Tweed Shimmer', 'Chorus Hook', 'Muted Nile', 'Slide Lead'] }
+        ];
+        const loopsMatrix = document.getElementById('liveLoopsMatrix');
+        LOOP_ROWS.forEach((row) => {
+          const lbl = document.createElement('div');
+          lbl.style.fontWeight = '700';
+          lbl.style.display = 'flex';
+          lbl.style.alignItems = 'center';
+          lbl.textContent = row.name;
+          loopsMatrix.appendChild(lbl);
+
+          row.cells.forEach((cellName, cIdx) => {
+            const cell = document.createElement('div');
+            cell.className = 'loop-cell' + (cIdx === 1 ? ' playing' : '');
+            cell.style.background = row.color;
+            cell.innerHTML = `<span>${cellName}</span><span>▶</span>`;
+            cell.addEventListener('click', () => {
+              cell.classList.toggle('playing');
+              playFreqs([220 * (1 + cIdx * 0.25), 330 * (1 + cIdx * 0.25)], 0.35);
+            });
+            loopsMatrix.appendChild(cell);
+          });
+        });
+
+        // Dock tabs switching
+        document.querySelectorAll('.dock-tab-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.dock-tab-btn').forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+            const tab = btn.getAttribute('data-tab');
+            document.getElementById('panelSmartKeys').style.display = tab === 'smart-keys' ? 'grid' : 'none';
+            document.getElementById('panelAmpRig').style.display = tab === 'amp-rig' ? 'grid' : 'none';
+            document.getElementById('panelLiveLoops').style.display = tab === 'live-loops' ? 'grid' : 'none';
+          });
+        });
+
+        document.getElementById('btnStrumAmpTest').addEventListener('click', () => {
+          playFreqs([164.81, 246.94, 329.63, 415.3, 493.88, 659.25], 0.85);
+          document.getElementById('lcdLastNote').textContent = 'E9 Amp Strum';
+        });
+
+        // Transport
+        document.getElementById('btnGbPlay').addEventListener('click', () => {
+          isPlaying = !isPlaying;
+          document.getElementById('btnGbPlay').textContent = isPlaying ? '⏸ Pause' : '▶ Play';
+        });
+        document.getElementById('btnGbStop').addEventListener('click', () => {
+          isPlaying = false;
+          playheadPct = 0;
+          document.getElementById('btnGbPlay').textContent = '▶ Play';
+          renderTracks();
+        });
+        document.getElementById('btnGbRec').addEventListener('click', () => {
+          isRecording = !isRecording;
+          isPlaying = isRecording;
+          document.getElementById('btnGbRec').textContent = isRecording ? '● Recording Active' : '● Record Note/Chord';
+        });
+
+        setInterval(() => {
+          if (!isPlaying) return;
+          playheadPct = (playheadPct + 0.8) % 100;
+          const bar = Math.floor((playheadPct / 100) * 8) + 1;
+          const beat = Math.floor((((playheadPct / 100) * 8) % 1) * 4) + 1;
+          document.getElementById('lcdBarBeat').textContent = `00${bar} | 0${beat} | 01`;
+          renderTracks();
+        }, 80);
+
+        // Bounce full arrangement to 44.1kHz Stereo WAV
+        async function bounceSongToWav(triggerDownload = true) {
+          const sampleRate = 44100;
+          const durationSec = 3.0;
+          const numSamples = Math.floor(sampleRate * durationSec);
+          const buffer = new ArrayBuffer(44 + numSamples * 4); // 16-bit Stereo
+          const view = new DataView(buffer);
+          const writeStr = (off, str) => {
+            for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i));
+          };
+          writeStr(0, 'RIFF');
+          view.setUint32(4, 36 + numSamples * 4, true);
+          writeStr(8, 'WAVE');
+          writeStr(12, 'fmt ');
+          view.setUint32(16, 16, true);
+          view.setUint16(20, 1, true);
+          view.setUint16(22, 2, true); // 2 channels
+          view.setUint32(24, sampleRate, true);
+          view.setUint32(28, sampleRate * 4, true);
+          view.setUint16(32, 4, true);
+          view.setUint16(34, 16, true);
+          writeStr(36, 'data');
+          view.setUint32(40, numSamples * 4, true);
+
+          const chords = [
+            [261.63, 329.63, 392.0, 493.88],
+            [220.0, 261.63, 329.63, 392.0],
+            [174.61, 220.0, 261.63, 329.63]
+          ];
+
+          for (let i = 0; i < numSamples; i++) {
+            const t = i / sampleRate;
+            const chordIdx = Math.min(2, Math.floor(t));
+            const c = chords[chordIdx];
+            const beatEnv = Math.exp(-((t * 4) % 1) * 3.5);
+            const kick = Math.sin(2 * Math.PI * (110 * Math.exp(-((t * 2) % 1) * 18)) * t) * beatEnv * 0.45;
+            const rhodesL =
+              (Math.sin(2 * Math.PI * c[0] * t) +
+                Math.sin(2 * Math.PI * c[1] * t) +
+                Math.sin(2 * Math.PI * c[2] * t)) *
+              0.18;
+            const rhodesR =
+              (Math.sin(2 * Math.PI * c[1] * t) +
+                Math.sin(2 * Math.PI * c[2] * t) +
+                Math.sin(2 * Math.PI * c[3] * t)) *
+              0.18;
+            const bass = Math.sin(2 * Math.PI * (c[0] * 0.5) * t) * 0.28;
+
+            const left = Math.max(-1, Math.min(1, kick + bass + rhodesL)) * 28000;
+            const right = Math.max(-1, Math.min(1, kick + bass + rhodesR)) * 28000;
+            view.setInt16(44 + i * 4, left, true);
+            view.setInt16(44 + i * 4 + 2, right, true);
+          }
+
+          const fileName = 'bandforge-garageband-session.wav';
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage(
+              {
+                type: 'mosaic:export-captured',
+                app: 'bandforge',
+                name: fileName,
+                mime: 'audio/wav',
+                bytes: buffer
+              },
+              window.location.origin
+            );
+          }
+
+          if (triggerDownload) {
+            const blob = new Blob([buffer], { type: 'audio/wav' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 2000);
+          }
+          return { name: fileName, size: buffer.byteLength, sampleRate, channels: 2 };
+        }
+
+        document.getElementById('btnBounceWav').addEventListener('click', () => {
+          bounceSongToWav(true);
+        });
+
+        document.getElementById('btnSendToSoundCraft').addEventListener('click', async () => {
+          await bounceSongToWav(false);
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage(
+              {
+                type: 'mosaic:switch-workspace',
+                workspaceId: 'soundcraft',
+                reason: 'Sent BandForge GarageBand stereo WAV bounce into SoundCraft WASM'
+              },
+              window.location.origin
+            );
+          }
+        });
+
+        renderTracks();
+
+        window.bandforge = {
+          commands: async () => [
+            'transport.play',
+            'transport.stop',
+            'smartChords.trigger',
+            'dock.switchTab',
+            'amp.strumTest',
+            'song.bounceWav'
+          ],
+          inspect: async () => ({
+            engine: 'BandForge Studio (GarageBand Workstation)',
+            isPlaying,
+            tempoBpm: 118,
+            keySignature: 'C Maj',
+            tracksCount: TRACKS.length,
+            triggeredChordsCount,
+            lastChord: document.getElementById('lcdLastNote').textContent
+          }),
+          execute: async (cmd, args = {}) => {
+            if (cmd === 'smartChords.trigger') {
+              const chordName = args.chord || 'Cmaj9';
+              const el = document.querySelector(`[data-chord="${chordName}"]`);
+              if (el) el.click();
+              return window.bandforge.inspect();
+            }
+            if (cmd === 'dock.switchTab' && args.tab) {
+              const btn = document.querySelector(`[data-tab="${args.tab}"]`);
+              if (btn) btn.click();
+              return window.bandforge.inspect();
+            }
+            if (cmd === 'song.bounceWav') {
+              return await bounceSongToWav(Boolean(args.download));
+            }
+            return window.bandforge.inspect();
+          }
+        };
+      })();
+    </script>
+  </body>
+</html>

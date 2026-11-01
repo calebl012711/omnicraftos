@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Mosaic Forge — Free, local-first unified creative suite and parametric 3D CAD workspace." />
+    <link rel="icon" type="image/svg+xml" href="/mosaic-forge-mark.svg" />
+    <title>Mosaic Forge — Unified Creative Suite &amp; Parametric CAD Workspace</title>
+    <script>
+      const t = localStorage.getItem('theme');
+      if (t) document.querySelector('meta[name="color-scheme"]').content = t;
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

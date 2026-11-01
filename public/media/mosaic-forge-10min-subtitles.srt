@@ -1,0 +1,299 @@
+1
+00:00:00,300 --> 00:00:07,800
+Welcome to Mosaic Forge—an eighteen-studio local creative suite engineered with Rust, WebAssembly, and WebAudio right inside
+
+2
+00:00:08,300 --> 00:00:15,800
+your browser. From vector illustration and parametric three-D CAD to Riverside-class isolated recording, multi-track video editing,
+
+3
+00:00:16,300 --> 00:00:23,800
+GarageBand, and FL Studio twenty-one, every workspace shares one instant local asset vault with zero cloud lag.
+
+4
+00:00:24,300 --> 00:00:31,800
+Navigating eighteen professional engines takes less than a second. Hit Command-K from anywhere
+
+5
+00:00:32,300 --> 00:00:39,800
+in Mosaic Forge to summon the global Quick Switcher, toggle between Obsidian Dark
+
+6
+00:00:40,300 --> 00:00:47,800
+and Daylight studio themes, and jump straight into any workspace without losing your active state.
+
+7
+00:00:48,300 --> 00:00:55,800
+First inside our Broadcast tier is RiverCast and OneStudio ISO. We reverse-engineered Riverside's local double-ender architecture and OneStudio's
+
+8
+00:00:56,300 --> 00:01:03,800
+scene compositor so your screen capture and camera feed record on completely separate isolated tracks. Export your Screen
+
+9
+00:01:04,300 --> 00:01:11,800
+ISO WebM, Camera ISO WebM, or forty-eight kilohertz WAV stem individually, or push both tracks straight into Studio Cut.
+
+10
+00:01:12,300 --> 00:01:19,800
+When your recording finishes, Studio Cut pulls both isolated streams onto a five-track non-linear timeline. V-One holds your crisp
+
+11
+00:01:20,300 --> 00:01:27,800
+screen capture while V-Two floats your isolated camera as a customizable picture-in-picture overlay. Slice clips with the Blade tool,
+
+12
+00:01:28,300 --> 00:01:35,800
+grade exposure and temperature in real time, and render a mastered WebM video directly to your Shared Asset Hub.
+
+13
+00:01:36,300 --> 00:01:43,800
+Next is BandForge, our GarageBand-inspired multi-track digital audio workstation. Arrange multi-bar audio and MIDI regions across
+
+14
+00:01:44,300 --> 00:01:51,800
+six studio tracks while the interactive Smart Drummer X-Y matrix morphs kick, snare, and hi-hat complexity
+
+15
+00:01:52,300 --> 00:01:59,800
+on the fly. Play the twenty-four-key polyphonic synthesizer live or capture performances straight onto the arrangement grid.
+
+16
+00:02:00,300 --> 00:02:07,800
+Switch BandForge's bottom dock to the Vintage Tweed Amp and Stompbox Pedalboard to sculpt authentic analog
+
+17
+00:02:08,300 --> 00:02:15,800
+warmth. Dial in tube overdrive, stereo chorus, and lush spring reverb using five tactile rotary knobs
+
+18
+00:02:16,300 --> 00:02:23,800
+and three bypass stomp switches—then bounce your entire mix to a lossless forty-four-point-one kilohertz stereo WAV file.
+
+19
+00:02:24,300 --> 00:02:31,800
+For electronic producers and beatmakers, FruityForge twenty-one brings the iconic FL Studio workflow into the browser. Program
+
+20
+00:02:32,300 --> 00:02:39,800
+trap and synthwave drums across the eight-instrument sixteen-step Channel Rack, sculpt melodies and per-note velocity stems in
+
+21
+00:02:40,300 --> 00:02:47,800
+the Piano Roll, paint pattern blocks in the Playlist, and monitor peak meters across an eight-bus studio mixer.
+
+22
+00:02:48,300 --> 00:02:55,800
+Moving into visual design, VectorCraft delivers non-destructive Bezier illustration and procedural node-graph compositing. Draw
+
+23
+00:02:56,300 --> 00:03:03,800
+precision cubic splines, combine geometry with live boolean operations, inspect SVG code in real
+
+24
+00:03:04,300 --> 00:03:11,800
+time, and push finished vector emblems directly into our 3D CAD or Motion VFX studios.
+
+25
+00:03:12,300 --> 00:03:19,800
+PhotoCraft is our high-speed raster layer compositor and retouching darkroom. Stack multiple blend-mode layers,
+
+26
+00:03:20,300 --> 00:03:27,800
+paint with customizable hardness and flow brushes, dial in non-destructive exposure and color balance
+
+27
+00:03:28,300 --> 00:03:35,800
+curves while monitoring the live RGB histogram, and export lossless composites in a single click.
+
+28
+00:03:36,300 --> 00:03:43,800
+For architects and mechanical drafters, CADCraft provides a dedicated two-D technical drafting
+
+29
+00:03:44,300 --> 00:03:51,800
+environment. Lay out multi-layer floorplans with ortho and polar snapping, place precision
+
+30
+00:03:52,300 --> 00:03:59,800
+linear dimensions, and hand off schematics directly to SolidCraft for three-D extrusion.
+
+31
+00:04:00,300 --> 00:04:07,800
+The Projects Manager organizes every campaign, album, or product launch into
+
+32
+00:04:08,300 --> 00:04:15,800
+its own isolated local vault. Spin up a new workspace from
+
+33
+00:04:16,300 --> 00:04:23,800
+pre-configured templates, track asset counts across disciplines, and switch between active productions instantaneously.
+
+34
+00:04:24,300 --> 00:04:31,800
+Product teams can wireframe and prototype inside FigCraft, our infinite-canvas UI and design
+
+35
+00:04:32,300 --> 00:04:39,800
+system studio. Assemble responsive mobile and desktop artboards with smart alignment guides, inspect
+
+36
+00:04:40,300 --> 00:04:47,800
+live CSS tokens, and export high-resolution interface mockups straight into your pitch decks.
+
+37
+00:04:48,300 --> 00:04:55,800
+Engineers and industrial designers get SolidCraft, a parametric three-D CAD modeler. Extrude, revolve,
+
+38
+00:04:56,300 --> 00:05:03,800
+and chamfer mechanical parts with live dimensional sliders, inspect wireframe topology from any
+
+39
+00:05:04,300 --> 00:05:11,800
+orbit angle, and export watertight STL meshes ready for three-D printing alongside shaded viewport snapshots.
+
+40
+00:05:12,300 --> 00:05:19,800
+Alongside Studio Cut, FilmCraft specializes in kinetic title sequencing and broadcast assembly.
+
+41
+00:05:20,300 --> 00:05:27,800
+Layer animated lower thirds, scrub across multi-track video and audio timelines, preview
+
+42
+00:05:28,300 --> 00:05:35,800
+color-graded motion transitions, and render clean reference frames or video masters to the vault.
+
+43
+00:05:36,300 --> 00:05:43,800
+When a shot needs visual effects or procedural motion graphics, launch EffectCraft. Wire
+
+44
+00:05:44,300 --> 00:05:51,800
+particle emitters, chromatic glow, and distortion nodes together in the interactive compositor, fine-tune
+
+45
+00:05:52,300 --> 00:05:59,800
+velocity curves, and send finished VFX plates straight back to your video editor.
+
+46
+00:06:00,300 --> 00:06:07,800
+SoundCraft completes our audio triad alongside BandForge and FruityForge. Load any recorded
+
+47
+00:06:08,300 --> 00:06:15,800
+voiceover or instrumental stem into the spectral waveform editor, sculpt frequencies with
+
+48
+00:06:16,300 --> 00:06:23,800
+the parametric equalizer and compressor, monitor stereo phase correlation, and export mastered WAV audio.
+
+49
+00:06:24,300 --> 00:06:31,800
+Photographers can cull and color-grade entire shoots inside LightCraft. Rate shots across
+
+50
+00:06:32,300 --> 00:06:39,800
+the bottom filmstrip, balance shadows, midtones, and highlights on three-way cinema color
+
+51
+00:06:40,300 --> 00:06:47,800
+wheels, toggle split-screen before-and-after comparisons, and export graded photographs to the suite.
+
+52
+00:06:48,300 --> 00:06:55,800
+For print and editorial designers, DesignCraft offers facing-page magazine layout with baseline
+
+53
+00:06:56,300 --> 00:07:03,800
+grids, bleed and slug guides, and live preflight verification. Drop in illustrations
+
+54
+00:07:04,300 --> 00:07:11,800
+from VectorCraft or photos from LightCraft and publish multi-column editorial spreads in seconds.
+
+55
+00:07:12,300 --> 00:07:19,800
+PDFCraft handles confidential document review completely offline. Highlight clauses, place approval
+
+56
+00:07:20,300 --> 00:07:27,800
+stamps, apply permanent black-box redactions, draw a legally binding signature on
+
+57
+00:07:28,300 --> 00:07:35,800
+the canvas, and save the finalized document package to your local encrypted vault.
+
+58
+00:07:36,300 --> 00:07:43,800
+Need to draft a production script, technical specification, or press release?
+
+59
+00:07:44,300 --> 00:07:51,800
+WordCraft pairs a structured document outline with rich typographic formatting, live
+
+60
+00:07:52,300 --> 00:07:59,800
+word and reading-time telemetry, and instant document export to the Shared Asset Hub.
+
+61
+00:08:00,300 --> 00:08:07,800
+GridCraft powers quantitative modeling and financial analytics inside Mosaic Forge. Write live
+
+62
+00:08:08,300 --> 00:08:15,800
+spreadsheet formulas that recalculate multi-quarter revenue projections and visual bar charts in
+
+63
+00:08:16,300 --> 00:08:23,800
+real time, then export both raw data and chart snapshots into your executive presentations.
+
+64
+00:08:24,300 --> 00:08:31,800
+Bring every creative artifact together inside DeckCraft, our sixteen-by-nine keynote presentation studio.
+
+65
+00:08:32,300 --> 00:08:39,800
+Combine UI mockups, financial charts, and three-D renders onto themed slides with
+
+66
+00:08:40,300 --> 00:08:47,800
+speaker notes—then record your keynote live using RiverCast's isolated screen and camera studio.
+
+67
+00:08:48,300 --> 00:08:55,800
+Here is the heart of Mosaic Forge: the Shared Asset Hub. Every single artifact we created across all
+
+68
+00:08:56,300 --> 00:09:03,800
+eighteen studios—separate Screen and Camera ISO WebMs, Studio Cut video masters, BandForge and FruityForge WAV mixes, STL meshes,
+
+69
+00:09:04,300 --> 00:09:11,800
+and high-DPI graphics—is stored locally in IndexedDB and ready to open in any companion studio with one click.
+
+70
+00:09:12,300 --> 00:09:19,800
+Inside Settings and Engine Architecture, inspect WebGPU hardware acceleration,
+
+71
+00:09:20,300 --> 00:09:27,800
+customize suite branding, manage Origin Private File System storage
+
+72
+00:09:28,300 --> 00:09:35,800
+quotas, and audit our transparent open-source Rust and WebAssembly engine matrix.
+
+73
+00:09:36,300 --> 00:09:43,800
+Eighteen specialized creative studios. Separate Riverside and OneStudio isolated recording, Studio Cut
+
+74
+00:09:44,300 --> 00:09:51,800
+multi-track video editing, BandForge GarageBand, FruityForge FL Studio twenty-one, and fourteen design,
+
+75
+00:09:52,300 --> 00:09:59,800
+CAD, and office engines—unified in one zero-cloud browser workspace. This is Mosaic Forge.

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+upstream/
+brag-output/work/
+playwright-report/
+test-results/

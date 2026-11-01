@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <title>Studio Cut — Multi-Track ISO Video &amp; Screen-Cast Editor</title>
+    <style>
+      :root {
+        --brand-color: #f43f5e;
+        --bg-0: #0a0c10;
+        --bg-1: #12161f;
+        --bg-2: #191f2c;
+        --bg-3: #242c3d;
+        --text-0: #f1f5f9;
+        --text-1: #cbd5e1;
+        --text-2: #7e8ba3;
+        --border: rgba(255, 255, 255, 0.09);
+        --cyan: #38bdf8;
+        --amber: #f59e0b;
+        --green: #10b981;
+        --purple: #a855f7;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg-0);
+        color: var(--text-0);
+        font-family: var(--font-sans);
+        font-size: 12.5px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        accent-color: var(--brand-color);
+      }
+
+      /* Modern Web Guidance: Brand-Consistent Range Slider */
+      input[type="range"] {
+        --slider-track-size: 0.35rem;
+        --slider-thumb-size: 0.95rem;
+        --slider-track-radius: 999px;
+        --slider-thumb-radius: 50%;
+        --slider-track-color: #2d3748;
+        --slider-fill-color: var(--brand-color);
+        --slider-thumb-color: #ffffff;
+        --slider-direction: to right;
+        --attr-min: attr(min type(<number>), 0);
+        --attr-max: attr(max type(<number>), 100);
+        --control-value: attr(value type(<number>), 50);
+        --slider-progress: calc(
+          progress(var(--control-value), var(--attr-min), var(--attr-max)) * 100%
+        );
+        appearance: none;
+        inline-size: 100%;
+        block-size: 1.6rem;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      @supports not (opacity: progress(1, 0, 100)) {
+        input[type="range"] {
+          --slider-progress: calc(
+            (var(--control-value) - var(--attr-min)) /
+            (var(--attr-max) - var(--attr-min)) * 100%
+          );
+        }
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        block-size: var(--slider-track-size);
+        border: 0;
+        border-radius: var(--slider-track-radius);
+        background: linear-gradient(
+          var(--slider-direction),
+          var(--slider-fill-color) var(--slider-progress),
+          var(--slider-track-color) var(--slider-progress)
+        );
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        inline-size: var(--slider-thumb-size);
+        block-size: var(--slider-thumb-size);
+        margin-block-start: calc(
+          (var(--slider-track-size) - var(--slider-thumb-size)) / 2
+        );
+        border: 2px solid var(--slider-fill-color);
+        border-radius: var(--slider-thumb-radius);
+        background: var(--slider-thumb-color);
+      }
+
+      input[type="range"]::-moz-range-track {
+        block-size: var(--slider-track-size);
+        border: 0;
+        border-radius: var(--slider-track-radius);
+        background: var(--slider-track-color);
+      }
+
+      input[type="range"]::-moz-range-progress {
+        block-size: var(--slider-track-size);
+        border-radius: var(--slider-track-radius);
+        background: var(--slider-fill-color);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        inline-size: var(--slider-thumb-size);
+        block-size: var(--slider-thumb-size);
+        border: 2px solid var(--slider-fill-color);
+        border-radius: var(--slider-thumb-radius);
+        background: var(--slider-thumb-color);
+      }
+
+      input[type="range"]:focus-visible {
+        outline: 2px solid var(--slider-fill-color);
+        outline-offset: 4px;
+      }
+
+      .nle-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 14px;
+        background: var(--bg-1);
+        border-bottom: 1px solid var(--border);
+        gap: 10px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--bg-2);
+        color: var(--text-0);
+        font-size: 11.5px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background: var(--bg-3);
+      }
+
+      .btn-primary {
+        background: var(--brand-color);
+        border-color: #fb7185;
+        color: #fff;
+      }
+
+      .btn-cyan {
+        background: rgba(56, 189, 248, 0.16);
+        border-color: rgba(56, 189, 248, 0.4);
+        color: #bae6fd;
+      }
+
+      .nle-upper {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 270px 1fr 310px;
+        min-height: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nle-panel {
+        background: var(--bg-1);
+        padding: 10px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-right: 1px solid var(--border);
+      }
+
+      .nle-panel-right {
+        border-right: none;
+        border-left: 1px solid var(--border);
+      }
+
+      .box {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        padding: 9px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .box-title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-1);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .viewer-stage {
+        background: #06080c;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        gap: 8px;
+      }
+
+      .viewer-canvas-wrap {
+        width: 100%;
+        max-width: 720px;
+        aspect-ratio: 16 / 9;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .viewer-canvas-wrap canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .transport-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--bg-1);
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+      }
+
+      .timecode-pill {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--cyan);
+        background: rgba(56, 189, 248, 0.12);
+        padding: 3px 8px;
+        border-radius: 5px;
+      }
+
+      /* Multi-Track NLE Timeline Dock */
+      .nle-timeline {
+        height: 250px;
+        background: var(--bg-1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .timeline-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 12px;
+        background: var(--bg-2);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .tracks-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        position: relative;
+        padding: 6px 12px;
+        gap: 6px;
+      }
+
+      .track-row {
+        display: grid;
+        grid-template-columns: 170px 1fr;
+        gap: 8px;
+        align-items: center;
+        min-height: 40px;
+      }
+
+      .track-header {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 6px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 600;
+        font-size: 11.5px;
+      }
+
+      .track-lane {
+        position: relative;
+        height: 38px;
+        background: #0d1118;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      .clip-block {
+        position: absolute;
+        top: 3px;
+        bottom: 3px;
+        border-radius: 5px;
+        padding: 4px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+
+      .playhead-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #f43f5e;
+        pointer-events: none;
+        z-index: 10;
+        box-shadow: 0 0 8px #f43f5e;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 5px 8px;
+        border-radius: 5px;
+        border: 1px solid var(--border);
+        background: var(--bg-0);
+        color: var(--text-0);
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nle-header">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="background:var(--brand-color);color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11px;">
+          STUDIO CUT NLE
+        </span>
+        <strong>Multi-Track ISO Video &amp; Screen-Cast Editor</strong>
+        <span class="timecode-pill" id="tcReadout" data-testid="studiocut-tc">00:00:02:15 / 00:00:10:00</span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+        <button type="button" class="btn" id="btnExportScreenTrackOnly" data-testid="btn-export-v1-screen">
+          🖥 Export V1 Screen Track (.webm)
+        </button>
+        <button type="button" class="btn" id="btnExportCameraTrackOnly" data-testid="btn-export-v2-camera">
+          📷 Export V2 Camera Track (.webm)
+        </button>
+        <button type="button" class="btn" id="btnExportAudioWav" data-testid="btn-export-a1-wav">
+          🔊 Export A1 Audio (.wav)
+        </button>
+        <button type="button" class="btn btn-cyan" id="btnExportOtio" data-testid="btn-export-otio">
+          📄 Export .OTIO Timeline
+        </button>
+        <button type="button" class="btn btn-primary" id="btnRenderMasterVideo" data-testid="btn-render-master">
+          🎬 Render &amp; Export Master Video (.webm)
+        </button>
+      </div>
+    </header>
+
+    <div class="nle-upper">
+      <!-- Left Media Bin: Separate ISO Tracks + Shared Assets -->
+      <aside class="nle-panel">
+        <div class="box">
+          <div class="box-title">
+            <span>ISO Media Bin</span>
+            <span style="color:var(--green);">Synced</span>
+          </div>
+          <div style="font-size:11.5px;color:var(--text-1);display:flex;flex-direction:column;gap:6px;">
+            <div style="padding:6px;background:var(--bg-1);border-radius:5px;border-left:3px solid var(--cyan);">
+              <strong>screen-recording-iso.webm</strong>
+              <div style="color:var(--text-2);font-size:10.5px;">Track V1 · Clean 1080p60 Screen</div>
+            </div>
+            <div style="padding:6px;background:var(--bg-1);border-radius:5px;border-left:3px solid var(--amber);">
+              <strong>camera-video-iso.webm</strong>
+              <div style="color:var(--text-2);font-size:10.5px;">Track V2 · Clean 1080p60 Host Cam</div>
+            </div>
+            <div style="padding:6px;background:var(--bg-1);border-radius:5px;border-left:3px solid var(--green);">
+              <strong>mic-audio-iso.wav</strong>
+              <div style="color:var(--text-2);font-size:10.5px;">Track A1 · 48kHz PCM Broadcast Stem</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-title">
+            <span>Captions &amp; Callouts (T1)</span>
+          </div>
+          <label style="font-size:11.5px;">
+            Active Caption Overlay Text
+            <input
+              type="text"
+              id="inpCaptionText"
+              class="input-field"
+              value="Separate ISO Tracks: Re-position Camera PIP Anytime in Post!"
+              style="margin-top:4px;"
+            />
+          </label>
+          <button type="button" class="btn" id="btnAddCaptionCue" data-testid="btn-add-caption-cue">
+            + Add Timed Caption Block at Playhead
+          </button>
+        </div>
+
+        <div class="box">
+          <div class="box-title">
+            <span>Cross-Editor Bridge</span>
+          </div>
+          <button type="button" class="btn btn-cyan" id="btnOpenInFilmCraft">
+            🎞 Send Project to FilmCraft WASM
+          </button>
+        </div>
+      </aside>
+
+      <!-- Center Program Monitor -->
+      <main class="viewer-stage">
+        <div class="viewer-canvas-wrap">
+          <canvas id="canvasNleMonitor" width="960" height="540" data-testid="canvas-nle-monitor"></canvas>
+        </div>
+
+        <div class="transport-bar">
+          <button type="button" class="btn" id="btnStepBack" title="Step Back 0.5s">⏮ -0.5s</button>
+          <button type="button" class="btn btn-primary" id="btnPlayPause" data-testid="btn-nle-play">▶ Play</button>
+          <button type="button" class="btn" id="btnStepFwd" title="Step Forward 0.5s">+0.5s ⏭</button>
+          <div style="width:220px;display:flex;align-items:center;gap:6px;">
+            <label for="sliderPlayhead" style="font-size:11px;color:var(--text-1);">Scrub</label>
+            <input type="range" id="sliderPlayhead" min="0" max="100" value="25" />
+          </div>
+        </div>
+      </main>
+
+      <!-- Right Inspector: Non-Destructive PIP Reframing & Color Grading -->
+      <aside class="nle-panel nle-panel-right">
+        <div class="box">
+          <div class="box-title">
+            <span>V2 Camera ISO Overlay (Post-Prod)</span>
+            <span style="color:var(--amber);">Non-Destructive</span>
+          </div>
+          <label style="font-size:11.5px;">
+            Camera &amp; Screen Layout
+            <select id="selPipLayout" class="input-field" style="margin-top:4px;" data-testid="sel-pip-layout">
+              <option value="pip-br">Screen + Camera PIP (Bottom-Right)</option>
+              <option value="pip-tr">Screen + Camera PIP (Top-Right)</option>
+              <option value="pip-bl">Screen + Camera PIP (Bottom-Left)</option>
+              <option value="split-side">Side-by-Side 50/50 Split</option>
+              <option value="screen-full">V1 Screen Only (Hide Camera)</option>
+              <option value="camera-full">V2 Camera Only (Fullscreen Host)</option>
+            </select>
+          </label>
+
+          <label style="font-size:11.5px;">
+            Camera Mask Shape
+            <select id="selPipShape" class="input-field" style="margin-top:4px;">
+              <option value="rounded">Rounded 16:9 Card</option>
+              <option value="circle">Circular Presenter Bubble</option>
+              <option value="sharp">Broadcast Sharp Frame</option>
+            </select>
+          </label>
+
+          <label for="sliderPipScale" style="font-size:11.5px;display:flex;justify-content:space-between;">
+            <span>Camera PIP Scale</span>
+            <span id="valPipScale">30%</span>
+          </label>
+          <input type="range" id="sliderPipScale" min="15" max="50" value="30" />
+        </div>
+
+        <div class="box">
+          <div class="box-title">
+            <span>Color Grade &amp; Look LUT</span>
+          </div>
+          <select id="selColorGrade" class="input-field" data-testid="sel-color-grade">
+            <option value="crisp">Studio Crisp (Rec.709 Clean)</option>
+            <option value="teal-orange">Cinema Teal &amp; Orange</option>
+            <option value="warm-film">Warm Analog Amber</option>
+            <option value="noir">High-Contrast Monochrome</option>
+          </select>
+
+          <label for="sliderScreenZoom" style="font-size:11.5px;display:flex;justify-content:space-between;">
+            <span>V1 Screen Keyframe Zoom</span>
+            <span id="valScreenZoom">100%</span>
+          </label>
+          <input type="range" id="sliderScreenZoom" min="100" max="160" value="100" />
+        </div>
+      </aside>
+    </div>
+
+    <!-- Bottom Multi-Track Timeline -->
+    <section class="nle-timeline" aria-label="Multi-Track Timeline">
+      <div class="timeline-toolbar">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button type="button" class="btn btn-primary" id="btnRazorSplit" data-testid="btn-razor-split">
+            ✂ Razor Split at Playhead (S)
+          </button>
+          <button type="button" class="btn" id="btnResetCuts">
+            ↺ Reset Cuts
+          </button>
+          <span id="splitCountBadge" style="font-family:var(--font-mono);font-size:11px;color:var(--cyan);">
+            Segments: 4 across 4 tracks
+          </span>
+        </div>
+        <div style="font-size:11px;color:var(--text-2);">
+          Tracks V1 (Screen) and V2 (Camera) remain independent until final render
+        </div>
+      </div>
+
+      <div class="tracks-container" id="tracksContainer">
+        <!-- Track V2: Camera ISO -->
+        <div class="track-row">
+          <div class="track-header">
+            <span style="color:var(--amber);">V2 · Camera ISO</span>
+            <input type="checkbox" id="chkEnableV2" checked title="Toggle V2 Camera Track" />
+          </div>
+          <div class="track-lane" id="laneV2"></div>
+        </div>
+
+        <!-- Track V1: Screen ISO -->
+        <div class="track-row">
+          <div class="track-header">
+            <span style="color:var(--cyan);">V1 · Screen ISO</span>
+            <input type="checkbox" id="chkEnableV1" checked title="Toggle V1 Screen Track" />
+          </div>
+          <div class="track-lane" id="laneV1"></div>
+        </div>
+
+        <!-- Track T1: Captions -->
+        <div class="track-row">
+          <div class="track-header">
+            <span style="color:var(--purple);">T1 · Captions</span>
+            <input type="checkbox" id="chkEnableT1" checked title="Toggle T1 Captions" />
+          </div>
+          <div class="track-lane" id="laneT1"></div>
+        </div>
+
+        <!-- Track A1: Audio WAV Stem -->
+        <div class="track-row">
+          <div class="track-header">
+            <span style="color:var(--green);">A1 · Mic WAV Stem</span>
+            <input type="checkbox" id="chkEnableA1" checked title="Toggle A1 Audio Stem" />
+          </div>
+          <div class="track-lane" id="laneA1"></div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/editors/mosaic-forge-bridge.js"></script>
+    <script>
+      (function () {
+        document.querySelectorAll('input[type="range"]').forEach((slider) => {
+          const sync = () => {
+            slider.style.setProperty('--attr-min', slider.min || '0');
+            slider.style.setProperty('--attr-max', slider.max || '100');
+            slider.style.setProperty('--control-value', slider.value);
+          };
+          sync();
+          slider.addEventListener('input', sync);
+        });
+
+        const canvas = document.getElementById('canvasNleMonitor');
+        const ctx = canvas.getContext('2d');
+        let playheadPct = 25; // 0..100 (10.0 seconds total)
+        let isPlaying = false;
+        let tick = 0;
+
+        let tracks = {
+          V2: [{ id: 'v2-1', start: 0, end: 100, label: 'camera-video-iso.webm (Host Cam)', color: 'rgba(245, 158, 11, 0.35)' }],
+          V1: [{ id: 'v1-1', start: 0, end: 100, label: 'screen-recording-iso.webm (1080p CAD)', color: 'rgba(56, 189, 248, 0.35)' }],
+          T1: [{ id: 't1-1', start: 10, end: 88, label: 'Caption: Separate ISO Tracks', color: 'rgba(168, 85, 247, 0.38)' }],
+          A1: [{ id: 'a1-1', start: 0, end: 100, label: 'mic-audio-iso.wav (48kHz PCM)', color: 'rgba(16, 185, 129, 0.35)' }]
+        };
+
+        function renderTimelineLanes() {
+          const map = { V2: 'laneV2', V1: 'laneV1', T1: 'laneT1', A1: 'laneA1' };
+          let totalSegs = 0;
+          Object.keys(map).forEach((k) => {
+            const lane = document.getElementById(map[k]);
+            lane.innerHTML = '';
+            tracks[k].forEach((seg) => {
+              totalSegs++;
+              const div = document.createElement('div');
+              div.className = 'clip-block';
+              div.style.left = seg.start + '%';
+              div.style.width = Math.max(2, seg.end - seg.start - 0.4) + '%';
+              div.style.background = seg.color;
+              div.textContent = seg.label;
+              lane.appendChild(div);
+            });
+            const ph = document.createElement('div');
+            ph.className = 'playhead-line';
+            ph.style.left = playheadPct + '%';
+            lane.appendChild(ph);
+          });
+          document.getElementById('splitCountBadge').textContent = `Segments: ${totalSegs} across 4 tracks`;
+        }
+
+        function updateTimecodeReadout() {
+          const sec = (playheadPct / 100) * 10;
+          const s = String(Math.floor(sec)).padStart(2, '0');
+          const f = String(Math.floor((sec % 1) * 30)).padStart(2, '0');
+          document.getElementById('tcReadout').textContent = `00:00:${s}:${f} / 00:00:10:00`;
+        }
+
+        function splitAtPlayhead() {
+          const pt = Math.round(playheadPct);
+          if (pt <= 3 || pt >= 97) return;
+          ['V2', 'V1', 'A1'].forEach((k) => {
+            const next = [];
+            tracks[k].forEach((seg) => {
+              if (pt > seg.start + 3 && pt < seg.end - 3) {
+                next.push({ ...seg, id: seg.id + 'a', end: pt, label: seg.label + ' [Part 1]' });
+                next.push({ ...seg, id: seg.id + 'b', start: pt, label: seg.label + ' [Part 2]' });
+              } else {
+                next.push(seg);
+              }
+            });
+            tracks[k] = next;
+          });
+          renderTimelineLanes();
+        }
+
+        document.getElementById('btnRazorSplit').addEventListener('click', splitAtPlayhead);
+        document.getElementById('btnResetCuts').addEventListener('click', () => {
+          tracks = {
+            V2: [{ id: 'v2-1', start: 0, end: 100, label: 'camera-video-iso.webm (Host Cam)', color: 'rgba(245, 158, 11, 0.35)' }],
+            V1: [{ id: 'v1-1', start: 0, end: 100, label: 'screen-recording-iso.webm (1080p CAD)', color: 'rgba(56, 189, 248, 0.35)' }],
+            T1: [{ id: 't1-1', start: 10, end: 88, label: 'Caption: Separate ISO Tracks', color: 'rgba(168, 85, 247, 0.38)' }],
+            A1: [{ id: 'a1-1', start: 0, end: 100, label: 'mic-audio-iso.wav (48kHz PCM)', color: 'rgba(16, 185, 129, 0.35)' }]
+          };
+          renderTimelineLanes();
+        });
+
+        document.getElementById('btnAddCaptionCue').addEventListener('click', () => {
+          const text = document.getElementById('inpCaptionText').value || 'Studio Callout';
+          const start = Math.min(80, Math.round(playheadPct));
+          tracks.T1.push({
+            id: 't1-' + Date.now(),
+            start,
+            end: Math.min(100, start + 22),
+            label: `Caption: ${text.slice(0, 22)}`,
+            color: 'rgba(168, 85, 247, 0.5)'
+          });
+          renderTimelineLanes();
+        });
+
+        const sliderPlayhead = document.getElementById('sliderPlayhead');
+        sliderPlayhead.addEventListener('input', (e) => {
+          playheadPct = Number(e.target.value);
+          updateTimecodeReadout();
+          renderTimelineLanes();
+        });
+
+        document.getElementById('btnPlayPause').addEventListener('click', () => {
+          isPlaying = !isPlaying;
+          document.getElementById('btnPlayPause').textContent = isPlaying ? '⏸ Pause' : '▶ Play';
+        });
+        document.getElementById('btnStepBack').addEventListener('click', () => {
+          playheadPct = Math.max(0, playheadPct - 5);
+          sliderPlayhead.value = String(playheadPct);
+          sliderPlayhead.dispatchEvent(new Event('input'));
+        });
+        document.getElementById('btnStepFwd').addEventListener('click', () => {
+          playheadPct = Math.min(100, playheadPct + 5);
+          sliderPlayhead.value = String(playheadPct);
+          sliderPlayhead.dispatchEvent(new Event('input'));
+        });
+
+        document.getElementById('sliderPipScale').addEventListener('input', (e) => {
+          document.getElementById('valPipScale').textContent = `${e.target.value}%`;
+        });
+        document.getElementById('sliderScreenZoom').addEventListener('input', (e) => {
+          document.getElementById('valScreenZoom').textContent = `${e.target.value}%`;
+        });
+
+        // Draw V1 Screen layer and V2 Camera layer onto the NLE Program Monitor
+        function drawScreenLayer(targetCtx, x, y, w, h, animPhase) {
+          targetCtx.save();
+          targetCtx.beginPath();
+          targetCtx.rect(x, y, w, h);
+          targetCtx.clip();
+
+          const zoom = Number(document.getElementById('sliderScreenZoom').value) / 100;
+          targetCtx.translate(x + w / 2, y + h / 2);
+          targetCtx.scale(zoom, zoom);
+          targetCtx.translate(-w / 2, -h / 2);
+
+          const g = targetCtx.createLinearGradient(0, 0, w, h);
+          g.addColorStop(0, '#0f172a');
+          g.addColorStop(1, '#1e293b');
+          targetCtx.fillStyle = g;
+          targetCtx.fillRect(0, 0, w, h);
+
+          // Screen header bar
+          targetCtx.fillStyle = '#090d16';
+          targetCtx.fillRect(0, 0, w, 34);
+          targetCtx.fillStyle = '#38bdf8';
+          targetCtx.font = '700 13px Inter, sans-serif';
+          targetCtx.fillText('V1 · ISOLATED SCREEN RECORDING TRACK (1080p CAD & TELEMETRY)', 18, 22);
+
+          // 3D CAD Plate preview inside screen recording
+          targetCtx.strokeStyle = '#38bdf8';
+          targetCtx.lineWidth = 3;
+          const offset = Math.sin(animPhase * 0.05) * 18;
+          targetCtx.strokeRect(w * 0.14 + offset, h * 0.22, w * 0.42, h * 0.56);
+          targetCtx.strokeStyle = '#f59e0b';
+          targetCtx.beginPath();
+          targetCtx.arc(w * 0.35 + offset, h * 0.5, 52, 0, Math.PI * 2);
+          targetCtx.stroke();
+
+          // Telemetry card on screen
+          targetCtx.fillStyle = 'rgba(9, 13, 22, 0.86)';
+          targetCtx.fillRect(w * 0.62, h * 0.18, w * 0.33, h * 0.64);
+          targetCtx.fillStyle = '#bae6fd';
+          targetCtx.font = '13px monospace';
+          targetCtx.fillText('TRACK: V1 (screen-iso.webm)', w * 0.64, h * 0.28);
+          targetCtx.fillText(`PLAYHEAD: ${playheadPct.toFixed(1)}%`, w * 0.64, h * 0.36);
+          targetCtx.fillText(`ZOOM: ${Math.round(zoom * 100)}%`, w * 0.64, h * 0.44);
+          targetCtx.fillText('WEBCAM BURNED IN: NO', w * 0.64, h * 0.52);
+
+          targetCtx.restore();
+        }
+
+        function drawCameraLayer(targetCtx, x, y, w, h, shape, animPhase) {
+          targetCtx.save();
+          targetCtx.beginPath();
+          if (shape === 'circle') {
+            const r = Math.min(w, h) / 2;
+            targetCtx.arc(x + w / 2, y + h / 2, r, 0, Math.PI * 2);
+          } else if (shape === 'rounded' && targetCtx.roundRect) {
+            targetCtx.roundRect(x, y, w, h, 14);
+          } else {
+            targetCtx.rect(x, y, w, h);
+          }
+          targetCtx.clip();
+
+          const g = targetCtx.createRadialGradient(x + w * 0.5, y + h * 0.45, 10, x + w * 0.5, y + h * 0.5, w * 0.7);
+          g.addColorStop(0, '#432818');
+          g.addColorStop(1, '#111827');
+          targetCtx.fillStyle = g;
+          targetCtx.fillRect(x, y, w, h);
+
+          // Presenter silhouette
+          targetCtx.fillStyle = '#1e293b';
+          targetCtx.beginPath();
+          targetCtx.ellipse(x + w * 0.5, y + h * 0.9, w * 0.32, h * 0.28, 0, Math.PI, 0, false);
+          targetCtx.fill();
+
+          targetCtx.fillStyle = '#f1f5f9';
+          targetCtx.beginPath();
+          targetCtx.arc(x + w * 0.5, y + h * 0.44, Math.min(w, h) * 0.16, 0, Math.PI * 2);
+          targetCtx.fill();
+
+          targetCtx.fillStyle = '#f59e0b';
+          targetCtx.font = '700 11px Inter, sans-serif';
+          targetCtx.fillText('V2 · CAMERA ISO', x + 12, y + 20);
+          targetCtx.restore();
+
+          // Border around PIP
+          targetCtx.save();
+          targetCtx.strokeStyle = '#f43f5e';
+          targetCtx.lineWidth = 3;
+          targetCtx.beginPath();
+          if (shape === 'circle') {
+            const r = Math.min(w, h) / 2;
+            targetCtx.arc(x + w / 2, y + h / 2, r, 0, Math.PI * 2);
+          } else {
+            targetCtx.strokeRect(x, y, w, h);
+          }
+          targetCtx.stroke();
+          targetCtx.restore();
+        }
+
+        function renderMonitor() {
+          tick++;
+          if (isPlaying) {
+            playheadPct = (playheadPct + 0.35) % 100;
+            sliderPlayhead.value = String(playheadPct);
+            updateTimecodeReadout();
+            renderTimelineLanes();
+          }
+
+          const w = canvas.width;
+          const h = canvas.height;
+          ctx.fillStyle = '#05070b';
+          ctx.fillRect(0, 0, w, h);
+
+          const v1On = document.getElementById('chkEnableV1').checked;
+          const v2On = document.getElementById('chkEnableV2').checked;
+          const t1On = document.getElementById('chkEnableT1').checked;
+          const layout = document.getElementById('selPipLayout').value;
+          const shape = document.getElementById('selPipShape').value;
+          const pipScale = Number(document.getElementById('sliderPipScale').value) / 100;
+          const grade = document.getElementById('selColorGrade').value;
+          const phase = playheadPct * 2 + tick * 0.3;
+
+          if (layout === 'screen-full' || !v2On) {
+            if (v1On) drawScreenLayer(ctx, 0, 0, w, h, phase);
+          } else if (layout === 'camera-full' || !v1On) {
+            if (v2On) drawCameraLayer(ctx, 0, 0, w, h, 'sharp', phase);
+          } else if (layout === 'split-side') {
+            if (v1On) drawScreenLayer(ctx, 16, 40, w * 0.56 - 24, h - 96, phase);
+            if (v2On) drawCameraLayer(ctx, w * 0.56 + 8, 40, w * 0.44 - 24, h - 96, shape, phase);
+          } else {
+            if (v1On) drawScreenLayer(ctx, 0, 0, w, h, phase);
+            if (v2On) {
+              const pw = w * pipScale;
+              const ph = h * pipScale;
+              let px = w - pw - 24;
+              let py = h - ph - 28;
+              if (layout === 'pip-tr') {
+                px = w - pw - 24;
+                py = 44;
+              } else if (layout === 'pip-bl') {
+                px = 24;
+                py = h - ph - 28;
+              }
+              drawCameraLayer(ctx, px, py, pw, ph, shape, phase);
+            }
+          }
+
+          // T1 Captions Overlay
+          if (t1On) {
+            const caption = document.getElementById('inpCaptionText').value;
+            if (caption) {
+              ctx.fillStyle = 'rgba(9, 13, 22, 0.88)';
+              ctx.fillRect(w * 0.15, h - 54, w * 0.7, 38);
+              ctx.strokeStyle = '#a855f7';
+              ctx.strokeRect(w * 0.15, h - 54, w * 0.7, 38);
+              ctx.fillStyle = '#ffffff';
+              ctx.font = '700 15px Inter, sans-serif';
+              ctx.textAlign = 'center';
+              ctx.fillText(caption, w * 0.5, h - 30);
+              ctx.textAlign = 'start';
+            }
+          }
+
+          // Color Grade LUT Tint
+          if (grade === 'teal-orange') {
+            ctx.fillStyle = 'rgba(14, 165, 233, 0.08)';
+            ctx.fillRect(0, 0, w, h);
+          } else if (grade === 'warm-film') {
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.1)';
+            ctx.fillRect(0, 0, w, h);
+          } else if (grade === 'noir') {
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.28)';
+            ctx.fillRect(0, 0, w, h);
+          }
+
+          requestAnimationFrame(renderMonitor);
+        }
+
+        renderTimelineLanes();
+        updateTimecodeReadout();
+        requestAnimationFrame(renderMonitor);
+
+        // Export helpers
+        async function recordCanvasExport(mode, fileName, durationMs = 900) {
+          const offCanvas = document.createElement('canvas');
+          offCanvas.width = 640;
+          offCanvas.height = 360;
+          const offCtx = offCanvas.getContext('2d');
+
+          const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp8')
+            ? 'video/webm;codecs=vp8'
+            : 'video/webm';
+          const stream = offCanvas.captureStream(30);
+          const rec = new MediaRecorder(stream, { mimeType });
+          const chunks = [];
+          rec.ondataavailable = (e) => {
+            if (e.data && e.data.size > 0) chunks.push(e.data);
+          };
+
+          rec.start(150);
+          const start = Date.now();
+          while (Date.now() - start < durationMs) {
+            const p = (Date.now() - start) / 25;
+            if (mode === 'screen-only') {
+              drawScreenLayer(offCtx, 0, 0, offCanvas.width, offCanvas.height, p);
+            } else if (mode === 'camera-only') {
+              drawCameraLayer(offCtx, 0, 0, offCanvas.width, offCanvas.height, 'sharp', p);
+            } else {
+              offCtx.drawImage(canvas, 0, 0, offCanvas.width, offCanvas.height);
+            }
+            await new Promise((r) => setTimeout(r, 40));
+          }
+
+          await new Promise((resolve) => {
+            rec.addEventListener('stop', resolve, { once: true });
+            rec.stop();
+          });
+          stream.getTracks().forEach((t) => t.stop());
+
+          const blob = new Blob(chunks, { type: 'video/webm' });
+          const bytes = await blob.arrayBuffer();
+
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage(
+              {
+                type: 'mosaic:export-captured',
+                app: 'studiocut',
+                name: fileName,
+                mime: 'video/webm',
+                bytes
+              },
+              window.location.origin
+            );
+          }
+
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          a.click();
+          setTimeout(() => URL.revokeObjectURL(url), 2000);
+          return { name: fileName, size: bytes.byteLength };
+        }
+
+        document.getElementById('btnRenderMasterVideo').addEventListener('click', () => {
+          recordCanvasExport('master', 'studiocut-master-render.webm', 900);
+        });
+        document.getElementById('btnExportScreenTrackOnly').addEventListener('click', () => {
+          recordCanvasExport('screen-only', 'studiocut-v1-screen-only.webm', 800);
+        });
+        document.getElementById('btnExportCameraTrackOnly').addEventListener('click', () => {
+          recordCanvasExport('camera-only', 'studiocut-v2-camera-only.webm', 800);
+        });
+
+        document.getElementById('btnExportAudioWav').addEventListener('click', () => {
+          const sampleRate = 48000;
+          const samples = sampleRate * 2;
+          const buf = new ArrayBuffer(44 + samples * 2);
+          const view = new DataView(buf);
+          const writeStr = (off, s) => {
+            for (let i = 0; i < s.length; i++) view.setUint8(off + i, s.charCodeAt(i));
+          };
+          writeStr(0, 'RIFF');
+          view.setUint32(4, 36 + samples * 2, true);
+          writeStr(8, 'WAVE');
+          writeStr(12, 'fmt ');
+          view.setUint32(16, 16, true);
+          view.setUint16(20, 1, true);
+          view.setUint16(22, 1, true);
+          view.setUint32(24, sampleRate, true);
+          view.setUint32(28, sampleRate * 2, true);
+          view.setUint16(32, 2, true);
+          view.setUint16(34, 16, true);
+          writeStr(36, 'data');
+          view.setUint32(40, samples * 2, true);
+          for (let i = 0; i < samples; i++) {
+            const t = i / sampleRate;
+            view.setInt16(44 + i * 2, Math.sin(2 * Math.PI * 330 * t) * 18000, true);
+          }
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage(
+              {
+                type: 'mosaic:export-captured',
+                app: 'studiocut',
+                name: 'studiocut-a1-mixdown.wav',
+                mime: 'audio/wav',
+                bytes: buf
+              },
+              window.location.origin
+            );
+          }
+        });
+
+        document.getElementById('btnExportOtio').addEventListener('click', () => {
+          const otio = {
+            OTIO_SCHEMA: 'Timeline.1',
+            name: 'Mosaic Studio Cut Multi-Track ISO Timeline',
+            tracks: Object.entries(tracks).map(([name, segs]) => ({
+              OTIO_SCHEMA: 'Track.1',
+              name,
+              children: segs
+            }))
+          };
+          const bytes = new TextEncoder().encode(JSON.stringify(otio, null, 2)).buffer;
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage(
+              {
+                type: 'mosaic:export-captured',
+                app: 'studiocut',
+                name: 'studiocut-timeline.otio',
+                mime: 'application/json',
+                bytes
+              },
+              window.location.origin
+            );
+          }
+        });
+
+        document.getElementById('btnOpenInFilmCraft').addEventListener('click', () => {
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage(
+              {
+                type: 'mosaic:switch-workspace',
+                workspaceId: 'filmcraft',
+                reason: 'Switched from Studio Cut NLE to FilmCraft WASM Video Studio'
+              },
+              window.location.origin
+            );
+          }
+        });
+
+        window.studiocut = {
+          commands: async () => [
+            'timeline.splitAtPlayhead',
+            'timeline.setPlayhead',
+            'pip.setLayout',
+            'color.setGrade',
+            'export.masterVideo',
+            'export.separateScreenAndCamera',
+            'export.otio'
+          ],
+          inspect: async () => ({
+            engine: 'Studio Cut Multi-Track ISO Video Editor',
+            playheadPct,
+            pipLayout: document.getElementById('selPipLayout').value,
+            colorGrade: document.getElementById('selColorGrade').value,
+            tracks
+          }),
+          execute: async (cmd, args = {}) => {
+            if (cmd === 'timeline.splitAtPlayhead') {
+              if (typeof args.playheadPct === 'number') {
+                playheadPct = args.playheadPct;
+                sliderPlayhead.value = String(playheadPct);
+              }
+              splitAtPlayhead();
+              return window.studiocut.inspect();
+            }
+            if (cmd === 'pip.setLayout' && args.layout) {
+              document.getElementById('selPipLayout').value = args.layout;
+              return window.studiocut.inspect();
+            }
+            if (cmd === 'export.masterVideo') {
+              return await recordCanvasExport('master', 'studiocut-master-render.webm', 700);
+            }
+            if (cmd === 'export.separateScreenAndCamera') {
+              const s = await recordCanvasExport('screen-only', 'studiocut-v1-screen-only.webm', 600);
+              const c = await recordCanvasExport('camera-only', 'studiocut-v2-camera-only.webm', 600);
+              return { screenTrack: s, cameraTrack: c };
+            }
+            return window.studiocut.inspect();
+          }
+        };
+      })();
+    </script>
+  </body>
+</html>

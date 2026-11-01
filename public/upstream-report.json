@@ -1,0 +1,696 @@
+{
+  "mode": "read-only-check",
+  "checkedAtUtc": "2026-11-01T00:33:34.815Z",
+  "manifestVersion": "1.0.0",
+  "totalChecked": 24,
+  "updatesAvailable": 2,
+  "upToDate": 20,
+  "blocked": 2,
+  "results": [
+    {
+      "id": "solidcraft",
+      "name": "SolidCraft",
+      "upstreamRepo": "tangency-labs/solidcraft",
+      "upstreamUrl": "https://github.com/tangency-labs/solidcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "56b77b405dc7c567854329a9511aa03e209caef7",
+      "pinnedCommitShort": "56b77b405d",
+      "pinnedCommitDate": "2026-11-01T00:09:18+00:00",
+      "pinnedReleaseTag": "v0.29.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "56b77b405dc7c567854329a9511aa03e209caef7",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "c25c2f3a217f427658f6191f365016ab3c22f1b2",
+      "remoteHeadShort": "c25c2f3a21",
+      "latestRelease": {
+        "tagName": "v0.29.0",
+        "name": "v0.29.0",
+        "publishedAt": "2026-11-01T00:21:27Z",
+        "htmlUrl": "https://github.com/tangency-labs/solidcraft/releases/tag/v0.29.0",
+        "bodySummary": "**Designs saved in 0.29.0 use format 46 and don't open in 0.28.x or older.** | SolidCraft is open-source parametric 3D CAD in Rust: sketch, constrain, extrude, and change a parameter to watch the timeline rebuild. [Website](https://solidcra"
+      },
+      "comparison": {
+        "status": "ahead",
+        "aheadBy": 3,
+        "behindBy": 0,
+        "commits": [
+          {
+            "sha": "df04e7742f",
+            "date": "2026-10-31T23:51:18Z",
+            "message": "Assembly: let components extruded from reference faces move independently (#10289) (#10332)"
+          },
+          {
+            "sha": "e0582668bb",
+            "date": "2026-11-01T00:10:20Z",
+            "message": "Web app: an opened design is drawn when its meshes cannot be made on a thread (#10362)"
+          },
+          {
+            "sha": "c25c2f3a21",
+            "date": "2026-11-01T00:10:37Z",
+            "message": "Sketch: sample display curves without a heap copy per subdivision (#10342)"
+          }
+        ]
+      },
+      "updateState": "update-available",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "Review public/editors/<id>/index.html host bridge injection after updating web bundle"
+    },
+    {
+      "id": "filmcraft",
+      "name": "FilmCraft",
+      "upstreamRepo": "storytold/filmcraft",
+      "upstreamUrl": "https://github.com/storytold/filmcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "95cf47b883d2d2b2946c8c157822ee20835426a5",
+      "pinnedCommitShort": "95cf47b883",
+      "pinnedCommitDate": "2026-10-31T18:53:21-04:00",
+      "pinnedReleaseTag": "v0.15.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "95cf47b883d2d2b2946c8c157822ee20835426a5",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "95cf47b883d2d2b2946c8c157822ee20835426a5",
+      "remoteHeadShort": "95cf47b883",
+      "latestRelease": {
+        "tagName": "v0.15.0",
+        "name": "FilmCraft v0.15.0",
+        "publishedAt": "2026-10-31T03:50:04Z",
+        "htmlUrl": "https://github.com/storytold/filmcraft/releases/tag/v0.15.0",
+        "bodySummary": "## What's Changed | * Grant network access so update checks can reach GitHub by @dylanmtaylor in https://github.com/storytold/filmcraft/pull/3527 | * Honor CARGO_BUILD_TARGET in FreeBSD packaging for aarch64 release builds by @dylanmtaylor "
+      },
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "photocraft",
+      "name": "PhotoCraft",
+      "upstreamRepo": "storytold/photocraft",
+      "upstreamUrl": "https://github.com/storytold/photocraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "1f984bffb3793a284f861e4b753fc5da1ac5214d",
+      "pinnedCommitShort": "1f984bffb3",
+      "pinnedCommitDate": "2026-10-31T18:53:08-04:00",
+      "pinnedReleaseTag": "v0.18.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "1f984bffb3793a284f861e4b753fc5da1ac5214d",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "1f984bffb3793a284f861e4b753fc5da1ac5214d",
+      "remoteHeadShort": "1f984bffb3",
+      "latestRelease": {
+        "tagName": "v0.18.0",
+        "name": "PhotoCraft v0.18.0",
+        "publishedAt": "2026-10-31T04:02:59Z",
+        "htmlUrl": "https://github.com/storytold/photocraft/releases/tag/v0.18.0",
+        "bodySummary": "## What's Changed | * Grant network access so update checks can reach GitHub by @dylanmtaylor in https://github.com/storytold/photocraft/pull/9982 | * Correct update_transport comment: Flatpak sandbox now has network by @dylanmtaylor in htt"
+      },
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "effectcraft",
+      "name": "EffectCraft",
+      "upstreamRepo": "storytold/effectcraft",
+      "upstreamUrl": "https://github.com/storytold/effectcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "f4f390b153dfc5970a05d3181ead9e67c56f23ad",
+      "pinnedCommitShort": "f4f390b153",
+      "pinnedCommitDate": "2026-10-31T18:52:54-04:00",
+      "pinnedReleaseTag": "v0.19.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "f4f390b153dfc5970a05d3181ead9e67c56f23ad",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "f4f390b153dfc5970a05d3181ead9e67c56f23ad",
+      "remoteHeadShort": "f4f390b153",
+      "latestRelease": {
+        "tagName": "v0.19.0",
+        "name": "EffectCraft v0.19.0",
+        "publishedAt": "2026-10-31T04:06:11Z",
+        "htmlUrl": "https://github.com/storytold/effectcraft/releases/tag/v0.19.0",
+        "bodySummary": "## What's Changed | * Honor CARGO_BUILD_TARGET in FreeBSD packaging for aarch64 release builds by @dylanmtaylor in https://github.com/storytold/effectcraft/pull/2555 | * Export: convert H.264 frames to YUV 4:2:0 on the GPU by @MatejKozlovsk"
+      },
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "lightcraft",
+      "name": "LightCraft",
+      "upstreamRepo": "storytold/lightcraft",
+      "upstreamUrl": "https://github.com/storytold/lightcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "c50b74df9c427782acbebd3da53d4f21b597707a",
+      "pinnedCommitShort": "c50b74df9c",
+      "pinnedCommitDate": "2026-10-31T18:53:05-04:00",
+      "pinnedReleaseTag": "v0.16.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "c50b74df9c427782acbebd3da53d4f21b597707a",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "c50b74df9c427782acbebd3da53d4f21b597707a",
+      "remoteHeadShort": "c50b74df9c",
+      "latestRelease": {
+        "tagName": "v0.16.0",
+        "name": "LightCraft v0.16.0",
+        "publishedAt": "2026-10-31T03:53:25Z",
+        "htmlUrl": "https://github.com/storytold/lightcraft/releases/tag/v0.16.0",
+        "bodySummary": "## What's Changed | * Grant network access so update checks can reach GitHub by @dylanmtaylor in https://github.com/storytold/lightcraft/pull/3269 | * Honor CARGO_BUILD_TARGET in FreeBSD packaging for aarch64 release builds by @dylanmtaylor"
+      },
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "vectorcraft",
+      "name": "VectorCraft",
+      "upstreamRepo": "storytold/vectorcraft",
+      "upstreamUrl": "https://github.com/storytold/vectorcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "433ddb593d7c75165fb4b8ae61022a671ed7bcdb",
+      "pinnedCommitShort": "433ddb593d",
+      "pinnedCommitDate": "2026-11-01T06:48:58+07:00",
+      "pinnedReleaseTag": "v0.19.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "433ddb593d7c75165fb4b8ae61022a671ed7bcdb",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "433ddb593d7c75165fb4b8ae61022a671ed7bcdb",
+      "remoteHeadShort": "433ddb593d",
+      "latestRelease": {
+        "tagName": "v0.19.0",
+        "name": "VectorCraft v0.19.0",
+        "publishedAt": "2026-10-31T04:08:53Z",
+        "htmlUrl": "https://github.com/storytold/vectorcraft/releases/tag/v0.19.0",
+        "bodySummary": "## What's Changed | * Grant network access so update checks can reach GitHub by @dylanmtaylor in https://github.com/storytold/vectorcraft/pull/4482 | * Honor CARGO_BUILD_TARGET in FreeBSD packaging for aarch64 release builds by @dylanmtaylo"
+      },
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "designcraft",
+      "name": "DesignCraft",
+      "upstreamRepo": "storytold/designcraft",
+      "upstreamUrl": "https://github.com/storytold/designcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "98d80160014a11f3455d7bb7e7e429c894f0ebe6",
+      "pinnedCommitShort": "98d8016001",
+      "pinnedCommitDate": "2026-10-31T18:53:17-04:00",
+      "pinnedReleaseTag": "v0.15.2",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "98d80160014a11f3455d7bb7e7e429c894f0ebe6",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "98d80160014a11f3455d7bb7e7e429c894f0ebe6",
+      "remoteHeadShort": "98d8016001",
+      "latestRelease": {
+        "tagName": "v0.15.2",
+        "name": "DesignCraft v0.15.2",
+        "publishedAt": "2026-10-31T03:59:39Z",
+        "htmlUrl": "https://github.com/storytold/designcraft/releases/tag/v0.15.2",
+        "bodySummary": "## What's Changed | * Grant network access so update checks can reach GitHub by @dylanmtaylor in https://github.com/storytold/designcraft/pull/1954 | * Honor CARGO_BUILD_TARGET in FreeBSD packaging for aarch64 release builds by @dylanmtaylo"
+      },
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "pdfcraft",
+      "name": "PdfCraft",
+      "upstreamRepo": "storytold/pdfcraft",
+      "upstreamUrl": "https://github.com/storytold/pdfcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "eea00a6186546762d11d857666249672bff3fcad",
+      "pinnedCommitShort": "eea00a6186",
+      "pinnedCommitDate": "2026-10-31T23:42:20+01:00",
+      "pinnedReleaseTag": "v0.16.1",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "eea00a6186546762d11d857666249672bff3fcad",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "eea00a6186546762d11d857666249672bff3fcad",
+      "remoteHeadShort": "eea00a6186",
+      "latestRelease": {
+        "tagName": "v0.16.1",
+        "name": "PdfCraft v0.16.1",
+        "publishedAt": "2026-10-31T03:59:54Z",
+        "htmlUrl": "https://github.com/storytold/pdfcraft/releases/tag/v0.16.1",
+        "bodySummary": "## What's Changed | * Grant network access so update checks can reach GitHub by @dylanmtaylor in https://github.com/storytold/pdfcraft/pull/5189 | * Honor CARGO_BUILD_TARGET in FreeBSD packaging for aarch64 release builds by @dylanmtaylor i"
+      },
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "figcraft",
+      "name": "FigCraft",
+      "upstreamRepo": "storytold/figcraft",
+      "upstreamUrl": "https://github.com/storytold/figcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "b0673ffc8b659c7d0b0b04dea80d8d2314afcc86",
+      "pinnedCommitShort": "b0673ffc8b",
+      "pinnedCommitDate": "2026-10-31T18:52:48-04:00",
+      "pinnedReleaseTag": "v0.13.1",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "b0673ffc8b659c7d0b0b04dea80d8d2314afcc86",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "b0673ffc8b659c7d0b0b04dea80d8d2314afcc86",
+      "remoteHeadShort": "b0673ffc8b",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "wordcraft",
+      "name": "WordCraft",
+      "upstreamRepo": "storytold/wordcraft",
+      "upstreamUrl": "https://github.com/storytold/wordcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "6e0f7e79edabf5904ecb73104e809e6f053d9d27",
+      "pinnedCommitShort": "6e0f7e79ed",
+      "pinnedCommitDate": "2026-10-31T18:53:02-04:00",
+      "pinnedReleaseTag": "v0.13.2",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "6e0f7e79edabf5904ecb73104e809e6f053d9d27",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "6e0f7e79edabf5904ecb73104e809e6f053d9d27",
+      "remoteHeadShort": "6e0f7e79ed",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "soundcraft",
+      "name": "SoundCraft",
+      "upstreamRepo": "storytold/soundcraft",
+      "upstreamUrl": "https://github.com/storytold/soundcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "85ffa1f53ee6d04c4e99b66afd142bd4345d2009",
+      "pinnedCommitShort": "85ffa1f53e",
+      "pinnedCommitDate": "2026-10-31T18:52:51-04:00",
+      "pinnedReleaseTag": "v0.15.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "85ffa1f53ee6d04c4e99b66afd142bd4345d2009",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "85ffa1f53ee6d04c4e99b66afd142bd4345d2009",
+      "remoteHeadShort": "85ffa1f53e",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "deckcraft",
+      "name": "DeckCraft",
+      "upstreamRepo": "storytold/deckcraft",
+      "upstreamUrl": "https://github.com/storytold/deckcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "82573331a8f2b87ccb536b9b66d55b90295f2111",
+      "pinnedCommitShort": "82573331a8",
+      "pinnedCommitDate": "2026-10-31T18:52:58-04:00",
+      "pinnedReleaseTag": "v0.13.1",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "82573331a8f2b87ccb536b9b66d55b90295f2111",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "82573331a8f2b87ccb536b9b66d55b90295f2111",
+      "remoteHeadShort": "82573331a8",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "gridcraft",
+      "name": "GridCraft",
+      "upstreamRepo": "storytold/gridcraft",
+      "upstreamUrl": "https://github.com/storytold/gridcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "a85b1aea3a8a3369581a749d8da041e4db014504",
+      "pinnedCommitShort": "a85b1aea3a",
+      "pinnedCommitDate": "2026-10-31T18:53:12-04:00",
+      "pinnedReleaseTag": "v0.14.2",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "a85b1aea3a8a3369581a749d8da041e4db014504",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "a85b1aea3a8a3369581a749d8da041e4db014504",
+      "remoteHeadShort": "a85b1aea3a",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "cadcraft",
+      "name": "CADCraft",
+      "upstreamRepo": "storytold/cadcraft",
+      "upstreamUrl": "https://github.com/storytold/cadcraft",
+      "integrationStatus": "integrated",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "5caaf73e3b065856f38e9cb58571e68edfbd2a59",
+      "pinnedCommitShort": "5caaf73e3b",
+      "pinnedCommitDate": "2026-10-31T18:52:40-04:00",
+      "pinnedReleaseTag": "v0.15.1",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "5caaf73e3b065856f38e9cb58571e68edfbd2a59",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "5caaf73e3b065856f38e9cb58571e68edfbd2a59",
+      "remoteHeadShort": "5caaf73e3b",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": true,
+      "localPatches": [
+        "Injected same-origin Mosaic Forge host adapter (mosaic-forge-bridge.js) and Mosaic Forge workspace title/mark into public/editors/<id>/index.html while keeping upstream Rust/WASM checkout in upstream/<id> 100% unmodified."
+      ],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "fieldcraft",
+      "name": "FieldCraft",
+      "upstreamRepo": "tangency-labs/fieldcraft",
+      "upstreamUrl": "https://github.com/tangency-labs/fieldcraft",
+      "integrationStatus": "source-only",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "6d9d17ea6f46cea87b184a26936d14312e60fede",
+      "pinnedCommitShort": "6d9d17ea6f",
+      "pinnedCommitDate": "2026-10-30T18:34:29-04:00",
+      "pinnedReleaseTag": "v0.7.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "6d9d17ea6f46cea87b184a26936d14312e60fede",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "6d9d17ea6f46cea87b184a26936d14312e60fede",
+      "remoteHeadShort": "6d9d17ea6f",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": false,
+      "localPatches": [],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "craft-launcher",
+      "name": "Craft Launcher",
+      "upstreamRepo": "storytold/craft-launcher",
+      "upstreamUrl": "https://github.com/storytold/craft-launcher",
+      "integrationStatus": "ecosystem-reference",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "48b1a04c188f1c9f06fc0a0ea1ad32b414208c4f",
+      "pinnedCommitShort": "48b1a04c18",
+      "pinnedCommitDate": "2026-10-31T15:43:40-04:00",
+      "pinnedReleaseTag": "v0.11.1",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "48b1a04c188f1c9f06fc0a0ea1ad32b414208c4f",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "48b1a04c188f1c9f06fc0a0ea1ad32b414208c4f",
+      "remoteHeadShort": "48b1a04c18",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": false,
+      "localPatches": [],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "craft-libs",
+      "name": "Craft Libs",
+      "upstreamRepo": "storytold/craft-libs",
+      "upstreamUrl": "https://github.com/storytold/craft-libs",
+      "integrationStatus": "ecosystem-library",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "c39e435cc34417843793df240a0b38bac970179b",
+      "pinnedCommitShort": "c39e435cc3",
+      "pinnedCommitDate": "2026-10-31T01:04:55-04:00",
+      "pinnedReleaseTag": null,
+      "localCheckout": {
+        "exists": true,
+        "localHead": "c39e435cc34417843793df240a0b38bac970179b",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "c39e435cc34417843793df240a0b38bac970179b",
+      "remoteHeadShort": "c39e435cc3",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": false,
+      "localPatches": [],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "craft-fonts",
+      "name": "Craft Fonts",
+      "upstreamRepo": "storytold/craft-fonts",
+      "upstreamUrl": "https://github.com/storytold/craft-fonts",
+      "integrationStatus": "ecosystem-library",
+      "selectedLicense": "MIT (code) + OFL-1.1 (fonts)",
+      "pinnedCommit": "aced4137c022f1f587624d48e81ec77e1914a9cc",
+      "pinnedCommitShort": "aced4137c0",
+      "pinnedCommitDate": "2026-10-25T12:29:53-04:00",
+      "pinnedReleaseTag": null,
+      "localCheckout": {
+        "exists": true,
+        "localHead": "aced4137c022f1f587624d48e81ec77e1914a9cc",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "aced4137c022f1f587624d48e81ec77e1914a9cc",
+      "remoteHeadShort": "aced4137c0",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": false,
+      "localPatches": [],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "craft-i18n",
+      "name": "Craft i18n",
+      "upstreamRepo": "storytold/craft-i18n",
+      "upstreamUrl": "https://github.com/storytold/craft-i18n",
+      "integrationStatus": "ecosystem-library",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "cac2cf0c269d7581fcf38b4c6dbb247c1dfdf58c",
+      "pinnedCommitShort": "cac2cf0c26",
+      "pinnedCommitDate": "2026-10-31T23:32:37+01:00",
+      "pinnedReleaseTag": null,
+      "localCheckout": {
+        "exists": true,
+        "localHead": "cac2cf0c269d7581fcf38b4c6dbb247c1dfdf58c",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "cac2cf0c269d7581fcf38b4c6dbb247c1dfdf58c",
+      "remoteHeadShort": "cac2cf0c26",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": false,
+      "localPatches": [],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "craft-ai-integrations",
+      "name": "Craft AI Integrations",
+      "upstreamRepo": "storytold/craft-ai-integrations",
+      "upstreamUrl": "https://github.com/storytold/craft-ai-integrations",
+      "integrationStatus": "ecosystem-library",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "e8f320321aac28174ec2f5b75cb8a6ab52139416",
+      "pinnedCommitShort": "e8f320321a",
+      "pinnedCommitDate": "2026-10-30T19:34:26+00:00",
+      "pinnedReleaseTag": null,
+      "localCheckout": {
+        "exists": true,
+        "localHead": "e8f320321aac28174ec2f5b75cb8a6ab52139416",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "e8f320321aac28174ec2f5b75cb8a6ab52139416",
+      "remoteHeadShort": "e8f320321a",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": false,
+      "localPatches": [],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "indd-utils",
+      "name": "INDD Utils",
+      "upstreamRepo": "storytold/indd-utils",
+      "upstreamUrl": "https://github.com/storytold/indd-utils",
+      "integrationStatus": "ecosystem-library",
+      "selectedLicense": "MIT",
+      "pinnedCommit": "136f973a9d5f1b3ef34e46e27f4a08af196efde7",
+      "pinnedCommitShort": "136f973a9d",
+      "pinnedCommitDate": "2026-10-23T13:00:22-04:00",
+      "pinnedReleaseTag": null,
+      "localCheckout": {
+        "exists": true,
+        "localHead": "136f973a9d5f1b3ef34e46e27f4a08af196efde7",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "136f973a9d5f1b3ef34e46e27f4a08af196efde7",
+      "remoteHeadShort": "136f973a9d",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "up-to-date",
+      "hasLocalPatches": false,
+      "localPatches": [],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "solidcore",
+      "name": "solidcore",
+      "upstreamRepo": "tangency-labs/solidcore",
+      "upstreamUrl": "https://github.com/tangency-labs/solidcore",
+      "integrationStatus": "ecosystem-library",
+      "selectedLicense": "Apache-2.0",
+      "pinnedCommit": "9fd5b93e396c6b4c3f7b8a536e5376e0c3da13f7",
+      "pinnedCommitShort": "9fd5b93e39",
+      "pinnedCommitDate": "2026-10-31T20:12:51-04:00",
+      "pinnedReleaseTag": "v0.1.0",
+      "localCheckout": {
+        "exists": true,
+        "localHead": "9fd5b93e396c6b4c3f7b8a536e5376e0c3da13f7",
+        "dirtyFiles": [],
+        "matchesPin": true
+      },
+      "remoteHead": "954178e5d569981ac38f9361e1556bc4483cf52e",
+      "remoteHeadShort": "954178e5d5",
+      "latestRelease": null,
+      "comparison": null,
+      "updateState": "update-available",
+      "hasLocalPatches": false,
+      "localPatches": [],
+      "conflictRisk": "none"
+    },
+    {
+      "id": "pcbcraft",
+      "name": "PCBCraft",
+      "upstreamRepo": "tangency-labs/pcbcraft",
+      "status": "blocked",
+      "declaredLicense": "GPL-3.0",
+      "reason": "BLOCKED: Licensed under strong copyleft GNU General Public License v3.0 (GPL-3.0), which conflicts with Mosaic Forge's MIT / permissive licensing requirement. Excluded from checkout and distribution."
+    },
+    {
+      "id": "anicraft",
+      "name": "AniCraft",
+      "upstreamRepo": "storytold/AniCraft",
+      "status": "blocked",
+      "declaredLicense": "None",
+      "reason": "BLOCKED: Repository has 0 commits, 0 KB size, and no source or license file as of 2026-10-31."
+    }
+  ]
+}

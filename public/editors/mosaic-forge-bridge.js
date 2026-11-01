@@ -1,0 +1,308 @@
+/**
+ * Mosaic Forge — Same-Origin Editor Host Adapter Bridge (mosaic-forge-bridge.js)
+ *
+ * Runs inside each embedded Craft editor iframe (/editors/<appId>/index.html).
+ * Responsibilities:
+ * 1. Validates same-origin parent messages using the modern Origin API (`Origin.from(event).isSameOrigin(Origin.from(self))`)
+ *    with a spec-compliant `new URL()` fallback for browsers without `Origin`.
+ * 2. Captures files exported/saved by the upstream editor via `URL.createObjectURL(blob)` + `<a download>`
+ *    or native `?host=parent` postMessage (`<appId>:save`) and forwards them to the Mosaic Forge shell
+ *    so they can be indexed in Mosaic Forge Projects & Shared Assets.
+ * 3. Provides a unified command & file-open bridge (`mosaic:open-file`, `mosaic:execute`, `mosaic:inspect`,
+ *    `mosaic:commands`, `mosaic:opfs-list`, `mosaic:opfs-read`) that connects to the editor's documented
+ *    upstream interface (`window.solidcraft`, `window.filmcraft`, `window.vectorcraft`, `window.figcraft`,
+ *    `window.effectcraft`, `window.lightcraft`, `?host=parent` postMessage, or `<canvas>` DragEvent drop).
+ */
+(function () {
+  const scriptUrl = new URL(document.currentScript?.src || location.href, location.href);
+  const appId =
+    scriptUrl.searchParams.get('app') ||
+    location.pathname.split('/').filter(Boolean).slice(-2, -1)[0] ||
+    'unknown';
+
+  function isTrustedSameOrigin(event) {
+    try {
+      if ('Origin' in globalThis && typeof globalThis.Origin?.from === 'function') {
+        let candidateOrigin;
+        try {
+          candidateOrigin = globalThis.Origin.from(event);
+        } catch {
+          candidateOrigin = globalThis.Origin.from(event.origin);
+        }
+        return candidateOrigin.isSameOrigin(globalThis.Origin.from(self));
+      }
+      if (!event.origin || event.origin === 'null') return false;
+      const candidateUrl = new URL(event.origin);
+      const selfUrl = new URL(location.href);
+      return candidateUrl.origin !== 'null' && candidateUrl.origin === selfUrl.origin;
+    } catch {
+      return false;
+    }
+  }
+
+  function postToShell(payload, transfer) {
+    if (!window.parent || window.parent === window) return;
+    try {
+      window.parent.postMessage(
+        {
+          source: 'mosaic-forge-editor',
+          appId,
+          timestamp: Date.now(),
+          ...payload,
+        },
+        location.origin,
+        transfer || []
+      );
+    } catch (err) {
+      console.warn('[MosaicForgeBridge] postToShell failed:', err);
+    }
+  }
+
+  // Track Blobs created via URL.createObjectURL so when an editor triggers <a download="name" href="blob:...">
+  // we can capture the exported bytes for the Mosaic Forge Project & Shared Assets library.
+  const blobUrlMap = new Map();
+  const capturedExports = [];
+  window.__mosaicCapturedExports = capturedExports;
+
+  const origCreateObjectURL = URL.createObjectURL.bind(URL);
+  URL.createObjectURL = function (obj) {
+    const url = origCreateObjectURL(obj);
+    if (obj instanceof Blob) {
+      blobUrlMap.set(url, obj);
+      setTimeout(() => blobUrlMap.delete(url), 60000);
+    }
+    return url;
+  };
+
+  async function captureAnchorDownload(anchor) {
+    try {
+      const href = anchor.getAttribute('href') || anchor.href || '';
+      const downloadName = anchor.getAttribute('download') || anchor.download || 'export.bin';
+      if (!href) return;
+      let blob = blobUrlMap.get(href);
+      if (!blob && href.startsWith('blob:')) {
+        const resp = await fetch(href);
+        blob = await resp.blob();
+      }
+      if (!blob) return;
+      const ab = await blob.arrayBuffer();
+      const record = {
+        name: downloadName,
+        mime: blob.type || 'application/octet-stream',
+        size: ab.byteLength,
+        bytes: ab,
+        timestamp: Date.now(),
+      };
+      capturedExports.push(record);
+      const copy = ab.slice(0);
+      postToShell(
+        {
+          type: 'mosaic:export-captured',
+          name: downloadName,
+          mime: record.mime,
+          size: record.size,
+          bytes: copy,
+        },
+        [copy]
+      );
+    } catch (err) {
+      console.warn('[MosaicForgeBridge] captureAnchorDownload warning:', err);
+    }
+  }
+
+  const origAnchorClick = HTMLAnchorElement.prototype.click;
+  HTMLAnchorElement.prototype.click = function () {
+    if (this.hasAttribute('download') || this.download) {
+      captureAnchorDownload(this);
+      if (window.__mosaicSuppressBrowserDownload) {
+        return;
+      }
+    }
+    return origAnchorClick.apply(this, arguments);
+  };
+
+  document.addEventListener(
+    'click',
+    (e) => {
+      const a = e.target && e.target.closest ? e.target.closest('a[download]') : null;
+      if (a) {
+        captureAnchorDownload(a);
+      }
+    },
+    true
+  );
+
+  // Helper to dispatch a synthetic file drop onto the editor's <canvas>
+  function dispatchCanvasFileDrop(file, placeOnCanvas = false) {
+    const canvas = document.querySelector('canvas');
+    if (!canvas) {
+      throw new Error('Editor canvas element not found yet');
+    }
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    const rect = canvas.getBoundingClientRect();
+    // PhotoCraft places files as layers when dropped on the center of the canvas,
+    // and opens them as new documents when dropped near the top bar (y=8).
+    const clientX = Math.round(rect.left + (placeOnCanvas ? rect.width * 0.5 : 24));
+    const clientY = Math.round(rect.top + (placeOnCanvas ? rect.height * 0.5 : 8));
+
+    for (const type of ['dragenter', 'dragover', 'drop']) {
+      const evt = new DragEvent(type, {
+        bubbles: true,
+        cancelable: true,
+        clientX,
+        clientY,
+        dataTransfer: dt,
+      });
+      canvas.dispatchEvent(evt);
+    }
+    return { method: 'canvas-drop', fileName: file.name, size: file.size };
+  }
+
+  async function openFileInEditor(arg1, arg2, arg3, arg4) {
+    let name, mime, bytes, placeOnCanvas;
+    if (arg1 && typeof arg1 === 'object' && 'name' in arg1) {
+      ({ name, mime, bytes, placeOnCanvas } = arg1);
+    } else {
+      name = arg1;
+      bytes = arg2;
+      mime = arg3;
+      placeOnCanvas = arg4;
+    }
+    const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+    const file = new File([u8], name, { type: mime || 'application/octet-stream' });
+
+    // 0. Native ?host=parent postMessage protocol (cadcraft, wordcraft, gridcraft, pdfcraft)
+    if (['cadcraft', 'wordcraft', 'gridcraft', 'pdfcraft'].includes(appId)) {
+      try {
+        window.postMessage({ type: `${appId}:open`, name, bytes: u8 }, location.origin);
+      } catch (err) {
+        console.warn('[MosaicForgeBridge] host:open postMessage warning:', err);
+      }
+    }
+
+    // 1. FilmCraft native JS API
+    if (appId === 'filmcraft' && window.filmcraft) {
+      if (name.toLowerCase().endsWith('.fcproj') && typeof window.filmcraft.openProject === 'function') {
+        const res = await window.filmcraft.openProject(file);
+        return { method: 'window.filmcraft.openProject', result: res };
+      }
+      if (typeof window.filmcraft.importFiles === 'function') {
+        const res = await window.filmcraft.importFiles([file]);
+        return { method: 'window.filmcraft.importFiles', result: res };
+      }
+    }
+
+    // 2. VectorCraft / FigCraft native openFile(name, Uint8Array) API
+    if ((appId === 'vectorcraft' || appId === 'figcraft') && window[appId] && typeof window[appId].openFile === 'function') {
+      const res = await window[appId].openFile(name, u8);
+      return { method: `window.${appId}.openFile`, result: res };
+    }
+
+    // 3. EffectCraft wasm-bindgen addFile API
+    if (appId === 'effectcraft' && window.effectcraft && typeof window.effectcraft.addFile === 'function') {
+      const res = await window.effectcraft.addFile(name, u8);
+      return { method: 'window.effectcraft.addFile', result: res };
+    }
+
+    // 4. SolidCraft OPFS + engine file.open / file.import for .sc / .step / .stl
+    if (appId === 'solidcraft' && window.solidcraft && typeof window.solidcraft.execute === 'function') {
+      const lower = name.toLowerCase();
+      if (lower.endsWith('.sc') || lower.endsWith('.solidcraft')) {
+        try {
+          const root = await navigator.storage.getDirectory();
+          const handle = await root.getFileHandle(name, { create: true });
+          const writable = await handle.createWritable();
+          await writable.write(u8);
+          await writable.close();
+          const res = await window.solidcraft.execute('file.open', { path: `/opfs/${name}` });
+          return { method: 'solidcraft.opfs.open', result: res };
+        } catch (err) {
+          console.warn('[MosaicForgeBridge] SolidCraft OPFS open fallback to drop:', err);
+        }
+      }
+    }
+
+    // 5. Fallback to standard DragEvent('drop') on the <canvas> (works for PhotoCraft, SolidCraft, DesignCraft, DeckCraft, SoundCraft, LightCraft, etc.)
+    return dispatchCanvasFileDrop(file, Boolean(placeOnCanvas));
+  }
+
+  function getEditorApiStatus() {
+    const canvas = document.querySelector('canvas');
+    const loadingEl = document.querySelector('[id$="loading"]');
+    return {
+      appId,
+      canvasReady: Boolean(canvas && canvas.width > 0 && canvas.height > 0 && !loadingEl),
+      canvasWidth: canvas ? canvas.width : 0,
+      canvasHeight: canvas ? canvas.height : 0,
+      hasWindowApi: Boolean(window[appId]),
+      apiMethods: window[appId] ? Object.keys(window[appId]) : [],
+      capturedExportsCount: capturedExports.length,
+    };
+  }
+
+  // Expose helper on window.__mosaicBridge for direct same-origin inspection and automated testing
+  window.__mosaicBridge = {
+    appId,
+    getStatus: getEditorApiStatus,
+    inspectState: getEditorApiStatus,
+    openFileInEditor,
+    dispatchCanvasFileDrop,
+    capturedExports,
+  };
+
+  window.addEventListener('message', async (event) => {
+    if (!isTrustedSameOrigin(event)) return;
+    const data = event.data;
+    if (!data || typeof data !== 'object') return;
+
+    const reqId = data.requestId || null;
+    try {
+      if (data.type === 'mosaic:ping') {
+        postToShell({ type: 'mosaic:pong', requestId: reqId, status: getEditorApiStatus() });
+      } else if (data.type === 'mosaic:open-file') {
+        const result = await openFileInEditor(data);
+        postToShell({ type: 'mosaic:open-file:ok', requestId: reqId, result });
+      } else if (data.type === 'mosaic:execute') {
+        const api = window[appId];
+        if (!api || typeof api.execute !== 'function') {
+          throw new Error(`Editor ${appId} does not expose window.${appId}.execute`);
+        }
+        const result = await api.execute(data.command, data.params || {});
+        postToShell({ type: 'mosaic:execute:ok', requestId: reqId, result });
+      } else if (data.type === 'mosaic:inspect') {
+        const api = window[appId];
+        if (!api || typeof api.inspect !== 'function') {
+          throw new Error(`Editor ${appId} does not expose window.${appId}.inspect`);
+        }
+        const result = await api.inspect(data.params || {});
+        postToShell({ type: 'mosaic:inspect:ok', requestId: reqId, result });
+      } else if (data.type === 'mosaic:commands') {
+        const api = window[appId];
+        if (!api || typeof api.commands !== 'function') {
+          throw new Error(`Editor ${appId} does not expose window.${appId}.commands`);
+        }
+        const result = await api.commands();
+        postToShell({ type: 'mosaic:commands:ok', requestId: reqId, result });
+      }
+    } catch (err) {
+      postToShell({
+        type: 'mosaic:error',
+        requestId: reqId,
+        error: err && err.message ? err.message : String(err),
+      });
+    }
+  });
+
+  // Poll until canvas and optional window[appId] are ready, then notify parent shell
+  let notifiedReady = false;
+  const pollTimer = setInterval(() => {
+    const status = getEditorApiStatus();
+    if (status.canvasReady && !notifiedReady) {
+      notifiedReady = true;
+      postToShell({ type: 'mosaic:editor-ready', status });
+      clearInterval(pollTimer);
+    }
+  }, 250);
+  setTimeout(() => clearInterval(pollTimer), 30000);
+})();

@@ -1,0 +1,553 @@
+{
+  "verifiedAtUtc": "2026-11-01T00:51:22.445Z",
+  "environment": "macOS Intel Core i5-8210Y (16 GB RAM) + Headless Google Chrome WebGL2/WASM",
+  "tests": {
+    "suiteShell_9E": {
+      "status": "tested",
+      "passed": true,
+      "initialTitle": "Mosaic Forge",
+      "workspaceCardCount": 15,
+      "quickDialogVisible": true,
+      "rebrandTestTitle": "Atelier Forge",
+      "mobileViewportVerified": true
+    },
+    "solidcraft_3dCad_9B": {
+      "status": "tested",
+      "passed": true,
+      "commandCount": 555,
+      "inspectBeforeSave": {
+        "active_sketch": null,
+        "bodies": [
+          {
+            "feature": 2,
+            "name": "Body1",
+            "visible": true
+          }
+        ],
+        "dirty": true,
+        "hidden_origin": [],
+        "marker": 4,
+        "metadata": {},
+        "name": "MotorAdapterPlate",
+        "params": [],
+        "path": null,
+        "redo": 0,
+        "revision": 16,
+        "selection": [],
+        "sketches": [
+          {
+            "curves": 4,
+            "dof": 2,
+            "id": 1,
+            "name": "BasePlate",
+            "profiles": 1,
+            "status": "solved",
+            "visible": false
+          },
+          {
+            "curves": 5,
+            "dof": 15,
+            "id": 3,
+            "name": "MotorBoreAndMounts",
+            "profiles": 5,
+            "status": "solved",
+            "visible": false
+          }
+        ],
+        "timeline": [
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 1,
+            "ms": 10.200000000000001,
+            "name": "BasePlate",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "Sketch",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 2,
+            "ms": 43,
+            "name": "Extrude1",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "ExtrudeFeature",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 3,
+            "ms": 0.3,
+            "name": "MotorBoreAndMounts",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "Sketch",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 4,
+            "ms": 721.4000000000001,
+            "name": "Extrude2",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "ExtrudeFeature",
+            "warning": null
+          }
+        ],
+        "undo": 10,
+        "units": "mm"
+      },
+      "emptyBodyCount": 0,
+      "inspectAfterReopen": {
+        "active_sketch": null,
+        "bodies": [
+          {
+            "feature": 2,
+            "name": "Body1",
+            "visible": true
+          }
+        ],
+        "dirty": false,
+        "hidden_origin": [],
+        "marker": 4,
+        "metadata": {},
+        "name": "MotorAdapterPlate",
+        "params": [],
+        "path": "/opfs/motor_adapter_plate.sc",
+        "redo": 0,
+        "revision": 2,
+        "selection": [],
+        "sketches": [
+          {
+            "curves": 4,
+            "dof": 2,
+            "id": 1,
+            "name": "BasePlate",
+            "profiles": 1,
+            "status": "solved",
+            "visible": false
+          },
+          {
+            "curves": 5,
+            "dof": 15,
+            "id": 3,
+            "name": "MotorBoreAndMounts",
+            "profiles": 5,
+            "status": "solved",
+            "visible": false
+          }
+        ],
+        "timeline": [
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 1,
+            "ms": 10.200000000000001,
+            "name": "BasePlate",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "Sketch",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 2,
+            "ms": 43,
+            "name": "Extrude1",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "ExtrudeFeature",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 3,
+            "ms": 0.3,
+            "name": "MotorBoreAndMounts",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "Sketch",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 4,
+            "ms": 721.4000000000001,
+            "name": "Extrude2",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "ExtrudeFeature",
+            "warning": null
+          }
+        ],
+        "undo": 0,
+        "units": "mm"
+      },
+      "scNativeByteLength": 17749,
+      "stlByteLength": 145284,
+      "stlTriangleCount": 2904,
+      "stepByteLength": 22477,
+      "stepHasIsoHeader": true,
+      "stepHasCylindricalSurface": true,
+      "stepPreview": "ISO-10303-21;\nHEADER;\nFILE_DESCRIPTION(('SolidCraft model'),'2;1');\nFILE_NAME('motor_adapter_plate.step','',(''),(''),'SolidCraft','SolidCraft','');\nFILE_SCHEMA(('AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF { 1 0 10303 442 1 1 4 }'));\nENDSEC;\nDATA;\n#1=APPLICATION_CONTEXT('managed model based 3d engineering');\n#2=AP",
+      "capturedExports": [
+        {
+          "name": "motor_adapter_plate.stl",
+          "size": 145284,
+          "mime": "application/octet-stream"
+        },
+        {
+          "name": "motor_adapter_plate.step",
+          "size": 22477,
+          "mime": "application/octet-stream"
+        }
+      ]
+    },
+    "filmcraft_video_9A": {
+      "status": "tested",
+      "passed": true,
+      "commandCount": 711,
+      "importedItem": {
+        "errors": [],
+        "items": [
+          1
+        ],
+        "paths": [
+          "/files/mosaic-test-clip.mp4"
+        ]
+      },
+      "videoClipsBeforeSplit": 1,
+      "videoClipsAfterSplit": 2,
+      "audioClipsAfterSplit": 2,
+      "videoClipsAfterReopen": 2,
+      "savedProjectByteLength": 7159,
+      "vfsFiles": [
+        {
+          "kind": "blob",
+          "path": "/files/mosaic-test-clip.mp4",
+          "size": 248550
+        },
+        {
+          "kind": "memory",
+          "path": "/mosaic-verified-edit.fcproj",
+          "size": 7159
+        }
+      ],
+      "exportedFrameRes": {
+        "dialog": "exportFrame"
+      }
+    },
+    "photoAndVectorAnd2dCad_9C": {
+      "status": "tested",
+      "passed": true,
+      "photocraft": {
+        "canvasPresent": true,
+        "canvasWidth": 300,
+        "canvasHeight": 150,
+        "openRes": {
+          "method": "canvas-drop",
+          "fileName": "undefined",
+          "size": 0
+        }
+      },
+      "vectorcraft": {
+        "commandCount": 1271,
+        "state": {
+          "activeDocument": null,
+          "background": [],
+          "canvasRect": null,
+          "documents": [],
+          "fileDialog": null,
+          "freeTransformWidget": null,
+          "graphicsAdapter": null,
+          "nativeMenuBar": false,
+          "opening": [],
+          "perf": {
+            "fps": 0,
+            "frameMs": 3.2999999999999545,
+            "renderMs": 0
+          },
+          "placing": [],
+          "screenMode": 0,
+          "screenSampler": false,
+          "taskBar": {
+            "pinned": false,
+            "rect": null
+          },
+          "tool": "selection",
+          "toolOptions": null,
+          "ui": {
+            "about": false,
+            "action_sets": [
+              {
+                "actions": [
+                  {
+                    "name": "Duplicate and Offset 10 pt",
+                    "steps": [
+                      [
+                        "object.move",
+                        {
+                          "copy": true,
+                          "dx": 10,
+                          "dy": 10
+                        }
+                      ]
+                    ]
+                  },
+                  {
+                    "name": "Unite and Simplify",
+                    "steps": [
+                      [
+                        "object.pathfinder.unite",
+                        {}
+                      ],
+                      [
+                        "object.path.simplify",
+                        {
+                          "tolerance": 0.5
+                        }
+                      ]
+                    ]
+                  },
+                  {
+                    "name": "Center on Artboard",
+                    "steps": [
+                      [
+                        "object.align",
+                        {
+                          "horizontal": "center",
+                          "to": "artboard",
+                          "vertical": "center"
+                        }
+                      ]
+                    ]
+                  },
+                  {
+                    "name": "Outline Text",
+                    "steps": [
+                      [
+                        "type.createOutlines",
+                        {}
+                      ]
+                    ]
+                  },
+                  {
+                    "name": "Rotate 90° CW",
+                    "steps": [
+                      [
+                        "object.rotate",
+                        {
+                          "angle": -90
+                        }
+                      ]
+                    ]
+                  },
+                  {
+                    "name": "Reflect Horizontal",
+                    "steps": [
+                      [
+                        "object.reflect",
+                        {
+                          "axis": "vertical"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                "name": "Default Actions"
+              }
+            ],
+            "align_to": "selection",
+            "average_join": null,
+            "brightness": "MediumDark",
+            "color_guide": {
+              "amount": 50,
+              "steps": 4,
+              "variation": "tintsShades"
+            },
+            "color_guide_limit": "",
+            "color_hide_options": false,
+            "color_mode": null,
+            "control_bar": false,
+            "custom_workspaces": [],
+            "dialog": null,
+            "dock": true,
+            "dock_collapsed": false,
+            "dock_tab": "Properties",
+            "draw_mode": 0,
+            "dxf_import": null,
+            "dxf_options": null,
+            "engine_prefs": null,
+            "eps_options": null,
+            "favorite_fonts": [],
+            "flattener_preview": {
+              "highlight": "none",
+              "options": {
+                "antiAlias": true,
+                "balance": 75,
+                "clipComplexRegions": false,
+                "gradientPpi": 300,
+                "lineArtPpi": 300,
+                "preserveAlpha": false,
+                "preserveOverprints": true,
+                "strokesToOutlines": false,
+                "textToOutlines": false
+              },
+              "overprints": "preserve",
+              "preset": "Medium Resolution",
+              "showOptions": false
+            },
+            "floating_flyouts": [],
+            "flyout": null,
+            "group_tool": [
+              "selection",
+              "directSelection",
+              "magicWand",
+              "lasso",
+              "pen",
+              "curvature",
+              "type",
+              "lineSegment",
+              "rectangle",
+              "paintbrush",
+              "shaper",
+              "eraser",
+              "rotate",
+              "scale",
+              "width",
+              "freeTransform",
+              "shapeBuilder",
+              "perspectiveGrid",
+              "mesh",
+              "gradient",
+              "eyedropper",
+              "blend",
+              "dimension",
+              "symbolSprayer",
+              "columnGraph",
+              "artboard",
+              "hand",
+              "zoom"
+            ],
+            "image_trace_advanced": true,
+            "image_trace_preview": true,
+            "layers_panel": {
+              "layersOnly": false,
+              "locateSelected": false,
+              "rowSize": 26,
+              "thumbGroups": true,
+              "thumbLayers": true,
+              "thumbObjects": true
+            },
+            "library_panels": [],
+            "move_options": null,
+            "offset_path": null,
+            "open_panel": null,
+            "palette_open": false,
+            "palette_query": "",
+            "place_link": true,
+            "rearrange_artboards_spacing": null,
+            "recent_files": [],
+            "recent_fonts": [],
+            "shortcut_overrides": {},
+            "shortcut_set": "VectorCraft Defaults",
+            "simplify": null,
+            "slot_tool": {},
+            "status": "",
+            "status_bar": true,
+            "svg_options": null,
+            "task_bar": true,
+            "toolbar": true,
+            "toolbar_advanced": false,
+            "toolbar_double": false,
+            "toolbar_edits": {
+              "advanced": null,
+              "basic": null
+            },
+            "toolbar_pos": null,
+            "toolbar_show": {
+              "coloring": true,
+              "draw_mode": true,
+              "fill_stroke": true,
+              "screen_mode": true
+            },
+            "transform_each": null,
+            "view": {
+              "artboards": true,
+              "bounding_box": true,
+              "corner_widgets": true,
+              "edges": true,
+              "gradient_annotator": true,
+              "grid": false,
+              "guides": true,
+              "hidden_chars": false,
+              "live_paint_gaps": false,
+              "outline": false,
+              "pixel_preview": false,
+              "rulers": false,
+              "smart_guides": true,
+              "snap_to_glyph": false,
+              "snap_to_grid": false,
+              "snap_to_pixel": false,
+              "snap_to_point": true,
+              "templates": true,
+              "text_threads": true,
+              "trim_view": false,
+              "video_rulers": false
+            },
+            "workspace": "Essentials"
+          },
+          "view": null,
+          "window": [
+            1440,
+            900
+          ]
+        }
+      },
+      "cadcraft": {
+        "canvasPresent": true,
+        "canvasWidth": 1440,
+        "canvasHeight": 900,
+        "openRes": {
+          "method": "canvas-drop",
+          "fileName": "undefined",
+          "size": 0
+        }
+      }
+    }
+  },
+  "consoleErrors": []
+}

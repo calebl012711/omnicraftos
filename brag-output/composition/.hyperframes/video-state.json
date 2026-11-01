@@ -1,0 +1,388 @@
+{
+  "version": 1,
+  "historyId": "f3ada3b4-df67-4d8f-abd3-9712f1a1d162",
+  "currentRevision": "627bc225-018d-4c59-b632-a13e9f41782f",
+  "pendingChanges": false,
+  "files": {
+    "AGENTS.md": {
+      "hash": "1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/1b/1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060"
+    },
+    "CLAUDE.md": {
+      "hash": "1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/1b/1b36171117cb7c18f4100a0db6a3782ff2e096115995733200445cc2e80a4060"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "be2d074de93b15a21546518de9b4ed9c3ba55568f67f7936f692f4319fc81168",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/be/be2d074de93b15a21546518de9b4ed9c3ba55568f67f7936f692f4319fc81168"
+    },
+    "meta.json": {
+      "hash": "4f72ba6c8566be345c3ce9ef642b766edab765f847502cf6e9715b71040e89ce",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/4f/4f72ba6c8566be345c3ce9ef642b766edab765f847502cf6e9715b71040e89ce"
+    },
+    "package.json": {
+      "hash": "1a16a662718ebecb7778331e075c4e18bfa56314b7917d9ef7a1738ce33fc2e2",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/1a/1a16a662718ebecb7778331e075c4e18bfa56314b7917d9ef7a1738ce33fc2e2"
+    },
+    "assets/music/cues/happy-beats-business-moves-vol-1-by-ende-dot-app.music-cues.json": {
+      "hash": "cdf23150e6a52899e4092bea88e28498314667a77f7cb18e1678b9f602f5d9ac",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/cd/cdf23150e6a52899e4092bea88e28498314667a77f7cb18e1678b9f602f5d9ac"
+    },
+    "assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3": {
+      "hash": "aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/aa/aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f"
+    },
+    "assets/screens/asset-vault.png": {
+      "hash": "891102f40f84dd12e3d9d627520b039659eff2d349b3c9442482b93c627a8784",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/89/891102f40f84dd12e3d9d627520b039659eff2d349b3c9442482b93c627a8784"
+    },
+    "assets/screens/bandforge-daw.png": {
+      "hash": "4d56e9809fabb20869e46a8762dbec8d40726575a9958cdbbc34c70766439dc9",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/4d/4d56e9809fabb20869e46a8762dbec8d40726575a9958cdbbc34c70766439dc9"
+    },
+    "assets/screens/fruityforge-flstudio.png": {
+      "hash": "5a7ceb76e9af0649d31daff9d4d06a4fd70e175598ba71534d153c11f38d9d80",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/5a/5a7ceb76e9af0649d31daff9d4d06a4fd70e175598ba71534d153c11f38d9d80"
+    },
+    "assets/screens/home-launcher.png": {
+      "hash": "87aa02d35103978c237c5a44870b270224a334def46dc3c86eff88b711ea8ed3",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/87/87aa02d35103978c237c5a44870b270224a334def46dc3c86eff88b711ea8ed3"
+    },
+    "assets/screens/logo.svg": {
+      "hash": "4ee7429c287e97f682c12396be5851a93f77d33085a6c143ad5082d9481cdf5d",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/4e/4ee7429c287e97f682c12396be5851a93f77d33085a6c143ad5082d9481cdf5d"
+    },
+    "assets/screens/rivercast-iso.png": {
+      "hash": "7526de7be559dd67a66c57e5230edc885c83f4428cf4e91182ba7c0379514c9b",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/75/7526de7be559dd67a66c57e5230edc885c83f4428cf4e91182ba7c0379514c9b"
+    },
+    "assets/screens/solidcraft-cad.png": {
+      "hash": "ff502d5f48eea5af7ea0950907567d90cc0bb59be64f63d5665c5d91a778834b",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/ff/ff502d5f48eea5af7ea0950907567d90cc0bb59be64f63d5665c5d91a778834b"
+    },
+    "assets/screens/studiocut-nle.png": {
+      "hash": "2e57f85c2d54445df456efccafae18c28c34d308d90f5c201bb4759a11e0ca0d",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/2e/2e57f85c2d54445df456efccafae18c28c34d308d90f5c201bb4759a11e0ca0d"
+    },
+    "assets/sfx/casino/card-slide-1.ogg": {
+      "hash": "006cf9822d15d7063f8899e56041f41646df30adb6fbd8b974ee5d5420012690",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/00/006cf9822d15d7063f8899e56041f41646df30adb6fbd8b974ee5d5420012690"
+    },
+    "assets/sfx/impact/impactBell_heavy_000.ogg": {
+      "hash": "94b8bb5f2d43ab65e4bcc32b28562416e9bc2c51d9fd4be1e333660ee52f977f",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/94/94b8bb5f2d43ab65e4bcc32b28562416e9bc2c51d9fd4be1e333660ee52f977f"
+    },
+    "assets/sfx/impact/impactSoft_medium_001.ogg": {
+      "hash": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/76/7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf"
+    },
+    "assets/sfx/impact/impactSoft_medium_004.ogg": {
+      "hash": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/b0/b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca"
+    },
+    "assets/sfx/interface/bong_001.ogg": {
+      "hash": "d21d0f0b782445db579d11e2506b24cd1ac9d664ee33aeaf807761aa7b6fd710",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/d2/d21d0f0b782445db579d11e2506b24cd1ac9d664ee33aeaf807761aa7b6fd710"
+    },
+    "assets/sfx/interface/click_002.ogg": {
+      "hash": "adcd1f4adc35f1b41bc1b5bbefeff7aa44f2f3f0d96d3199b544140c7c1e761c",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/ad/adcd1f4adc35f1b41bc1b5bbefeff7aa44f2f3f0d96d3199b544140c7c1e761c"
+    },
+    "assets/sfx/interface/click_003.ogg": {
+      "hash": "2fa929138bc3a0f432696588f66eac94b8f6d463905ec8808c6461ce4b054292",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/2f/2fa929138bc3a0f432696588f66eac94b8f6d463905ec8808c6461ce4b054292"
+    },
+    "assets/voiceover.wav": {
+      "hash": "97e7928071084eaa95dfbb171b6f8c029331d90fa911c5f971d0572ef8fa9027",
+      "content": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/97/97e7928071084eaa95dfbb171b6f8c029331d90fa911c5f971d0572ef8fa9027"
+    }
+  },
+  "revisions": {
+    "411e62b6-6bd3-4e10-8690-b47decfa5255": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793510896059,
+      "endedAt": 1793510896706,
+      "files": {
+        "assets/music/cues/happy-beats-business-moves-vol-1-by-ende-dot-app.music-cues.json": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/cd/cdf23150e6a52899e4092bea88e28498314667a77f7cb18e1678b9f602f5d9ac"
+        },
+        "assets/music/happy-beats-business-moves-vol-1-by-ende-dot-app.mp3": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/aa/aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f"
+        },
+        "assets/screens/asset-vault.png": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/89/891102f40f84dd12e3d9d627520b039659eff2d349b3c9442482b93c627a8784"
+        },
+        "assets/screens/bandforge-daw.png": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/4d/4d56e9809fabb20869e46a8762dbec8d40726575a9958cdbbc34c70766439dc9"
+        },
+        "assets/screens/fruityforge-flstudio.png": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/5a/5a7ceb76e9af0649d31daff9d4d06a4fd70e175598ba71534d153c11f38d9d80"
+        },
+        "assets/screens/home-launcher.png": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/87/87aa02d35103978c237c5a44870b270224a334def46dc3c86eff88b711ea8ed3"
+        },
+        "assets/screens/logo.svg": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/4e/4ee7429c287e97f682c12396be5851a93f77d33085a6c143ad5082d9481cdf5d"
+        },
+        "assets/screens/rivercast-iso.png": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/75/7526de7be559dd67a66c57e5230edc885c83f4428cf4e91182ba7c0379514c9b"
+        },
+        "assets/screens/solidcraft-cad.png": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/ff/ff502d5f48eea5af7ea0950907567d90cc0bb59be64f63d5665c5d91a778834b"
+        },
+        "assets/screens/studiocut-nle.png": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/2e/2e57f85c2d54445df456efccafae18c28c34d308d90f5c201bb4759a11e0ca0d"
+        },
+        "assets/sfx/casino/card-slide-1.ogg": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/00/006cf9822d15d7063f8899e56041f41646df30adb6fbd8b974ee5d5420012690"
+        },
+        "assets/sfx/impact/impactBell_heavy_000.ogg": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/94/94b8bb5f2d43ab65e4bcc32b28562416e9bc2c51d9fd4be1e333660ee52f977f"
+        },
+        "assets/sfx/impact/impactSoft_medium_001.ogg": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/76/7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf"
+        },
+        "assets/sfx/impact/impactSoft_medium_004.ogg": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/b0/b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca"
+        },
+        "assets/sfx/interface/bong_001.ogg": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/d2/d21d0f0b782445db579d11e2506b24cd1ac9d664ee33aeaf807761aa7b6fd710"
+        },
+        "assets/sfx/interface/click_002.ogg": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/ad/adcd1f4adc35f1b41bc1b5bbefeff7aa44f2f3f0d96d3199b544140c7c1e761c"
+        },
+        "assets/sfx/interface/click_003.ogg": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/2f/2fa929138bc3a0f432696588f66eac94b8f6d463905ec8808c6461ce4b054292"
+        },
+        "assets/voiceover.wav": {
+          "before": null,
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/97/97e7928071084eaa95dfbb171b6f8c029331d90fa911c5f971d0572ef8fa9027"
+        },
+        "index.html": {
+          "before": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/39/393d79aa8abecf1955d247c19410275e31a7bec33f092cd59afa9326f45e5624",
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/a0/a0a5f5d6a2f317b68711fdd70a2a9e61bd0f983b5c8aa70d4585701b1e3678ff"
+        }
+      }
+    },
+    "627bc225-018d-4c59-b632-a13e9f41782f": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793511026072,
+      "endedAt": 1793511026081,
+      "files": {
+        "index.html": {
+          "before": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/a0/a0a5f5d6a2f317b68711fdd70a2a9e61bd0f983b5c8aa70d4585701b1e3678ff",
+          "after": "/Users/caleblickteig/.cache/hyperframes/history/f3ada3b4-df67-4d8f-abd3-9712f1a1d162/blobs/be/be2d074de93b15a21546518de9b4ed9c3ba55568f67f7936f692f4319fc81168"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": null,
+    "revisions": {
+      "411e62b6-6bd3-4e10-8690-b47decfa5255": [
+        {
+          "id": "b9d0b1b6-2ecd-4bb7-91f2-6e73e238ac14",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 10000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1793510970121,
+          "contentHash": "5867cc8f415cf3ddb36a774dbcd3adeb70cf5d926052dcbafd30e319a551f993",
+          "revision": "411e62b6-6bd3-4e10-8690-b47decfa5255",
+          "inputFingerprint": "4ddfa97e17f146ff59b6e7a82a69e15a7db2691405d224015b63f11c21d54e00",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "e75f5752-f3e9-460b-88ba-15a8ce69dfa8"
+        }
+      ]
+    },
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "627bc225-018d-4c59-b632-a13e9f41782f",
+      "id": "0ce8c198-faf4-4b49-a59c-30475b1dc835-5"
+    },
+    "revisions": {
+      "627bc225-018d-4c59-b632-a13e9f41782f": [
+        {
+          "scope": "full",
+          "id": "0ce8c198-faf4-4b49-a59c-30475b1dc835-0",
+          "image": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/.hyperframes/artifacts/snapshots/a679cd61-9378-4407-9d85-3a7c54a29ad2/frame-00-at-1.8s.png",
+          "time": 1.8,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793511063884,
+          "contentHash": "3bbeeed05f950614b03cc9ce78b0b1ac28ea58ab3e0e8fa9518925ca5f469d55",
+          "revision": "627bc225-018d-4c59-b632-a13e9f41782f",
+          "inputFingerprint": "4f9796473d75fb97a07e24f765b23e2638244a4aa9e99ee7e7243ad3a6f38576",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "0ce8c198-faf4-4b49-a59c-30475b1dc835-1",
+          "image": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/.hyperframes/artifacts/snapshots/a679cd61-9378-4407-9d85-3a7c54a29ad2/frame-01-at-5.2s.png",
+          "time": 5.2,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793511063884,
+          "contentHash": "7711960b8bf73e23bdb37693f38f321258c6e2dae3401c83b863bdd963554643",
+          "revision": "627bc225-018d-4c59-b632-a13e9f41782f",
+          "inputFingerprint": "4f9796473d75fb97a07e24f765b23e2638244a4aa9e99ee7e7243ad3a6f38576",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "0ce8c198-faf4-4b49-a59c-30475b1dc835-2",
+          "image": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/.hyperframes/artifacts/snapshots/a679cd61-9378-4407-9d85-3a7c54a29ad2/frame-02-at-9.5s.png",
+          "time": 9.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793511063884,
+          "contentHash": "97fc2c160235c4f5b35e3fa964bde7dbd6906bbdc6e4f9c70b9a8b39457c15f5",
+          "revision": "627bc225-018d-4c59-b632-a13e9f41782f",
+          "inputFingerprint": "4f9796473d75fb97a07e24f765b23e2638244a4aa9e99ee7e7243ad3a6f38576",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "0ce8c198-faf4-4b49-a59c-30475b1dc835-3",
+          "image": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/.hyperframes/artifacts/snapshots/a679cd61-9378-4407-9d85-3a7c54a29ad2/frame-03-at-14.5s.png",
+          "time": 14.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793511063884,
+          "contentHash": "ba1b0acf8cfbd83b67beef8b6923ee6a8539c3fb2bfb96ac0877acc613b87a36",
+          "revision": "627bc225-018d-4c59-b632-a13e9f41782f",
+          "inputFingerprint": "4f9796473d75fb97a07e24f765b23e2638244a4aa9e99ee7e7243ad3a6f38576",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "0ce8c198-faf4-4b49-a59c-30475b1dc835-4",
+          "image": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/.hyperframes/artifacts/snapshots/a679cd61-9378-4407-9d85-3a7c54a29ad2/frame-04-at-18.5s.png",
+          "time": 18.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793511063884,
+          "contentHash": "c07e3a3e8817f0aa2d2982ce52b86291bb2e1c7bb1e6d1fdc89a87e439b8aa15",
+          "revision": "627bc225-018d-4c59-b632-a13e9f41782f",
+          "inputFingerprint": "4f9796473d75fb97a07e24f765b23e2638244a4aa9e99ee7e7243ad3a6f38576",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "0ce8c198-faf4-4b49-a59c-30475b1dc835-5",
+          "image": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/.hyperframes/artifacts/snapshots/a679cd61-9378-4407-9d85-3a7c54a29ad2/frame-05-at-19.75s.png",
+          "time": 19.75,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1793511063884,
+          "contentHash": "c07e3a3e8817f0aa2d2982ce52b86291bb2e1c7bb1e6d1fdc89a87e439b8aa15",
+          "revision": "627bc225-018d-4c59-b632-a13e9f41782f",
+          "inputFingerprint": "4f9796473d75fb97a07e24f765b23e2638244a4aa9e99ee7e7243ad3a6f38576",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "e75f5752-f3e9-460b-88ba-15a8ce69dfa8",
+      "completedAt": 1793511367565,
+      "output": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/brag.mp4",
+      "status": "completed",
+      "revision": "627bc225-018d-4c59-b632-a13e9f41782f"
+    },
+    "retainedRevisions": [
+      "627bc225-018d-4c59-b632-a13e9f41782f"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}
