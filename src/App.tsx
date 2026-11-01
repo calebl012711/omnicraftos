@@ -50,6 +50,7 @@ import {
   saveBrandingConfig
 } from './config/branding';
 import { KineticBentoHero } from './components/KineticBentoHero';
+import { AppIcon } from './components/icons/AppIcon';
 import {
   BLOCKED_REPOSITORIES,
   VerificationStatus,
@@ -1497,7 +1498,7 @@ export function App() {
                   onClick={() => openWorkspace('solidcraft', 'proj-solidcraft-motor-mount')}
                   data-testid="hero-launch-solidcraft"
                 >
-                  <Box size={14} />
+                  <AppIcon id="solidcraft" size={16} />
                   <span>SolidCraft 3D CAD</span>
                 </button>
                 <button
@@ -1506,7 +1507,7 @@ export function App() {
                   onClick={() => openWorkspace('riverstudio')}
                   data-testid="hero-launch-riverstudio"
                 >
-                  <Radio size={14} />
+                  <AppIcon id="riverstudio" size={16} />
                   <span>RiverCast ISO</span>
                 </button>
                 <button
@@ -1515,7 +1516,7 @@ export function App() {
                   onClick={() => openWorkspace('studiocut')}
                   data-testid="hero-launch-studiocut"
                 >
-                  <Video size={14} />
+                  <AppIcon id="studiocut" size={16} />
                   <span>Studio Cut NLE</span>
                 </button>
                 <button
@@ -1524,7 +1525,7 @@ export function App() {
                   onClick={() => openWorkspace('flstudio')}
                   data-testid="hero-launch-flstudio"
                 >
-                  <Sliders size={14} />
+                  <AppIcon id="flstudio" size={16} />
                   <span>FruityForge 21</span>
                 </button>
                 <button
@@ -1533,7 +1534,7 @@ export function App() {
                   onClick={() => openWorkspace('bandforge')}
                   data-testid="hero-launch-bandforge"
                 >
-                  <Disc size={14} />
+                  <AppIcon id="bandforge" size={16} />
                   <span>BandForge DAW</span>
                 </button>
                 <button
@@ -1542,7 +1543,7 @@ export function App() {
                   onClick={() => openWorkspace('filmcraft', 'proj-filmcraft-launch-cut')}
                   data-testid="hero-launch-filmcraft"
                 >
-                  <Film size={14} />
+                  <AppIcon id="filmcraft" size={16} />
                   <span>FilmCraft Video</span>
                 </button>
                 <button
@@ -1551,7 +1552,7 @@ export function App() {
                   onClick={() => openWorkspace('photocraft', 'proj-photocraft-color-study')}
                   data-testid="hero-launch-photocraft"
                 >
-                  <ImageIcon size={14} />
+                  <AppIcon id="photocraft" size={16} />
                   <span>PhotoCraft Layers</span>
                 </button>
               </div>
@@ -1603,17 +1604,8 @@ export function App() {
                           marginBottom: '12px'
                         }}
                       >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                          <span
-                            className="mf-app-icon-box"
-                            style={{
-                              background: `${ws.accentColor}22`,
-                              color: ws.accentColor,
-                              border: `1px solid ${ws.accentColor}44`
-                            }}
-                          >
-                            {renderWorkspaceIcon(ws.iconKey, 20)}
-                          </span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                          <AppIcon id={ws.id} size={42} />
                           <div>
                             <span className="mf-card-category" style={{ color: ws.accentColor }}>
                               {ws.category}
@@ -1694,7 +1686,7 @@ export function App() {
                   }}
                 />
 
-                <span className="mf-workspace-dot" style={{ background: activeWorkspace.accentColor }} />
+                <AppIcon id={activeWorkspace.id} size={24} style={{ marginRight: '4px' }} />
                 <strong style={{ fontSize: '14px' }}>{activeWorkspace.name}</strong>
 
                 {/* Quick-Hop Studio Strip for 1-Click Pipeline Switching */}
@@ -2684,8 +2676,8 @@ export function App() {
                 }}
                 style={{ justifyContent: 'space-between', width: '100%' }}
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span className="mf-workspace-dot" style={{ background: ws.accentColor }} />
+                <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <AppIcon id={ws.id} size={28} />
                   <strong>{ws.name}</strong>
                   <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>— {ws.category}</span>
                 </span>
