@@ -2,15 +2,16 @@
 <html
   lang="en"
   data-composition-variables='[
-    {"id":"productName","type":"string","label":"Product Name","default":"Mosaic Forge"},
-    {"id":"headline","type":"string","label":"Hero Headline","default":"Choose a Studio to Enter"},
+    {"id":"productName","type":"string","label":"Product Name","default":"OmniCraft OS"},
+    {"id":"headline","type":"string","label":"Hero Headline","default":"18 Studios. 100% Free & Local-First. Zero Cloud. All Local."},
+    {"id":"valueProp","type":"string","label":"Value Proposition","default":"100% Free Forever. No Subscriptions. No Cloud Lag."},
     {"id":"accentColor","type":"color","label":"Accent Color","default":"#6366f1"}
   ]'
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
-    <title>Mosaic Forge — 18 Local-First Creative, Broadcast &amp; CAD Studios</title>
+    <title>OmniCraft OS — 18 Studios. 100% Free &amp; Local-First. Zero Cloud. All Local.</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
     <style>
       :root {
@@ -20,9 +21,11 @@
         --text-primary: #f3f6fc;
         --text-secondary: #cbd5e1;
         --accent: #6366f1;
-        --emerald: #34d399;
+        --emerald: #10b981;
+        --mint: #34d399;
         --amber: #fbbf24;
         --coral: #f87171;
+        --purple: #8b5cf6;
         --font-sans: 'Inter', sans-serif;
         --font-mono: 'JetBrains Mono', monospace;
       }
@@ -63,7 +66,7 @@
         inset: 0;
         width: 1920px;
         height: 1080px;
-        padding: 64px 110px;
+        padding: 48px 90px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -74,7 +77,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 24px;
+        gap: 20px;
       }
 
       .kicker-pill {
@@ -87,28 +90,30 @@
         border: 1px solid #3b4c7a;
         color: #e0e7ff;
         font-family: var(--font-mono);
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 700;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
       }
 
-      .status-pill {
+      .value-pill-prominent {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 8px 18px;
+        gap: 10px;
+        padding: 9px 22px;
         border-radius: 999px;
-        background: #06281e;
-        border: 1px solid #10b981;
-        color: #6ee7b7;
+        background: linear-gradient(135deg, #06281e 0%, #064e3b 100%);
+        border: 1.5px solid #10b981;
+        color: #a7f3d0;
         font-family: var(--font-mono);
-        font-size: 16px;
-        font-weight: 700;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+        box-shadow: 0 4px 18px rgba(16, 185, 129, 0.25);
       }
 
       .hero-title {
-        font-size: 56px;
+        font-size: 52px;
         font-weight: 900;
         letter-spacing: -0.03em;
         line-height: 1.08;
@@ -116,7 +121,7 @@
       }
 
       .hero-sub {
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 500;
         color: #e2e8f0;
         line-height: 1.35;
@@ -124,11 +129,11 @@
 
       .screen-frame {
         position: relative;
-        border-radius: 18px;
+        border-radius: 14px;
         overflow: hidden;
-        border: 2px solid #2e3a59;
+        border: 1.5px solid #2e3a59;
         background: #0d111a;
-        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.65);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
       }
 
       .screen-frame img {
@@ -142,35 +147,143 @@
       .pill-row {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 14px;
       }
 
       .feature-chip {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding: 12px 22px;
+        padding: 10px 20px;
         border-radius: 12px;
         background: #151c2c;
         border: 1px solid #334155;
         color: #f8fafc;
-        font-size: 19px;
+        font-size: 18px;
         font-weight: 700;
       }
 
       .feature-chip span.dot {
-        width: 11px;
-        height: 11px;
+        width: 10px;
+        height: 10px;
         border-radius: 999px;
         background: #34d399;
       }
 
+      /* OPTION 3 KINETIC BENTO GRID */
+      .bento-grid-wrap {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+        width: 1740px;
+        height: 610px;
+      }
+
+      .bento-tile {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background: #111624;
+        border: 1.5px solid #28354f;
+        border-radius: 18px;
+        padding: 16px;
+        gap: 10px;
+        overflow: hidden;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+      }
+
+      .bento-tile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 2;
+      }
+
+      .bento-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        font-weight: 800;
+        padding: 5px 12px;
+        border-radius: 8px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .badge-tile-1 {
+        background: #06281e;
+        border: 1px solid #10b981;
+        color: #6ee7b7;
+      }
+
+      .badge-tile-2 {
+        background: #1e1b4b;
+        border: 1px solid #6366f1;
+        color: #c7d2fe;
+      }
+
+      .badge-tile-3 {
+        background: #311d04;
+        border: 1px solid #f59e0b;
+        color: #fde68a;
+      }
+
+      .badge-tile-4 {
+        background: #251642;
+        border: 1px solid #8b5cf6;
+        color: #ddd6fe;
+      }
+
+      .bento-app-name {
+        font-family: var(--font-sans);
+        font-size: 19px;
+        font-weight: 800;
+        color: #ffffff;
+      }
+
+      .bento-preview-wrap {
+        position: relative;
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #232d43;
+        background: #090c13;
+      }
+
+      .bento-preview-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top left;
+        display: block;
+      }
+
+      .bento-floating-tag {
+        position: absolute;
+        bottom: 10px;
+        left: 12px;
+        padding: 4px 12px;
+        border-radius: 6px;
+        background: rgba(9, 12, 19, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #f1f5f9;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: 700;
+        z-index: 3;
+      }
+
+      /* DUAL GRID FOR SCENES 2, 3, 4 */
       .dual-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 28px;
         align-items: stretch;
-        height: 650px;
+        height: 640px;
       }
 
       .studio-panel {
@@ -178,7 +291,7 @@
         flex-direction: column;
         gap: 14px;
         background: #111624;
-        border: 1px solid #2e3a59;
+        border: 1.5px solid #2e3a59;
         border-radius: 18px;
         padding: 20px;
       }
@@ -227,9 +340,9 @@
       data-width="1920"
       data-height="1080"
       data-fps="30"
-      data-motion-blur="on"
+      data-motion-blur="off"
     >
-      <!-- Untimed Full-Bleed Ambient Stage -->
+      <!-- Ambient Background Canvas -->
       <div
         id="bg-stage"
         data-layout-ignore
@@ -239,8 +352,8 @@
           id="bg-glow-a"
           style="
             position: absolute;
-            left: 100px;
-            top: 40px;
+            left: 120px;
+            top: 60px;
             width: 820px;
             height: 820px;
             border-radius: 999px;
@@ -261,7 +374,7 @@
         ></div>
       </div>
 
-      <!-- SCENE 1 (0.00s - 3.52s): HOOK & STANDALONE HOME LAUNCHER -->
+      <!-- SCENE 1 (0.00s - 3.52s): OPTION 3 KINETIC BENTO GRID HERO SCREEN -->
       <div
         id="scene-1"
         class="clip"
@@ -272,60 +385,108 @@
         style="z-index: 2;"
       >
         <div id="s1-stage" class="scene-stage" data-layout-allow-overflow>
-          <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; flex-direction: column; gap: 12px;">
             <div class="top-header-row">
               <div id="s1-kicker" class="kicker-pill">
-                MOSAIC FORGE // CREATIVE &amp; BROADCAST OS
+                OMNICRAFT OS // LOCAL-FIRST CREATIVE &amp; CAD SUITE
               </div>
-              <div id="s1-status" class="status-pill">
-                18 Standalone Studios · 100% Local Vault · Zero Cloud Lag
+              <div id="s1-value-badge" class="value-pill-prominent" data-var-text="valueProp">
+                100% Free Forever. No Subscriptions. No Cloud Lag.
               </div>
             </div>
             <h1 id="s1-title" class="hero-title" data-var-text="headline">
-              Choose a Studio to Enter
+              18 Studios. 100% Free &amp; Local-First. Zero Cloud. All Local.
             </h1>
             <p id="s1-sub" class="hero-sub">
-              Every application runs in its own full-screen local workspace and shares one unified IndexedDB &amp; OPFS media vault.
+              Every professional studio runs in native WebAssembly &amp; WebGPU with instant cross-studio IndexedDB &amp; OPFS handoff.
             </p>
           </div>
 
+          <!-- OPTION 3 KINETIC BENTO GRID (4 Tiles) -->
           <div
-            id="s1-screen-wrap"
-            class="screen-frame"
-            style="width: 1700px; height: 600px;"
+            id="s1-bento-grid"
+            class="bento-grid-wrap"
             data-layout-allow-overflow
           >
-            <img src="assets/screens/home-launcher.png" alt="Mosaic Forge Home Launcher" />
+            <!-- TILE 1: Broadcast ISO -->
+            <div id="bento-tile-1" class="bento-tile" data-layout-allow-overflow>
+              <div class="bento-tile-header">
+                <span class="bento-badge badge-tile-1">Tile 1: Broadcast ISO</span>
+                <span class="bento-app-name">RiverCast &amp; OneStudio ISO</span>
+              </div>
+              <div class="bento-preview-wrap">
+                <img src="assets/screens/rivercast-iso.png" alt="Broadcast ISO Studio" />
+                <span class="bento-floating-tag">Separate Screen + Cam + Mic ISOs</span>
+              </div>
+            </div>
+
+            <!-- TILE 2: 3D CAD -->
+            <div id="bento-tile-2" class="bento-tile" data-layout-allow-overflow>
+              <div class="bento-tile-header">
+                <span class="bento-badge badge-tile-2">Tile 2: 3D CAD</span>
+                <span class="bento-app-name">SolidCraft B-Rep Parametric</span>
+              </div>
+              <div class="bento-preview-wrap">
+                <img src="assets/screens/solidcraft-cad.png" alt="SolidCraft 3D CAD" />
+                <span class="bento-floating-tag">STEP &amp; STL Parametric Export</span>
+              </div>
+            </div>
+
+            <!-- TILE 3: Drum Sequencer -->
+            <div id="bento-tile-3" class="bento-tile" data-layout-allow-overflow>
+              <div class="bento-tile-header">
+                <span class="bento-badge badge-tile-3">Tile 3: Drum Sequencer</span>
+                <span class="bento-app-name">FruityForge 21 &amp; BandForge DAW</span>
+              </div>
+              <div class="bento-preview-wrap">
+                <img src="assets/screens/fruityforge-flstudio.png" alt="Drum Sequencer & DAW" />
+                <span class="bento-floating-tag">16-Step Pattern &amp; FM Piano Roll</span>
+              </div>
+            </div>
+
+            <!-- TILE 4: Asset Vault -->
+            <div id="bento-tile-4" class="bento-tile" data-layout-allow-overflow>
+              <div class="bento-tile-header">
+                <span class="bento-badge badge-tile-4">Tile 4: Asset Vault</span>
+                <span class="bento-app-name">Universal Local Media Vault</span>
+              </div>
+              <div class="bento-preview-wrap">
+                <img src="assets/screens/asset-vault.png" alt="Local Asset Vault" />
+                <span class="bento-floating-tag">Instant 1-Click Cross-App Handoff</span>
+              </div>
+            </div>
+
+            <!-- Interactive Click Cursor -->
             <div
               id="s1-cursor"
               class="cursor-pointer"
               data-layout-ignore
-              style="left: 280px; top: 380px;"
+              style="left: 360px; top: 160px;"
             ></div>
           </div>
 
           <div class="pill-row">
             <div id="s1-chip-1" class="feature-chip">
               <span class="dot"></span>
-              <span>RiverCast &amp; OneStudio ISO</span>
+              <span>18 Standalone Studios</span>
             </div>
             <div id="s1-chip-2" class="feature-chip">
               <span class="dot"></span>
-              <span>Studio Cut Multi-Track NLE</span>
+              <span>100% Free Forever</span>
             </div>
             <div id="s1-chip-3" class="feature-chip">
               <span class="dot"></span>
-              <span>BandForge &amp; FruityForge 21 DAW</span>
+              <span>No Subscriptions</span>
             </div>
             <div id="s1-chip-4" class="feature-chip">
               <span class="dot"></span>
-              <span>SolidCraft 3D Parametric CAD</span>
+              <span>Zero Cloud Lag</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- SCENE 2 (3.52s - 8.02s): RIVERCAST SEPARATE ISO -> STUDIO CUT MULTI-TRACK NLE -->
+      <!-- SCENE 2 (3.52s - 8.02s): BROADCAST ISO -> STUDIO CUT MULTI-TRACK NLE -->
       <div
         id="scene-2"
         class="clip"
@@ -341,8 +502,8 @@
               <div id="s2-kicker" class="kicker-pill">
                 01 // BROADCAST ISO &amp; MULTI-TRACK VIDEO NLE
               </div>
-              <div id="s2-status" class="status-pill">
-                screen-recording-iso.webm + camera-video-iso.webm + mic-audio-iso.wav
+              <div id="s2-status" class="value-pill-prominent">
+                100% Free &amp; Local-First · Zero Cloud
               </div>
             </div>
             <h2 id="s2-title" class="hero-title">
@@ -354,7 +515,7 @@
             <div id="s2-card-left" class="studio-panel" data-layout-allow-overflow>
               <div class="studio-panel-header">
                 <span class="studio-panel-title">RiverCast &amp; OneStudio ISO</span>
-                <span class="studio-panel-tag">Separate ISO Files</span>
+                <span class="studio-panel-tag">Tile 1: Broadcast ISO</span>
               </div>
               <div class="screen-frame" style="flex: 1;">
                 <img src="assets/screens/rivercast-iso.png" alt="RiverCast Separate ISO Studio" />
@@ -405,8 +566,8 @@
               <div id="s3-kicker" class="kicker-pill">
                 02 // DUAL DIGITAL AUDIO WORKSTATIONS
               </div>
-              <div id="s3-status" class="status-pill">
-                44.1kHz Stereo Master + Separate Drum / 808 / Synth Stems
+              <div id="s3-status" class="value-pill-prominent">
+                100% Free Forever · No Subscriptions
               </div>
             </div>
             <h2 id="s3-title" class="hero-title">
@@ -428,7 +589,7 @@
             <div id="s3-card-right" class="studio-panel" data-layout-allow-overflow>
               <div class="studio-panel-header">
                 <span class="studio-panel-title">FruityForge 21 (FL Studio DAW)</span>
-                <span class="studio-panel-tag">16-Step Rack &amp; 8-Bus Mixer</span>
+                <span class="studio-panel-tag">Tile 3: Drum Sequencer</span>
               </div>
               <div class="screen-frame" style="flex: 1;">
                 <img src="assets/screens/fruityforge-flstudio.png" alt="FruityForge 21 FL Studio DAW" />
@@ -447,7 +608,7 @@
             </div>
             <div id="s3-foot-3" class="feature-chip">
               <span class="dot"></span>
-              <span>F6 Rack · F7 Piano Roll · F5 Playlist · F9 Mixer</span>
+              <span>16-Step Pattern Sequencer &amp; 8-Bus Mixer</span>
             </div>
           </div>
         </div>
@@ -469,8 +630,8 @@
               <div id="s4-kicker" class="kicker-pill">
                 03 // PARAMETRIC 3D B-REP CAD &amp; UNIVERSAL VAULT
               </div>
-              <div id="s4-status" class="status-pill">
-                STEP (22.0 KB) · STL (141.9 KB) · 19 Verified Local Exports
+              <div id="s4-status" class="value-pill-prominent">
+                Zero Cloud Lag · IndexedDB &amp; OPFS
               </div>
             </div>
             <h2 id="s4-title" class="hero-title">
@@ -482,7 +643,7 @@
             <div id="s4-card-left" class="studio-panel" data-layout-allow-overflow>
               <div class="studio-panel-header">
                 <span class="studio-panel-title">SolidCraft 3D CAD</span>
-                <span class="studio-panel-tag">60×60×8mm NEMA-17 Plate</span>
+                <span class="studio-panel-tag">Tile 2: 3D CAD</span>
               </div>
               <div class="screen-frame" style="flex: 1;">
                 <img src="assets/screens/solidcraft-cad.png" alt="SolidCraft 3D CAD" />
@@ -492,7 +653,7 @@
             <div id="s4-card-right" class="studio-panel" data-layout-allow-overflow>
               <div class="studio-panel-header">
                 <span class="studio-panel-title">Shared Asset Vault (IndexedDB)</span>
-                <span class="studio-panel-tag">1-Click Open In Any Studio</span>
+                <span class="studio-panel-tag">Tile 4: Asset Vault</span>
               </div>
               <div class="screen-frame" style="flex: 1;">
                 <img src="assets/screens/asset-vault.png" alt="Shared Asset Vault" />
@@ -507,7 +668,7 @@
             </div>
             <div id="s4-foot-2" class="feature-chip">
               <span class="dot"></span>
-              <span>Single-Instance Memory Isolation</span>
+              <span>STEP &amp; STL Direct Parametric Export</span>
             </div>
           </div>
         </div>
@@ -526,7 +687,7 @@
         <div
           id="s5-stage"
           class="scene-stage"
-          style="align-items: center; justify-content: center; text-align: center; gap: 28px;"
+          style="align-items: center; justify-content: center; text-align: center; gap: 24px;"
           data-layout-allow-overflow
         >
           <div
@@ -535,25 +696,25 @@
           >
             <img
               src="assets/screens/logo.svg"
-              alt="Mosaic Forge Logo"
-              style="width: 96px; height: 96px; border-radius: 22px;"
+              alt="OmniCraft OS Logo"
+              style="width: 92px; height: 92px; border-radius: 20px;"
             />
             <div style="text-align: left;">
               <div
                 style="
                   font-family: var(--font-mono);
-                  font-size: 18px;
-                  font-weight: 700;
+                  font-size: 16px;
+                  font-weight: 800;
                   color: #818cf8;
-                  letter-spacing: 0.06em;
+                  letter-spacing: 0.08em;
                   text-transform: uppercase;
                 "
               >
-                CREATIVE, BROADCAST &amp; CAD OS
+                18 STUDIOS. 100% FREE &amp; LOCAL-FIRST. ZERO CLOUD. ALL LOCAL.
               </div>
               <div
                 style="
-                  font-size: 76px;
+                  font-size: 72px;
                   font-weight: 900;
                   letter-spacing: -0.03em;
                   color: #ffffff;
@@ -561,54 +722,63 @@
                 "
                 data-var-text="productName"
               >
-                Mosaic Forge
+                OmniCraft OS
               </div>
             </div>
+          </div>
+
+          <!-- HUGE VALUE PROPOSITION BANNER -->
+          <div
+            id="s5-value-banner"
+            class="value-pill-prominent"
+            style="font-size: 26px; padding: 14px 38px; border-radius: 16px;"
+          >
+            100% Free Forever. No Subscriptions. No Cloud Lag.
           </div>
 
           <h2
             id="s5-tagline"
             style="
-              font-size: 42px;
+              font-size: 38px;
               font-weight: 800;
               color: #f3f6fc;
-              max-width: 1280px;
-              line-height: 1.2;
+              max-width: 1380px;
+              line-height: 1.25;
             "
           >
-            18 Full-Screen Local Studios. One Unified IndexedDB &amp; OPFS Vault.
+            18 Full-Screen Local Studios. Zero Cloud Lag.
           </h2>
 
           <div id="s5-pills" class="pill-row" style="justify-content: center; flex-wrap: wrap;">
             <div class="feature-chip">
               <span class="dot"></span>
-              <span>RiverCast ISO &amp; Studio Cut NLE</span>
+              <span>Tile 1: Broadcast ISO (RiverCast)</span>
             </div>
             <div class="feature-chip">
               <span class="dot"></span>
-              <span>BandForge &amp; FruityForge 21 DAW</span>
+              <span>Tile 2: 3D CAD (SolidCraft)</span>
             </div>
             <div class="feature-chip">
               <span class="dot"></span>
-              <span>SolidCraft 3D &amp; CADCraft 2D</span>
+              <span>Tile 3: Drum Sequencer (FruityForge)</span>
             </div>
             <div class="feature-chip">
               <span class="dot"></span>
-              <span>PhotoCraft, VectorCraft &amp; FigCraft</span>
+              <span>Tile 4: Asset Vault (IndexedDB)</span>
             </div>
           </div>
 
           <div
             id="s5-cta"
-            class="status-pill"
-            style="font-size: 22px; padding: 14px 34px;"
+            class="kicker-pill"
+            style="font-size: 20px; padding: 14px 36px; background: #1e1b4b; border-color: #6366f1; color: #ffffff;"
           >
-            Choose a Studio to Enter → 100% Local Browser Suite
+            Launch OmniCraft OS → 18 Studios Running Locally
           </div>
         </div>
       </div>
 
-      <!-- AUDIO TRACKS (Distinct data-track-index per clip) -->
+      <!-- AUDIO TRACKS -->
       <audio
         id="bg-music"
         class="clip"
@@ -644,7 +814,7 @@
       <audio
         id="sfx-click-enter"
         class="clip"
-        data-start="3.45"
+        data-start="3.02"
         data-duration="0.01"
         data-track-index="13"
         data-volume="0.7"
@@ -695,84 +865,93 @@
     <script>
       const tl = gsap.timeline({ paused: true });
 
-      // Subtle audio-reactive ambient glow breathing across 20s (120.19 BPM = 0.5s per beat)
+      // Subtle audio-reactive ambient glow breathing across 20s (non-overlapping steps)
       for (let i = 1; i < 39; i++) {
         const beatTime = i * 0.5;
-        const scaleVal = i % 2 === 0 ? 1.08 : 0.96;
+        const scaleVal = i % 2 === 0 ? 1.06 : 0.96;
         tl.to(
           '#bg-glow-a',
-          { scale: scaleVal, duration: 0.45, ease: 'sine.inOut' },
+          { scale: scaleVal, duration: 0.38, ease: 'sine.inOut' },
           beatTime
         );
       }
 
-      // SCENE 1 (0.00s - 3.52s): Hook & Home Launcher
+      // SCENE 1 (0.00s - 3.52s): Option 3 Kinetic Bento Grid Hero Screen
       tl.fromTo(
         '#s1-kicker',
         { opacity: 0, y: -16 },
-        { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' },
+        { opacity: 1, y: 0, duration: 0.26, ease: 'power3.out' },
         0.05
       );
       tl.fromTo(
-        '#s1-status',
-        { opacity: 0, y: -16 },
-        { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' },
-        0.12
+        '#s1-value-badge',
+        { opacity: 0, scale: 0.9, y: -16 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: 'back.out(1.3)' },
+        0.10
       );
       tl.fromTo(
         '#s1-title',
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.34, ease: 'expo.out' },
-        0.16
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.32, ease: 'expo.out' },
+        0.15
       );
       tl.fromTo(
         '#s1-sub',
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.32, ease: 'power3.out' },
-        0.26
-      );
-      tl.fromTo(
-        '#s1-screen-wrap',
-        { opacity: 0, scale: 0.94, y: 28 },
-        { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: 'expo.out' },
-        0.32
-      );
-      // beat-grid sequential feature chips
-      tl.fromTo(
-        '#s1-chip-1',
         { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.24, ease: 'power3.out' },
-        0.75
+        { opacity: 1, y: 0, duration: 0.3, ease: 'power3.out' },
+        0.22
+      );
+
+      // KINETIC BENTO GRID TILES: Beat-locked entrances (0.40s, 0.80s, 1.20s, 1.60s)
+      tl.fromTo(
+        '#bento-tile-1',
+        { opacity: 0, scale: 0.92, y: 24 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: 'expo.out' },
+        0.40
       );
       tl.fromTo(
-        '#s1-chip-2',
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.24, ease: 'power3.out' },
-        0.95
+        '#bento-tile-2',
+        { opacity: 0, scale: 0.92, y: 24 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: 'expo.out' },
+        0.80
       );
       tl.fromTo(
-        '#s1-chip-3',
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.24, ease: 'power3.out' },
-        1.15
+        '#bento-tile-3',
+        { opacity: 0, scale: 0.92, y: 24 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: 'expo.out' },
+        1.20
       );
       tl.fromTo(
-        '#s1-chip-4',
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.24, ease: 'power3.out' },
-        1.35
+        '#bento-tile-4',
+        { opacity: 0, scale: 0.92, y: 24 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: 'expo.out' },
+        1.60
       );
-      // Cursor moves to RiverCast "Enter Recording Studio" button and clicks on beat 3.02s
+
+      // Footer Feature Chips
+      tl.fromTo(
+        '#s1-chip-1, #s1-chip-2, #s1-chip-3, #s1-chip-4',
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.24, stagger: 0.1, ease: 'power3.out' },
+        1.85
+      );
+
+      // Cursor movement & click on Tile 1 (Broadcast ISO)
       tl.fromTo(
         '#s1-cursor',
-        { opacity: 0, x: 420, y: 140, scale: 1.2 },
+        { opacity: 0, x: 280, y: 80, scale: 1.2 },
         { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: 'power3.inOut' },
         2.35
       );
-      // beat-locked: 3.02s click press
+      // Beat-locked click at 3.02s
       tl.to(
         '#s1-cursor',
         { scale: 0.78, duration: 0.12, ease: 'power2.in' },
+        3.02
+      );
+      tl.to(
+        '#bento-tile-1',
+        { borderColor: '#10b981', boxShadow: '0 0 35px rgba(16, 185, 129, 0.55)', duration: 0.18, ease: 'power2.out' },
         3.02
       );
       tl.to(
@@ -782,7 +961,6 @@
       );
 
       // SCENE 2 (3.52s - 8.02s): Broadcast ISO -> Studio Cut NLE
-      // beat-locked: 3.52s
       tl.fromTo(
         '#s2-title',
         { opacity: 0, y: 22 },
@@ -795,7 +973,7 @@
         { opacity: 1, x: 0, scale: 1, duration: 0.42, ease: 'expo.out' },
         3.64
       );
-      // beat-locked: 6.03s Studio Cut NLE card arrival
+      // Beat 6.03s Studio Cut NLE card arrival
       tl.fromTo(
         '#s2-card-right',
         { opacity: 0.25, x: 36, scale: 0.95 },
@@ -820,7 +998,6 @@
       );
 
       // SCENE 3 (8.02s - 13.01s): BandForge & FruityForge 21 DAW
-      // beat-locked: 8.02s
       tl.fromTo(
         '#s3-title',
         { opacity: 0, y: 22 },
@@ -839,7 +1016,7 @@
         { opacity: 1, x: 0, scale: 1, duration: 0.42, ease: 'expo.out' },
         8.45
       );
-      // beat-grid: 10.52s FruityForge emphasis pulse
+      // Beat 10.52s FruityForge emphasis pulse
       tl.to(
         '#s3-card-right',
         { scale: 1.02, duration: 0.26, ease: 'power2.out' },
@@ -858,7 +1035,6 @@
       );
 
       // SCENE 4 (13.01s - 17.02s): SolidCraft 3D CAD & Shared Asset Vault
-      // beat-locked: 13.01s
       tl.fromTo(
         '#s4-title',
         { opacity: 0, y: 22 },
@@ -877,7 +1053,7 @@
         { opacity: 1, x: 0, scale: 1, duration: 0.42, ease: 'expo.out' },
         13.42
       );
-      // beat-grid: 15.02s Asset Vault highlight
+      // Beat 15.02s Asset Vault highlight
       tl.to(
         '#s4-card-right',
         { scale: 1.02, duration: 0.26, ease: 'power2.out' },
@@ -890,7 +1066,7 @@
       );
 
       // SCENE 5 (17.02s - 20.00s): Final Brand Lockup & Payoff End Card
-      // beat-locked: 17.02s (strongCue 1.00)
+      // Beat-locked: 17.02s (strongCue 1.00)
       tl.fromTo(
         '#s5-brand-lockup',
         { opacity: 0, scale: 0.9, y: 24 },
@@ -898,27 +1074,34 @@
         17.04
       );
       tl.fromTo(
+        '#s5-value-banner',
+        { opacity: 0, scale: 0.88, y: 16 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: 'back.out(1.4)' },
+        17.18
+      );
+      tl.fromTo(
         '#s5-tagline',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.36, ease: 'power3.out' },
-        17.22
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.34, ease: 'power3.out' },
+        17.32
       );
       tl.fromTo(
         '#s5-pills',
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.34, ease: 'power3.out' },
-        17.4
+        17.48
       );
       tl.fromTo(
         '#s5-cta',
         { opacity: 0, scale: 0.94 },
         { opacity: 1, scale: 1, duration: 0.36, ease: 'back.out(1.4)' },
-        17.56
+        17.62
       );
 
       window.__timelines = window.__timelines || {};
       window.__timelines['main'] = tl;
       tl.seek(0);
+      window.__renderReady = true;
     </script>
   </body>
 </html>

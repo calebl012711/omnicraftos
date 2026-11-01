@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Bento-style container card -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#0F172A" stroke="#10B981" stroke-width="2.5"/>
+  <!-- Bento grid cells representing multi-app local-first OS suite -->
+  <rect x="14" y="14" width="16" height="16" rx="4" fill="#10B981"/>
+  <rect x="34" y="14" width="16" height="16" rx="4" fill="#38BDF8"/>
+  <rect x="14" y="34" width="16" height="16" rx="4" fill="#6366F1"/>
+  <rect x="34" y="34" width="16" height="16" rx="4" fill="#F59E0B"/>
+</svg>

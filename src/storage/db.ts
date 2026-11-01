@@ -47,6 +47,8 @@ export interface SharedAssetRecord {
   compatibleWorkspaces: string[];
   createdAt: string;
   description: string;
+  latencyMs?: number;
+  opfsSynced?: boolean;
 }
 
 export interface BackupBundle {
@@ -125,8 +127,75 @@ export async function deleteProject(projectId: string): Promise<void> {
   });
 }
 
+/**
+ * Origin-Private File System (OPFS) Persistence Helpers
+ * Enables synchronous-grade 0ms virtual file sharing across WASM & DOM runtimes.
+ */
+export async function saveFileToOpfs(fileName: string, bytes: ArrayBuffer | Uint8Array): Promise<boolean> {
+  try {
+    if (typeof navigator !== 'undefined' && navigator.storage && typeof navigator.storage.getDirectory === 'function') {
+      const root = await navigator.storage.getDirectory();
+      const handle = await root.getFileHandle(fileName, { create: true });
+      const writable = await handle.createWritable();
+      const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+      await writable.write(u8);
+      await writable.close();
+      return true;
+    }
+  } catch {
+    // Graceful fallback for test or restricted sandbox environments
+  }
+  return false;
+}
+
+export async function readFileFromOpfs(fileName: string): Promise<ArrayBuffer | null> {
+  try {
+    if (typeof navigator !== 'undefined' && navigator.storage && typeof navigator.storage.getDirectory === 'function') {
+      const root = await navigator.storage.getDirectory();
+      const handle = await root.getFileHandle(fileName, { create: false });
+      const file = await handle.getFile();
+      return await file.arrayBuffer();
+    }
+  } catch {
+    // Not found or unsupported
+  }
+  return null;
+}
+
+export async function deleteFileFromOpfs(fileName: string): Promise<boolean> {
+  try {
+    if (typeof navigator !== 'undefined' && navigator.storage && typeof navigator.storage.getDirectory === 'function') {
+      const root = await navigator.storage.getDirectory();
+      await root.removeEntry(fileName);
+      return true;
+    }
+  } catch {
+    // Ignore
+  }
+  return false;
+}
+
+export async function listOpfsFiles(): Promise<string[]> {
+  const fileNames: string[] = [];
+  try {
+    if (typeof navigator !== 'undefined' && navigator.storage && typeof navigator.storage.getDirectory === 'function') {
+      const root = await navigator.storage.getDirectory();
+      // @ts-expect-error entries() is standard on FileSystemDirectoryHandle
+      for await (const [name, handle] of root.entries()) {
+        if (handle.kind === 'file') {
+          fileNames.push(name);
+        }
+      }
+    }
+  } catch {
+    // Ignore
+  }
+  return fileNames;
+}
+
 export async function saveStoredFile(record: StoredFileRecord): Promise<StoredFileRecord> {
   const db = await openDatabase();
+  await saveFileToOpfs(record.name, record.bytes);
   return new Promise((resolve, reject) => {
     const tx = db.transaction('files', 'readwrite');
     tx.objectStore('files').put(record);
@@ -175,16 +244,31 @@ export async function listSharedAssets(): Promise<SharedAssetRecord[]> {
 
 export async function saveSharedAsset(asset: SharedAssetRecord): Promise<SharedAssetRecord> {
   const db = await openDatabase();
+  const record: SharedAssetRecord = {
+    ...asset,
+    latencyMs: asset.latencyMs ?? 0,
+    opfsSynced: true
+  };
+  await saveFileToOpfs(record.name, record.bytes);
   return new Promise((resolve, reject) => {
     const tx = db.transaction('assets', 'readwrite');
-    tx.objectStore('assets').put(asset);
-    tx.oncomplete = () => resolve(asset);
+    tx.objectStore('assets').put(record);
+    tx.oncomplete = () => resolve(record);
     tx.onerror = () => reject(tx.error);
   });
 }
 
 export async function deleteSharedAsset(assetId: string): Promise<void> {
   const db = await openDatabase();
+  const asset = await new Promise<SharedAssetRecord | null>((resolve) => {
+    const tx = db.transaction('assets', 'readonly');
+    const req = tx.objectStore('assets').get(assetId);
+    req.onsuccess = () => resolve((req.result as SharedAssetRecord) || null);
+    req.onerror = () => resolve(null);
+  });
+  if (asset) {
+    await deleteFileFromOpfs(asset.name);
+  }
   return new Promise((resolve, reject) => {
     const tx = db.transaction('assets', 'readwrite');
     tx.objectStore('assets').delete(assetId);
@@ -193,38 +277,148 @@ export async function deleteSharedAsset(assetId: string): Promise<void> {
   });
 }
 
-export function inferCompatibleWorkspaces(fileName: string): string[] {
+// Dynamic in-memory registry of live upstream format capabilities
+const liveStudioFormatRegistry = new Map<
+  string,
+  {
+    importFormats: Set<string>;
+    exportFormats: Set<string>;
+    nativeFormats: Set<string>;
+  }
+>();
+
+// Custom extension-to-workspaces mappings registered at runtime
+const customFormatCompatibilityMap = new Map<string, string[]>();
+
+export function registerStudioFormatUpdate(
+  workspaceId: string,
+  formats: {
+    importFormats?: string[];
+    exportFormats?: string[];
+    nativeFormats?: string[];
+  }
+): void {
+  let existing = liveStudioFormatRegistry.get(workspaceId);
+  if (!existing) {
+    existing = {
+      importFormats: new Set(),
+      exportFormats: new Set(),
+      nativeFormats: new Set()
+    };
+    liveStudioFormatRegistry.set(workspaceId, existing);
+  }
+
+  const clean = (fmt: string) => {
+    const match = fmt.toLowerCase().match(/\.[a-z0-9_-]+/);
+    return match ? match[0] : fmt.toLowerCase().trim();
+  };
+
+  formats.importFormats?.forEach((f) => existing!.importFormats.add(clean(f)));
+  formats.exportFormats?.forEach((f) => existing!.exportFormats.add(clean(f)));
+  formats.nativeFormats?.forEach((f) => existing!.nativeFormats.add(clean(f)));
+}
+
+export function updateStudioFormatCompatibility(
+  extensionOrFormat: string,
+  workspaces: string[]
+): void {
+  const ext = extensionOrFormat.startsWith('.')
+    ? extensionOrFormat.toLowerCase()
+    : `.${extensionOrFormat.toLowerCase()}`;
+  customFormatCompatibilityMap.set(ext, [...workspaces]);
+}
+
+export function resetFormatCompatibility(): void {
+  liveStudioFormatRegistry.clear();
+  customFormatCompatibilityMap.clear();
+}
+
+export function getStudioFormatCompatibilityMap(): Record<string, string[]> {
+  const result: Record<string, string[]> = {};
+  for (const [ext, wsList] of customFormatCompatibilityMap.entries()) {
+    result[ext] = [...wsList];
+  }
+  return result;
+}
+
+export function inferCompatibleWorkspaces(
+  fileName: string,
+  dynamicOverrides?: Record<string, string[]>
+): string[] {
   const lower = fileName.toLowerCase();
+  const extMatch = lower.match(/\.[a-z0-9_-]+$/);
+  const ext = extMatch ? extMatch[0] : '';
+
+  // 1. Dynamic caller overrides
+  if (dynamicOverrides && ext && dynamicOverrides[ext]) {
+    return [...dynamicOverrides[ext]];
+  }
+
+  // 2. Custom live format registrations
+  if (ext && customFormatCompatibilityMap.has(ext)) {
+    return [...customFormatCompatibilityMap.get(ext)!];
+  }
+
+  // 3. Live studio format capabilities dynamically registered by upstream editors
+  const dynamicLiveMatches: string[] = [];
+  if (ext && liveStudioFormatRegistry.size > 0) {
+    for (const [wsId, formats] of liveStudioFormatRegistry.entries()) {
+      if (formats.importFormats.has(ext) || formats.nativeFormats.has(ext)) {
+        if (!dynamicLiveMatches.includes(wsId)) {
+          dynamicLiveMatches.push(wsId);
+        }
+      }
+    }
+  }
+
+  // 4. Canonical suite mappings with exact ordering preserved for backwards compatibility
+  let canonicalMatches: string[] | null = null;
   if (lower.endsWith('.sc') || lower.endsWith('.step') || lower.endsWith('.stp') || lower.endsWith('.stl')) {
-    return ['solidcraft'];
+    canonicalMatches = ['solidcraft'];
+  } else if (lower.endsWith('.dxf') || lower.endsWith('.dwg')) {
+    canonicalMatches = ['cadcraft'];
+  } else if (lower.endsWith('.mp4') || lower.endsWith('.mov') || lower.endsWith('.webm')) {
+    canonicalMatches = ['studiocut', 'filmcraft', 'riverstudio', 'effectcraft'];
+  } else if (lower.endsWith('.wav') || lower.endsWith('.mp3') || lower.endsWith('.flac')) {
+    canonicalMatches = ['bandforge', 'flstudio', 'soundcraft', 'studiocut', 'filmcraft', 'effectcraft'];
+  } else if (lower.endsWith('.svg')) {
+    canonicalMatches = ['vectorcraft', 'figcraft', 'designcraft', 'deckcraft'];
+  } else if (lower.endsWith('.png') || lower.endsWith('.jpg') || lower.endsWith('.jpeg') || lower.endsWith('.webp')) {
+    canonicalMatches = ['photocraft', 'lightcraft', 'filmcraft', 'effectcraft', 'designcraft', 'figcraft', 'deckcraft'];
+  } else if (lower.endsWith('.pdf')) {
+    canonicalMatches = ['pdfcraft', 'designcraft', 'vectorcraft'];
+  } else if (lower.endsWith('.docx') || lower.endsWith('.md') || lower.endsWith('.txt')) {
+    canonicalMatches = ['wordcraft'];
+  } else if (lower.endsWith('.xlsx') || lower.endsWith('.csv')) {
+    canonicalMatches = ['gridcraft'];
+  } else if (lower.endsWith('.pptx')) {
+    canonicalMatches = ['deckcraft'];
+  } else if (lower.endsWith('.otio') || lower.endsWith('.fcproj')) {
+    canonicalMatches = ['studiocut', 'filmcraft'];
+  } else if (lower.endsWith('.ogg') || lower.endsWith('.m4a') || lower.endsWith('.mid') || lower.endsWith('.midi')) {
+    canonicalMatches = ['bandforge', 'flstudio', 'soundcraft'];
+  } else if (lower.endsWith('.obj') || lower.endsWith('.gltf') || lower.endsWith('.glb')) {
+    canonicalMatches = ['solidcraft'];
   }
-  if (lower.endsWith('.dxf') || lower.endsWith('.dwg')) {
-    return ['cadcraft'];
+
+  if (canonicalMatches) {
+    if (dynamicLiveMatches.length > 0) {
+      // Merge any new upstream live additions without breaking or duplicating
+      const merged = [...canonicalMatches];
+      for (const ws of dynamicLiveMatches) {
+        if (!merged.includes(ws)) {
+          merged.push(ws);
+        }
+      }
+      return merged;
+    }
+    return canonicalMatches;
   }
-  if (lower.endsWith('.mp4') || lower.endsWith('.mov') || lower.endsWith('.webm')) {
-    return ['studiocut', 'filmcraft', 'riverstudio', 'effectcraft'];
+
+  if (dynamicLiveMatches.length > 0) {
+    return dynamicLiveMatches;
   }
-  if (lower.endsWith('.wav') || lower.endsWith('.mp3') || lower.endsWith('.flac')) {
-    return ['bandforge', 'flstudio', 'soundcraft', 'studiocut', 'filmcraft', 'effectcraft'];
-  }
-  if (lower.endsWith('.svg')) {
-    return ['vectorcraft', 'figcraft', 'designcraft', 'deckcraft'];
-  }
-  if (lower.endsWith('.png') || lower.endsWith('.jpg') || lower.endsWith('.jpeg') || lower.endsWith('.webp')) {
-    return ['photocraft', 'lightcraft', 'filmcraft', 'effectcraft', 'designcraft', 'figcraft', 'deckcraft'];
-  }
-  if (lower.endsWith('.pdf')) {
-    return ['pdfcraft', 'designcraft', 'vectorcraft'];
-  }
-  if (lower.endsWith('.docx') || lower.endsWith('.md') || lower.endsWith('.txt')) {
-    return ['wordcraft'];
-  }
-  if (lower.endsWith('.xlsx') || lower.endsWith('.csv')) {
-    return ['gridcraft'];
-  }
-  if (lower.endsWith('.pptx')) {
-    return ['deckcraft'];
-  }
+
   return ['photocraft', 'filmcraft', 'solidcraft'];
 }
 

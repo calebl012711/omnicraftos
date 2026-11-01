@@ -1,31 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mosaic Forge — 2D CAD & Drafting (CADCraft Engine)</title>
-  
-<script type="module">
-import init, * as bindings from './cadcraft-web-d9510b450a4355c9.js';
-const wasm = await init({ module_or_path: './cadcraft-web-d9510b450a4355c9_bg.wasm' });
+  <title>OmniCraft OS — CADCraft 2D Precision Drafting</title>
+  <meta name="description" content="Open-source 2D CAD drafting and DXF/DWG vector editing built in Rust/WASM.">
+  <meta name="theme-color" content="#090b10">
 
+  <link rel="stylesheet" href="./bento-cad-shell.css">
 
-window.wasmBindings = bindings;
+  <script type="module">
+    import init, * as bindings from './cadcraft-web-d9510b450a4355c9.js';
+    try {
+      const wasm = await init({ module_or_path: './cadcraft-web-d9510b450a4355c9_bg.wasm' });
+      window.wasmBindings = bindings;
+      dispatchEvent(new CustomEvent("TrunkApplicationStarted", { detail: { wasm } }));
+    } catch (err) {
+      console.error("[CADCraft WASM Boot Error]:", err);
+      const stageEl = document.getElementById('cadcraft_load_stage');
+      if (stageEl) {
+        stageEl.innerHTML = `<span style="color:#ef4444;">WASM load warning: ${err.message || err}. Attempting WebGL fallback...</span>`;
+      }
+    }
+  </script>
 
-
-dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
-
-</script>
-  <style>
-    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #22282f; }
-    #cadcraft_canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-    #cadcraft_loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      color: #b8b8b8; font: 14px system-ui, sans-serif; pointer-events: none; }
-  </style>
-<link rel="modulepreload" href="./cadcraft-web-d9510b450a4355c9.js" crossorigin="anonymous" integrity="sha384-S/dBvmGFZ5oCZGHsYnYZt/2NuCS3hI9GgVT334jkV/gpR5zaHbuVE+LKv1BBh7V3"><link rel="modulepreload" href="./snippets/eframe-d31a8450ea12dfc1/inline0.js" crossorigin="anonymous" integrity="sha384-uPZQ72BwgZ4v7Km6+UIFbkDDlt7ShGEsAVEHVN/+wZSGFhItJZB83iKMFQXauTSs"><link rel="preload" href="./cadcraft-web-d9510b450a4355c9_bg.wasm" crossorigin="anonymous" integrity="sha384-k7PD0ZK1I3p1W01J+pUweEKT8TKjN432pdpquUJbaQ/LzcnFkCv3RzlbxWH09OmW" as="fetch" type="application/wasm"></head>
-<body>
+  <link rel="modulepreload" href="./cadcraft-web-d9510b450a4355c9.js" crossorigin="anonymous">
+  <link rel="modulepreload" href="./snippets/eframe-d31a8450ea12dfc1/inline0.js" crossorigin="anonymous">
+  <link rel="preload" href="./cadcraft-web-d9510b450a4355c9_bg.wasm" crossorigin="anonymous" as="fetch" type="application/wasm">
+</head>
+<body data-theme="dark">
+  <!-- 2D Vector Canvas Viewport -->
   <canvas id="cadcraft_canvas"></canvas>
-  <div id="cadcraft_loading">Loading CADCraft&hellip;</div>
+
+  <!-- Option 3 Bento Engineering Header -->
+  <header class="bento-header">
+    <div class="bento-header-left">
+      <div class="bento-logo-wrap" title="CADCraft 2D Drafting — OmniCraft OS">
+        <div class="bento-logo-icon">
+          <!-- Tile 2 2D Drafting Grid & Compass Icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2v20M2 12h20M7 7l10 10M17 7 7 17"/>
+          </svg>
+        </div>
+        <div class="bento-title">
+          <span>CADCraft 2D</span>
+          <span class="bento-engine-badge">VECTOR ENGINE</span>
+        </div>
+      </div>
+      <div class="bento-status-pill">
+        <span class="bento-pulse-dot"></span>
+        <span>ONLINE</span>
+      </div>
+    </div>
+
+    <!-- Coordinate Telemetry HUD (Live Tracking in WCS) -->
+    <div class="bento-telemetry-strip" id="bento_telemetry_hud">
+      <div class="hud-coord-group">
+        <span class="hud-coord-item"><span class="hud-axis x">X</span><span class="hud-val" id="hud_val_x">+0.000</span></span>
+        <span class="hud-coord-item"><span class="hud-axis y">Y</span><span class="hud-val" id="hud_val_y">+0.000</span></span>
+        <span class="hud-coord-item"><span class="hud-axis delta">Δ</span><span class="hud-val" id="hud_val_dist">0.000</span></span>
+        <span class="hud-coord-item"><span class="hud-axis angle">∠</span><span class="hud-val" id="hud_val_ang">0.0°</span></span>
+        <span class="hud-unit">mm</span>
+      </div>
+      <div class="hud-divider"></div>
+      <span class="hud-pill hud-pill-active">GRID: 5.0mm</span>
+      <div class="hud-divider"></div>
+      <span class="hud-pill">SNAP: END/CEN</span>
+      <div class="hud-divider"></div>
+      <span class="hud-pill">ORTHO: ON</span>
+      <div class="hud-divider"></div>
+      <span class="hud-pill">SCALE: 1:1</span>
+    </div>
+
+    <!-- Quick Bento Actions Toolbar -->
+    <div class="bento-header-right">
+      <input type="file" id="cad_import_input" class="bento-file-input" accept=".dxf,.dwg">
+      <button type="button" class="bento-btn" id="bento_import_btn" title="Import DXF or DWG 2D Vector Drawing">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        <span>Import CAD</span>
+      </button>
+      <button type="button" class="bento-btn bento-btn-primary" id="bento_export_dxf_btn" title="Export 2D DXF to Asset Vault">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        <span>Export DXF</span>
+      </button>
+      <button type="button" class="bento-btn bento-btn-icon" id="bento_reset_zoom_btn" title="Zoom to Extents (1:1)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </button>
+      <button type="button" class="bento-btn bento-btn-icon" id="bento_theme_btn" title="Toggle Dark / Light Mode">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Tile 2 2D Drafting Telemetry HUD (Bottom-Left Bento Card) -->
+  <aside class="bento-hud-card" id="bento_drafting_hud">
+    <div class="bento-hud-header">
+      <div class="bento-hud-title">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        <span>TILE 02 // 2D DRAFTING HUD</span>
+      </div>
+      <span class="bento-hud-badge">DXF / DWG</span>
+    </div>
+    <div class="bento-hud-grid">
+      <div class="bento-hud-row">
+        <span class="bento-hud-label">COORDINATE SYSTEM</span>
+        <span class="bento-hud-value">World Coordinate (WCS)</span>
+      </div>
+      <div class="bento-hud-row">
+        <span class="bento-hud-label">ACTIVE LAYER</span>
+        <span class="bento-hud-value" style="color:var(--bento-accent-cyan);">0 (Default 0.25mm)</span>
+      </div>
+      <div class="bento-hud-row">
+        <span class="bento-hud-label">VIEWPORT EXTENTS</span>
+        <span class="bento-hud-value"><span id="hud_viewport_res">1920×1080</span></span>
+      </div>
+      <div class="bento-hud-row">
+        <span class="bento-hud-label">DPI SCALE RATIO</span>
+        <span class="bento-hud-value"><span id="hud_viewport_dpi">2.0x</span></span>
+      </div>
+      <div class="bento-hud-status-sync">
+        <span class="bento-hud-label">OMNICRAFT VAULT SYNC</span>
+        <span class="bento-hud-sync-tag">
+          <span class="bento-pulse-dot" style="width:5px;height:5px;"></span>
+          <span>HOST:PARENT ACTIVE</span>
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Bento Loading Screen with Tile 2 2D Vector Drafting Wireframe Animation -->
+  <div id="cadcraft_loading" role="status">
+    <div class="bento-loader-card">
+      <div class="bento-drafting-graphic">
+        <!-- Tile 2 Animated 2D Technical Compass & Drafting Grid SVG -->
+        <svg width="72" height="72" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.8">
+          <!-- Drafting Concentric Circles & Crosshairs -->
+          <circle cx="50" cy="50" r="40" stroke="var(--bento-border-strong)" stroke-dasharray="4 4"/>
+          <circle cx="50" cy="50" r="28" stroke="var(--bento-accent-cyan)" fill="rgba(56, 189, 248, 0.06)"/>
+          <circle cx="50" cy="50" r="14" stroke="var(--bento-accent-green)" fill="rgba(16, 185, 129, 0.08)"/>
+          <line x1="50" y1="5" x2="50" y2="95" stroke="var(--bento-accent-cyan)" stroke-dasharray="3 3"/>
+          <line x1="5" y1="50" x2="95" y2="50" stroke="var(--bento-accent-cyan)" stroke-dasharray="3 3"/>
+          <!-- Diagonal Construction Ray -->
+          <line x1="15" y1="15" x2="85" y2="85" stroke="var(--bento-accent-indigo)" stroke-width="1.5"/>
+          <!-- Snap Points (Glowing Cyan Nodes) -->
+          <circle cx="50" cy="50" r="3.5" fill="#ffffff"/>
+          <circle cx="50" cy="22" r="3" fill="var(--bento-accent-cyan)"/>
+          <circle cx="50" cy="78" r="3" fill="var(--bento-accent-cyan)"/>
+          <circle cx="22" cy="50" r="3" fill="var(--bento-accent-cyan)"/>
+          <circle cx="78" cy="50" r="3" fill="var(--bento-accent-cyan)"/>
+        </svg>
+      </div>
+      <h2 class="bento-loader-title">CADCraft 2D Drafting</h2>
+      <p class="bento-loader-subtitle">Pure Rust WebAssembly Precision Vector Engine</p>
+
+      <div class="bento-progress-track">
+        <div class="bento-progress-bar"></div>
+      </div>
+      <div class="bento-loader-stage" id="cadcraft_load_stage">Initializing WebAssembly vector engine...</div>
+
+      <div class="bento-loader-meta">
+        <span>ARCH: wasm32-unknown</span>
+        <span>•</span>
+        <span>HOST: ?host=parent</span>
+        <span>•</span>
+        <span>FORMATS: DXF / DWG</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bento Notification Toast -->
+  <div class="bento-toast" id="bento_toast" role="alert">
+    <div class="bento-toast-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <span id="bento_toast_msg">DXF Drawing Synced to Asset Vault</span>
+  </div>
+
+  <script src="./bento-cad-shell.js"></script>
   <script src="../mosaic-forge-bridge.js?app=cadcraft"></script>
 </body>
 </html>

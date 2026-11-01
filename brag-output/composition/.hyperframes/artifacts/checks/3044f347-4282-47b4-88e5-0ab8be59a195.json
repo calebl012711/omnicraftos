@@ -1,0 +1,697 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 9,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "duplicate_media_discovery_risk",
+        "severity": "warning",
+        "message": "Detected 2 matching img entries with the same source/start/duration.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Avoid duplicated media nodes that can be discovered twice during compilation."
+      },
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#bg-glow-a\" for scale between 0.50s and 0.88s.",
+        "selector": "#bg-glow-a",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 791 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split coherent scenes or layers into separate .html files under compositions/, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 1 has 5 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-1\"> is a timeline element that contains nested <div id=\"s1-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-1",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-1\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-2\"> is a timeline element that contains nested <div id=\"s2-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-2",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-2\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-3\"> is a timeline element that contains nested <div id=\"s3-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-3",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-3\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-4\"> is a timeline element that contains nested <div id=\"s4-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-4",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-4\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"scene-5\"> is a timeline element that contains nested <div id=\"s5-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#scene-5",
+        "dataAttributes": {},
+        "sourceFile": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/brag-output/composition/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"scene-5\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 20,
+    "samples": [
+      1.111,
+      3.333,
+      5.556,
+      7.778,
+      10,
+      12.222,
+      14.444,
+      16.667,
+      18.889
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      1.111,
+      5.556,
+      10,
+      14.444,
+      18.889
+    ],
+    "checked": 48,
+    "passed": 48
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "first_frame_empty",
+        "severity": "warning",
+        "message": "Frame 0 shows only the background, and the first frame is the thumbnail on social players: have the title or key image already on screen at 0 s instead of entering from nothing; see references/review.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 52 text elements stay under it for 0.5 s or more, the smallest \"STEP & STL Parametric Export\" at 13 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "STEP & STL Parametric Export",
+        "selector": "#bento-tile-2 > div:nth-of-type(2) > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1021.67,
+          "y": 537.96,
+          "width": 213.51,
+          "height": 16.62
+        },
+        "time": 0.875,
+        "times": [
+          0.125,
+          0.25,
+          0.375,
+          0.5,
+          0.5,
+          0.5,
+          0.875,
+          0.875,
+          0.875,
+          1.375,
+          1.375,
+          1.375,
+          1.75,
+          1.75,
+          1.75,
+          2,
+          2,
+          2.125,
+          2.25,
+          3.625,
+          3.625,
+          3.75,
+          3.75,
+          4.25,
+          4.25,
+          4.5,
+          4.625,
+          4.75,
+          8.125,
+          8.125,
+          8.25,
+          8.25,
+          8.5,
+          8.5,
+          8.875,
+          9,
+          9.125,
+          13.125,
+          13.125,
+          13.125,
+          13.125,
+          13.25,
+          13.25,
+          13.5,
+          13.5,
+          17.125,
+          17.25,
+          17.625,
+          17.625,
+          17.625,
+          17.625,
+          17.75
+        ],
+        "fontPx": 12.71,
+        "floorPx": 28,
+        "seconds": 2.75,
+        "elements": [
+          {
+            "selector": "#bento-tile-2 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "STEP & STL Parametric Export",
+            "fontPx": 12.71,
+            "time": 0.875,
+            "seconds": 2.75
+          },
+          {
+            "selector": "#bento-tile-1 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "Separate Screen + Cam + Mic ISOs",
+            "fontPx": 12.85,
+            "time": 0.5,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#bento-tile-4 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "Instant 1-Click Cross-App Handoff",
+            "fontPx": 12.93,
+            "time": 1.75,
+            "seconds": 1.875
+          },
+          {
+            "selector": "#bento-tile-3 > div:nth-of-type(2) > span:nth-of-type(1)",
+            "text": "16-Step Pattern & FM Piano Roll",
+            "fontPx": 12.97,
+            "time": 1.375,
+            "seconds": 2.25
+          },
+          {
+            "selector": "span.bento-badge.badge-tile-2",
+            "text": "Tile 2: 3D CAD",
+            "fontPx": 13.69,
+            "time": 0.875,
+            "seconds": 2.75
+          },
+          {
+            "selector": "span.bento-badge.badge-tile-1",
+            "text": "Tile 1: Broadcast ISO",
+            "fontPx": 13.84,
+            "time": 0.5,
+            "seconds": 3.125
+          },
+          {
+            "selector": "span.bento-badge.badge-tile-4",
+            "text": "Tile 4: Asset Vault",
+            "fontPx": 13.92,
+            "time": 1.75,
+            "seconds": 1.875
+          },
+          {
+            "selector": "span.bento-badge.badge-tile-3",
+            "text": "Tile 3: Drum Sequencer",
+            "fontPx": 13.96,
+            "time": 1.375,
+            "seconds": 2.25
+          },
+          {
+            "selector": "#s3-card-right > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "Tile 3: Drum Sequencer",
+            "fontPx": 14.73,
+            "time": 8.5,
+            "seconds": 4.625
+          },
+          {
+            "selector": "#s2-card-right > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "V1 Screen + V2 Camera PIP",
+            "fontPx": 14.79,
+            "time": 4.25,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#s4-card-right > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "Tile 4: Asset Vault",
+            "fontPx": 14.84,
+            "time": 13.5,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#s2-card-left > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "Tile 1: Broadcast ISO",
+            "fontPx": 14.87,
+            "time": 3.75,
+            "seconds": 4.375
+          },
+          {
+            "selector": "#s3-card-left > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "Smart Chords & '59 Tweed Amp",
+            "fontPx": 14.87,
+            "time": 8.25,
+            "seconds": 4.875
+          },
+          {
+            "selector": "#s4-card-left > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "Tile 2: 3D CAD",
+            "fontPx": 14.91,
+            "time": 13.25,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#s1-kicker",
+            "text": "OMNICRAFT OS // LOCAL-FIRST CREATIVE & CAD SUITE",
+            "fontPx": 15,
+            "time": 0.125,
+            "seconds": 3.5
+          },
+          {
+            "selector": "#s1-value-badge",
+            "text": "100% Free Forever. No Subscriptions. No Cloud Lag.",
+            "fontPx": 15,
+            "time": 0.25,
+            "seconds": 3.375
+          },
+          {
+            "selector": "#s2-kicker",
+            "text": "01 // BROADCAST ISO & MULTI-TRACK VIDEO NLE",
+            "fontPx": 15,
+            "time": 3.625,
+            "seconds": 4.5
+          },
+          {
+            "selector": "#s2-status",
+            "text": "100% Free & Local-First · Zero Cloud",
+            "fontPx": 15,
+            "time": 3.625,
+            "seconds": 4.5
+          },
+          {
+            "selector": "#s3-kicker",
+            "text": "02 // DUAL DIGITAL AUDIO WORKSTATIONS",
+            "fontPx": 15,
+            "time": 8.125,
+            "seconds": 5
+          },
+          {
+            "selector": "#s3-status",
+            "text": "100% Free Forever · No Subscriptions",
+            "fontPx": 15,
+            "time": 8.125,
+            "seconds": 5
+          },
+          {
+            "selector": "#s4-kicker",
+            "text": "03 // PARAMETRIC 3D B-REP CAD & UNIVERSAL VAULT",
+            "fontPx": 15,
+            "time": 13.125,
+            "seconds": 4
+          },
+          {
+            "selector": "#s4-status",
+            "text": "Zero Cloud Lag · IndexedDB & OPFS",
+            "fontPx": 15,
+            "time": 13.125,
+            "seconds": 4
+          },
+          {
+            "selector": "#s5-brand-lockup > div:nth-of-type(1) > div:nth-of-type(1)",
+            "text": "18 STUDIOS. 100% FREE & LOCAL-FIRST. ZERO CLOUD. ALL LOCAL.",
+            "fontPx": 15.4,
+            "time": 17.125,
+            "seconds": 2.875
+          },
+          {
+            "selector": "#s1-chip-1 > span:nth-of-type(2)",
+            "text": "18 Standalone Studios",
+            "fontPx": 18,
+            "time": 2,
+            "seconds": 1.625
+          },
+          {
+            "selector": "#s1-chip-2 > span:nth-of-type(2)",
+            "text": "100% Free Forever",
+            "fontPx": 18,
+            "time": 2,
+            "seconds": 1.625
+          },
+          {
+            "selector": "#s1-chip-3 > span:nth-of-type(2)",
+            "text": "No Subscriptions",
+            "fontPx": 18,
+            "time": 2.125,
+            "seconds": 1.5
+          },
+          {
+            "selector": "#s1-chip-4 > span:nth-of-type(2)",
+            "text": "Zero Cloud Lag",
+            "fontPx": 18,
+            "time": 2.25,
+            "seconds": 1.375
+          },
+          {
+            "selector": "#s2-foot-1 > span:nth-of-type(2)",
+            "text": "Clean 1080p Screen ISO Track",
+            "fontPx": 18,
+            "time": 4.5,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#s2-foot-2 > span:nth-of-type(2)",
+            "text": "Isolated Camera ISO Track",
+            "fontPx": 18,
+            "time": 4.625,
+            "seconds": 3.5
+          },
+          {
+            "selector": "#s2-foot-3 > span:nth-of-type(2)",
+            "text": "48kHz PCM WAV Stem + Razor Split",
+            "fontPx": 18,
+            "time": 4.75,
+            "seconds": 3.375
+          },
+          {
+            "selector": "#s3-foot-1 > span:nth-of-type(2)",
+            "text": "Smart Drummer X/Y Grid",
+            "fontPx": 18,
+            "time": 8.875,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#s3-foot-2 > span:nth-of-type(2)",
+            "text": "Sytrus FM Chromatic Piano Roll",
+            "fontPx": 18,
+            "time": 9,
+            "seconds": 4.125
+          },
+          {
+            "selector": "#s3-foot-3 > span:nth-of-type(2)",
+            "text": "16-Step Pattern Sequencer & 8-Bus Mixer",
+            "fontPx": 18,
+            "time": 9.125,
+            "seconds": 4
+          },
+          {
+            "selector": "#s4-foot-1 > span:nth-of-type(2)",
+            "text": "14 Rust/WASM Engines + 4 Broadcast/DAW Studios",
+            "fontPx": 18,
+            "time": 13.125,
+            "seconds": 4
+          },
+          {
+            "selector": "#s4-foot-2 > span:nth-of-type(2)",
+            "text": "STEP & STL Direct Parametric Export",
+            "fontPx": 18,
+            "time": 13.125,
+            "seconds": 4
+          },
+          {
+            "selector": "#s5-pills > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "Tile 1: Broadcast ISO (RiverCast)",
+            "fontPx": 18,
+            "time": 17.625,
+            "seconds": 2.375
+          },
+          {
+            "selector": "#s5-pills > div:nth-of-type(2) > span:nth-of-type(2)",
+            "text": "Tile 2: 3D CAD (SolidCraft)",
+            "fontPx": 18,
+            "time": 17.625,
+            "seconds": 2.375
+          },
+          {
+            "selector": "#s5-pills > div:nth-of-type(3) > span:nth-of-type(2)",
+            "text": "Tile 3: Drum Sequencer (FruityForge)",
+            "fontPx": 18,
+            "time": 17.625,
+            "seconds": 2.375
+          },
+          {
+            "selector": "#s5-pills > div:nth-of-type(4) > span:nth-of-type(2)",
+            "text": "Tile 4: Asset Vault (IndexedDB)",
+            "fontPx": 18,
+            "time": 17.625,
+            "seconds": 2.375
+          },
+          {
+            "selector": "#bento-tile-2 > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "SolidCraft B-Rep Parametric",
+            "fontPx": 18.57,
+            "time": 0.875,
+            "seconds": 2.75
+          },
+          {
+            "selector": "#bento-tile-1 > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "RiverCast & OneStudio ISO",
+            "fontPx": 18.78,
+            "time": 0.5,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#bento-tile-4 > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "Universal Local Media Vault",
+            "fontPx": 18.89,
+            "time": 1.75,
+            "seconds": 1.875
+          },
+          {
+            "selector": "#bento-tile-3 > div:nth-of-type(1) > span:nth-of-type(2)",
+            "text": "FruityForge 21 & BandForge DAW",
+            "fontPx": 18.95,
+            "time": 1.375,
+            "seconds": 2.25
+          },
+          {
+            "selector": "#s5-cta",
+            "text": "Launch OmniCraft OS → 18 Studios Running Locally",
+            "fontPx": 19.86,
+            "time": 17.75,
+            "seconds": 2.25
+          },
+          {
+            "selector": "#s1-sub",
+            "text": "Every professional studio runs in native WebAssembly & WebGPU with instant cross-studio IndexedDB & OPFS handoff.",
+            "fontPx": 22,
+            "time": 0.375,
+            "seconds": 3.25
+          },
+          {
+            "selector": "#s3-card-right > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "FruityForge 21 (FL Studio DAW)",
+            "fontPx": 23.58,
+            "time": 8.5,
+            "seconds": 4.625
+          },
+          {
+            "selector": "#s2-card-right > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "Studio Cut Video Editor",
+            "fontPx": 23.66,
+            "time": 4.25,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#s4-card-right > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "Shared Asset Vault (IndexedDB)",
+            "fontPx": 23.74,
+            "time": 13.5,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#s2-card-left > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "RiverCast & OneStudio ISO",
+            "fontPx": 23.79,
+            "time": 3.75,
+            "seconds": 4.375
+          },
+          {
+            "selector": "#s3-card-left > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "BandForge (GarageBand DAW)",
+            "fontPx": 23.79,
+            "time": 8.25,
+            "seconds": 4.875
+          },
+          {
+            "selector": "#s4-card-left > div:nth-of-type(1) > span:nth-of-type(1)",
+            "text": "SolidCraft 3D CAD",
+            "fontPx": 23.85,
+            "time": 13.25,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#s5-value-banner",
+            "text": "100% Free Forever. No Subscriptions. No Cloud Lag.",
+            "fontPx": 24.54,
+            "time": 17.25,
+            "seconds": 2.75
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 160
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

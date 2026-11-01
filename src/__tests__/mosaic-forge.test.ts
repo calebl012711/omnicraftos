@@ -4,13 +4,44 @@ import { BLOCKED_REPOSITORIES, WORKSPACES } from '../config/workspaces';
 import { inferCompatibleWorkspaces } from '../storage/db';
 import { isSameOriginEvent } from '../utils/origin';
 
-describe('Mosaic Forge Suite Configuration & Architecture', () => {
-  it('maintains a centralized, easily rebrandable configuration with live domain check evidence', () => {
-    expect(DEFAULT_BRANDING.productName).toBe('Mosaic Forge');
-    expect(DEFAULT_BRANDING.candidateDomain).toBe('mosaicforge.com');
-    expect(DEFAULT_BRANDING.domainCheck.available).toBe(false);
+describe('OmniCraft OS Suite Configuration & Architecture', () => {
+  it('maintains a centralized, easily rebrandable configuration with live domain check evidence and Bento theme tokens', () => {
+    expect(DEFAULT_BRANDING.productName).toBe('OmniCraft OS');
+    expect(DEFAULT_BRANDING.shortName).toBe('OmniCraft');
+    expect(DEFAULT_BRANDING.tagline).toBe("The Desktop Suite That Doesn't Touch The Cloud");
+    expect(DEFAULT_BRANDING.candidateDomain).toBe('omnicraftos.com');
+    expect(DEFAULT_BRANDING.accentPrimary).toBe('#0f172a');
+    expect(DEFAULT_BRANDING.accentSecondary).toBe('#10b981');
+    expect(DEFAULT_BRANDING.logoPath).toBe('/omnicraft-mark.svg');
+
+    // Live domain check metadata
+    expect(DEFAULT_BRANDING.domainCheck.domain).toBe('omnicraftos.com');
+    expect(DEFAULT_BRANDING.domainCheck.available).toBe(true);
     expect(DEFAULT_BRANDING.domainCheck.purchased).toBe(false);
-    expect(DEFAULT_BRANDING.domainCheck.rdapHandle).toBe('1988171746_DOMAIN_COM-VRSN');
+    expect(DEFAULT_BRANDING.domainCheck.statusSummary).toContain('AVAILABLE');
+    expect(DEFAULT_BRANDING.domainCheck.registrar).toBe('None (Available for Registration)');
+
+    // Bento Theme tokens verification
+    expect(DEFAULT_BRANDING.bentoTheme).toBeDefined();
+    const bento = DEFAULT_BRANDING.bentoTheme!;
+    expect(bento.cardRadius).toBe('14px');
+    expect(bento.cardBorder).toContain('1px solid');
+    expect(bento.cardBorderSubtle).toBeDefined();
+    expect(bento.cardBorderStrong).toBeDefined();
+    expect(bento.cardBorderHover).toContain('16, 185, 129');
+
+    // Crisp typography tokens
+    expect(bento.typography.fontSans).toContain('Inter');
+    expect(bento.typography.fontMono).toContain('JetBrains Mono');
+    expect(bento.typography.trackingTight).toBe('-0.02em');
+
+    // Clean dark/light mode surface tokens
+    expect(bento.surfaces.dark.canvas).toBe('#090b10');
+    expect(bento.surfaces.dark.surface).toBe('#11151f');
+    expect(bento.surfaces.dark.textPrimary).toBe('#f3f6fc');
+    expect(bento.surfaces.light.canvas).toBe('#f8fafc');
+    expect(bento.surfaces.light.surface).toBe('#ffffff');
+    expect(bento.surfaces.light.textPrimary).toBe('#0f172a');
   });
 
   it('registers all 18 live integrated workspaces (14 WASM + RiverCast ISO + Studio Cut + BandForge + FruityForge) plus 1 source-only workspace and 2 blocked repos', () => {
@@ -68,5 +99,54 @@ describe('Mosaic Forge Suite Configuration & Architecture', () => {
     expect(isSameOriginEvent(fakeNullEvent)).toBe(false);
     const fakeEmptyEvent = { origin: '' } as MessageEvent;
     expect(isSameOriginEvent(fakeEmptyEvent)).toBe(false);
+  });
+
+  it('validates SolidCraft 3D CAD and CADCraft 2D Drafting Bento engineering shells and OmniCraft OS protocols', async () => {
+    const fs = await import('fs');
+    const path = await import('path');
+
+    // 1. SolidCraft 3D CAD Audit
+    const solidcraftHtml = fs.readFileSync(path.resolve('public/editors/solidcraft/index.html'), 'utf-8');
+    const solidcraftCss = fs.readFileSync(path.resolve('public/editors/solidcraft/bento-cad-shell.css'), 'utf-8');
+    const solidcraftJs = fs.readFileSync(path.resolve('public/editors/solidcraft/bento-cad-shell.js'), 'utf-8');
+    const solidcraftWasmExists = fs.existsSync(path.resolve('public/editors/solidcraft/solidcraft-web-4b1d77a936edaef2_bg.wasm'));
+
+    expect(solidcraftHtml).toContain('bento-header');
+    expect(solidcraftHtml).toContain('bento-telemetry-strip');
+    expect(solidcraftHtml).toContain('bento_mesh_hud');
+    expect(solidcraftHtml).toContain('solidcraft_loading');
+    expect(solidcraftHtml).toContain('TILE 02 // 3D MESH HUD');
+    expect(solidcraftCss).toContain('--bento-font-sans');
+    expect(solidcraftCss).toContain('--bento-font-mono');
+    expect(solidcraftCss).toContain('--bento-border-subtle');
+    expect(solidcraftJs).toContain('omnicraft:theme-change');
+    expect(solidcraftJs).toContain('omnicraft:import-cad');
+    expect(solidcraftJs).toContain('omnicraft:export-ready');
+    expect(solidcraftWasmExists).toBe(true);
+
+    // 2. CADCraft 2D Drafting Audit
+    const cadcraftHtml = fs.readFileSync(path.resolve('public/editors/cadcraft/index.html'), 'utf-8');
+    const cadcraftCss = fs.readFileSync(path.resolve('public/editors/cadcraft/bento-cad-shell.css'), 'utf-8');
+    const cadcraftJs = fs.readFileSync(path.resolve('public/editors/cadcraft/bento-cad-shell.js'), 'utf-8');
+    const cadcraftWasmExists = fs.existsSync(path.resolve('public/editors/cadcraft/cadcraft-web-d9510b450a4355c9_bg.wasm'));
+
+    expect(cadcraftHtml).toContain('bento-header');
+    expect(cadcraftHtml).toContain('bento-telemetry-strip');
+    expect(cadcraftHtml).toContain('bento_drafting_hud');
+    expect(cadcraftHtml).toContain('cadcraft_loading');
+    expect(cadcraftHtml).toContain('TILE 02 // 2D DRAFTING HUD');
+    expect(cadcraftCss).toContain('--bento-font-sans');
+    expect(cadcraftCss).toContain('--bento-font-mono');
+    expect(cadcraftCss).toContain('--bento-border-subtle');
+    expect(cadcraftJs).toContain('omnicraft:theme-change');
+    expect(cadcraftJs).toContain('omnicraft:import-cad');
+    expect(cadcraftJs).toContain('omnicraft:export-ready');
+    expect(cadcraftWasmExists).toBe(true);
+
+    // 3. Bridge Audit
+    const bridgeJs = fs.readFileSync(path.resolve('public/editors/mosaic-forge-bridge.js'), 'utf-8');
+    expect(bridgeJs).toContain('omnicraft:export-ready');
+    expect(bridgeJs).toContain('omnicraft:import-cad');
+    expect(bridgeJs).toContain('omnicraft:theme-change');
   });
 });

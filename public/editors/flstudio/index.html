@@ -8,20 +8,39 @@
     <style>
       :root {
         --brand-color: #f97316;
-        --bg-0: #14181d;
-        --bg-1: #1c2229;
-        --bg-2: #252d36;
-        --bg-3: #303a46;
-        --text-0: #f1f5f9;
+        --bg-0: #0a0d14;
+        --bg-1: #10141e;
+        --bg-2: #161c2b;
+        --bg-3: #1f273b;
+        --text-0: #f8fafc;
         --text-1: #cbd5e1;
         --text-2: #8795a8;
-        --border: rgba(255, 255, 255, 0.1);
-        --fl-orange: #ff7b1a;
-        --fl-green: #4ade80;
-        --fl-cyan: #38bdf8;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-strong: rgba(255, 255, 255, 0.16);
+        --border-glow: rgba(249, 115, 22, 0.35);
+        --fl-orange: #f97316;
+        --fl-amber: #f59e0b;
+        --fl-green: #10b981;
+        --fl-cyan: #06b6d4;
         --fl-red: #f43f5e;
-        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+        --fl-purple: #a855f7;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+        --bento-radius: 8px;
+        --shadow-bento: 0 4px 20px rgba(0, 0, 0, 0.45);
+      }
+
+      [data-theme="light"] {
+        --bg-0: #f1f5f9;
+        --bg-1: #ffffff;
+        --bg-2: #f8fafc;
+        --bg-3: #e2e8f0;
+        --text-0: #0f172a;
+        --text-1: #334155;
+        --text-2: #64748b;
+        --border: rgba(15, 23, 42, 0.08);
+        --border-strong: rgba(15, 23, 42, 0.16);
+        --border-glow: rgba(249, 115, 22, 0.45);
       }
 
       * {
@@ -40,6 +59,94 @@
         flex-direction: column;
         overflow: hidden;
         accent-color: var(--brand-color);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Option 3 Bento Pill Badges & Dots */
+      .bento-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 10px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--text-1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        white-space: nowrap;
+        user-select: none;
+      }
+
+      .bento-badge.accent-drum {
+        border-color: rgba(249, 115, 22, 0.4);
+        background: rgba(249, 115, 22, 0.08);
+        color: #fb923c;
+      }
+
+      .bento-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--fl-orange);
+        box-shadow: 0 0 6px var(--fl-orange);
+        display: inline-block;
+      }
+
+      .bento-dot.pulse-green {
+        background: var(--fl-green);
+        box-shadow: 0 0 6px var(--fl-green);
+        animation: bentoPulse 2s infinite ease-in-out;
+      }
+
+      .bento-dot.pulse-orange {
+        background: var(--fl-orange);
+        box-shadow: 0 0 6px var(--fl-orange);
+        animation: bentoPulse 2s infinite ease-in-out;
+      }
+
+      @keyframes bentoPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.45; transform: scale(0.85); }
+      }
+
+      .led-spectrum-canvas {
+        background: #06080d;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
+        display: block;
+      }
+
+      .bento-toast {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #111622;
+        border: 1px solid var(--border-glow);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        color: var(--text-0);
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-family: var(--font-sans);
+        font-size: 11.5px;
+        font-weight: 600;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.2s, transform 0.2s;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      .bento-toast.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       /* Modern Web Guidance: Brand-Consistent Range Slider */
@@ -127,60 +234,78 @@
         outline-offset: 4px;
       }
 
-      /* FL Studio Top Toolbar */
+      /* FL Studio Top Toolbar - Option 3 Bento Header */
       .fl-toolbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 7px 12px;
-        background: linear-gradient(180deg, #27303a 0%, #1b2229 100%);
+        padding: 8px 14px;
+        background: linear-gradient(180deg, #161c2b 0%, #10141e 100%);
         border-bottom: 1px solid var(--border);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         gap: 10px;
+        flex-wrap: wrap;
       }
 
       .fl-lcd {
-        background: #0c1014;
-        border: 1px solid rgba(255, 123, 26, 0.45);
-        border-radius: 5px;
+        background: #06080d;
+        border: 1px solid var(--border-glow);
+        border-radius: 6px;
         padding: 4px 10px;
         font-family: var(--font-mono);
         color: var(--fl-orange);
         font-weight: 700;
-        font-size: 13px;
+        font-size: 12.5px;
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.7);
+        letter-spacing: 0.02em;
       }
 
       .btn {
         display: inline-flex;
         align-items: center;
         gap: 5px;
-        padding: 5px 10px;
-        border-radius: 5px;
+        padding: 5px 11px;
+        border-radius: 6px;
         border: 1px solid var(--border);
         background: var(--bg-2);
         color: var(--text-0);
         font-size: 11.5px;
         font-weight: 600;
         cursor: pointer;
+        transition: all 0.12s ease;
       }
 
       .btn:hover {
         background: var(--bg-3);
+        border-color: var(--border-strong);
       }
 
       .btn-fl {
-        background: var(--fl-orange);
+        background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
         border-color: #fb923c;
-        color: #090d14;
+        color: #080b11;
         font-weight: 800;
+        box-shadow: 0 2px 8px rgba(249, 115, 22, 0.35);
+      }
+
+      .btn-fl:hover {
+        background: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
+        box-shadow: 0 3px 12px rgba(249, 115, 22, 0.55);
       }
 
       .btn-green {
-        background: rgba(74, 222, 128, 0.16);
-        border-color: rgba(74, 222, 128, 0.45);
-        color: #86efac;
+        background: rgba(16, 185, 129, 0.14);
+        border-color: rgba(16, 185, 129, 0.45);
+        color: #34d399;
+      }
+
+      .btn-green:hover {
+        background: rgba(16, 185, 129, 0.24);
+        border-color: rgba(16, 185, 129, 0.7);
+        color: #6ee7b7;
       }
 
       /* 2x2 Dockable FL Studio Workspace Grid + Focused Window Modes */
@@ -229,64 +354,72 @@
 
       .fl-view-pills {
         display: inline-flex;
-        background: #101419;
+        background: #0a0d14;
         padding: 3px;
-        border-radius: 6px;
+        border-radius: 9999px;
         border: 1px solid var(--border);
-        gap: 3px;
+        gap: 2px;
       }
 
       .fl-view-btn {
         background: transparent;
         border: 0;
-        color: var(--text-1);
-        font-size: 11px;
+        color: var(--text-2);
+        font-size: 10.5px;
         font-weight: 700;
         padding: 4px 9px;
-        border-radius: 4px;
+        border-radius: 9999px;
         cursor: pointer;
+        transition: all 0.1s ease;
+      }
+
+      .fl-view-btn:hover {
+        color: var(--text-0);
       }
 
       .fl-view-btn.active {
         background: var(--fl-orange);
-        color: #090d14;
+        color: #080b11;
+        font-weight: 800;
+        box-shadow: 0 1px 4px rgba(249, 115, 22, 0.4);
       }
 
       .fl-window {
         background: var(--bg-1);
         border: 1px solid var(--border);
-        border-radius: 7px;
+        border-radius: 8px;
         display: flex;
         flex-direction: column;
         min-height: 0;
         overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
       }
 
       .fl-win-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 6px 10px;
+        padding: 7px 12px;
         background: var(--bg-2);
         border-bottom: 1px solid var(--border);
         font-weight: 700;
-        font-size: 11.5px;
+        font-size: 11px;
         letter-spacing: 0.03em;
       }
 
       .fl-win-body {
         flex: 1;
-        padding: 8px;
+        padding: 10px;
         overflow: auto;
       }
 
-      /* Panel 1: Channel Rack & 16-Step Sequencer */
+      /* Panel 1: Channel Rack & 16-Step Sequencer - Option 3 Tile 3 Drum Rack */
       .channel-row {
         display: grid;
-        grid-template-columns: 18px 155px 1fr;
-        gap: 6px;
+        grid-template-columns: 20px 160px 1fr;
+        gap: 8px;
         align-items: center;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
       }
 
       .led-dot {
@@ -296,6 +429,7 @@
         background: var(--fl-green);
         box-shadow: 0 0 6px var(--fl-green);
         cursor: pointer;
+        transition: all 0.1s ease;
       }
 
       .led-dot.muted {
@@ -304,10 +438,10 @@
       }
 
       .channel-btn {
-        background: linear-gradient(180deg, #333e4b 0%, #262e38 100%);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 4px;
-        padding: 4px 8px;
+        background: linear-gradient(180deg, #222b3e 0%, #161c2a 100%);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 5px 10px;
         color: var(--text-0);
         font-weight: 700;
         font-size: 11px;
@@ -316,11 +450,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        transition: border-color 0.1s, box-shadow 0.1s;
+      }
+
+      .channel-btn:hover {
+        border-color: var(--border-strong);
       }
 
       .channel-btn.selected {
         border-color: var(--fl-orange);
-        box-shadow: inset 0 0 0 1px var(--fl-orange);
+        box-shadow: inset 0 0 0 1px var(--fl-orange), 0 0 8px rgba(249, 115, 22, 0.25);
       }
 
       .steps-16 {
@@ -330,34 +469,42 @@
       }
 
       .step-pad {
-        height: 22px;
-        border-radius: 3px;
-        border: 1px solid rgba(0, 0, 0, 0.45);
+        height: 24px;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
         cursor: pointer;
-        transition: transform 0.05s;
+        transition: transform 0.05s, box-shadow 0.1s, background 0.1s;
       }
 
-      /* Classic FL Studio 4-step alternating beat groups */
+      .step-pad:hover {
+        border-color: rgba(255, 255, 255, 0.25);
+        transform: translateY(-1px);
+      }
+
+      /* Option 3 Tile 3 alternating 4-step drum groups */
       .step-pad.group-a {
-        background: #3b4654;
+        background: #1e2636;
       }
 
       .step-pad.group-b {
-        background: #4e3b3f;
+        background: #2b1f28;
       }
 
       .step-pad.active.group-a {
-        background: #ff8c38;
-        box-shadow: 0 0 6px rgba(255, 140, 56, 0.7);
+        background: linear-gradient(135deg, #ff8c38 0%, #f97316 100%);
+        border-color: #fb923c;
+        box-shadow: 0 0 8px rgba(249, 115, 22, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.3);
       }
 
       .step-pad.active.group-b {
-        background: #f43f5e;
-        box-shadow: 0 0 6px rgba(244, 63, 94, 0.7);
+        background: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%);
+        border-color: #fda4af;
+        box-shadow: 0 0 8px rgba(244, 63, 94, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.3);
       }
 
       .step-pad.playhead-step {
         outline: 2px solid #ffffff;
+        box-shadow: 0 0 12px #ffffff;
       }
 
       /* Panel 2: FL Studio Piano Roll */
@@ -457,20 +604,32 @@
     </style>
   </head>
   <body>
-    <!-- Top FL Studio Transport Bar -->
+    <!-- Top FL Studio Transport Bar - Option 3 Bento Layout -->
     <header class="fl-toolbar">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span style="background:var(--fl-orange);color:#090d14;padding:3px 8px;border-radius:4px;font-weight:900;font-size:11px;">
-          FRUITYFORGE 21
-        </span>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <div class="bento-badge" title="OmniCraft Creative Suite — FruityForge 21">
+          <span class="bento-dot pulse-orange"></span>
+          <span style="font-weight:800;color:var(--text-0);">OMNICRAFT</span>
+          <span style="color:var(--fl-orange);font-weight:900;">FRUITYFORGE 21</span>
+        </div>
+
+        <div class="bento-badge accent-drum" title="Option 3 Tile 3 Drum Rack Engine">
+          <span class="bento-dot pulse-green"></span>
+          <span>TILE 3 DRUM RACK</span>
+        </div>
+
         <button type="button" class="btn btn-fl" id="btnFlPlay" data-testid="btn-fl-play">▶ PLAY</button>
         <button type="button" class="btn" id="btnFlStop">⏹ STOP</button>
 
         <div class="fl-lcd" data-testid="fl-lcd-readout">
-          <span id="flModeLabel">PAT</span>
+          <span id="flModeLabel" style="color:var(--fl-green);font-size:11px;">PAT</span>
           <span id="flTempoReadout">140.00 BPM</span>
+          <span id="flPitchReadout" style="color:var(--fl-cyan);font-size:11px;" title="Master Pitch Tweak">+0 st</span>
           <span id="flStepReadout">STEP 01 / 16</span>
         </div>
+
+        <!-- High-Precision 18-Band Peak LED Spectrum Analyzer -->
+        <canvas id="flLedSpectrum" width="130" height="26" class="led-spectrum-canvas" title="High-Precision 18-Band Peak LED Spectrum"></canvas>
 
         <select id="selFlPreset" class="btn" data-testid="sel-fl-preset">
           <option value="trap-808">Preset: 808 Trap Bounce (140 BPM)</option>
@@ -493,7 +652,7 @@
           ⚡ Fill Each 2 Steps (Hats)
         </button>
         <button type="button" class="btn btn-green" id="btnExportFlStems" data-testid="btn-export-fl-stems">
-          ⬇ Export Separate Drum + 808 + Synth Stems
+          ⬇ Export Separate Stems
         </button>
         <button type="button" class="btn btn-fl" id="btnRenderFlWav" data-testid="btn-render-fl-wav">
           ⬇ Render Master Beat (.wav)
@@ -646,6 +805,101 @@
         let currentStep = 0;
         let isPlaying = false;
         let tempoBpm = 140;
+        let masterPitchSemitones = 0;
+        let masterPitchMultiplier = 1.0;
+        let stepTimer = null;
+
+        // In-editor Bento Toast
+        function showToastNotification(message) {
+          let toast = document.getElementById('bentoToast');
+          if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'bentoToast';
+            toast.className = 'bento-toast';
+            document.body.appendChild(toast);
+          }
+          toast.innerHTML = `<span class="bento-dot pulse-green"></span><span>${message}</span>`;
+          toast.classList.add('visible');
+          setTimeout(() => toast.classList.remove('visible'), 2800);
+        }
+
+        // High Precision 18-Band Peak LED Spectrum Analyzer
+        const spectrumEnergies = new Array(18).fill(0.08);
+        function triggerSpectrumHit(channelId) {
+          if (channelId === 'kick808' || channelId === 'bass808') {
+            for (let i = 0; i < 5; i++) spectrumEnergies[i] = Math.min(1.0, spectrumEnergies[i] + 0.85);
+          } else if (channelId === 'snare' || channelId === 'clap') {
+            for (let i = 4; i < 11; i++) spectrumEnergies[i] = Math.min(1.0, spectrumEnergies[i] + 0.75);
+          } else if (channelId === 'hihat') {
+            for (let i = 11; i < 18; i++) spectrumEnergies[i] = Math.min(1.0, spectrumEnergies[i] + 0.9);
+          } else {
+            for (let i = 5; i < 14; i++) spectrumEnergies[i] = Math.min(1.0, spectrumEnergies[i] + 0.7);
+          }
+        }
+
+        function initFlLedSpectrum() {
+          const canvas = document.getElementById('flLedSpectrum');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          const numBands = 18;
+          const numSegments = 7;
+          const levels = new Array(numBands).fill(0.1);
+          const peaks = new Array(numBands).fill(0.1);
+
+          function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const bandWidth = (canvas.width - (numBands - 1) * 2) / numBands;
+            const segGap = 1.5;
+            const segHeight = (canvas.height - (numSegments - 1) * segGap) / numSegments;
+
+            for (let b = 0; b < numBands; b++) {
+              spectrumEnergies[b] = Math.max(0.08, spectrumEnergies[b] * 0.88);
+              const target = Math.min(1.0, spectrumEnergies[b]);
+              levels[b] += (target - levels[b]) * 0.35;
+              if (levels[b] > peaks[b]) {
+                peaks[b] = levels[b];
+              } else {
+                peaks[b] = Math.max(0.08, peaks[b] - 0.02);
+              }
+
+              const activeSegs = Math.round(levels[b] * numSegments);
+              const peakSeg = Math.min(numSegments - 1, Math.floor(peaks[b] * numSegments));
+
+              for (let s = 0; s < numSegments; s++) {
+                const segIdxFromBottom = s;
+                const y = canvas.height - (s + 1) * segHeight - s * segGap;
+                const x = b * (bandWidth + 2);
+
+                let color = '#10b981';
+                let glow = 'rgba(16, 185, 129, 0.4)';
+                if (segIdxFromBottom >= 5) {
+                  color = '#f43f5e';
+                  glow = 'rgba(244, 63, 94, 0.6)';
+                } else if (segIdxFromBottom >= 4) {
+                  color = '#f59e0b';
+                  glow = 'rgba(245, 158, 11, 0.5)';
+                }
+
+                const isActive = segIdxFromBottom < activeSegs;
+                const isPeak = segIdxFromBottom === peakSeg;
+
+                if (isActive || isPeak) {
+                  ctx.fillStyle = color;
+                  ctx.shadowColor = glow;
+                  ctx.shadowBlur = 4;
+                } else {
+                  ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+                  ctx.shadowBlur = 0;
+                }
+
+                ctx.fillRect(x, y, bandWidth, segHeight);
+              }
+            }
+            requestAnimationFrame(draw);
+          }
+          requestAnimationFrame(draw);
+        }
+        initFlLedSpectrum();
 
         function playSynthHit(channelId, stepIdx) {
           try {
@@ -657,24 +911,24 @@
 
             if (channelId === 'kick808' || channelId === 'bass808') {
               osc.type = 'sine';
-              osc.frequency.setValueAtTime(135, now);
-              osc.frequency.exponentialRampToValueAtTime(42, now + 0.16);
+              osc.frequency.setValueAtTime(135 * masterPitchMultiplier, now);
+              osc.frequency.exponentialRampToValueAtTime(42 * masterPitchMultiplier, now + 0.16);
               gain.gain.setValueAtTime(0.22, now);
               gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
             } else if (channelId === 'snare' || channelId === 'clap') {
               osc.type = 'triangle';
-              osc.frequency.setValueAtTime(240, now);
-              osc.frequency.exponentialRampToValueAtTime(90, now + 0.09);
+              osc.frequency.setValueAtTime(240 * masterPitchMultiplier, now);
+              osc.frequency.exponentialRampToValueAtTime(90 * masterPitchMultiplier, now + 0.09);
               gain.gain.setValueAtTime(0.14, now);
               gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
             } else if (channelId === 'hihat') {
               osc.type = 'square';
-              osc.frequency.setValueAtTime(4200, now);
+              osc.frequency.setValueAtTime(4200 * masterPitchMultiplier, now);
               gain.gain.setValueAtTime(0.05, now);
               gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
             } else {
               osc.type = 'sawtooth';
-              const pitch = PIANO_PITCHES[stepIdx % PIANO_PITCHES.length].freq;
+              const pitch = PIANO_PITCHES[stepIdx % PIANO_PITCHES.length].freq * masterPitchMultiplier;
               osc.frequency.setValueAtTime(pitch, now);
               gain.gain.setValueAtTime(0.08, now);
               gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
@@ -706,7 +960,7 @@
             const chBtn = document.createElement('button');
             chBtn.type = 'button';
             chBtn.className = 'channel-btn' + (ch.id === selectedChannelId ? ' selected' : '');
-            chBtn.innerHTML = `<span>${ch.name}</span><span style="width:8px;height:8px;border-radius:50%;background:${ch.color};"></span>`;
+            chBtn.innerHTML = `<span>${ch.name}</span><span style="width:8px;height:8px;border-radius:50%;background:${ch.color};box-shadow:0 0 6px ${ch.color};"></span>`;
             chBtn.addEventListener('click', () => {
               selectedChannelId = ch.id;
               document.getElementById('pianoRollTargetName').textContent = ch.name;
@@ -727,7 +981,10 @@
               pad.setAttribute('data-testid', `step-${ch.id}-${sIdx}`);
               pad.addEventListener('click', () => {
                 ch.steps[sIdx] = ch.steps[sIdx] ? 0 : 1;
-                if (ch.steps[sIdx]) playSynthHit(ch.id, sIdx);
+                if (ch.steps[sIdx]) {
+                  playSynthHit(ch.id, sIdx);
+                  triggerSpectrumHit(ch.id);
+                }
                 renderChannelRack();
               });
               stepsWrap.appendChild(pad);
@@ -759,6 +1016,7 @@
                 pianoRollMatrix[rIdx][cIdx] = pianoRollMatrix[rIdx][cIdx] ? 0 : 1;
                 if (pianoRollMatrix[rIdx][cIdx]) {
                   playSynthHit('sytrus', rIdx);
+                  triggerSpectrumHit('sytrus');
                 }
                 renderPianoRoll();
               });
@@ -818,32 +1076,53 @@
           });
         }
 
-        // Sequencer Loop
-        setInterval(() => {
+        // Dynamic Sequencer Loop with Tempo-derived Timer
+        function tickStep() {
           if (!isPlaying) return;
           currentStep = (currentStep + 1) % 16;
-          document.getElementById('flStepReadout').textContent = `STEP ${String(currentStep + 1).padStart(2, '0')} / 16`;
+          const stepEl = document.getElementById('flStepReadout');
+          if (stepEl) {
+            stepEl.textContent = `STEP ${String(currentStep + 1).padStart(2, '0')} / 16`;
+          }
 
           CHANNELS.forEach((ch, idx) => {
             if (!ch.muted && ch.steps[currentStep]) {
               playSynthHit(ch.id, currentStep);
+              triggerSpectrumHit(ch.id);
             }
             const bar = document.getElementById(`mixerBar-${idx}`);
             if (bar) {
-              const boost = ch.steps[currentStep] ? 88 : 28 + Math.random() * 25;
+              const boost = ch.steps[currentStep] ? 88 : 24 + Math.random() * 20;
               bar.style.height = `${boost}%`;
             }
           });
           renderChannelRack();
-        }, 125);
+        }
+
+        function scheduleNextStep() {
+          if (stepTimer) clearTimeout(stepTimer);
+          if (!isPlaying) return;
+          const intervalMs = Math.max(30, (60 / tempoBpm / 4) * 1000);
+          stepTimer = setTimeout(() => {
+            tickStep();
+            scheduleNextStep();
+          }, intervalMs);
+        }
 
         document.getElementById('btnFlPlay').addEventListener('click', () => {
           isPlaying = !isPlaying;
           document.getElementById('btnFlPlay').textContent = isPlaying ? '⏸ PAUSE' : '▶ PLAY';
+          if (isPlaying) {
+            scheduleNextStep();
+          } else if (stepTimer) {
+            clearTimeout(stepTimer);
+          }
           renderChannelRack();
         });
+
         document.getElementById('btnFlStop').addEventListener('click', () => {
           isPlaying = false;
+          if (stepTimer) clearTimeout(stepTimer);
           currentStep = 0;
           document.getElementById('btnFlPlay').textContent = '▶ PLAY';
           document.getElementById('flStepReadout').textContent = 'STEP 01 / 16';
@@ -876,13 +1155,14 @@
             CHANNELS[0].steps = [1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0];
           }
           document.getElementById('flTempoReadout').textContent = `${tempoBpm}.00 BPM`;
+          if (isPlaying) scheduleNextStep();
           renderChannelRack();
         });
 
-        // Build WAV Buffer for Master Beat or Individual Stems
+        // Build WAV Buffer with Master Pitch & Tempo Integration
         function buildFlWavBuffer(stemType = 'master') {
           const sampleRate = 44100;
-          const durationSec = 2.4;
+          const durationSec = Math.max(1.0, (60 / tempoBpm) * 4);
           const numSamples = Math.floor(sampleRate * durationSec);
           const buffer = new ArrayBuffer(44 + numSamples * 4);
           const view = new DataView(buffer);
@@ -914,17 +1194,19 @@
             let synth = 0;
 
             if (CHANNELS[0].steps[stepIdx]) {
-              const kFreq = 52 + 110 * Math.exp(-stepLocalT * 28);
+              const kFreq = (52 + 110 * Math.exp(-stepLocalT * 28)) * masterPitchMultiplier;
               drums += Math.sin(2 * Math.PI * kFreq * stepLocalT) * Math.exp(-stepLocalT * 9) * 0.6;
             }
             if (CHANNELS[1].steps[stepIdx]) {
-              drums += Math.sin(2 * Math.PI * 220 * stepLocalT) * Math.exp(-stepLocalT * 18) * 0.35;
+              const sFreq = 220 * masterPitchMultiplier;
+              drums += Math.sin(2 * Math.PI * sFreq * stepLocalT) * Math.exp(-stepLocalT * 18) * 0.35;
             }
             if (CHANNELS[4].steps[stepIdx]) {
-              bass += Math.sin(2 * Math.PI * 55 * t) * Math.exp(-stepLocalT * 5) * 0.45;
+              const bFreq = 55 * masterPitchMultiplier;
+              bass += Math.sin(2 * Math.PI * bFreq * t) * Math.exp(-stepLocalT * 5) * 0.45;
             }
             if (CHANNELS[5].steps[stepIdx]) {
-              const pFreq = PIANO_PITCHES[stepIdx % PIANO_PITCHES.length].freq;
+              const pFreq = PIANO_PITCHES[stepIdx % PIANO_PITCHES.length].freq * masterPitchMultiplier;
               synth += Math.sin(2 * Math.PI * pFreq * t) * Math.exp(-stepLocalT * 8) * 0.3;
             }
 
@@ -942,18 +1224,56 @@
 
         function exportFlAudioFile(fileName, stemType, triggerDownload = true) {
           const buf = buildFlWavBuffer(stemType);
+
+          // Bidirectional: Post omnicraft:export-ready and toast popover to parent
           if (window.parent && window.parent !== window) {
-            window.parent.postMessage(
-              {
-                type: 'mosaic:export-captured',
-                app: 'flstudio',
-                name: fileName,
-                mime: 'audio/wav',
-                bytes: buf
-              },
-              window.location.origin
-            );
+            try {
+              window.parent.postMessage(
+                {
+                  type: 'omnicraft:export-ready',
+                  app: 'flstudio',
+                  stemType,
+                  file: {
+                    name: fileName,
+                    size: buf.byteLength,
+                    mime: 'audio/wav',
+                    bytes: buf
+                  }
+                },
+                '*'
+              );
+
+              window.parent.postMessage(
+                {
+                  type: 'omnicraft:toast',
+                  title: 'Stem Export Ready',
+                  message: `Exported ${fileName} (${(buf.byteLength / 1024).toFixed(1)} KB)`,
+                  file: {
+                    name: fileName,
+                    size: buf.byteLength
+                  }
+                },
+                '*'
+              );
+
+              // Maintain backward compatibility with Mosaic Forge shell storage
+              window.parent.postMessage(
+                {
+                  type: 'mosaic:export-captured',
+                  app: 'flstudio',
+                  name: fileName,
+                  mime: 'audio/wav',
+                  bytes: buf
+                },
+                window.location.origin
+              );
+            } catch (err) {
+              console.warn('[FruityForge] PostMessage export error:', err);
+            }
           }
+
+          showToastNotification(`Exported: ${fileName}`);
+
           if (triggerDownload) {
             const blob = new Blob([buf], { type: 'audio/wav' });
             const url = URL.createObjectURL(blob);
@@ -991,6 +1311,67 @@
           });
         });
 
+        // Bidirectional Message Communication Listener
+        window.addEventListener('message', (event) => {
+          const data = event.data;
+          if (!data || typeof data !== 'object') return;
+
+          // 1. Theme Change
+          if (data.type === 'omnicraft:theme-change') {
+            const theme = data.theme || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            const meta = document.querySelector('meta[name="color-scheme"]');
+            if (meta) meta.setAttribute('content', theme === 'light' ? 'light' : 'dark');
+            showToastNotification(`Theme: ${theme.toUpperCase()}`);
+          }
+
+          // 2. Audio Import
+          if (data.type === 'omnicraft:import-audio') {
+            const sampleName = data.name || 'External Sample.wav';
+            const targetChannel = CHANNELS.find((c) => c.id === data.channelId) || CHANNELS[CHANNELS.length - 1];
+            targetChannel.name = `📥 ${sampleName}`;
+            renderChannelRack();
+            showToastNotification(`Imported: ${sampleName}`);
+            if (window.parent && window.parent !== window) {
+              window.parent.postMessage({ type: 'omnicraft:import-audio:ok', name: sampleName }, '*');
+            }
+          }
+
+          // 3. Live Tempo Tweaks from Parent Hero Drum Pad Widget
+          if (
+            data.type === 'omnicraft:set-tempo' ||
+            data.type === 'omnicraft:tempo' ||
+            data.type === 'mosaic:set-tempo'
+          ) {
+            const nextBpm = Number(data.bpm ?? data.tempo);
+            if (!isNaN(nextBpm) && nextBpm > 0) {
+              tempoBpm = Math.min(260, Math.max(40, Math.round(nextBpm)));
+              const tempoEl = document.getElementById('flTempoReadout');
+              if (tempoEl) tempoEl.textContent = `${tempoBpm}.00 BPM`;
+              if (isPlaying) scheduleNextStep();
+              showToastNotification(`Tempo: ${tempoBpm} BPM`);
+            }
+          }
+
+          // 4. Live Master Pitch Tweaks from Parent Hero Drum Pad Widget
+          if (
+            data.type === 'omnicraft:set-pitch' ||
+            data.type === 'omnicraft:master-pitch' ||
+            data.type === 'mosaic:set-pitch'
+          ) {
+            const pitch = Number(data.pitch ?? data.semitones ?? 0);
+            if (!isNaN(pitch)) {
+              masterPitchSemitones = Math.min(24, Math.max(-24, Math.round(pitch)));
+              masterPitchMultiplier = Math.pow(2, masterPitchSemitones / 12);
+              const pitchEl = document.getElementById('flPitchReadout');
+              if (pitchEl) {
+                pitchEl.textContent = `${masterPitchSemitones >= 0 ? '+' : ''}${masterPitchSemitones} st`;
+              }
+              showToastNotification(`Pitch: ${masterPitchSemitones >= 0 ? '+' : ''}${masterPitchSemitones} st`);
+            }
+          }
+        });
+
         window.flstudio = {
           commands: async () => [
             'sequencer.loadPreset',
@@ -999,19 +1380,36 @@
             'pianoroll.toggleNote',
             'transport.play',
             'transport.stop',
+            'transport.setTempo',
+            'transport.setPitch',
             'ui.setView',
             'render.masterWav',
             'render.separateStems'
           ],
           inspect: async () => ({
-            engine: 'FruityForge 21 DAW (FL Studio Channel Rack, Piano Roll & Mixer)',
+            engine: 'OmniCraft FruityForge 21 DAW (Option 3 Tile 3 Drum Rack)',
             tempoBpm,
+            masterPitchSemitones,
+            masterPitchMultiplier,
             isPlaying,
             selectedChannelId,
             channelsCount: CHANNELS.length,
             activeStepCount: CHANNELS.reduce((acc, c) => acc + c.steps.filter(Boolean).length, 0)
           }),
           execute: async (cmd, args = {}) => {
+            if (cmd === 'transport.setTempo' && args.bpm) {
+              tempoBpm = Number(args.bpm);
+              document.getElementById('flTempoReadout').textContent = `${tempoBpm}.00 BPM`;
+              if (isPlaying) scheduleNextStep();
+              return window.flstudio.inspect();
+            }
+            if (cmd === 'transport.setPitch' && args.pitch !== undefined) {
+              masterPitchSemitones = Number(args.pitch);
+              masterPitchMultiplier = Math.pow(2, masterPitchSemitones / 12);
+              const pitchEl = document.getElementById('flPitchReadout');
+              if (pitchEl) pitchEl.textContent = `${masterPitchSemitones >= 0 ? '+' : ''}${masterPitchSemitones} st`;
+              return window.flstudio.inspect();
+            }
             if (cmd === 'ui.setView') {
               const view = args.view || 'all';
               if (flWorkspaceEl) flWorkspaceEl.setAttribute('data-view', view);

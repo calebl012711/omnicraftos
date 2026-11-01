@@ -7,22 +7,81 @@
     <title>RiverCast &amp; OneStudio — Local Multi-Track ISO Recording Studio</title>
     <style>
       :root {
-        --brand-color: #e05a47;
-        --bg-0: #0c0e13;
-        --bg-1: #131720;
-        --bg-2: #1a202c;
-        --bg-3: #232b3a;
-        --text-0: #f3f5f8;
-        --text-1: #b5bfd0;
-        --text-2: #7e8a9f;
-        --border: rgba(255, 255, 255, 0.09);
-        --green: #2ecc71;
+        --brand-color: #6366f1;
+        --accent-glow: rgba(99, 102, 241, 0.25);
+        --bg-0: #0a0e17;
+        --bg-1: #101626;
+        --bg-2: #172136;
+        --bg-3: #22304d;
+        --text-0: #f8fafc;
+        --text-1: #cbd5e1;
+        --text-2: #8092af;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-strong: rgba(255, 255, 255, 0.16);
+        --green: #10b981;
         --amber: #f59e0b;
         --red: #ef4444;
         --cyan: #38bdf8;
         --purple: #a855f7;
-        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+        --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+      }
+
+      :root[data-theme="light"],
+      body[data-theme="light"] {
+        color-scheme: light;
+        --bg-0: #f1f5f9;
+        --bg-1: #ffffff;
+        --bg-2: #f8fafc;
+        --bg-3: #e2e8f0;
+        --text-0: #0f172a;
+        --text-1: #334155;
+        --text-2: #64748b;
+        --border: rgba(15, 23, 42, 0.09);
+        --border-strong: rgba(15, 23, 42, 0.18);
+        --card-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+      }
+
+      .bento-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: rgba(99, 102, 241, 0.14);
+        color: #a5b4fc;
+        border: 1px solid rgba(99, 102, 241, 0.35);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+      }
+
+      :root[data-theme="light"] .bento-badge {
+        background: rgba(99, 102, 241, 0.1);
+        color: #4f46e5;
+        border-color: rgba(99, 102, 241, 0.25);
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      }
+
+      :root[data-theme="light"] .center-stage {
+        background: #eef2f8;
+      }
+      :root[data-theme="light"] .input-field {
+        background: #ffffff;
+        color: #0f172a;
+        border-color: rgba(15, 23, 42, 0.14);
+      }
+      :root[data-theme="light"] .iso-bay {
+        background: var(--bg-2);
+      }
+      :root[data-theme="light"] .iso-track-card {
+        background: #ffffff;
+        border-color: rgba(15, 23, 42, 0.08);
       }
 
       * {
@@ -427,6 +486,7 @@
     <!-- Top Broadcast Header -->
     <header class="studio-header">
       <div class="studio-title-group">
+        <span class="bento-badge" data-testid="bento-badge-omnicraft">OMNICRAFT // BROADCAST ISO</span>
         <span id="recStatusPill" class="rec-pill" data-testid="rec-status-pill">● STANDBY ISO</span>
         <strong>RiverCast &amp; OneStudio</strong>
         <span class="iso-badge" id="timecodeDisplay" data-testid="timecode-display">00:00:00:00</span>
@@ -456,6 +516,16 @@
     <div class="studio-body">
       <!-- Left Column: Riverside Local ISO Engine + Audio DSP Chain -->
       <aside class="panel">
+        <div id="importedAssetNotice" class="section-box" style="display:none;background:rgba(99,102,241,0.08);border-color:rgba(99,102,241,0.3);">
+          <div class="section-title">
+            <span style="color:#818cf8;">● OmniCraft Live Asset Mounted</span>
+            <span class="bento-badge" style="font-size:9.5px;padding:1px 5px;">LIVE SYNC</span>
+          </div>
+          <div id="importedAssetName" style="font-size:11.5px;font-family:var(--font-mono);color:var(--text-0);word-break:break-all;">
+            live-clip.webm
+          </div>
+        </div>
+
         <div class="section-box">
           <div class="section-title">
             <span>Riverside ISO Engine</span>
@@ -1246,6 +1316,30 @@
           const wavBuf = buildIsoWavBuffer(Math.min(6, elapsedSec), gain);
           recordedBlobs.audioWav = new Blob([wavBuf], { type: 'audio/wav' });
           document.getElementById('sizeAudioIso').textContent = formatBytes(recordedBlobs.audioWav.size);
+
+          // OmniCraft OS upstream live sync: post export-ready event
+          if (window.parent && window.parent !== window && recordedBlobs.program) {
+            try {
+              recordedBlobs.program.arrayBuffer().then((bytes) => {
+                window.parent.postMessage(
+                  {
+                    type: 'omnicraft:export-ready',
+                    app: 'riverstudio',
+                    file: {
+                      name: 'rivercast-program-take.webm',
+                      mime: 'video/webm',
+                      size: bytes.byteLength,
+                      bytes: bytes,
+                      timestamp: Date.now()
+                    }
+                  },
+                  '*'
+                );
+              });
+            } catch (err) {
+              console.warn('[RiverStudio] Failed to post live export-ready take:', err);
+            }
+          }
         }
 
         // Pre-seed initial valid ISO tracks on boot so instant export works immediately too
@@ -1297,17 +1391,37 @@
           if (!targetBlob) return null;
           const bytes = await targetBlob.arrayBuffer();
 
-          if (window.parent && window.parent !== window) {
-            window.parent.postMessage(
-              {
-                type: 'mosaic:export-captured',
-                app: 'riverstudio',
-                name: fileName,
-                mime: mimeType,
-                bytes
-              },
-              window.location.origin
-            );
+          if (window.parent) {
+            try {
+              if (window.parent !== window) {
+                window.parent.postMessage(
+                  {
+                    type: 'mosaic:export-captured',
+                    app: 'riverstudio',
+                    name: fileName,
+                    mime: mimeType,
+                    bytes
+                  },
+                  window.location.origin
+                );
+              }
+              window.parent.postMessage(
+                {
+                  type: 'omnicraft:export-ready',
+                  app: 'riverstudio',
+                  file: {
+                    name: fileName,
+                    mime: mimeType,
+                    size: bytes.byteLength,
+                    bytes: bytes,
+                    timestamp: Date.now()
+                  }
+                },
+                '*'
+              );
+            } catch (err) {
+              console.warn('[RiverStudio] Export postMessage error:', err);
+            }
           }
 
           if (triggerBrowserDownload) {
@@ -1416,6 +1530,99 @@
           addChapterMarker();
         });
 
+        function applyTheme(theme) {
+          const mode = theme === 'light' ? 'light' : 'dark';
+          if (mode === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.body.setAttribute('data-theme', 'light');
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+            document.body.removeAttribute('data-theme');
+          }
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = mode === 'light' ? 'light' : 'dark light';
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'omnicraft:theme-applied', theme: mode }, '*');
+          }
+          return { theme: mode };
+        }
+
+        function handleIncomingAsset(asset) {
+          if (!asset) return null;
+          const name = asset.name || 'imported-media-clip.webm';
+          const mime = asset.mime || asset.mimeType || 'video/webm';
+          const size = asset.size || (asset.bytes ? asset.bytes.byteLength : 0);
+
+          window.__importedAsset = asset;
+          window.__importedAssets = window.__importedAssets || [];
+          window.__importedAssets.push(asset);
+
+          const notice = document.getElementById('importedAssetNotice');
+          if (notice) {
+            notice.style.display = 'flex';
+            const nameEl = document.getElementById('importedAssetName');
+            if (nameEl) nameEl.textContent = `${name} (${formatBytes(size)})`;
+          }
+
+          if (asset.bytes && (mime.startsWith('video/') || name.endsWith('.webm') || name.endsWith('.mp4'))) {
+            try {
+              const blob = new Blob([asset.bytes], { type: mime });
+              const url = URL.createObjectURL(blob);
+              realScreenVideo.src = url;
+              realScreenVideo.load();
+              realScreenVideo.play().catch(() => {});
+              hasRealScreen = true;
+              recordedBlobs.screen = blob;
+              document.getElementById('sizeScreenIso').textContent = formatBytes(blob.size);
+            } catch (err) {
+              console.warn('[RiverStudio] Failed to mount video asset to screen canvas:', err);
+            }
+          } else if (asset.bytes && (mime.startsWith('audio/') || name.endsWith('.wav'))) {
+            try {
+              const blob = new Blob([asset.bytes], { type: mime });
+              recordedBlobs.audioWav = blob;
+              document.getElementById('sizeAudioIso').textContent = formatBytes(blob.size);
+            } catch (err) {
+              console.warn('[RiverStudio] Failed to mount audio asset:', err);
+            }
+          }
+
+          addChapterMarker(`Imported Media: ${name}`);
+
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+              type: 'omnicraft:asset-loaded',
+              success: true,
+              asset: { name, mime, size }
+            }, '*');
+          }
+
+          return { success: true, name, mime, size };
+        }
+
+        // OmniCraft OS bidirectional postMessage event listener
+        window.addEventListener('message', (event) => {
+          if (event.source !== window.parent && event.source !== window) return;
+          const data = event.data;
+          if (!data || typeof data !== 'object') return;
+
+          if (data.type === 'omnicraft:theme-change' || data.type === 'mosaic:theme-change') {
+            applyTheme(data.theme);
+          } else if (
+            data.type === 'omnicraft:edit-asset' ||
+            data.type === 'omnicraft:import-asset' ||
+            data.type === 'omnicraft:load-asset' ||
+            data.type === 'mosaic:open-file'
+          ) {
+            const asset = data.asset || {
+              name: data.name,
+              mime: data.mime || data.mimeType,
+              bytes: data.bytes
+            };
+            handleIncomingAsset(asset);
+          }
+        });
+
         // Expose window.riverstudio automation & inspection API for Mosaic Forge
         const COMMANDS = [
           'studio.recordCalibratedTake',
@@ -1432,6 +1639,8 @@
 
         window.riverstudio = {
           commands: async () => COMMANDS,
+          setTheme: applyTheme,
+          loadAsset: handleIncomingAsset,
           inspect: async () => ({
             engine: 'RiverCast & OneStudio Local Multi-Track ISO Engine',
             isRecording,

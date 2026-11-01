@@ -8,20 +8,79 @@
     <style>
       :root {
         --brand-color: #f43f5e;
-        --bg-0: #0a0c10;
-        --bg-1: #12161f;
-        --bg-2: #191f2c;
-        --bg-3: #242c3d;
-        --text-0: #f1f5f9;
+        --accent-glow: rgba(244, 63, 94, 0.25);
+        --bg-0: #0a0e17;
+        --bg-1: #101626;
+        --bg-2: #172136;
+        --bg-3: #22304d;
+        --text-0: #f8fafc;
         --text-1: #cbd5e1;
-        --text-2: #7e8ba3;
-        --border: rgba(255, 255, 255, 0.09);
+        --text-2: #8092af;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-strong: rgba(255, 255, 255, 0.16);
         --cyan: #38bdf8;
         --amber: #f59e0b;
         --green: #10b981;
         --purple: #a855f7;
-        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+        --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+      }
+
+      :root[data-theme="light"],
+      body[data-theme="light"] {
+        color-scheme: light;
+        --bg-0: #f1f5f9;
+        --bg-1: #ffffff;
+        --bg-2: #f8fafc;
+        --bg-3: #e2e8f0;
+        --text-0: #0f172a;
+        --text-1: #334155;
+        --text-2: #64748b;
+        --border: rgba(15, 23, 42, 0.09);
+        --border-strong: rgba(15, 23, 42, 0.18);
+        --card-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+      }
+
+      .bento-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: rgba(244, 63, 94, 0.14);
+        color: #fda4af;
+        border: 1px solid rgba(244, 63, 94, 0.35);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+      }
+
+      :root[data-theme="light"] .bento-badge {
+        background: rgba(244, 63, 94, 0.1);
+        color: #e11d48;
+        border-color: rgba(244, 63, 94, 0.25);
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      }
+
+      :root[data-theme="light"] .viewer-stage {
+        background: #eef2f8;
+      }
+      :root[data-theme="light"] .track-lane {
+        background: #f1f5f9;
+        border-color: rgba(15, 23, 42, 0.12);
+      }
+      :root[data-theme="light"] .input-field {
+        background: #ffffff;
+        color: #0f172a;
+        border-color: rgba(15, 23, 42, 0.14);
+      }
+      :root[data-theme="light"] .transport-bar {
+        background: #ffffff;
       }
 
       * {
@@ -356,9 +415,7 @@
   <body>
     <header class="nle-header">
       <div style="display:flex;align-items:center;gap:10px;">
-        <span style="background:var(--brand-color);color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11px;">
-          STUDIO CUT NLE
-        </span>
+        <span class="bento-badge" data-testid="bento-badge-omnicraft">OMNICRAFT // STUDIO CUT NLE</span>
         <strong>Multi-Track ISO Video &amp; Screen-Cast Editor</strong>
         <span class="timecode-pill" id="tcReadout" data-testid="studiocut-tc">00:00:02:15 / 00:00:10:00</span>
       </div>
@@ -390,7 +447,7 @@
             <span>ISO Media Bin</span>
             <span style="color:var(--green);">Synced</span>
           </div>
-          <div style="font-size:11.5px;color:var(--text-1);display:flex;flex-direction:column;gap:6px;">
+          <div id="mediaBinList" style="font-size:11.5px;color:var(--text-1);display:flex;flex-direction:column;gap:6px;">
             <div style="padding:6px;background:var(--bg-1);border-radius:5px;border-left:3px solid var(--cyan);">
               <strong>screen-recording-iso.webm</strong>
               <div style="color:var(--text-2);font-size:10.5px;">Track V1 · Clean 1080p60 Screen</div>
@@ -914,17 +971,37 @@
           const blob = new Blob(chunks, { type: 'video/webm' });
           const bytes = await blob.arrayBuffer();
 
-          if (window.parent && window.parent !== window) {
-            window.parent.postMessage(
-              {
-                type: 'mosaic:export-captured',
-                app: 'studiocut',
-                name: fileName,
-                mime: 'video/webm',
-                bytes
-              },
-              window.location.origin
-            );
+          if (window.parent) {
+            try {
+              if (window.parent !== window) {
+                window.parent.postMessage(
+                  {
+                    type: 'mosaic:export-captured',
+                    app: 'studiocut',
+                    name: fileName,
+                    mime: 'video/webm',
+                    bytes
+                  },
+                  window.location.origin
+                );
+              }
+              window.parent.postMessage(
+                {
+                  type: 'omnicraft:export-ready',
+                  app: 'studiocut',
+                  file: {
+                    name: fileName,
+                    mime: 'video/webm',
+                    size: bytes.byteLength,
+                    bytes: bytes,
+                    timestamp: Date.now()
+                  }
+                },
+                '*'
+              );
+            } catch (err) {
+              console.warn('[StudioCut] Export postMessage error:', err);
+            }
           }
 
           const url = URL.createObjectURL(blob);
@@ -971,17 +1048,37 @@
             const t = i / sampleRate;
             view.setInt16(44 + i * 2, Math.sin(2 * Math.PI * 330 * t) * 18000, true);
           }
-          if (window.parent && window.parent !== window) {
-            window.parent.postMessage(
-              {
-                type: 'mosaic:export-captured',
-                app: 'studiocut',
-                name: 'studiocut-a1-mixdown.wav',
-                mime: 'audio/wav',
-                bytes: buf
-              },
-              window.location.origin
-            );
+          if (window.parent) {
+            try {
+              if (window.parent !== window) {
+                window.parent.postMessage(
+                  {
+                    type: 'mosaic:export-captured',
+                    app: 'studiocut',
+                    name: 'studiocut-a1-mixdown.wav',
+                    mime: 'audio/wav',
+                    bytes: buf
+                  },
+                  window.location.origin
+                );
+              }
+              window.parent.postMessage(
+                {
+                  type: 'omnicraft:export-ready',
+                  app: 'studiocut',
+                  file: {
+                    name: 'studiocut-a1-mixdown.wav',
+                    mime: 'audio/wav',
+                    size: buf.byteLength,
+                    bytes: buf,
+                    timestamp: Date.now()
+                  }
+                },
+                '*'
+              );
+            } catch (err) {
+              console.warn('[StudioCut] Audio export postMessage error:', err);
+            }
           }
         });
 
@@ -996,17 +1093,37 @@
             }))
           };
           const bytes = new TextEncoder().encode(JSON.stringify(otio, null, 2)).buffer;
-          if (window.parent && window.parent !== window) {
-            window.parent.postMessage(
-              {
-                type: 'mosaic:export-captured',
-                app: 'studiocut',
-                name: 'studiocut-timeline.otio',
-                mime: 'application/json',
-                bytes
-              },
-              window.location.origin
-            );
+          if (window.parent) {
+            try {
+              if (window.parent !== window) {
+                window.parent.postMessage(
+                  {
+                    type: 'mosaic:export-captured',
+                    app: 'studiocut',
+                    name: 'studiocut-timeline.otio',
+                    mime: 'application/json',
+                    bytes
+                  },
+                  window.location.origin
+                );
+              }
+              window.parent.postMessage(
+                {
+                  type: 'omnicraft:export-ready',
+                  app: 'studiocut',
+                  file: {
+                    name: 'studiocut-timeline.otio',
+                    mime: 'application/json',
+                    size: bytes.byteLength,
+                    bytes: bytes,
+                    timestamp: Date.now()
+                  }
+                },
+                '*'
+              );
+            } catch (err) {
+              console.warn('[StudioCut] OTIO export postMessage error:', err);
+            }
           }
         });
 
@@ -1023,6 +1140,117 @@
           }
         });
 
+        function formatBytes(bytes) {
+          if (!bytes) return '0 B';
+          if (bytes < 1024) return bytes + ' B';
+          if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+          return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function escapeHtml(str) {
+          return String(str).replace(/[&<>'"]/g,
+            (tag) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+          );
+        }
+
+        function applyTheme(theme) {
+          const mode = theme === 'light' ? 'light' : 'dark';
+          if (mode === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.body.setAttribute('data-theme', 'light');
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+            document.body.removeAttribute('data-theme');
+          }
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = mode === 'light' ? 'light' : 'dark light';
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'omnicraft:theme-applied', theme: mode }, '*');
+          }
+          return { theme: mode };
+        }
+
+        function handleIncomingAsset(asset) {
+          if (!asset) return null;
+          const name = asset.name || 'imported-media-clip.webm';
+          const mime = asset.mime || asset.mimeType || 'video/webm';
+          const size = asset.size || (asset.bytes ? asset.bytes.byteLength : 0);
+
+          window.__importedAsset = asset;
+          window.__importedAssets = window.__importedAssets || [];
+          window.__importedAssets.push(asset);
+
+          let targetTrack = 'V1';
+          let color = 'rgba(56, 189, 248, 0.45)';
+          if (mime.startsWith('audio/') || name.endsWith('.wav') || name.includes('audio') || name.includes('mic')) {
+            targetTrack = 'A1';
+            color = 'rgba(16, 185, 129, 0.45)';
+          } else if (name.includes('cam') || name.includes('face') || name.includes('host') || name.includes('v2')) {
+            targetTrack = 'V2';
+            color = 'rgba(245, 158, 11, 0.45)';
+          } else if (name.includes('caption') || name.includes('title') || name.includes('text') || name.endsWith('.srt')) {
+            targetTrack = 'T1';
+            color = 'rgba(168, 85, 247, 0.45)';
+          }
+
+          const newClip = {
+            id: 'clip-' + Date.now(),
+            start: Math.max(0, Math.min(75, Math.round(playheadPct))),
+            end: 100,
+            label: `${name} [OmniCraft Live]`,
+            color,
+            asset
+          };
+
+          if (!tracks[targetTrack]) tracks[targetTrack] = [];
+          tracks[targetTrack].push(newClip);
+          renderTimelineLanes();
+
+          const mediaBin = document.getElementById('mediaBinList');
+          if (mediaBin) {
+            const item = document.createElement('div');
+            item.style.padding = '6px';
+            item.style.background = 'var(--bg-1)';
+            item.style.borderRadius = '5px';
+            item.style.borderLeft = `3px solid ${targetTrack === 'A1' ? 'var(--green)' : targetTrack === 'V2' ? 'var(--amber)' : targetTrack === 'T1' ? 'var(--purple)' : 'var(--cyan)'}`;
+            item.innerHTML = `<strong>${escapeHtml(name)}</strong><div style="color:var(--text-2);font-size:10.5px;">Track ${targetTrack} · ${formatBytes(size)} · Live Import</div>`;
+            mediaBin.prepend(item);
+          }
+
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+              type: 'omnicraft:asset-loaded',
+              success: true,
+              asset: { name, targetTrack, size }
+            }, '*');
+          }
+
+          return { success: true, name, targetTrack, size };
+        }
+
+        // OmniCraft OS bidirectional postMessage event listener
+        window.addEventListener('message', (event) => {
+          if (event.source !== window.parent && event.source !== window) return;
+          const data = event.data;
+          if (!data || typeof data !== 'object') return;
+
+          if (data.type === 'omnicraft:theme-change' || data.type === 'mosaic:theme-change') {
+            applyTheme(data.theme);
+          } else if (
+            data.type === 'omnicraft:edit-asset' ||
+            data.type === 'omnicraft:import-asset' ||
+            data.type === 'omnicraft:load-asset' ||
+            data.type === 'mosaic:open-file'
+          ) {
+            const asset = data.asset || {
+              name: data.name,
+              mime: data.mime || data.mimeType,
+              bytes: data.bytes
+            };
+            handleIncomingAsset(asset);
+          }
+        });
+
         window.studiocut = {
           commands: async () => [
             'timeline.splitAtPlayhead',
@@ -1033,6 +1261,8 @@
             'export.separateScreenAndCamera',
             'export.otio'
           ],
+          setTheme: applyTheme,
+          loadAsset: handleIncomingAsset,
           inspect: async () => ({
             engine: 'Studio Cut Multi-Track ISO Video Editor',
             playheadPct,

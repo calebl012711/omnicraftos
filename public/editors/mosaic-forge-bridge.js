@@ -95,15 +95,39 @@
       };
       capturedExports.push(record);
       const copy = ab.slice(0);
+      const copy2 = ab.slice(0);
+      // Forward omnicraft:export-ready to OmniCraft OS Asset Vault
+      postToShell(
+        {
+          source: 'omnicraft-os',
+          type: 'omnicraft:export-ready',
+          appId,
+          name: downloadName,
+          mime: record.mime,
+          size: record.size,
+          bytes: copy,
+          file: {
+            name: downloadName,
+            type: record.mime,
+            mime: record.mime,
+            size: record.size,
+            bytes: copy,
+            data: copy,
+            timestamp: Date.now(),
+          },
+        },
+        [copy]
+      );
+      // Also post legacy mosaic:export-captured for backward compatibility
       postToShell(
         {
           type: 'mosaic:export-captured',
           name: downloadName,
           mime: record.mime,
           size: record.size,
-          bytes: copy,
+          bytes: copy2,
         },
-        [copy]
+        [copy2]
       );
     } catch (err) {
       console.warn('[MosaicForgeBridge] captureAnchorDownload warning:', err);
@@ -160,9 +184,14 @@
   }
 
   async function openFileInEditor(arg1, arg2, arg3, arg4) {
-    let name, mime, bytes, placeOnCanvas;
-    if (arg1 && typeof arg1 === 'object' && 'name' in arg1) {
-      ({ name, mime, bytes, placeOnCanvas } = arg1);
+    let name, mime, bytes, placeOnCanvas, id;
+    if (arg1 && typeof arg1 === 'object') {
+      const target = arg1.asset || arg1;
+      name = target.name;
+      mime = target.mimeType || target.mime;
+      bytes = target.bytes;
+      id = target.id;
+      placeOnCanvas = target.placeOnCanvas;
     } else {
       name = arg1;
       bytes = arg2;
@@ -172,7 +201,17 @@
     const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
     const file = new File([u8], name, { type: mime || 'application/octet-stream' });
 
-    // 0. Native ?host=parent postMessage protocol (cadcraft, wordcraft, gridcraft, pdfcraft)
+    // 0. Dedicated loadAsset or openFile method on window[appId] if present
+    if (window[appId] && typeof window[appId].loadAsset === 'function') {
+      const res = await window[appId].loadAsset({ id, name, mimeType: mime, bytes: u8, file });
+      return { method: `window.${appId}.loadAsset`, result: res };
+    }
+    if (window[appId] && typeof window[appId].openFile === 'function') {
+      const res = await window[appId].openFile(name, u8);
+      return { method: `window.${appId}.openFile`, result: res };
+    }
+
+    // 1. Native ?host=parent postMessage protocol (cadcraft, wordcraft, gridcraft, pdfcraft)
     if (['cadcraft', 'wordcraft', 'gridcraft', 'pdfcraft'].includes(appId)) {
       try {
         window.postMessage({ type: `${appId}:open`, name, bytes: u8 }, location.origin);
@@ -201,8 +240,12 @@
 
     // 3. EffectCraft wasm-bindgen addFile API
     if (appId === 'effectcraft' && window.effectcraft && typeof window.effectcraft.addFile === 'function') {
-      const res = await window.effectcraft.addFile(name, u8);
-      return { method: 'window.effectcraft.addFile', result: res };
+      try {
+        const res = await window.effectcraft.addFile(file, name);
+        return { method: 'window.effectcraft.addFile', result: res };
+      } catch (err) {
+        console.warn('[MosaicForgeBridge] effectcraft.addFile fallback:', err);
+      }
     }
 
     // 4. SolidCraft OPFS + engine file.open / file.import for .sc / .step / .stl
@@ -258,7 +301,23 @@
 
     const reqId = data.requestId || null;
     try {
-      if (data.type === 'mosaic:ping') {
+      if (data.type === 'omnicraft:theme-change' || data.type === 'mosaic:theme-change') {
+        const theme = data.theme || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+        if (document.body) document.body.setAttribute('data-theme', theme);
+        postToShell({ type: 'omnicraft:theme-change:ok', requestId: reqId, theme });
+      } else if (
+        data.type === 'omnicraft:import-asset' ||
+        data.type === 'omnicraft:load-asset' ||
+        data.type === 'omnicraft:import-cad'
+      ) {
+        const result = await openFileInEditor(data);
+        postToShell({ type: 'omnicraft:load-asset:ok', requestId: reqId, result });
+        postToShell({ type: 'omnicraft:import-asset:ok', requestId: reqId, result });
+        postToShell({ type: 'mosaic:open-file:ok', requestId: reqId, result });
+      } else if (data.type === 'omnicraft:ping') {
+        postToShell({ type: 'omnicraft:pong', requestId: reqId, status: getEditorApiStatus() });
+      } else if (data.type === 'mosaic:ping') {
         postToShell({ type: 'mosaic:pong', requestId: reqId, status: getEditorApiStatus() });
       } else if (data.type === 'mosaic:open-file') {
         const result = await openFileInEditor(data);
@@ -294,13 +353,101 @@
     }
   });
 
+  // Catch native ?host=parent saves from cadcraft, wordcraft, gridcraft, etc.
+  window.addEventListener('message', (event) => {
+    if (!event.data || typeof event.data !== 'object') return;
+    if (event.data.type === `${appId}:save` || event.data.type === 'cadcraft:save') {
+      const name = event.data.name || `${appId}-drawing.dxf`;
+      const bytes = event.data.bytes;
+      let ab;
+      if (bytes instanceof ArrayBuffer) {
+        ab = bytes;
+      } else if (bytes && bytes.buffer) {
+        ab = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+      } else {
+        ab = new ArrayBuffer(0);
+      }
+      const mime = name.endsWith('.dxf') ? 'application/dxf' : 'application/octet-stream';
+      const copy1 = ab.slice(0);
+      postToShell({
+        source: 'omnicraft-os',
+        type: 'omnicraft:export-ready',
+        appId,
+        name,
+        mime,
+        size: copy1.byteLength,
+        bytes: copy1,
+        file: {
+          name,
+          mime,
+          type: mime,
+          size: copy1.byteLength,
+          bytes: copy1,
+          timestamp: Date.now(),
+        },
+      }, [copy1]);
+    }
+  });
+
+  function hookSolidcraft() {
+    if (appId === 'solidcraft' && window.solidcraft && typeof window.solidcraft.execute === 'function' && !window.solidcraft.__exportHooked) {
+      window.solidcraft.__exportHooked = true;
+      const origExec = window.solidcraft.execute.bind(window.solidcraft);
+      window.solidcraft.execute = async function (cmd, params) {
+        const res = await origExec(cmd, params);
+        if (cmd === 'file.export' && params && params.path) {
+          try {
+            const fileName = params.path.split('/').pop() || 'model.step';
+            const mime = fileName.endsWith('.stl') ? 'model/stl' : 'application/step';
+            let bytes = null;
+            if (res && res.bytes) {
+              bytes = res.bytes;
+            } else if (navigator.storage && navigator.storage.getDirectory) {
+              try {
+                const root = await navigator.storage.getDirectory();
+                const handle = await root.getFileHandle(fileName);
+                const f = await handle.getFile();
+                bytes = await f.arrayBuffer();
+              } catch {}
+            }
+            if (bytes) {
+              const copy = bytes.slice(0);
+              postToShell({
+                source: 'omnicraft-os',
+                type: 'omnicraft:export-ready',
+                appId,
+                name: fileName,
+                mime,
+                size: copy.byteLength,
+                bytes: copy,
+                file: {
+                  name: fileName,
+                  mime,
+                  type: mime,
+                  size: copy.byteLength,
+                  bytes: copy,
+                  timestamp: Date.now()
+                }
+              }, [copy]);
+            }
+          } catch (err) {
+            console.warn('[MosaicForgeBridge] SolidCraft export hook notice:', err);
+          }
+        }
+        return res;
+      };
+    }
+  }
+
   // Poll until canvas and optional window[appId] are ready, then notify parent shell
   let notifiedReady = false;
   const pollTimer = setInterval(() => {
+    hookSolidcraft();
     const status = getEditorApiStatus();
     if (status.canvasReady && !notifiedReady) {
       notifiedReady = true;
       postToShell({ type: 'mosaic:editor-ready', status });
+      postToShell({ type: 'omnicraft:editor-ready', status });
       clearInterval(pollTimer);
     }
   }, 250);

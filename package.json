@@ -12,7 +12,9 @@
     "test": "vitest run",
     "upstream:status": "node scripts/upstream-manager.mjs status",
     "upstream:check": "node scripts/upstream-manager.mjs check --output public/upstream-report.json",
-    "upstream:licenses": "node scripts/upstream-manager.mjs verify-licenses"
+    "upstream:licenses": "node scripts/upstream-manager.mjs licenses",
+    "upstream:overlays": "node scripts/upstream-manager.mjs verify-overlays",
+    "upstream:apply-overlays": "node scripts/upstream-manager.mjs apply-overlays"
   },
   "dependencies": {
     "lucide-react": "^0.469.0",

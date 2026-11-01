@@ -1,0 +1,521 @@
+/* Option 3 Bento Engineering Aesthetic — CADCraft 2D Drafting Shell */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bento-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --bento-font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  --bento-card-radius: 12px;
+  --bento-btn-radius: 8px;
+  --bento-tracking-tight: -0.02em;
+
+  /* Dark Theme (Default) */
+  --bento-bg-canvas: #090b10;
+  --bento-bg-surface: rgba(17, 21, 31, 0.88);
+  --bento-bg-elevated: rgba(23, 28, 41, 0.94);
+  --bento-bg-subtle: rgba(31, 38, 55, 0.85);
+  --bento-border-subtle: rgba(255, 255, 255, 0.08);
+  --bento-border-strong: rgba(255, 255, 255, 0.16);
+  --bento-border-hover: rgba(16, 185, 129, 0.45);
+  --bento-card-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  
+  --bento-text-primary: #f3f6fc;
+  --bento-text-secondary: #9ba8c0;
+  --bento-text-muted: #64728c;
+  
+  --bento-accent-green: #10b981;
+  --bento-accent-cyan: #38bdf8;
+  --bento-accent-indigo: #6366f1;
+  --bento-accent-amber: #f59e0b;
+  --bento-accent-red: #ef4444;
+
+  --viewport-grid-line: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="light"], html.theme-light {
+  --bento-bg-canvas: #f8fafc;
+  --bento-bg-surface: rgba(255, 255, 255, 0.90);
+  --bento-bg-elevated: rgba(248, 250, 252, 0.96);
+  --bento-bg-subtle: rgba(241, 245, 249, 0.88);
+  --bento-border-subtle: rgba(15, 23, 42, 0.08);
+  --bento-border-strong: rgba(15, 23, 42, 0.16);
+  --bento-border-hover: rgba(16, 185, 129, 0.55);
+  --bento-card-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  
+  --bento-text-primary: #0f172a;
+  --bento-text-secondary: #475569;
+  --bento-text-muted: #64748b;
+
+  --viewport-grid-line: rgba(15, 23, 42, 0.04);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bento-bg-canvas);
+  color: var(--bento-text-primary);
+  font-family: var(--bento-font-sans);
+  letter-spacing: var(--bento-tracking-tight);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+/* Canvas Viewport */
+#cadcraft_canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  background: radial-gradient(circle at center, transparent 40%, var(--bento-bg-canvas) 100%),
+              linear-gradient(var(--viewport-grid-line) 1px, transparent 1px),
+              linear-gradient(90deg, var(--viewport-grid-line) 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px, 20px 20px;
+}
+
+/* Bento Header Bar */
+.bento-header {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  height: 48px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  background: var(--bento-bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--bento-border-subtle);
+  border-radius: var(--bento-card-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  pointer-events: auto;
+}
+
+.bento-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bento-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.bento-logo-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bento-accent-cyan);
+}
+
+.bento-title {
+  font-size: 13.5px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--bento-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bento-engine-badge {
+  font-family: var(--bento-font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.10);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: var(--bento-accent-cyan);
+}
+
+.bento-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--bento-font-mono);
+  font-size: 10.5px;
+  color: var(--bento-text-secondary);
+}
+
+.bento-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bento-accent-green);
+  box-shadow: 0 0 8px var(--bento-accent-green);
+  animation: bento-pulse 2s infinite ease-in-out;
+}
+
+@keyframes bento-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Center Coordinate Telemetry HUD */
+.bento-telemetry-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bento-bg-elevated);
+  padding: 4px 10px;
+  border-radius: var(--bento-btn-radius);
+  border: 1px solid var(--bento-border-subtle);
+  font-family: var(--bento-font-mono);
+  font-size: 11px;
+}
+
+.hud-coord-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-coord-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-axis {
+  font-weight: 600;
+  color: var(--bento-text-muted);
+}
+
+.hud-axis.x { color: #f87171; }
+.hud-axis.y { color: #34d399; }
+.hud-axis.delta { color: #38bdf8; }
+.hud-axis.angle { color: #fbbf24; }
+
+.hud-val {
+  font-weight: 500;
+  color: var(--bento-text-primary);
+  min-width: 44px;
+  text-align: right;
+}
+
+.hud-unit {
+  font-size: 9.5px;
+  color: var(--bento-text-muted);
+}
+
+.hud-divider {
+  width: 1px;
+  height: 12px;
+  background: var(--bento-border-subtle);
+}
+
+.hud-pill {
+  color: var(--bento-text-secondary);
+  font-size: 10px;
+}
+
+.hud-pill-active {
+  color: var(--bento-accent-cyan);
+}
+
+/* Right Toolbar Actions */
+.bento-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bento-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  background: var(--bento-bg-elevated);
+  border: 1px solid var(--bento-border-subtle);
+  border-radius: var(--bento-btn-radius);
+  color: var(--bento-text-primary);
+  font-family: var(--bento-font-sans);
+  font-size: 11.5px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.bento-btn:hover {
+  background: var(--bento-bg-subtle);
+  border-color: var(--bento-border-hover);
+  color: var(--bento-text-primary);
+  transform: translateY(-1px);
+}
+
+.bento-btn:active {
+  transform: translateY(0);
+}
+
+.bento-btn-primary {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: var(--bento-accent-cyan);
+}
+
+.bento-btn-primary:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: var(--bento-accent-cyan);
+}
+
+.bento-btn-icon {
+  width: 30px;
+  padding: 0;
+  justify-content: center;
+}
+
+/* Tile 2 2D Drafting Telemetry HUD (Bottom Left Card) */
+.bento-hud-card {
+  position: fixed;
+  bottom: 14px;
+  left: 14px;
+  z-index: 50;
+  width: 320px;
+  background: var(--bento-bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--bento-border-subtle);
+  border-radius: var(--bento-card-radius);
+  box-shadow: var(--bento-card-shadow);
+  padding: 12px 14px;
+  pointer-events: auto;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.bento-hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--bento-border-subtle);
+}
+
+.bento-hud-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--bento-text-secondary);
+  text-transform: uppercase;
+}
+
+.bento-hud-badge {
+  font-family: var(--bento-font-mono);
+  font-size: 9.5px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: var(--bento-accent-cyan);
+}
+
+.bento-hud-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  font-family: var(--bento-font-mono);
+  font-size: 10px;
+}
+
+.bento-hud-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.bento-hud-label {
+  color: var(--bento-text-muted);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.bento-hud-value {
+  color: var(--bento-text-primary);
+  font-weight: 500;
+}
+
+.bento-hud-status-sync {
+  grid-column: span 2;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--bento-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bento-hud-sync-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--bento-accent-green);
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+/* Bento Loading Screen */
+#cadcraft_loading {
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bento-bg-canvas);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+  pointer-events: auto;
+}
+
+#cadcraft_loading.done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.bento-loader-card {
+  width: min(90vw, 440px);
+  background: var(--bento-bg-surface);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--bento-border-strong);
+  border-radius: 16px;
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+.bento-drafting-graphic {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  color: var(--bento-accent-cyan);
+  animation: bento-float 4s ease-in-out infinite;
+}
+
+@keyframes bento-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(-1deg); }
+}
+
+.bento-loader-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--bento-text-primary);
+  margin: 0 0 6px;
+}
+
+.bento-loader-subtitle {
+  font-size: 12px;
+  color: var(--bento-text-secondary);
+  margin: 0 0 22px;
+}
+
+.bento-progress-track {
+  width: 100%;
+  height: 5px;
+  background: var(--bento-border-subtle);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.bento-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 35%;
+  background: linear-gradient(90deg, var(--bento-accent-cyan), var(--bento-accent-indigo));
+  border-radius: 3px;
+  animation: bento-indeterminate 1.8s infinite cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+@keyframes bento-indeterminate {
+  0% { left: -35%; width: 35%; }
+  50% { left: 30%; width: 60%; }
+  100% { left: 100%; width: 25%; }
+}
+
+.bento-loader-stage {
+  font-family: var(--bento-font-mono);
+  font-size: 11px;
+  color: var(--bento-text-muted);
+  min-height: 16px;
+}
+
+.bento-loader-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--bento-border-subtle);
+  font-family: var(--bento-font-mono);
+  font-size: 10px;
+  color: var(--bento-text-muted);
+}
+
+/* Toast Notifications */
+.bento-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bento-bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--bento-accent-cyan);
+  border-radius: var(--bento-card-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  color: var(--bento-text-primary);
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.bento-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bento-toast-icon {
+  color: var(--bento-accent-cyan);
+  display: flex;
+  align-items: center;
+}
+
+.bento-file-input {
+  display: none;
+}

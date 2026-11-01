@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="application-name" content="OmniCraft OS">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <title>Mosaic Forge — Documents & Writing (WordCraft Engine)</title>
+  <title>OmniCraft OS — Documents & Writing (WordCraft Engine)</title>
   <link rel="icon" href="./wordcraft-fa59e09a3f921e03.ico" integrity="sha384-99DzWb82rFgkdw7hjKziyDQaHbMTklb9MWeLKF7LcVUnq80H4nDrc/pjHJtAj/AA"/>
   
 <script type="module">
@@ -19,14 +20,37 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 </script>
   <style>
     html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #e6e6e6; }
-    #wordcraft_canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    #wordcraft_canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; box-sizing: border-box; outline: 1px solid rgba(255, 255, 255, 0.08); outline-offset: -1px; }
     #wordcraft_loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
       color: #555; font: 14px system-ui, sans-serif; pointer-events: none; }
+    .omnicraft-bento-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+      background: rgba(18, 20, 24, 0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35); color: #e5e7eb;
+      font: 500 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+      letter-spacing: 0.01em; user-select: none;
+    }
+    .omnicraft-pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #c87d55;
+      box-shadow: 0 0 8px #c87d55; animation: omnicraft-pulse 1.8s ease-in-out infinite; flex-shrink: 0;
+    }
+    .omnicraft-brand { font-weight: 600; color: #fff; letter-spacing: 0.02em; }
+    .omnicraft-sep { opacity: 0.35; font-weight: 300; }
+    @keyframes omnicraft-pulse { 0%, 100% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.15); opacity: 1; } }
   </style>
 <link rel="modulepreload" href="./wordcraft-web-97267fff62d92a8d.js" crossorigin="anonymous" integrity="sha384-sPYO9/2hEh0gaBzmEGIcNX4Wr1S/1iLUTAsIa8ALNzA5VLQavUfrVPiTIDLHdqQd"><link rel="modulepreload" href="./snippets/eframe-d31a8450ea12dfc1/inline0.js" crossorigin="anonymous" integrity="sha384-uPZQ72BwgZ4v7Km6+UIFbkDDlt7ShGEsAVEHVN/+wZSGFhItJZB83iKMFQXauTSs"><link rel="preload" href="./wordcraft-web-97267fff62d92a8d_bg.wasm" crossorigin="anonymous" integrity="sha384-kiDY9puF3yD4nhmHALWLFD9WRMXhHIEBLpprkYJBRnXamPnts3E6J992n9cYaCTg" as="fetch" type="application/wasm"></head>
 <body>
   <canvas id="wordcraft_canvas"></canvas>
-  <div id="wordcraft_loading">Loading WordCraft&hellip;</div>
+  <div id="wordcraft_loading">
+    <div class="omnicraft-bento-badge">
+      <span class="omnicraft-pulse-dot"></span>
+      <span class="omnicraft-brand">OmniCraft OS</span>
+      <span class="omnicraft-sep">/</span>
+      <span>WordCraft Document Publisher</span>
+    </div>
+  </div>
+  <script src="../bento-theme-bridge.js?app=wordcraft"></script>
   <script src="../mosaic-forge-bridge.js?app=wordcraft"></script>
 </body>
 </html>

@@ -1,0 +1,68 @@
+/**
+ * OmniCraft OS — Bento Theme Overlay Stylesheet (upstream/overlays/shared/bento-theme-overlay.css)
+ *
+ * Isolated overlay layer:
+ * Injected into embedded editor iframes to ensure Bento UI design specifications,
+ * dark/light surfaces, hairline borders, and typography variables remain intact
+ * across upstream git pulls and WASM rebuilds.
+ */
+
+:root {
+  --bento-card-radius: 14px;
+  --bento-card-border: 1px solid rgba(255, 255, 255, 0.08);
+  --bento-card-border-subtle: rgba(255, 255, 255, 0.08);
+  --bento-card-border-strong: rgba(255, 255, 255, 0.16);
+  --bento-card-border-hover: rgba(16, 185, 129, 0.45);
+  --bento-card-shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
+
+  --bento-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --bento-font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+
+  /* Surfaces - Dark Default */
+  --bento-canvas: #090b10;
+  --bento-surface: #11151f;
+  --bento-elevated: #171c29;
+  --bento-subtle: #1f2637;
+  --bento-text-primary: #f3f6fc;
+  --bento-text-secondary: #9ba8c0;
+  --bento-text-muted: #64728c;
+  --bento-accent-primary: #0f172a;
+  --bento-accent-secondary: #10b981;
+}
+
+[data-theme='light'] {
+  --bento-card-border: 1px solid rgba(15, 23, 42, 0.08);
+  --bento-card-border-subtle: rgba(15, 23, 42, 0.08);
+  --bento-card-border-strong: rgba(15, 23, 42, 0.16);
+  --bento-canvas: #f8fafc;
+  --bento-surface: #ffffff;
+  --bento-elevated: #f1f5f9;
+  --bento-subtle: #e2e8f0;
+  --bento-text-primary: #0f172a;
+  --bento-text-secondary: #334155;
+  --bento-text-muted: #64748b;
+}
+
+/* Hairline border frame around canvas */
+canvas {
+  outline: 1px solid var(--bento-card-border-subtle) !important;
+  outline-offset: -1px !important;
+}
+
+/* Bento status badge */
+.omnicraft-bento-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(17, 21, 31, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--bento-card-border-strong);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  color: var(--bento-text-primary);
+  font: 500 12px/1.4 var(--bento-font-sans);
+  letter-spacing: 0.01em;
+  user-select: none;
+}

@@ -1,25 +1,48 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <meta name="application-name" content="OmniCraft OS">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mosaic Forge — Photo Catalog & RAW Lab (LightCraft Engine)</title>
+  <title>OmniCraft OS — RAW & Photo Catalog (LightCraft Engine)</title>
   <link rel="icon" href="data:,">
   <meta name="description" content="LightCraft: open-source photo library and raw developer, running in your browser (WASM).">
   <style>
     :root { color-scheme: dark; }
     html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1c1c1c; }
-    canvas#lightcraft_canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    canvas#lightcraft_canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; box-sizing: border-box; outline: 1px solid rgba(255, 255, 255, 0.08); outline-offset: -1px; }
     #lightcraft_loading {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
       color: #b8b8b8; font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; pointer-events: none;
     }
+    .omnicraft-bento-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+      background: rgba(18, 20, 24, 0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35); color: #e5e7eb;
+      font: 500 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+      letter-spacing: 0.01em; user-select: none;
+    }
+    .omnicraft-pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #c87d55;
+      box-shadow: 0 0 8px #c87d55; animation: omnicraft-pulse 1.8s ease-in-out infinite; flex-shrink: 0;
+    }
+    .omnicraft-brand { font-weight: 600; color: #fff; letter-spacing: 0.02em; }
+    .omnicraft-sep { opacity: 0.35; font-weight: 300; }
+    @keyframes omnicraft-pulse { 0%, 100% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.15); opacity: 1; } }
     #lightcraft_status { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; overflow: hidden; }
   </style>
 </head>
 <body>
   <canvas id="lightcraft_canvas"></canvas>
-  <div id="lightcraft_loading">Loading LightCraft…</div>
+  <div id="lightcraft_loading">
+    <div class="omnicraft-bento-badge">
+      <span class="omnicraft-pulse-dot"></span>
+      <span class="omnicraft-brand">OmniCraft OS</span>
+      <span class="omnicraft-sep">/</span>
+      <span>LightCraft RAW & Photo Catalog</span>
+    </div>
+  </div>
   <div id="lightcraft_status" aria-live="polite"></div>
   <script type="module">
     import init, { start, command } from "./lightcraft_web.js";
@@ -45,6 +68,7 @@
       if (el) el.textContent = "LightCraft failed to load: " + e;
     });
   </script>
+  <script src="../bento-theme-bridge.js?app=lightcraft"></script>
   <script src="../mosaic-forge-bridge.js?app=lightcraft"></script>
 </body>
 </html>
