@@ -1,0 +1,56 @@
+{
+  "at": "2026-11-02T01:51:09.459Z",
+  "sourceRevision": "d620a1d202b8033ec038b8c87cd307c3d7d2557b",
+  "passed": true,
+  "rows": [
+    {
+      "package": "@waveform-playlist/browser",
+      "matched": 67,
+      "missing": 0,
+      "different": 0,
+      "details": []
+    },
+    {
+      "package": "@waveform-playlist/core",
+      "matched": 21,
+      "missing": 0,
+      "different": 0,
+      "details": []
+    },
+    {
+      "package": "@waveform-playlist/playout",
+      "matched": 9,
+      "missing": 0,
+      "different": 0,
+      "details": []
+    },
+    {
+      "package": "@waveform-playlist/recording",
+      "matched": 4,
+      "missing": 0,
+      "different": 0,
+      "details": []
+    },
+    {
+      "package": "@waveform-playlist/worklets",
+      "matched": 1,
+      "missing": 0,
+      "different": 0,
+      "details": []
+    },
+    {
+      "package": "@waveform-playlist/engine",
+      "matched": 4,
+      "missing": 0,
+      "different": 0,
+      "details": []
+    },
+    {
+      "package": "@waveform-playlist/ui-components",
+      "matched": 60,
+      "missing": 0,
+      "different": 0,
+      "details": []
+    }
+  ]
+}

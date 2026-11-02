@@ -2094,3 +2094,591 @@ dialog.mf-dialog[open]:where(:not([data-closing]))::backdrop {
     display: none;
   }
 }
+
+/* ==========================================================================
+   OMNICRAFT INTERACTIVE PLAYGROUND, PIPELINES & STARTER TEMPLATES
+   Industrial, High-Utility, Zero-Slop Architecture
+   ========================================================================== */
+
+.oc-playground-section {
+  margin: 36px 0 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.oc-section-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.oc-section-header.left-aligned {
+  text-align: left;
+  max-width: 100%;
+  margin: 0;
+  align-items: flex-start;
+}
+
+.oc-section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.oc-section-title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.oc-section-subtitle {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Pipeline Tabs */
+.oc-pipeline-tab-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 6px;
+}
+
+.oc-pipeline-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.16s ease-in-out;
+}
+
+.oc-pipeline-tab:hover {
+  background: var(--bg-elevated);
+}
+
+.oc-pipeline-tab.active {
+  background: var(--bg-elevated);
+  border-color: var(--border-strong);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.oc-tab-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.oc-tab-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.oc-tab-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.oc-tab-category {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--mf-font-mono);
+}
+
+/* Interactive Pipeline Stage */
+.oc-pipeline-stage {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.oc-stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 16px;
+}
+
+.oc-stage-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.oc-stage-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: var(--mf-font-mono);
+}
+
+.oc-stage-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.oc-stage-tagline {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.oc-stage-deliverable {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  background: var(--bg-elevated);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.oc-deliv-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: var(--mf-font-mono);
+}
+
+.oc-deliv-value {
+  font-size: 12.5px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Steps Grid */
+.oc-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.oc-step-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.oc-step-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.oc-step-card.active {
+  border-color: var(--brand-blue, #0078d4);
+  box-shadow: 0 0 0 1px var(--brand-blue, #0078d4), 0 6px 16px rgba(0, 120, 212, 0.15);
+}
+
+.oc-step-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.oc-step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--mf-font-mono);
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.oc-step-card.completed .oc-step-num {
+  background: #10b981;
+  border-color: #10b981;
+  color: #fff;
+}
+
+.oc-step-app-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.oc-step-app-name {
+  font-size: 14px;
+  color: var(--text-primary);
+  display: block;
+}
+
+.oc-step-role {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--mf-font-mono);
+}
+
+.oc-step-action {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-secondary, #cbd5e1);
+  margin: 0;
+  flex: 1;
+}
+
+.oc-step-file-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11.5px;
+  font-family: var(--mf-font-mono);
+}
+
+.oc-file-name {
+  color: var(--text-primary);
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.oc-file-size {
+  color: var(--text-muted);
+  font-size: 10.5px;
+}
+
+.oc-step-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.oc-step-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.oc-step-btn-primary {
+  flex: 1;
+  background: var(--brand-blue, #0078d4);
+  color: #ffffff;
+  border: none;
+}
+
+.oc-step-btn-primary:hover {
+  background: var(--brand-blue-hover, #0060b0);
+}
+
+.oc-step-btn-ghost {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+}
+
+.oc-step-btn-ghost:hover {
+  background: var(--bg-elevated);
+}
+
+/* Transfer Banner */
+.oc-transfer-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.oc-transfer-view-btn {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.oc-transfer-view-btn:hover {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+/* Stage Footer */
+.oc-stage-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.oc-engine-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.oc-all-assets-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--brand-blue, #0078d4);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.oc-all-assets-btn:hover {
+  text-decoration: underline;
+}
+
+/* Starter Templates Section */
+.oc-templates-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.oc-templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.oc-template-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.oc-template-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.oc-tmpl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.oc-tmpl-app {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.oc-tmpl-badge {
+  display: inline-block;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-family: var(--mf-font-mono);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.oc-tmpl-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.oc-tmpl-desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.oc-tmpl-deliverables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.oc-tmpl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-secondary, #cbd5e1);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: var(--mf-font-mono);
+}
+
+.oc-tmpl-launch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.oc-tmpl-launch-btn:hover {
+  background: var(--brand-blue, #0078d4);
+  border-color: var(--brand-blue, #0078d4);
+  color: #ffffff;
+}
+
+/* Architecture Guarantee Cards */
+.oc-architecture-guarantee {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+}
+
+.oc-guarantee-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.oc-guar-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-blue, #0078d4);
+  flex-shrink: 0;
+}
+
+.oc-guar-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.oc-guar-content p {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .oc-pipeline-tab-row {
+    grid-template-columns: 1fr;
+  }
+  .oc-stage-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .oc-stage-deliverable {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .oc-steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .oc-architecture-guarantee {
+    grid-template-columns: 1fr;
+  }
+}

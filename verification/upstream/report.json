@@ -1,0 +1,331 @@
+{
+  "at": "2026-11-02T01:13:43.361Z",
+  "tests": {
+    "solidcraft": {
+      "passed": true,
+      "before": {
+        "bodies": [
+          {
+            "area_mm2": 9120,
+            "bbox": {
+              "max": [
+                30,
+                30,
+                8
+              ],
+              "min": [
+                -30,
+                -30,
+                0
+              ]
+            },
+            "center_of_mass": [
+              0,
+              0,
+              4
+            ],
+            "closed": true,
+            "density_g_cm3": 1.29,
+            "edges": 12,
+            "face_types": {
+              "plane": 6
+            },
+            "faces": 6,
+            "kernel": {
+              "edges": 12,
+              "faces": 6,
+              "shells": 1,
+              "vertices": 8
+            },
+            "mass_g": 37.152,
+            "material": "Default",
+            "name": "Body1",
+            "vertices": 8,
+            "volume_mm3": 28800
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "area_mm2": 9120,
+          "edges": 12,
+          "faces": 6,
+          "mass_g": 37.152,
+          "open_bodies_skipped": 0,
+          "vertices": 8,
+          "volume_mm3": 28800
+        }
+      },
+      "after": {
+        "bodies": [
+          {
+            "area_mm2": 9258.259061254696,
+            "bbox": {
+              "max": [
+                30,
+                30,
+                8
+              ],
+              "min": [
+                -30,
+                -30,
+                0
+              ]
+            },
+            "center_of_mass": [
+              1.1936228716106516e-16,
+              -1.5991153631309697e-15,
+              4
+            ],
+            "closed": true,
+            "density_g_cm3": 1.29,
+            "edges": 22,
+            "face_types": {
+              "cylinder": 5,
+              "plane": 6
+            },
+            "faces": 11,
+            "kernel": {
+              "edges": 42,
+              "faces": 16,
+              "shells": 1,
+              "vertices": 28
+            },
+            "mass_g": 32.41878405522828,
+            "material": "Default",
+            "name": "Body1",
+            "vertices": 18,
+            "volume_mm3": 25130.840352890136
+          }
+        ],
+        "body_count": 1,
+        "total": {
+          "area_mm2": 9258.259061254696,
+          "edges": 22,
+          "faces": 11,
+          "mass_g": 32.41878405522828,
+          "open_bodies_skipped": 0,
+          "vertices": 18,
+          "volume_mm3": 25130.840352890136
+        }
+      },
+      "state": {
+        "active_sketch": null,
+        "bodies": [
+          {
+            "feature": 2,
+            "name": "Body1",
+            "visible": true
+          }
+        ],
+        "dirty": true,
+        "hidden_origin": [],
+        "marker": 4,
+        "metadata": {},
+        "name": "OmniCraft verification plate",
+        "params": [],
+        "path": null,
+        "redo": 0,
+        "revision": 16,
+        "selection": [],
+        "sketches": [
+          {
+            "curves": 4,
+            "dof": 4,
+            "id": 1,
+            "name": "Base",
+            "profiles": 1,
+            "status": "solved",
+            "visible": false
+          },
+          {
+            "curves": 5,
+            "dof": 13,
+            "id": 3,
+            "name": "Bores",
+            "profiles": 5,
+            "status": "solved",
+            "visible": false
+          }
+        ],
+        "timeline": [
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 1,
+            "ms": 15.4,
+            "name": "Base",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "Sketch",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 2,
+            "ms": 208,
+            "name": "Extrude1",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "ExtrudeFeature",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 3,
+            "ms": 0.5,
+            "name": "Bores",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "Sketch",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 4,
+            "ms": 2686.4,
+            "name": "Extrude2",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "ExtrudeFeature",
+            "warning": null
+          }
+        ],
+        "undo": 10,
+        "units": "mm"
+      },
+      "reopened": {
+        "active_sketch": null,
+        "bodies": [
+          {
+            "feature": 2,
+            "name": "Body1",
+            "visible": true
+          }
+        ],
+        "dirty": false,
+        "hidden_origin": [],
+        "marker": 4,
+        "metadata": {},
+        "name": "OmniCraft verification plate",
+        "params": [],
+        "path": "/opfs/omnicraft-verification.sc",
+        "redo": 0,
+        "revision": 2,
+        "selection": [],
+        "sketches": [
+          {
+            "curves": 4,
+            "dof": 4,
+            "id": 1,
+            "name": "Base",
+            "profiles": 1,
+            "status": "solved",
+            "visible": false
+          },
+          {
+            "curves": 5,
+            "dof": 13,
+            "id": 3,
+            "name": "Bores",
+            "profiles": 5,
+            "status": "solved",
+            "visible": false
+          }
+        ],
+        "timeline": [
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 1,
+            "ms": 15.4,
+            "name": "Base",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "Sketch",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 2,
+            "ms": 208,
+            "name": "Extrude1",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "ExtrudeFeature",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 3,
+            "ms": 0.5,
+            "name": "Bores",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "Sketch",
+            "warning": null
+          },
+          {
+            "boolean_diagnostics": {
+              "events": [],
+              "truncated": false
+            },
+            "error": null,
+            "id": 4,
+            "ms": 2686.4,
+            "name": "Extrude2",
+            "rolled_back": false,
+            "suppressed": false,
+            "type": "ExtrudeFeature",
+            "warning": null
+          }
+        ],
+        "undo": 0,
+        "units": "mm"
+      },
+      "expectedVolumeMm3": 25130.61978060712,
+      "mesh": {
+        "triangles": 2904,
+        "volumeMm3": 25136.534735883866,
+        "min": [
+          -30,
+          -30,
+          0
+        ],
+        "max": [
+          30,
+          30,
+          8
+        ]
+      },
+      "stepBytes": 22106
+    }
+  },
+  "passed": false,
+  "error": "page.evaluate: Target page, context or browser has been closed\n    at /Users/caleblickteig/Documents/antigravity/joyful-pasteur/scripts/verify-upstream-workflows.mjs:38:21"
+}

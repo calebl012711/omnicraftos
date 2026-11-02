@@ -3,8 +3,11 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  // Keep relative AudioWorklet URLs relative to the actual upstream package in development.
+  optimizeDeps: { exclude: ['@waveform-playlist/worklets'] },
   server: {
     port: 5173,
+    watch: { ignored: ['**/upstream/**', '**/brag-output/**', '**/design/**', '**/verification/**'] },
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin'
     }

@@ -1,0 +1,10 @@
+Use case: ui-mockup
+Asset type: original high fidelity website hero concept, full flat website screenshot.
+Create a striking, professional landscape 16:10 homepage hero for the creative suite named exactly "OmniCraft OS". Never rename the product.
+Direction: After Hours. Near-black ink canvas, warm white huge editorial grotesk typography, warm amber/copper used with restraint. Design feels like an independent film festival identity meeting a precision desktop creative tool. Exceptional spacing, legible typography, immaculate alignment. Edge-to-edge flat website screenshot, no browser chrome or device frame, no option labels.
+Top nav: exact brand "OmniCraft OS" at left with a modest original abstract line mark. Navigation "Workspaces" "Projects" "About". Right small button "Open studio".
+Main headline in oversized beautiful typography: "One place for your ideas."
+Supporting text: "A creative home for video, sound, images, and ideas."
+Primary amber button "Open the studio" and quiet secondary link "Explore workspaces".
+Top text occupies about upper half. Lower half is one art-directed contiguous realistic video editor concept preview integrated into the page: large warm cinematic mountain landscape footage, horizontal filmstrip timeline and subtle amber audio waveforms along the bottom, with a small ivory clay mechanical part in a restrained preview panel at right. Thin precise tool markings, modest controls, convincing film-editing workflow. Small explicit "Concept preview" label. One clean composition, no layered floating browser windows.
+Avoid purple, gradients, glow, stock SaaS bento cards, decorative orbs, exaggerated performance/privacy claims, "18 studios" claims, fake testimonials, prices, downloadable-app claims, large amounts of tiny unreadable text. This is a design concept, not proof of functionality. Polished original creative product identity.

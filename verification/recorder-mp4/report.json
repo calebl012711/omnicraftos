@@ -1,0 +1,1174 @@
+{
+  "at": "2026-11-02T02:30:23.666Z",
+  "environment": "Chrome headless; synthetic MediaStreams injected at device boundary; real MediaRecorder and browser storage",
+  "physicalDevicesTested": false,
+  "seconds": 62,
+  "tests": {
+    "encodedFiles": {
+      "passed": true,
+      "files": {
+        "screen": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-screen.mp4",
+        "camera": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-camera.mp4",
+        "microphone": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-microphone.m4a"
+      },
+      "manifest": {
+        "version": 1,
+        "id": "take-2026-11-02T02-30-58-672Z-b27fdb",
+        "createdAt": "2026-11-02T02:30:58.674Z",
+        "state": "complete",
+        "mode": "capture",
+        "durationMs": 63888.29999999702,
+        "files": [
+          {
+            "kind": "screen",
+            "name": "screen.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 1138719,
+            "chunks": 13
+          },
+          {
+            "kind": "camera",
+            "name": "camera.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 1142205,
+            "chunks": 14
+          },
+          {
+            "kind": "microphone",
+            "name": "microphone.m4a",
+            "mime": "audio/mp4",
+            "bytes": 1034862,
+            "chunks": 47
+          }
+        ],
+        "events": [
+          {
+            "type": "common-start",
+            "offsetMs": 0.10000000894069672,
+            "detail": "2026-11-02T02:31:02.649Z"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.4000000059604645,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.5,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.7000000029802322,
+            "detail": "audio/mp4"
+          },
+          {
+            "type": "microphone-encoder-start",
+            "offsetMs": 54.5
+          },
+          {
+            "type": "screen-encoder-start",
+            "offsetMs": 562
+          },
+          {
+            "type": "camera-encoder-start",
+            "offsetMs": 562
+          },
+          {
+            "type": "stop",
+            "offsetMs": 63811,
+            "detail": "user-stop"
+          }
+        ],
+        "routing": {
+          "screen": "Shared source audio only",
+          "camera": "Microphone",
+          "microphone": "Separate encoded audio file, also included in camera video"
+        }
+      },
+      "drifts": [
+        {
+          "t": 1,
+          "screen": 12.6,
+          "camera": 12.6,
+          "delta": 0
+        },
+        {
+          "t": 31,
+          "screen": 42.6,
+          "camera": 42.6,
+          "delta": 0
+        },
+        {
+          "t": 60,
+          "screen": 71.6,
+          "camera": 71.6,
+          "delta": 0
+        }
+      ],
+      "tones": {
+        "screen660": 0.049947071805488526,
+        "screen440": 0.00002142563764311363,
+        "camera440": 0.050015057083358946,
+        "camera660": 0.000030667160381888044,
+        "mic440": 0.050020341795026534
+      },
+      "probes": {
+        "screen": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "Constrained Baseline",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.42c01f",
+              "width": 640,
+              "height": 360,
+              "coded_width": 640,
+              "coded_height": 360,
+              "has_b_frames": 0,
+              "sample_aspect_ratio": "1:1",
+              "display_aspect_ratio": "16:9",
+              "pix_fmt": "yuvj420p",
+              "level": 31,
+              "color_range": "pc",
+              "color_space": "bt709",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "30000/1",
+              "avg_frame_rate": "41640000/1900957",
+              "time_base": "1/30000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 1905418,
+              "duration": "63.513933",
+              "bit_rate": "37803",
+              "bits_per_raw_sample": "8",
+              "extradata_size": 33,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:07.000000Z",
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "AVC1 Coding"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 3056494,
+              "duration": "63.676958",
+              "bit_rate": "100679",
+              "extradata_size": 2,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:07.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-screen.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "63.676958",
+            "size": "1138719",
+            "bit_rate": "143061",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2avc1mp41",
+              "creation_time": "2026-11-02T02:31:07.000000Z"
+            }
+          }
+        },
+        "camera": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "Constrained Baseline",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.42c01f",
+              "width": 640,
+              "height": 360,
+              "coded_width": 640,
+              "coded_height": 360,
+              "has_b_frames": 0,
+              "sample_aspect_ratio": "1:1",
+              "display_aspect_ratio": "16:9",
+              "pix_fmt": "yuvj420p",
+              "level": 31,
+              "color_range": "pc",
+              "color_space": "bt709",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "30000/1",
+              "avg_frame_rate": "2585625/118567",
+              "time_base": "1/30000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 1907692,
+              "duration": "63.589733",
+              "bit_rate": "40686",
+              "bits_per_raw_sample": "8",
+              "extradata_size": 33,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:07.000000Z",
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "AVC1 Coding"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 2908133,
+              "duration": "60.586104",
+              "bit_rate": "103490",
+              "extradata_size": 2,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:07.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-camera.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "63.589733",
+            "size": "1142205",
+            "bit_rate": "143696",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2avc1mp41",
+              "creation_time": "2026-11-02T02:31:07.000000Z"
+            }
+          }
+        },
+        "microphone": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "opus",
+              "codec_long_name": "Opus (Opus Interactive Audio Codec)",
+              "codec_type": "audio",
+              "codec_tag_string": "Opus",
+              "codec_tag": "0x7375704f",
+              "mime_codec_string": "opus",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 3840,
+              "id": "0x1",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 3060468,
+              "duration": "63.759750",
+              "bit_rate": "133486",
+              "extradata_size": 19,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:03.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-microphone.m4a",
+            "nb_streams": 1,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "63.759750",
+            "size": "1034862",
+            "bit_rate": "129845",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2vp09mp41",
+              "creation_time": "2026-11-02T02:31:03.000000Z"
+            }
+          }
+        }
+      },
+      "heapSamples": [
+        {
+          "heap": 11250264,
+          "at": 1793586668222,
+          "state": "recording"
+        },
+        {
+          "heap": 12042126,
+          "at": 1793586673256,
+          "state": "recording"
+        },
+        {
+          "heap": 11915888,
+          "at": 1793586678345,
+          "state": "recording"
+        },
+        {
+          "heap": 11810263,
+          "at": 1793586683561,
+          "state": "recording"
+        },
+        {
+          "heap": 12374705,
+          "at": 1793586688802,
+          "state": "recording"
+        },
+        {
+          "heap": 12592217,
+          "at": 1793586693844,
+          "state": "recording"
+        },
+        {
+          "heap": 12281444,
+          "at": 1793586698921,
+          "state": "recording"
+        },
+        {
+          "heap": 12764260,
+          "at": 1793586704170,
+          "state": "recording"
+        },
+        {
+          "heap": 12993199,
+          "at": 1793586709257,
+          "state": "recording"
+        },
+        {
+          "heap": 12840755,
+          "at": 1793586714263,
+          "state": "recording"
+        },
+        {
+          "heap": 13279732,
+          "at": 1793586719385,
+          "state": "recording"
+        },
+        {
+          "heap": 12894687,
+          "at": 1793586724410,
+          "state": "recording"
+        },
+        {
+          "heap": 12995068,
+          "at": 1793586726415,
+          "state": "recording"
+        }
+      ]
+    },
+    "capture": {
+      "passed": true,
+      "files": {
+        "screen": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-screen.mp4",
+        "camera": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-camera.mp4",
+        "microphone": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-microphone.m4a"
+      },
+      "manifest": {
+        "version": 1,
+        "id": "take-2026-11-02T02-30-58-672Z-b27fdb",
+        "createdAt": "2026-11-02T02:30:58.674Z",
+        "state": "complete",
+        "mode": "capture",
+        "durationMs": 63888.29999999702,
+        "files": [
+          {
+            "kind": "screen",
+            "name": "screen.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 1138719,
+            "chunks": 13
+          },
+          {
+            "kind": "camera",
+            "name": "camera.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 1142205,
+            "chunks": 14
+          },
+          {
+            "kind": "microphone",
+            "name": "microphone.m4a",
+            "mime": "audio/mp4",
+            "bytes": 1034862,
+            "chunks": 47
+          }
+        ],
+        "events": [
+          {
+            "type": "common-start",
+            "offsetMs": 0.10000000894069672,
+            "detail": "2026-11-02T02:31:02.649Z"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.4000000059604645,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.5,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.7000000029802322,
+            "detail": "audio/mp4"
+          },
+          {
+            "type": "microphone-encoder-start",
+            "offsetMs": 54.5
+          },
+          {
+            "type": "screen-encoder-start",
+            "offsetMs": 562
+          },
+          {
+            "type": "camera-encoder-start",
+            "offsetMs": 562
+          },
+          {
+            "type": "stop",
+            "offsetMs": 63811,
+            "detail": "user-stop"
+          }
+        ],
+        "routing": {
+          "screen": "Shared source audio only",
+          "camera": "Microphone",
+          "microphone": "Separate encoded audio file, also included in camera video"
+        }
+      },
+      "drifts": [
+        {
+          "t": 1,
+          "screen": 12.6,
+          "camera": 12.6,
+          "delta": 0
+        },
+        {
+          "t": 31,
+          "screen": 42.6,
+          "camera": 42.6,
+          "delta": 0
+        },
+        {
+          "t": 60,
+          "screen": 71.6,
+          "camera": 71.6,
+          "delta": 0
+        }
+      ],
+      "tones": {
+        "screen660": 0.049947071805488526,
+        "screen440": 0.00002142563764311363,
+        "camera440": 0.050015057083358946,
+        "camera660": 0.000030667160381888044,
+        "mic440": 0.050020341795026534
+      },
+      "probes": {
+        "screen": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "Constrained Baseline",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.42c01f",
+              "width": 640,
+              "height": 360,
+              "coded_width": 640,
+              "coded_height": 360,
+              "has_b_frames": 0,
+              "sample_aspect_ratio": "1:1",
+              "display_aspect_ratio": "16:9",
+              "pix_fmt": "yuvj420p",
+              "level": 31,
+              "color_range": "pc",
+              "color_space": "bt709",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "30000/1",
+              "avg_frame_rate": "41640000/1900957",
+              "time_base": "1/30000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 1905418,
+              "duration": "63.513933",
+              "bit_rate": "37803",
+              "bits_per_raw_sample": "8",
+              "extradata_size": 33,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:07.000000Z",
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "AVC1 Coding"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 3056494,
+              "duration": "63.676958",
+              "bit_rate": "100679",
+              "extradata_size": 2,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:07.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-screen.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "63.676958",
+            "size": "1138719",
+            "bit_rate": "143061",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2avc1mp41",
+              "creation_time": "2026-11-02T02:31:07.000000Z"
+            }
+          }
+        },
+        "camera": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "Constrained Baseline",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.42c01f",
+              "width": 640,
+              "height": 360,
+              "coded_width": 640,
+              "coded_height": 360,
+              "has_b_frames": 0,
+              "sample_aspect_ratio": "1:1",
+              "display_aspect_ratio": "16:9",
+              "pix_fmt": "yuvj420p",
+              "level": 31,
+              "color_range": "pc",
+              "color_space": "bt709",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "30000/1",
+              "avg_frame_rate": "2585625/118567",
+              "time_base": "1/30000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 1907692,
+              "duration": "63.589733",
+              "bit_rate": "40686",
+              "bits_per_raw_sample": "8",
+              "extradata_size": 33,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:07.000000Z",
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "AVC1 Coding"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 2908133,
+              "duration": "60.586104",
+              "bit_rate": "103490",
+              "extradata_size": 2,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:07.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-camera.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "63.589733",
+            "size": "1142205",
+            "bit_rate": "143696",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2avc1mp41",
+              "creation_time": "2026-11-02T02:31:07.000000Z"
+            }
+          }
+        },
+        "microphone": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "opus",
+              "codec_long_name": "Opus (Opus Interactive Audio Codec)",
+              "codec_type": "audio",
+              "codec_tag_string": "Opus",
+              "codec_tag": "0x7375704f",
+              "mime_codec_string": "opus",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 3840,
+              "id": "0x1",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 3060468,
+              "duration": "63.759750",
+              "bit_rate": "133486",
+              "extradata_size": 19,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T02:31:03.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/recorder-mp4/take-2026-11-02T02-30-58-672Z-b27fdb-microphone.m4a",
+            "nb_streams": 1,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "63.759750",
+            "size": "1034862",
+            "bit_rate": "129845",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2vp09mp41",
+              "creation_time": "2026-11-02T02:31:03.000000Z"
+            }
+          }
+        }
+      },
+      "heapSamples": [
+        {
+          "heap": 11250264,
+          "at": 1793586668222,
+          "state": "recording"
+        },
+        {
+          "heap": 12042126,
+          "at": 1793586673256,
+          "state": "recording"
+        },
+        {
+          "heap": 11915888,
+          "at": 1793586678345,
+          "state": "recording"
+        },
+        {
+          "heap": 11810263,
+          "at": 1793586683561,
+          "state": "recording"
+        },
+        {
+          "heap": 12374705,
+          "at": 1793586688802,
+          "state": "recording"
+        },
+        {
+          "heap": 12592217,
+          "at": 1793586693844,
+          "state": "recording"
+        },
+        {
+          "heap": 12281444,
+          "at": 1793586698921,
+          "state": "recording"
+        },
+        {
+          "heap": 12764260,
+          "at": 1793586704170,
+          "state": "recording"
+        },
+        {
+          "heap": 12993199,
+          "at": 1793586709257,
+          "state": "recording"
+        },
+        {
+          "heap": 12840755,
+          "at": 1793586714263,
+          "state": "recording"
+        },
+        {
+          "heap": 13279732,
+          "at": 1793586719385,
+          "state": "recording"
+        },
+        {
+          "heap": 12894687,
+          "at": 1793586724410,
+          "state": "recording"
+        },
+        {
+          "heap": 12995068,
+          "at": 1793586726415,
+          "state": "recording"
+        }
+      ],
+      "reopened": true,
+      "independentPlayback": true
+    },
+    "pauseAndEnded": {
+      "passed": true,
+      "manifest": {
+        "version": 1,
+        "id": "take-2026-11-02T02-33-02-220Z-ea02fb",
+        "createdAt": "2026-11-02T02:33:02.220Z",
+        "state": "interrupted",
+        "mode": "capture",
+        "durationMs": 6325.899999991059,
+        "files": [
+          {
+            "kind": "screen",
+            "name": "screen.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 49468,
+            "chunks": 2
+          },
+          {
+            "kind": "camera",
+            "name": "camera.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 53282,
+            "chunks": 2
+          },
+          {
+            "kind": "microphone",
+            "name": "microphone.m4a",
+            "mime": "audio/mp4",
+            "bytes": 82369,
+            "chunks": 5
+          }
+        ],
+        "events": [
+          {
+            "type": "common-start",
+            "offsetMs": 0.09999999403953552,
+            "detail": "2026-11-02T02:33:05.541Z"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.29999999701976776,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.5,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.5999999940395355,
+            "detail": "audio/mp4"
+          },
+          {
+            "type": "microphone-encoder-start",
+            "offsetMs": 61.599999994039536
+          },
+          {
+            "type": "screen-encoder-start",
+            "offsetMs": 188.3999999910593
+          },
+          {
+            "type": "camera-encoder-start",
+            "offsetMs": 203.8999999910593
+          },
+          {
+            "type": "pause",
+            "offsetMs": 2796.0999999940395
+          },
+          {
+            "type": "resume",
+            "offsetMs": 4018.3999999910593
+          },
+          {
+            "type": "stop",
+            "offsetMs": 6305.5999999940395,
+            "detail": "source-ended"
+          }
+        ],
+        "routing": {
+          "screen": "Shared source audio only",
+          "camera": "Microphone",
+          "microphone": "Separate encoded audio file, also included in camera video"
+        }
+      }
+    },
+    "interruptionRecovery": {
+      "passed": true
+    },
+    "denial": {
+      "passed": true,
+      "error": "Camera / microphone not connected: Test permission denied"
+    },
+    "storage": {
+      "passed": true,
+      "error": "Browser storage is nearly full. Recording stopped; saved chunks remain available."
+    }
+  },
+  "passed": true
+}

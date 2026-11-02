@@ -1,0 +1,20 @@
+[package]
+name = "omnicraft-os-desktop"
+version = "0.1.0"
+description = "OmniCraft OS local desktop development shell"
+edition = "2021"
+license = "MIT"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+
+[profile.dev]
+debug = 0
+
+[profile.release]
+strip = true
+codegen-units = 16
+lto = "thin"

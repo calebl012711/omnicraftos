@@ -5,10 +5,10 @@ import { inferCompatibleWorkspaces } from '../storage/db';
 import { isSameOriginEvent } from '../utils/origin';
 
 describe('OmniCraft OS Suite Configuration & Architecture', () => {
-  it('maintains a centralized, easily rebrandable configuration with live domain check evidence and Bento theme tokens', () => {
+  it('maintains a centralized, easily rebrandable configuration with explicit domain verification state and theme tokens', () => {
     expect(DEFAULT_BRANDING.productName).toBe('OmniCraft OS');
     expect(DEFAULT_BRANDING.shortName).toBe('OmniCraft');
-    expect(DEFAULT_BRANDING.tagline).toBe("The Desktop Suite That Doesn't Touch The Cloud");
+    expect(DEFAULT_BRANDING.tagline).toBe('Your creative workbench');
     expect(DEFAULT_BRANDING.candidateDomain).toBe('omnicraftos.com');
     expect(DEFAULT_BRANDING.accentPrimary).toBe('#0f172a');
     expect(DEFAULT_BRANDING.accentSecondary).toBe('#10b981');
@@ -16,10 +16,10 @@ describe('OmniCraft OS Suite Configuration & Architecture', () => {
 
     // Live domain check metadata
     expect(DEFAULT_BRANDING.domainCheck.domain).toBe('omnicraftos.com');
-    expect(DEFAULT_BRANDING.domainCheck.available).toBe(true);
+    expect(DEFAULT_BRANDING.domainCheck.available).toBe(null);
     expect(DEFAULT_BRANDING.domainCheck.purchased).toBe(false);
-    expect(DEFAULT_BRANDING.domainCheck.statusSummary).toContain('AVAILABLE');
-    expect(DEFAULT_BRANDING.domainCheck.registrar).toBe('None (Available for Registration)');
+    expect(DEFAULT_BRANDING.domainCheck.statusSummary).toContain('UNKNOWN');
+    expect(DEFAULT_BRANDING.domainCheck.registrar).toBe('Unknown');
 
     // Bento Theme tokens verification
     expect(DEFAULT_BRANDING.bentoTheme).toBeDefined();
@@ -44,10 +44,10 @@ describe('OmniCraft OS Suite Configuration & Architecture', () => {
     expect(bento.surfaces.light.textPrimary).toBe('#0f172a');
   });
 
-  it('registers all 18 live integrated workspaces (14 WASM + RiverCast ISO + Studio Cut + BandForge + FruityForge) plus 1 source-only workspace and 2 blocked repos', () => {
+  it('registers retained workspaces and the actual browser music integration with explicit verification states', () => {
     const integrated = WORKSPACES.filter((w) => w.integrationLevel === 'integrated');
     const sourceOnly = WORKSPACES.filter((w) => w.integrationLevel === 'source-only');
-    expect(integrated.length).toBe(18);
+    expect(integrated.length).toBe(19);
     expect(sourceOnly.length).toBe(1);
     expect(sourceOnly[0].id).toBe('fieldcraft');
 
@@ -55,8 +55,10 @@ describe('OmniCraft OS Suite Configuration & Architecture', () => {
     const studiocut = WORKSPACES.find((w) => w.id === 'studiocut');
     const bandforge = WORKSPACES.find((w) => w.id === 'bandforge');
     const flstudio = WORKSPACES.find((w) => w.id === 'flstudio');
-    expect(river?.exportFormats).toContain('.webm (Screen ISO)');
-    expect(river?.exportFormats).toContain('.webm (Camera ISO)');
+    expect(river?.exportFormats).toContain('.mp4 (when supported)');
+    expect(river?.exportFormats).toContain('.webm');
+    expect(river?.verificationStatus).toBe('partially tested');
+    expect(WORKSPACES.find(w => w.id === 'music')?.upstreamRepo).toBe('https://github.com/naomiaro/waveform-playlist');
     expect(studiocut?.windowApiGlobal).toBe('studiocut');
     expect(bandforge?.windowApiGlobal).toBe('bandforge');
     expect(flstudio?.windowApiGlobal).toBe('flstudio');

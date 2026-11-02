@@ -1,0 +1,720 @@
+{
+  "at": "2026-11-02T01:45:29.973Z",
+  "tests": {
+    "filmcraft": {
+      "passed": true,
+      "projectSaveReopen": true,
+      "imported": {
+        "errors": [],
+        "items": [
+          1
+        ],
+        "paths": [
+          "/files/test.mp4"
+        ]
+      },
+      "before": {
+        "audio": [
+          {
+            "enabled": true,
+            "id": 5,
+            "items": [
+              {
+                "clip": 11,
+                "duration": 1016064000000,
+                "durationFrames": 120,
+                "effects": [
+                  {
+                    "effect": "volume",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "bypass": {
+                        "keyframes": 0,
+                        "value": "Bool(false)"
+                      },
+                      "level": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "channel_volume",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "bypass": {
+                        "keyframes": 0,
+                        "value": "Bool(false)"
+                      },
+                      "left": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "right": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "panner",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "balance": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  }
+                ],
+                "enabled": true,
+                "end": 1016064000000,
+                "endFrame": 120,
+                "gainDb": 0,
+                "item": 1,
+                "label": "Iris",
+                "link": 9,
+                "name": "test.mp4",
+                "reverse": false,
+                "sourceIn": 0,
+                "sourceOut": 1016064000000,
+                "speed": 1,
+                "start": 0,
+                "startFrame": 0
+              }
+            ],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Audio 1",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          },
+          {
+            "enabled": true,
+            "id": 6,
+            "items": [],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Audio 2",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          },
+          {
+            "enabled": true,
+            "id": 7,
+            "items": [],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Audio 3",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          }
+        ],
+        "duration": 1016064000000,
+        "durationFrames": 120,
+        "gapSelection": null,
+        "id": 8,
+        "in": null,
+        "markers": [],
+        "name": "OmniCraft verification",
+        "out": null,
+        "playhead": null,
+        "selection": [
+          10,
+          11
+        ],
+        "settings": {
+          "audio_master": "Stereo",
+          "color": {
+            "auto_tone_map": true,
+            "wide_gamut": false,
+            "working": "Rec709"
+          },
+          "drop_frame": false,
+          "frame_rate": {
+            "den": 1,
+            "num": 30
+          },
+          "height": 360,
+          "max_bit_depth": false,
+          "max_render_quality": false,
+          "par": [
+            1,
+            1
+          ],
+          "preset": "640x360 30",
+          "preview_codec": "ProRes 422",
+          "sample_rate": 48000,
+          "width": 640,
+          "working_space": "Rec. 709"
+        },
+        "split": {
+          "audioIn": null,
+          "audioOut": null,
+          "videoIn": null,
+          "videoOut": null
+        },
+        "transitionSelection": [],
+        "video": [
+          {
+            "enabled": true,
+            "id": 2,
+            "items": [
+              {
+                "clip": 10,
+                "duration": 1016064000000,
+                "durationFrames": 120,
+                "effects": [
+                  {
+                    "effect": "motion",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "anchor": {
+                        "keyframes": 0,
+                        "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                      },
+                      "anti_flicker": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "position": {
+                        "keyframes": 0,
+                        "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                      },
+                      "rotation": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "scale": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      },
+                      "scale_width": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      },
+                      "uniform_scale": {
+                        "keyframes": 0,
+                        "value": "Bool(true)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "opacity",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "blend": {
+                        "keyframes": 0,
+                        "value": "Choice(0)"
+                      },
+                      "opacity": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "time_remap",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "speed": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      }
+                    }
+                  }
+                ],
+                "enabled": true,
+                "end": 1016064000000,
+                "endFrame": 120,
+                "gainDb": 0,
+                "item": 1,
+                "label": "Iris",
+                "link": 9,
+                "name": "test.mp4",
+                "reverse": false,
+                "sourceIn": 0,
+                "sourceOut": 1016064000000,
+                "speed": 1,
+                "start": 0,
+                "startFrame": 0
+              }
+            ],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Video 1",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          },
+          {
+            "enabled": true,
+            "id": 3,
+            "items": [],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Video 2",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          },
+          {
+            "enabled": true,
+            "id": 4,
+            "items": [],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Video 3",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          }
+        ]
+      },
+      "reopened": {
+        "audio": [
+          {
+            "enabled": true,
+            "id": 5,
+            "items": [
+              {
+                "clip": 11,
+                "duration": 381024000000,
+                "durationFrames": 45,
+                "effects": [
+                  {
+                    "effect": "volume",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "bypass": {
+                        "keyframes": 0,
+                        "value": "Bool(false)"
+                      },
+                      "level": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "channel_volume",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "bypass": {
+                        "keyframes": 0,
+                        "value": "Bool(false)"
+                      },
+                      "left": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "right": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "panner",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "balance": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  }
+                ],
+                "enabled": true,
+                "end": 381024000000,
+                "endFrame": 45,
+                "gainDb": 0,
+                "item": 1,
+                "label": "Iris",
+                "link": 9,
+                "name": "test.mp4",
+                "reverse": false,
+                "sourceIn": 0,
+                "sourceOut": 381024000000,
+                "speed": 1,
+                "start": 0,
+                "startFrame": 0
+              },
+              {
+                "clip": 14,
+                "duration": 635040000000,
+                "durationFrames": 75,
+                "effects": [
+                  {
+                    "effect": "volume",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "bypass": {
+                        "keyframes": 0,
+                        "value": "Bool(false)"
+                      },
+                      "level": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "channel_volume",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "bypass": {
+                        "keyframes": 0,
+                        "value": "Bool(false)"
+                      },
+                      "left": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "right": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "panner",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "balance": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      }
+                    }
+                  }
+                ],
+                "enabled": true,
+                "end": 1016064000000,
+                "endFrame": 120,
+                "gainDb": 0,
+                "item": 1,
+                "label": "Iris",
+                "link": 13,
+                "name": "test.mp4",
+                "reverse": false,
+                "sourceIn": 381024000000,
+                "sourceOut": 1016064000000,
+                "speed": 1,
+                "start": 381024000000,
+                "startFrame": 45
+              }
+            ],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Audio 1",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          },
+          {
+            "enabled": true,
+            "id": 6,
+            "items": [],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Audio 2",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          },
+          {
+            "enabled": true,
+            "id": 7,
+            "items": [],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Audio 3",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          }
+        ],
+        "duration": 1016064000000,
+        "durationFrames": 120,
+        "gapSelection": null,
+        "id": 8,
+        "in": null,
+        "markers": [],
+        "name": "OmniCraft verification",
+        "out": null,
+        "playhead": 381024000000,
+        "selection": [],
+        "settings": {
+          "audio_master": "Stereo",
+          "color": {
+            "auto_tone_map": true,
+            "wide_gamut": false,
+            "working": "Rec709"
+          },
+          "drop_frame": false,
+          "frame_rate": {
+            "den": 1,
+            "num": 30
+          },
+          "height": 360,
+          "max_bit_depth": false,
+          "max_render_quality": false,
+          "par": [
+            1,
+            1
+          ],
+          "preset": "640x360 30",
+          "preview_codec": "ProRes 422",
+          "sample_rate": 48000,
+          "width": 640,
+          "working_space": "Rec. 709"
+        },
+        "split": {
+          "audioIn": null,
+          "audioOut": null,
+          "videoIn": null,
+          "videoOut": null
+        },
+        "transitionSelection": [],
+        "video": [
+          {
+            "enabled": true,
+            "id": 2,
+            "items": [
+              {
+                "clip": 10,
+                "duration": 381024000000,
+                "durationFrames": 45,
+                "effects": [
+                  {
+                    "effect": "motion",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "anchor": {
+                        "keyframes": 0,
+                        "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                      },
+                      "anti_flicker": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "position": {
+                        "keyframes": 0,
+                        "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                      },
+                      "rotation": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "scale": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      },
+                      "scale_width": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      },
+                      "uniform_scale": {
+                        "keyframes": 0,
+                        "value": "Bool(true)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "opacity",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "blend": {
+                        "keyframes": 0,
+                        "value": "Choice(0)"
+                      },
+                      "opacity": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "time_remap",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "speed": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      }
+                    }
+                  }
+                ],
+                "enabled": true,
+                "end": 381024000000,
+                "endFrame": 45,
+                "gainDb": 0,
+                "item": 1,
+                "label": "Iris",
+                "link": 9,
+                "name": "test.mp4",
+                "reverse": false,
+                "sourceIn": 0,
+                "sourceOut": 381024000000,
+                "speed": 1,
+                "start": 0,
+                "startFrame": 0
+              },
+              {
+                "clip": 12,
+                "duration": 635040000000,
+                "durationFrames": 75,
+                "effects": [
+                  {
+                    "effect": "motion",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "anchor": {
+                        "keyframes": 0,
+                        "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                      },
+                      "anti_flicker": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "position": {
+                        "keyframes": 0,
+                        "value": "Vec2(Vec2 { x: 320.0, y: 180.0 })"
+                      },
+                      "rotation": {
+                        "keyframes": 0,
+                        "value": "Float(0.0)"
+                      },
+                      "scale": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      },
+                      "scale_width": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      },
+                      "uniform_scale": {
+                        "keyframes": 0,
+                        "value": "Bool(true)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "opacity",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "blend": {
+                        "keyframes": 0,
+                        "value": "Choice(0)"
+                      },
+                      "opacity": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      }
+                    }
+                  },
+                  {
+                    "effect": "time_remap",
+                    "enabled": true,
+                    "masks": 0,
+                    "params": {
+                      "speed": {
+                        "keyframes": 0,
+                        "value": "Float(100.0)"
+                      }
+                    }
+                  }
+                ],
+                "enabled": true,
+                "end": 1016064000000,
+                "endFrame": 120,
+                "gainDb": 0,
+                "item": 1,
+                "label": "Iris",
+                "link": 13,
+                "name": "test.mp4",
+                "reverse": false,
+                "sourceIn": 381024000000,
+                "sourceOut": 1016064000000,
+                "speed": 1,
+                "start": 381024000000,
+                "startFrame": 45
+              }
+            ],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Video 1",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          },
+          {
+            "enabled": true,
+            "id": 3,
+            "items": [],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Video 2",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          },
+          {
+            "enabled": true,
+            "id": 4,
+            "items": [],
+            "label": null,
+            "locked": false,
+            "muted": false,
+            "name": "Video 3",
+            "solo": false,
+            "syncLock": true,
+            "transitions": []
+          }
+        ]
+      },
+      "exportResult": {
+        "cancel": "jobs.cancel",
+        "job": 1,
+        "path": "/exports/omnicraft-verification.mp4",
+        "poll": "jobs.list",
+        "warnings": []
+      },
+      "videoExportVerified": false,
+      "videoExportError": "Error: page.evaluate: Error: /exports/omnicraft-verification.mp4: not found\n    at __wbg_new_343a093a3c2ffb4e (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web.js?v=641d8b12ba217be1:1731:25)\n    at filmcraft_web.wasm.<js_sys[4c07396ac1363c63]::Error>::new::__wbg_new_343a093a3c2ffb4e externref shim (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web_bg.wasm?v=641d8b12ba217be1:wasm-function[27852]:0x1ce3c4c)\n    at filmcraft_web.wasm.<js_sys[4c07396ac1363c63]::Error>::new (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web_bg.wasm?v=641d8b12ba217be1:wasm-function[31106]:0x1cf0f46)\n    at filmcraft_web.wasm.filmcraft_web[58530c292e420c09]::api::as_error (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web_bg.wasm?v=641d8b12ba217be1:wasm-function[18815]:0x1bf7fda)\n    at filmcraft_web.wasm.js_sys[4c07396ac1363c63]::futures::future_to_promise::<filmcraft_web[58530c292e420c09]::api::caught<filmcraft_web[58530c292e420c09]::api::install::{closure#7}::{closure#0}>::{closure#0}>::{closure#0}::{closure#0} (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web_bg.wasm?v=641d8b12ba217be1:wasm-function[6970]:0x168e332)\n    at filmcraft_web.wasm.<js_sys[4c07396ac1363c63]::futures::queue::Queue>::new::{closure#0} (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web_bg.wasm?v=641d8b12ba217be1:wasm-function[12057]:0x19e3deb)\n    at filmcraft_web.wasm.wasm_bindgen[706d22576d668379]::convert::closures::_::invoke::<wasm_bindgen[706d22576d668379]::JsValue, core[37ee0ce0c4cd57d5]::result::Result<(), wasm_bindgen[706d22576d668379]::JsError>, true> (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web_bg.wasm?v=641d8b12ba217be1:wasm-function[23908]:0x1cac5cc)\n    at filmcraft_web.wasm.wasm_bindgen[706d22576d668379]::convert::closures::_::invoke::<wasm_bindgen[706d22576d668379]::JsValue, core[37ee0ce0c4cd57d5]::result::Result<(), wasm_bindgen[706d22576d668379]::JsError>, true> externref shim (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web_bg.wasm?v=641d8b12ba217be1:wasm-function[27885]:0x1ce3fd2)\n    at filmcraft_web.wasm.wasm_bindgen[706d22576d668379]::convert::closures::_::invoke::<wasm_bindgen[706d22576d668379]::JsValue, core[37ee0ce0c4cd57d5]::result::Result<(), wasm_bindgen[706d22576d668379]::JsError>, true> externref shim multivalue shim (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web_bg.wasm?v=641d8b12ba217be1:wasm-function[26560]:0x1cd9332)\n    at wasm_bindgen_706d22576d668379___convert__closures_____invoke___wasm_bindgen_706d22576d668379___JsValue__core_37ee0ce0c4cd57d5___result__Result_____wasm_bindgen_706d22576d668379___JsError___true_ (http://127.0.0.1:8777/editors/filmcraft/filmcraft_web.js?v=641d8b12ba217be1:3371:22)",
+      "screenshotError": "TimeoutError: page.screenshot: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n"
+    }
+  },
+  "passed": true
+}

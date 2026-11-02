@@ -1,13 +1,13 @@
 {
   "name": "OmniCraft OS",
   "short_name": "OmniCraft",
-  "description": "The Desktop Suite That Doesn't Touch The Cloud",
+  "description": "OmniCraft OS \u2014 Your creative workbench",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#090b10",
-  "theme_color": "#0f172a",
+  "background_color": "#f6f7f0",
+  "theme_color": "#173a27",
   "icons": [
     {
       "src": "/omnicraft-mark.svg",
@@ -22,5 +22,10 @@
       "purpose": "any"
     }
   ],
-  "categories": ["utilities", "productivity", "graphics", "multimedia"]
+  "categories": [
+    "utilities",
+    "productivity",
+    "graphics",
+    "multimedia"
+  ]
 }

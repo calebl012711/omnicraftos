@@ -49,7 +49,7 @@ import {
   resetBrandingConfig,
   saveBrandingConfig
 } from './config/branding';
-import { KineticBentoHero } from './components/KineticBentoHero';
+import { StudioHero } from './components/StudioHero';
 import { AppIcon } from './components/icons/AppIcon';
 import {
   BLOCKED_REPOSITORIES,
@@ -195,7 +195,7 @@ function matchesHomeCategory(ws: WorkspaceSpec, filter: HomeCategoryFilter): boo
     return ['riverstudio', 'studiocut', 'filmcraft', 'effectcraft'].includes(ws.id);
   }
   if (filter === 'daw') {
-    return ['bandforge', 'flstudio', 'soundcraft'].includes(ws.id);
+    return ['music', 'bandforge', 'flstudio', 'soundcraft'].includes(ws.id);
   }
   if (filter === 'cad') {
     return ['solidcraft', 'cadcraft', 'fieldcraft'].includes(ws.id);
@@ -320,7 +320,7 @@ export function App() {
   const [assetSearch, setAssetSearch] = useState<string>('');
   const [upstreamReport, setUpstreamReport] = useState<UpstreamReport | null>(null);
   const [statusMessage, setStatusMessage] = useState<string>(
-    'Mosaic Forge Ready · 18 Local-First Creative & Broadcast Studios Active'
+    'OmniCraft OS · Choose a workspace to begin'
   );
 
   // Dialog & Popover refs following modern-web-guidance `dialog`, `light-dismiss-a-dialog`, `animate-to-from-top-layer` & `persistent-toast-notifications`
@@ -355,7 +355,7 @@ export function App() {
     const elapsed = Math.max(0.01, Number((t1 - t0).toFixed(3)));
     setTimeout(() => {
       setBenchmarkingVault(false);
-      setVaultLatencyResult(`${elapsed}ms · 3.8 GB/s Bus · 0 Cloud Network Hops`);
+      setVaultLatencyResult(`${elapsed} ms to allocate and touch a 1 MB test buffer. This is not a storage or transfer benchmark.`);
     }, 380);
   };
 
@@ -631,7 +631,7 @@ export function App() {
           showExportToast(notice);
           setEditorDirty(false);
           setStatusMessage(
-            `Saved "${fileName}" (${formatBytes(buffer.byteLength)}) to Asset Vault (0ms bus latency, OPFS + IDB synced).`
+            `Saved "${fileName}" (${formatBytes(buffer.byteLength)}) to the Asset Vault.`
           );
           await refreshLocalStores();
         }
@@ -655,6 +655,7 @@ export function App() {
 
   // Compute editor iframe URL with renderer mode query flag
   const computedEditorUrl = useMemo(() => {
+    if (activeWorkspace.id === 'riverstudio') return '/?tool=recorder';
     if (!activeWorkspace.editorUrl) return null;
     const url = new URL(activeWorkspace.editorUrl, window.location.origin);
     if (rendererMode === 'webgl') {
@@ -774,7 +775,7 @@ export function App() {
       window.location.origin
     );
     setStatusMessage(
-      `Loaded "${asset.name}" (${formatBytes(asset.size)}) into ${activeWorkspace.name} with 0ms bus latency.`
+      `Sent "${asset.name}" (${formatBytes(asset.size)}) to ${activeWorkspace.name}. Check the editor to confirm import.`
     );
   };
 
@@ -1169,7 +1170,7 @@ export function App() {
     a.download = `mosaic-forge-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    setStatusMessage('Exported full Mosaic Forge local project & asset backup JSON.');
+    setStatusMessage('Exported the OmniCraft OS project and Asset Vault backup JSON. Recorder and Music Studio files have separate export controls.');
   };
 
   const handleImportFullBackup = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1329,7 +1330,7 @@ export function App() {
   }, [quickSwitchQuery]);
 
   return (
-    <div className="mf-shell">
+    <div className="mf-shell oc-shell">
       {/* WHEN NOT INSIDE AN APP: Render the Spacious Standalone Home Launcher Header */}
       {activeTab !== 'workspace' && (
         <header className="mf-topbar" aria-label="Primary Suite Navigation">
@@ -1341,9 +1342,9 @@ export function App() {
             >
               <img src={branding.logoPath} alt="" className="mf-brand-logo" />
               <div>
-                <h1 className="mf-brand-title" data-testid="brand-title">
+                <span className="mf-brand-title" data-testid="brand-title">
                   {branding.productName}
-                </h1>
+                </span>
                 <p className="mf-brand-sub">Creative &amp; Broadcast OS</p>
               </div>
             </button>
@@ -1357,7 +1358,7 @@ export function App() {
               data-testid="nav-home"
             >
               <Home size={15} />
-              <span>App Launcher</span>
+              <span>Workspaces</span>
             </button>
             <button
               type="button"
@@ -1409,7 +1410,7 @@ export function App() {
               data-testid="quick-switcher-trigger"
             >
               <Search size={14} />
-              <span>Jump to App...</span>
+              <span>Find a tool</span>
               <kbd
                 style={{
                   fontSize: '10.5px',
@@ -1441,7 +1442,7 @@ export function App() {
               data-testid="theme-toggle-btn"
             >
               {themeMode === 'light' ? <Moon size={14} /> : <Sun size={14} />}
-              <span>{themeMode === 'light' ? 'Dark UI' : 'Light UI'}</span>
+              <span>{themeMode === 'light' ? 'Editors: dark' : 'Editors: light'}</span>
             </button>
           </div>
         </header>
@@ -1453,120 +1454,22 @@ export function App() {
         {activeTab === 'home' && (
           <div className="mf-scroll-page" data-testid="view-home">
             <div className="mf-home-container">
-              {/* Option 3 Kinetic Bento Grid Hero Component */}
-              <KineticBentoHero
-                onOpenWorkspace={openWorkspace}
-                onNavigateTab={setActiveTab}
-                onOpenShowcase={openShowcaseModal}
-                themeMode={themeMode}
-                onToggleTheme={() => setThemeMode((prev) => (prev === 'dark' ? 'light' : 'dark'))}
-              />
-
-              {/* Showcase & Quick Launcher Strip */}
-              <div
-                className="mf-hero-quick-row"
-                style={{
-                  display: 'flex',
-                  gap: '10px',
-                  flexWrap: 'wrap',
-                  marginBottom: '28px',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <button
-                  type="button"
-                  className="mf-btn mf-btn-primary"
-                  onClick={() => openShowcaseModal('brag')}
-                  data-testid="watch-launch-reel-btn"
-                >
-                  <Play size={14} />
-                  <span>Watch Launch Video (20s)</span>
-                </button>
-                <button
-                  type="button"
-                  className="mf-btn"
-                  onClick={() => openShowcaseModal('master')}
-                  data-testid="watch-master-showcase-btn"
-                >
-                  <Film size={14} />
-                  <span>10-Min Master Showcase</span>
-                </button>
-                <button
-                  type="button"
-                  className="mf-btn"
-                  onClick={() => openWorkspace('solidcraft', 'proj-solidcraft-motor-mount')}
-                  data-testid="hero-launch-solidcraft"
-                >
-                  <AppIcon id="solidcraft" size={16} />
-                  <span>SolidCraft 3D CAD</span>
-                </button>
-                <button
-                  type="button"
-                  className="mf-btn"
-                  onClick={() => openWorkspace('riverstudio')}
-                  data-testid="hero-launch-riverstudio"
-                >
-                  <AppIcon id="riverstudio" size={16} />
-                  <span>RiverCast ISO</span>
-                </button>
-                <button
-                  type="button"
-                  className="mf-btn"
-                  onClick={() => openWorkspace('studiocut')}
-                  data-testid="hero-launch-studiocut"
-                >
-                  <AppIcon id="studiocut" size={16} />
-                  <span>Studio Cut NLE</span>
-                </button>
-                <button
-                  type="button"
-                  className="mf-btn"
-                  onClick={() => openWorkspace('flstudio')}
-                  data-testid="hero-launch-flstudio"
-                >
-                  <AppIcon id="flstudio" size={16} />
-                  <span>FruityForge 21</span>
-                </button>
-                <button
-                  type="button"
-                  className="mf-btn"
-                  onClick={() => openWorkspace('bandforge')}
-                  data-testid="hero-launch-bandforge"
-                >
-                  <AppIcon id="bandforge" size={16} />
-                  <span>BandForge DAW</span>
-                </button>
-                <button
-                  type="button"
-                  className="mf-btn"
-                  onClick={() => openWorkspace('filmcraft', 'proj-filmcraft-launch-cut')}
-                  data-testid="hero-launch-filmcraft"
-                >
-                  <AppIcon id="filmcraft" size={16} />
-                  <span>FilmCraft Video</span>
-                </button>
-                <button
-                  type="button"
-                  className="mf-btn"
-                  onClick={() => openWorkspace('photocraft', 'proj-photocraft-color-study')}
-                  data-testid="hero-launch-photocraft"
-                >
-                  <AppIcon id="photocraft" size={16} />
-                  <span>PhotoCraft Layers</span>
-                </button>
+              <StudioHero onOpenWorkspace={openWorkspace} />
+              <div className="oc-catalog-heading">
+                <h2>A workspace for what’s next.</h2>
+                <p>Start with recording, music, CAD, or an upstream editor. Verification labels describe tested workflows; other tools remain available for exploration.</p>
               </div>
 
               {/* Category Pills & Search Filter */}
               <div id="studios-catalog" className="mf-filter-bar">
                 <div className="mf-category-pills" role="tablist" aria-label="Filter Applications by Category">
                   {[
-                    { id: 'all', label: 'All Applications (18)' },
-                    { id: 'broadcast', label: 'Broadcast & Video' },
-                    { id: 'daw', label: 'Music & Audio DAW' },
-                    { id: 'cad', label: '3D & Engineering CAD' },
-                    { id: 'design', label: 'Photo, Vector & UI' },
-                    { id: 'office', label: 'Publishing, PDF & Docs' }
+                    { id: 'all', label: 'All workspaces' },
+                    { id: 'broadcast', label: 'Video' },
+                    { id: 'daw', label: 'Music & audio' },
+                    { id: 'cad', label: 'CAD' },
+                    { id: 'design', label: 'Photo & design' },
+                    { id: 'office', label: 'Documents' }
                   ].map((cat) => (
                     <button
                       key={cat.id}
@@ -1616,6 +1519,7 @@ export function App() {
                       </div>
 
                       <p className="mf-card-desc">{ws.purpose}</p>
+                      <p className="oc-card-status">{ws.verificationStatus === 'tested' ? 'Workflow verified' : ws.verificationStatus === 'partially tested' ? 'Some workflows verified' : 'Workflow verification pending'}</p>
                     </div>
 
                     <div
@@ -1633,23 +1537,12 @@ export function App() {
                       <div style={{ display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'space-between' }}>
                         <button
                           type="button"
-                          className="mf-btn mf-btn-sm"
-                          style={{ flex: 1, justifyContent: 'center' }}
-                          onClick={() => openWorkspaceAndRunDemo(ws.id)}
-                          title={`Enter ${ws.name} and auto-run its live workflow`}
-                          data-testid={`card-demo-${ws.id}`}
-                        >
-                          <Play size={11} />
-                          <span>Try Demo</span>
-                        </button>
-                        <button
-                          type="button"
                           className="mf-btn mf-btn-primary mf-btn-sm"
                           style={{ flex: 1, justifyContent: 'center' }}
                           onClick={() => openWorkspace(ws.id)}
                           data-testid={`card-open-${ws.id}`}
                         >
-                          <span data-testid={`launch-ws-${ws.id}`}>Enter App</span>
+                          <span data-testid={`launch-ws-${ws.id}`}>Open workspace</span>
                           <ArrowRight size={13} />
                         </button>
                       </div>
@@ -1721,7 +1614,7 @@ export function App() {
                   title="Switch to another application (⌘K)"
                 >
                   <Search size={12} />
-                  <span>All 18 Apps</span>
+                  <span>All workspaces</span>
                   <kbd style={{ fontSize: '10px', opacity: 0.75 }}>⌘K</kbd>
                 </button>
 
@@ -1770,7 +1663,7 @@ export function App() {
                 </label>
 
                 {/* Run Studio Quick Action */}
-                {activeWorkspace.integrationLevel === 'integrated' && (
+                {['solidcraft', 'filmcraft'].includes(activeWorkspace.id) && (
                   <button
                     type="button"
                     className="mf-btn mf-btn-primary mf-btn-sm"
@@ -1846,6 +1739,7 @@ export function App() {
                   src={computedEditorUrl}
                   title={`${activeWorkspace.name} Embedded Workspace`}
                   className="mf-editor-iframe"
+                  allow="camera; microphone; display-capture"
                   data-testid="active-editor-iframe"
                 />
               ) : (
@@ -1914,7 +1808,7 @@ export function App() {
                     </div>
                     {capturedExports.length === 0 ? (
                       <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>
-                        Any file saved or exported inside the studio is automatically captured into your Asset Vault.
+                        Supported editor bridges can send files to the Asset Vault. Recorder and Music Studio downloads are managed inside their workspaces.
                       </p>
                     ) : (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -2086,7 +1980,7 @@ export function App() {
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
                     <span className="mf-badge tested" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                       <Zap size={12} />
-                      <span>0ms Local Bus Latency</span>
+                      <span>Local browser storage</span>
                     </span>
                     <span className="mf-badge tested" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                       <HardDrive size={12} />
@@ -2100,9 +1994,9 @@ export function App() {
                 </div>
 
                 <div className="mf-vault-hero-text">
-                  <div className="mf-vault-headline">0ms Latency / 100% Local-First Media Pipeline</div>
+                  <div className="mf-vault-headline">A local library for your files</div>
                   <div className="mf-vault-sub">
-                    Every file exported from any studio (RiverCast ISO screen &amp; camera takes, Studio Cut edits, SolidCraft 3D STEP/STL solids, FruityForge 21 stems, and BandForge audio) drops directly into the shared OPFS/IDB memory bus for instant bidirectional handoff without cloud roundtrips.
+                    Import files into this local library or receive exports from supported editor bridges. Recording Studio and Music Studio keep separate local projects and provide their own download controls. File handoff depends on the receiving editor’s import support.
                   </div>
                 </div>
 
@@ -2119,7 +2013,7 @@ export function App() {
                     </div>
                     <div className="mf-sync-status">
                       <Zap size={11} />
-                      <span>0ms Memory Bus</span>
+                      <span>Browser storage</span>
                     </div>
                   </div>
 
@@ -2269,9 +2163,9 @@ export function App() {
                             {sourceLabel}
                           </span>
                           <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                            <span className="mf-badge tested" title="Instant zero-latency local memory handoff">
+                            <span className="mf-badge tested" title="Local file handoff">
                               <Zap size={10} />
-                              <span>0ms Bus</span>
+                              <span>Local files</span>
                             </span>
                             <span className="mf-badge">{formatBytes(asset.size)}</span>
                           </div>
@@ -2380,7 +2274,7 @@ export function App() {
                     <span className="mf-card-category">Centralized Product Identity</span>
                     <h3 className="mf-card-title">Branding &amp; Suite Customization</h3>
                     <p className="mf-card-desc">
-                      Customize the suite name, tagline, or accent color across all 18 applications.
+                      Customize the suite name, tagline, or accent color in the OmniCraft shell.
                     </p>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
                       <label style={{ fontSize: '12px' }}>
@@ -2503,12 +2397,12 @@ export function App() {
                             {ws.pinnedTag} ({ws.pinnedCommit.slice(0, 10)})
                           </td>
                           <td>
-                            {rep?.updateAvailable ? (
+                            {rep?.pinnedCommit === ws.pinnedCommit && rep?.updateAvailable ? (
                               <span className="mf-badge partial">
-                                Update Available ({rep.remoteHeadCommit?.slice(0, 8)})
+                                Previous check: different ({rep.remoteHeadCommit?.slice(0, 8)})
                               </span>
                             ) : (
-                              <span className="mf-badge tested">Up to Date</span>
+                              <span className="mf-badge untested">{ws.upstreamRepo ? 'Run upstream:check' : 'Local adapter'}</span>
                             )}
                           </td>
                           <td>{ws.licenseSelected}</td>
@@ -2549,7 +2443,7 @@ export function App() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <span>Vault: {formatBytes(storageHealth.usageBytes)}</span>
-          <span>18 Studios Ready</span>
+          <span>Development build · verify exports before use</span>
         </div>
       </footer>
 
@@ -2702,8 +2596,8 @@ export function App() {
               <span className="mf-badge tested">HyperFrames Motion Graphics + Live Screen Recording</span>
               <h2 id="showcase-dialog-title" style={{ margin: '6px 0 0', fontSize: '18px' }}>
                 {showcaseVideoMode === 'brag'
-                  ? 'Mosaic Forge — 20s HyperFrames Launch Reel'
-                  : 'Mosaic Forge — 10-Minute Full-Suite Master Showcase (25 Chapters)'}
+                  ? 'OmniCraft OS — 20s HyperFrames Launch Reel'
+                  : 'OmniCraft OS — 10-Minute Full-Suite Master Showcase (25 Chapters)'}
               </h2>
             </div>
 
@@ -2774,7 +2668,7 @@ export function App() {
                     { label: '00:05 RiverCast ISO + Studio Cut NLE', sec: 5.2 },
                     { label: '00:09 BandForge + FruityForge 21 DAWs', sec: 9.5 },
                     { label: '00:14 SolidCraft 3D CAD + Asset Vault', sec: 14.5 },
-                    { label: '00:18 Mosaic Forge End Card', sec: 18.5 }
+                    { label: '00:18 OmniCraft OS End Card', sec: 18.5 }
                   ]
                 : [
                     { label: '00:00 Home Launcher', sec: 0 },

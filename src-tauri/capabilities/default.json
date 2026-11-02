@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Core window operations for the local OmniCraft shell. No native filesystem or shell plugin is exposed.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

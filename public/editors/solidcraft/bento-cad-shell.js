@@ -68,7 +68,7 @@
     if (viewportDpiEl) viewportDpiEl.textContent = `${dpr.toFixed(1)}x`;
 
     // Dispatch resize event so Rust/wgpu viewport swapchain updates immediately
-    window.dispatchEvent(new Event('resize'));
+    // Eframe handles its own resize event. Dispatching here re-enters this handler recursively.
   }
 
   const resizeObserver = new ResizeObserver(() => {

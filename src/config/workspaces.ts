@@ -1,3 +1,4 @@
+import upstreamLock from '../../integration/upstream-lock.json';
 export type VerificationStatus = 'tested' | 'partially tested' | 'not tested' | 'blocked';
 export type IntegrationLevel = 'integrated' | 'source-only' | 'blocked';
 
@@ -47,7 +48,7 @@ export interface WorkspaceSpec {
     | 'shield-alert';
 }
 
-export const WORKSPACES: WorkspaceSpec[] = [
+const REGISTERED_WORKSPACES: WorkspaceSpec[] = [
   {
     id: 'riverstudio',
     name: 'RiverCast & OneStudio ISO',
@@ -547,6 +548,45 @@ export const WORKSPACES: WorkspaceSpec[] = [
     accentColor: '#7a869a',
     iconKey: 'cpu'
   }
+];
+
+// Checkout pins are read from the tracked lock, rather than duplicated display-only SHAs.
+// Legacy capability copy is retained above for compatibility; current launch metadata is bounded by evidence here.
+export const WORKSPACES: WorkspaceSpec[] = [
+  {
+    id: 'music', name: 'Music Studio', upstreamName: 'Waveform Playlist',
+    upstreamRepo: 'https://github.com/naomiaro/waveform-playlist', category: 'Multitrack audio',
+    purpose: 'Import and arrange audio, record a microphone track, mix, save a project, and export WAV.',
+    pinnedCommit: 'd620a1d202b8033ec038b8c87cd307c3d7d2557b', pinnedTag: '@waveform-playlist/browser@16.0.1',
+    licenseDeclared: 'MIT', licenseSelected: 'MIT', integrationLevel: 'integrated', verificationStatus: 'partially tested',
+    editorUrl: '/?tool=music', supportsHostParentParam: false, windowApiGlobal: null,
+    nativeFormats: ['.omnimusic'], importFormats: ['.wav', '.mp3', '.ogg', '.m4a', '.omnimusic'], exportFormats: ['.wav', '.omnimusic'],
+    verifiedWorkflowSummary: 'Verified in Chrome: import two WAV files, arrange clips, set mixer controls, save/reopen, record injected microphone audio with upstream AudioWorklets, portable project backup, and stereo WAV export. Physical microphone and cross-browser tests remain pending.',
+    roleNotes: 'Waveform Playlist and Tone.js provide editing, playback, microphone capture and WAV export. OmniCraft adds local project storage and a portable backup format.',
+    accentColor: '#225bcc', iconKey: 'music'
+  },
+  ...REGISTERED_WORKSPACES.map((workspace): WorkspaceSpec => {
+    if (workspace.id === 'riverstudio') return {
+      ...workspace, name: 'Recording Studio', upstreamName: 'OmniCraft browser recorder', upstreamRepo: '', pinnedCommit: 'local-source', pinnedTag: '',
+      category: 'Screen and camera capture', editorUrl: '/?tool=recorder',
+      purpose: 'Capture separate screen and camera files with detected MP4 or WebM encoders and incremental local storage.',
+      nativeFormats: ['.json'], importFormats: [], exportFormats: ['.mp4 (when supported)', '.webm', '.m4a or .webm audio', '.json'],
+      verificationStatus: 'partially tested', windowApiGlobal: null,
+      verifiedWorkflowSummary: '62-second automated synthetic-stream test: distinct playable videos, real audio routing, measured alignment, save/reload, pause/resume, denial, source-ended, storage pressure and interruption recovery. Physical devices and long-session tests remain pending.',
+      roleNotes: 'Original MediaRecorder adapter using platform capture APIs. No simulated capture fallback. Microphone audio goes to camera plus separate audio; shared-source audio goes to screen.'
+    };
+    const source = upstreamLock.repositories.find(repo => repo.id === workspace.id);
+    if (source) return {
+      ...workspace, pinnedCommit: source.pinnedCommit || '', licenseDeclared: source.declaredLicense,
+      licenseSelected: source.selectedLicense, verificationStatus: ['solidcraft', 'filmcraft'].includes(workspace.id) ? 'partially tested' : 'not tested',
+      editorUrl: workspace.id === 'solidcraft' ? '/editors/solidcraft/workspace.html' : workspace.editorUrl,
+      verifiedWorkflowSummary: workspace.id === 'solidcraft' ? 'Verified real engine: create a plate with five bores, save/reopen native SC, export STEP/STL, independently measure STL geometry. Fresh source build and cross-browser checks remain pending.' : workspace.id === 'filmcraft' ? 'Verified real editor: import MP4, create a sequence, split clips, save and reopen a native project. Rendered video export did not complete and is not verified.' : source.status === 'integrated' ? 'Upstream WASM bundle retained. Workflow verification is being rerun; a loaded interface alone does not establish export support.' : 'Pinned source retained; no browser bundle is integrated.'
+    };
+    return { ...workspace, upstreamRepo: '', upstreamName: 'Local experimental tool', pinnedCommit: 'local-source',
+      verificationStatus: 'not tested', purpose: 'Existing local experimental editor retained for evaluation.',
+      verifiedWorkflowSummary: 'Local prototype, separate from the upstream ArtCraft applications. Listed formats and controls are not accepted workflow evidence.',
+      roleNotes: 'Preserved existing source. Requires individual workflow and export verification.' };
+  })
 ];
 
 export interface BlockedRepoSpec {

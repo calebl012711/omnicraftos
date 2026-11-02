@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-02T03:00:52.904Z",
+  "tests": {
+    "recorderLaunch": {
+      "passed": true
+    },
+    "hero": {
+      "passed": true,
+      "desktop": true,
+      "mobile": true,
+      "noOverflow": true,
+      "navigation": true,
+      "keyboardFocus": true,
+      "errors": []
+    }
+  },
+  "passed": true
+}

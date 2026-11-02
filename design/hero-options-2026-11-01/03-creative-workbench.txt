@@ -1,0 +1,9 @@
+Use case: ui-mockup.
+Asset type: a single polished website hero-page design concept for a creative suite, full flat desktop website screenshot in wide landscape 16:10 composition, no browser chrome, no device frame.
+Brand: preserve the exact product name "OmniCraft OS".
+Creative direction: Creative Workbench. Soft warm stone/off-white canvas, deep forest green accents, premium architectural typography, disciplined alignment, generous whitespace, calm functional professional product design. Original and coherent, ready for a senior frontend designer to implement.
+Layout: slim top navigation with "OmniCraft OS" at left, "Workspaces", "Projects", "About", and an "Open studio" button at right. Spacious hero area: main large headline left reading exactly "Your work in motion." Supporting copy exactly "A creative home for video, sound, images, and ideas." Buttons exactly "Open the studio" and "Explore workspaces".
+Right side: one large beautifully precise flat creative-workspace preview with a believable three-dimensional mechanical bracket on an off-white CAD viewport, thin restrained green geometry and properties controls, and restrained film/audio timeline along its bottom. Make this feel like a real creative app workspace without a browser-window frame. Small visible label "Concept preview" on the illustrative workspace visualization.
+Below hero: one quiet horizontal workflow row, labels "Record", "Edit", "Compose", "Build", with subtle fine-line icons.
+Visual treatment: beautifully typeset editorial hierarchy, high quality, restrained purposeful fine rules, strongly composed asymmetrical 45/55 layout, warm stone and forest green, no ornamental effects.
+Constraints: no nested browser-window look, no floating cards, no blur, no glow, no gradients, no generic AI dashboard, no 18 studios claim, no invented performance or privacy claims, no option title or number on the design. This is a concept image, not evidence of working software.

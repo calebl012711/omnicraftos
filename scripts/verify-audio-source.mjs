@@ -1,0 +1,6 @@
+import fs from 'node:fs';import path from 'node:path';import {execFileSync}from'node:child_process';
+const packages=['browser','core','playout','recording','worklets','engine','ui-components'];const rows=[];let failed=false;
+for(const pkg of packages){const dir=`node_modules/@waveform-playlist/${pkg}/dist`;let matched=0,missing=0,different=0;const details=[];
+ for(const name of fs.readdirSync(dir).filter(f=>f.endsWith('.mjs.map'))){const map=JSON.parse(fs.readFileSync(path.join(dir,name),'utf8'));for(let i=0;i<map.sources.length;i++){const src=map.sources[i];if(!src.startsWith('../src/'))continue;const candidate=path.join('upstream/waveform-playlist/packages',pkg,src.replace('../',''));if(!fs.existsSync(candidate)){missing++;details.push({src,status:'missing'});continue;}if(fs.readFileSync(candidate,'utf8')===map.sourcesContent[i])matched++;else{different++;details.push({src,status:'different'});}}}
+ if(missing||different||!matched)failed=true;rows.push({package:`@waveform-playlist/${pkg}`,matched,missing,different,details});}
+console.log(JSON.stringify({at:new Date().toISOString(),sourceRevision:execFileSync('git',['-C','upstream/waveform-playlist','rev-parse','HEAD'],{encoding:'utf8'}).trim(),passed:!failed,rows},null,2));if(failed)process.exitCode=1;

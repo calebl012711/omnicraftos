@@ -84,7 +84,7 @@ export interface BrandingConfig {
     domain: string;
     checkedAtUtc: string;
     method: string;
-    available: boolean;
+    available: boolean | null;
     statusSummary: string;
     registrar: string;
     rdapHandle: string;
@@ -99,16 +99,16 @@ export interface BrandingConfig {
 export const DEFAULT_BRANDING: BrandingConfig = {
   productName: 'OmniCraft OS',
   shortName: 'OmniCraft',
-  tagline: "The Desktop Suite That Doesn't Touch The Cloud",
+  tagline: 'Your creative workbench',
   version: '0.1.0-alpha',
   candidateDomain: 'omnicraftos.com',
   domainCheck: {
     domain: 'omnicraftos.com',
-    checkedAtUtc: '2026-11-01T00:14:07Z',
-    method: 'Verisign COM RDAP (https://rdap.verisign.com/com/v1/domain/omnicraftos.com) + IANA WHOIS',
-    available: true,
-    statusSummary: 'AVAILABLE (Unregistered — RDAP HTTP 404 / WHOIS No match for domain)',
-    registrar: 'None (Available for Registration)',
+    checkedAtUtc: 'Not verified',
+    method: 'No current domain availability check',
+    available: null,
+    statusSummary: 'UNKNOWN — domain availability has not been verified',
+    registrar: 'Unknown',
     rdapHandle: '',
     purchased: false
   },

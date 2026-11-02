@@ -1,85 +1,67 @@
-# Mosaic Forge
+# OmniCraft OS
 
-**Mosaic Forge** is a free, local-first, unified creative suite and parametric 3D CAD workspace built with **React + TypeScript + Vite** and **14 embedded Rust/WebAssembly (`eframe` / `wgpu` / WebGL2) applications**.
+A React, TypeScript and Vite creative workbench with separate screen/camera recording, a Waveform Playlist audio workspace, and retained ArtCraft/SolidCraft Rust/WebAssembly editors. The home page combines the selected ivory, forest-green and recording-studio design directions. Editors load when opened.
 
-> **Temporary Working Name & Rebranding**: "Mosaic Forge" is a temporary working name. All product naming, tagline, colors, logo path, and domain check metadata are centralized in [`src/config/branding.ts`](./src/config/branding.ts) and can also be edited live in the **Upstream, Licenses & Config** tab of the application.
+## Run the browser app
 
----
+Use Node.js 20+ and npm. Existing editor bundles are included; Rust is only needed to rebuild upstream tools or develop the desktop prototype.
 
-## 1. Quick Start
+```sh
+npm ci
+npm run dev -- --host 127.0.0.1
+# http://127.0.0.1:5173
+# http://127.0.0.1:5173/?tool=recorder
+# http://127.0.0.1:5173/?tool=music
 
-### Prerequisites
-- **Node.js** `v20+` (verified on `v26.3.0`) and **npm** `10+`
-- **Rust & WebAssembly Toolchain** (optional, only required when compiling upstream Rust crates from source): installed in `$HOME/.cargo/bin` (`rustc 1.99.1`, `wasm32-unknown-unknown`, `trunk 0.21.14`)
-
-### Run Locally in Development Mode
-```bash
-npm install
-npm run dev
-```
-Then open **`http://localhost:5173`** in your browser.
-
-### Build & Preview Production Bundle
-```bash
 npm run build
-npm run preview
-```
-Then open **`http://localhost:4173`**.
-
-### Run Unit & End-to-End Verification
-```bash
-# Run Vitest unit suite
+npm run preview -- --host 127.0.0.1
+# http://127.0.0.1:4173
 npm test
+```
 
-# Run read-only upstream Git & release comparison
-npm run upstream:check
+Capture requires localhost or HTTPS and browser permission. MP4 is offered only when the browser reports a compatible encoder; WebM is the alternative. Screen and camera stay separate, with source audio on screen and microphone audio on camera plus an additional audio file where supported. Chunks are stored incrementally in OPFS, with an IndexedDB fallback and recovery metadata. Keep this origin's browser storage until recordings have been downloaded.
 
-# Verify all local upstream checkouts & license files
+## Verified scope
+
+| Workspace | Evidence | Remaining work |
+| --- | --- | --- |
+| Recording Studio | Separate playable MP4 and WebM outputs in 62-second Chrome tests; real encoding/storage, audio routing, sampled alignment, pause/resume, reload, interruption and storage failures | Tests inject synthetic device streams. Physical devices, cross-browser behavior and reliable long-session operation remain unverified. Two earlier long-session attempts did not pass all checks. |
+| SolidCraft | Real engine plate with five bores, native SC save/reopen, STEP/STL export; independently measured mesh | Current bundle is inherited. Fresh source build and broader browser tests remain pending. |
+| FilmCraft | Import MP4, create sequence, split clips, save and reopen native project | Rendered video export did not complete during verification. |
+| Music Studio | Actual Waveform Playlist/Tone playback, audio import, clip positioning, mixer persistence, microphone worklet capture using an injected stream, portable project backup, stereo WAV export | Physical microphone tests, deeper export audio analysis, beat/piano-roll workflow and browser matrix remain pending. |
+| Other retained tools | Existing bundles and prototypes preserved, with explicit verification labels | Individual end-to-end workflows have not been reverified. |
+
+Music projects use local IndexedDB and portable `.omnimusic` backups. Audio import and recording limits are intentionally conservative for a 16 GB Intel Mac. The current music workspace is an audio arrangement foundation; it is not a completed GarageBand/FL Studio replacement.
+
+Reports live under `verification/`; large test media remain local and are ignored by Git. Reports identify their tested scope and failures. Legacy reports and interface capability lists are not proof that every advertised format works.
+
+## Upstream sources and updates
+
+The complete official repository, exact revision and license inventory is [integration/upstream-lock.json](integration/upstream-lock.json). Key pins:
+
+| Component | Repository | Revision |
+| --- | --- | --- |
+| SolidCraft | [tangency-labs/solidcraft](https://github.com/tangency-labs/solidcraft) | `56b77b405dc7c567854329a9511aa03e209caef7` |
+| FilmCraft | [storytold/filmcraft](https://github.com/storytold/filmcraft) | `95cf47b883d2d2b2946c8c157822ee20835426a5` |
+| SoundCraft | [storytold/soundcraft](https://github.com/storytold/soundcraft) | `85ffa1f53ee6d04c4e99b66afd142bd4345d2009` |
+| Waveform Playlist | [naomiaro/waveform-playlist](https://github.com/naomiaro/waveform-playlist) | `d620a1d202b8033ec038b8c87cd307c3d7d2557b` |
+
+Waveform Playlist is integrated through exact npm versions and lockfile integrity values. Installed source maps were compared with the pinned repository: all 166 checked entries matched. This does not establish a reproducible binary build of the inherited Craft bundles. License texts and credits are retained under `public/licenses/` and the editor distributions.
+
+```sh
 npm run upstream:status
 npm run upstream:licenses
-
-# Run headless Chrome Playwright end-to-end verification (9A, 9B, 9C, 9E)
-node scripts/verify-e2e-workflows.mjs
+npm run --silent upstream:check
+# Save a pure JSON report:
+npm run --silent upstream:check > upstream-review.json
+# Build an existing pinned checkout into a separate staging directory:
+npm run upstream:build -- solidcraft
 ```
 
----
+Checks are read-only. They never merge, update pins or deploy. See [update and rollback instructions](docs/UPSTREAM_WORKFLOW.md), [source inventory](docs/SOURCE_INVENTORY.md), and [candidate evaluations](docs/CANDIDATE_EVALUATION.md). Source checkouts under ignored `upstream/` are local; obtain the official repository and check out its locked revision before source builds. Custom adapters stay outside upstream source where practical.
 
-## 2. Integrated Workspaces & Honest Verification Status
+## Verification and desktop development
 
-| Workspace | Upstream Source | Pinned Version & Commit | Role in Mosaic Forge | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **SolidCraft 3D CAD** | `tangency-labs/solidcraft` | `v0.29.0` (`56b77b405d`) | **Primary 3D Parametric B-Rep CAD** (`.sc`, `.step`, `.stl`) | `tested` |
-| **FilmCraft Video Studio** | `storytold/filmcraft` | `v0.15.0` (`95cf47b883`) | Multi-track timeline video editing & WebCodecs export | `tested` |
-| **PhotoCraft Layer Lab** | `storytold/photocraft` | `v0.18.0` (`1f984bffb3`) | Layered raster photo editing (`.pht`, `.psd`, `.png`, `.jpg`) | `tested` |
-| **CADCraft 2D Drafting** | `storytold/cadcraft` | `v0.15.1` (`5caaf73e3b`) | Dedicated 2D DXF/DWG technical drafting (`?host=parent`) | `tested` |
-| **VectorCraft Illustration** | `storytold/vectorcraft` | `v0.19.0` (`433ddb593d`) | Vector illustration & Bezier paths (`.vct`, `.svg`, `.pdf`) | `tested` |
-| **PdfCraft Reader & Editor** | `storytold/pdfcraft` | `v0.16.1` (`eea00a6186`) | PDF reading, annotation, redaction, and forms (`?host=parent`) | `tested` |
-| **FigCraft UI Design** | `storytold/figcraft` | `v0.13.1` (`b0673ffc8b`) | Interface design & interactive prototyping (`window.figcraft`) | `tested` |
-| **WordCraft Documents** | `storytold/wordcraft` | `v0.13.2` (`6e0f7e79ed`) | Word processing & DOCX/Markdown/PDF publishing (`?host=parent`) | `tested` |
-| **GridCraft Spreadsheets** | `storytold/gridcraft` | `v0.14.2` (`a85b1aea3a`) | Spreadsheets, formulas, & CSV/XLSX modeling (`?host=parent`) | `tested` |
-| **EffectCraft Motion & VFX** | `storytold/effectcraft` | `v0.19.0` (`f4f390b153`) | Motion graphics & node/layer VFX compositing (`window.effectcraft`) | `partially tested` |
-| **LightCraft RAW & Catalog** | `storytold/lightcraft` | `v0.16.0` (`c50b74df9c`) | Photo cataloging & parametric RAW development (`window.lightcraft`) | `partially tested` |
-| **DesignCraft Publishing** | `storytold/designcraft` | `v0.15.2` (`98d8016001`) | Multi-page layout, spreads, & IDML/PDF desktop publishing | `partially tested` |
-| **SoundCraft Audio Studio** | `storytold/soundcraft` | `v0.15.0` (`85ffa1f53e`) | Waveform & multitrack audio editing (`.wav`, `.flac`, `.mp3`) | `partially tested` |
-| **DeckCraft Presentations** | `storytold/deckcraft` | `v0.13.1` (`82573331a8`) | Slide decks & PPTX/PDF presentations | `partially tested` |
-| **FieldCraft Implicit CAD** | `tangency-labs/fieldcraft` | `v0.7.0` (`6d9d17ea6f`) | Source checked out in `upstream/fieldcraft` (no prebuilt web bundle) | `not tested` |
-| **PCBCraft** | `tangency-labs/pcbcraft` | *Excluded* | **Blocked**: Licensed under strong copyleft `GPL-3.0` | `blocked` |
-| **AniCraft** | `storytold/AniCraft` | *Excluded* | **Blocked**: Empty upstream repository (0 commits / 0 KB) | `blocked` |
+With the browser server running, use `npm run verify:shell` and `npm run verify:recorder`. For production preview, set `OMNICRAFT_URL=http://127.0.0.1:4173`. Set `CAPTURE_FORMAT=mp4` to test MP4 and `CAPTURE_SECONDS=62` for the normal recording test. Recorder verification requires Chrome/Playwright and ffmpeg/ffprobe; editor verification also uses the retained WASM assets. See scripts and [implementation status](docs/IMPLEMENTATION_STATUS.md) for scope and limitations.
 
----
-
-## 3. Live Domain Check Result (`mosaicforge.com`)
-
-- **Domain Checked**: `mosaicforge.com`
-- **Checked At (UTC)**: `2026-11-01T00:14:07Z`
-- **Verification Source**: Verisign COM RDAP (`https://rdap.verisign.com/com/v1/domain/mosaicforge.com`) + IANA WHOIS
-- **Result**: **UNAVAILABLE (Registered)** — RDAP Handle `1988171746_DOMAIN_COM-VRSN`, Registrar `GoDaddy.com, LLC (IANA ID 146)`, Status `clientTransferProhibited`.
-- **Purchased**: **No** (no domain purchase was made).
-
----
-
-## 4. Documentation Index
-
-- [**Technical Architecture & Hardware Optimization Guide (`docs/ARCHITECTURE.md`)**](./docs/ARCHITECTURE.md)
-- [**License & Attribution Report (`docs/LICENSES_AND_ATTRIBUTION.md`)**](./docs/LICENSES_AND_ATTRIBUTION.md)
-- [**Upstream Tracking, Update & Rollback Guide (`docs/UPSTREAM_UPDATE_GUIDE.md`)**](./docs/UPSTREAM_UPDATE_GUIDE.md)
+The Tauri v2 desktop path is a development prototype, tested separately from the web app. There is no verified installable release yet. See [desktop commands and limitations](docs/DESKTOP.md). No public deployment is performed by the upstream scripts.
