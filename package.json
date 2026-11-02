@@ -26,7 +26,11 @@
     "verify:audio-source": "node scripts/verify-audio-source.mjs",
     "verify:shell": "node scripts/verify-shell.mjs",
     "verify:model": "node scripts/verify-model.mjs",
-    "verify:model-library": "node scripts/verify-model-library.mjs"
+    "verify:model-library": "node scripts/verify-model-library.mjs",
+    "verify:library": "node scripts/verify-library.mjs",
+    "prebuild": "node scripts/prepare-assets.mjs --fetch",
+    "assets:prepare": "node scripts/prepare-assets.mjs --fetch",
+    "assets:check": "node scripts/prepare-assets.mjs"
   },
   "dependencies": {
     "@dnd-kit/abstract": "0.5.0",

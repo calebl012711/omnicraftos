@@ -8,3 +8,9 @@
 @media(prefers-reduced-motion:reduce){.oc-shell *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
 @media(max-width:850px){.oc-shell .mf-statusbar{display:none}}
+
+.oc-library-intro { max-width: 760px; margin: 0 0 32px; color: #344c33; }
+.oc-library-intro h2 { font: 400 clamp(30px, 4vw, 46px)/1.12 Georgia, serif; letter-spacing: -.03em; margin: 10px 0 18px; }
+.oc-library-intro p { max-width: 68ch; line-height: 1.6; color: #586650; }
+.oc-library-intro .oc-eyebrow { font: 600 11px/1.4 system-ui; letter-spacing: .16em; }
+.oc-library-intro > span { display: block; margin-top: 20px; color: #68755d; font-size: 12px; }

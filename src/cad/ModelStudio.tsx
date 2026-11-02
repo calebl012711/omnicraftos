@@ -18,6 +18,9 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
   const commandDialog = useRef<HTMLDialogElement>(null);
   const [showStartCard, setShowStartCard] = useState(true);
   const [ready, setReady] = useState(false);
+  const [engineAttached, setEngineAttached] = useState(false);
+  const [bootFailure, setBootFailure] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('Loading the modeling engine…');
@@ -44,7 +47,14 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
     }
   }
   useEffect(() => {
-    let cancelled = false, pending = false;
+    let cancelled = false, pending = false, initialized = false;
+    engine.current = undefined; lastRevision.current = '';
+    setReady(false); setEngineAttached(false); setBootFailure(false); setError('');
+    async function startup<T>(task: Promise<T>, label: string): Promise<T> {
+      let deadline: ReturnType<typeof setTimeout>;
+      try { return await Promise.race([task, new Promise<never>((_, reject) => { deadline = setTimeout(() => reject(new Error(`The CAD engine loaded but did not respond while ${label}. Reload Model or use a supported desktop browser.`)), 20000); })]); }
+      finally { clearTimeout(deadline!); }
+    }
     const started = performance.now();
     const timer = setInterval(async () => {
       if (pending) return; pending = true;
@@ -53,20 +63,22 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
           const api = (iframe.current?.contentWindow as (Window & { solidcraft?: CadEngine }) | null)?.solidcraft;
           if (api) {
             engine.current = api;
-            await api.request('ui.home', { open: false });
-            await api.request('ui.set', { layout: 'docked', dark: false, showBrowser: true, showTimeline: true });
-            await api.request('ui.prefs', { history_in_browser: true });
+            if (!cancelled) setEngineAttached(true);
+            await startup(api.request('ui.home', { open: false }), 'opening the viewport');
+            await startup(api.request('ui.set', { layout: 'docked', dark: false, showBrowser: true, showTimeline: true }), 'configuring the workspace');
+            await startup(api.request('ui.prefs', { history_in_browser: true }), 'configuring feature history');
             if (initial.current?.file) { await openEngineFile(api, iframe.current!, initial.current.file); setMessage('Native project reopened from the suite library.'); }
             else { setMessage('Ready. Start a part or open your design.'); if (initial.current) partDialog.current?.showModal(); }
-            if (!cancelled) setReady(true);
-          } else if (performance.now() - started > 120000) throw Error('The modeling engine is taking longer than expected. Reload this workspace or try another desktop browser.');
+            initialized = true; if (!cancelled) setReady(true);
+          } else if (iframe.current?.contentDocument?.getElementById('error')?.textContent) throw Error(iframe.current.contentDocument.getElementById('error')!.textContent!);
+          else if (performance.now() - started > 120000) throw Error('The modeling engine is taking longer than expected. Reload this workspace or try another desktop browser.');
         }
         if (!cancelled && engine.current) await refresh();
-      } catch (e) { if (!cancelled) setError(String(e)); }
+      } catch (e) { if (!cancelled) { setError((e as Error).message || String(e)); if (!initialized) { setBootFailure(true); clearInterval(timer); } } }
       finally { pending = false; }
     }, 1200);
     return () => { cancelled = true; clearInterval(timer); };
-  }, []);
+  }, [attempt]);
   async function run(label: string, task: (api: CadEngine) => Promise<void>) {
     if (!engine.current || busy) return;
     setBusy(label); setError('');
@@ -142,8 +154,8 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
     <header className="model-header"><button className="model-back" onClick={leave}><ArrowLeft size={15} />OmniCraft OS</button><div className="model-document-title"><Box size={19} /><div><span>MODEL</span><h1>{state.name || 'Untitled part'}</h1></div><span className="model-save-state">{state.dirty ? 'Unsaved changes' : ready ? 'No unsaved changes' : 'Loading…'}</span></div><div className="model-file-actions"><label className="model-open"><FolderOpen size={15} />Open<input aria-label="Open model file" type="file" accept=".sc,.solidcraft,.step,.stp,.stl" disabled={blocked} onChange={event => { void openFile(event.target.files?.[0]); event.target.value = ''; }} /></label><button disabled={blocked} onClick={() => void save()}><Save size={15} />Save project</button><details className="model-export-menu"><summary><Download size={15} />Export<ChevronDown size={12} /></summary><div><button disabled={blocked} onClick={() => void save(true)}>Native project (.sc)</button><button disabled={blocked || !hasBodies} onClick={() => void exportPart('step')}>STEP · editable solid</button><button disabled={blocked || !hasBodies} onClick={() => void exportPart('stl')}>STL · print mesh</button></div></details></div></header>
     <nav className="model-toolbar" aria-label="Modeling tools"><button className="model-new" disabled={blocked} onClick={newPart}><Plus size={15} />New part</button><span className="model-divider" />{[['sketch.create', 'Sketch', Pencil], ['solid.extrude', 'Extrude', Box], ['solid.fillet', 'Fillet', Circle], ['solid.chamfer', 'Chamfer', Box]].map(([id, label, Icon]) => { const Component = Icon as typeof Box; return <button key={String(id)} disabled={blocked} onClick={() => startTool(String(id))}><Component size={15} />{String(label)}</button>; })}{state.active_sketch != null && <><button disabled={blocked} onClick={() => startTool('sketch.line')}>Line</button><button disabled={blocked} onClick={() => startTool('sketch.rectangle.two_point')}>Rectangle</button><button disabled={blocked} onClick={() => startTool('sketch.circle.center')}>Circle</button><button disabled={blocked} onClick={() => void run('Finishing sketch', async api => { await api.execute('sketch.finish', {}); })}><Check size={14} />Finish sketch</button></>}<button disabled={blocked} onClick={() => commandDialog.current?.showModal()}><Search size={15} />More tools</button><span className="model-toolbar-space" /><button aria-label="Undo model edit" disabled={blocked || !state.undo} onClick={() => void run('Undo', async api => { await api.execute('edit.undo', {}); setEdits({}); })}><Undo2 size={16} /></button><button aria-label="Redo model edit" disabled={blocked || !state.redo} onClick={() => void run('Redo', async api => { await api.execute('edit.redo', {}); setEdits({}); })}><Redo2 size={16} /></button></nav>
     {error && <div className="model-error" role="alert">{error}<button onClick={() => setError('')} aria-label="Dismiss modeling error">×</button></div>}
-    <div className="model-body"><section className="model-viewport" aria-label="Interactive CAD viewport"><iframe ref={iframe} src="/editors/solidcraft/workspace.html?omnicraft=1&webgl=1" title="Model geometry engine" />
-      {!ready && <div className="model-loading" role="status"><Box size={28} /><strong>Starting the modeling engine</strong><p>Loading the actual CAD kernel. This can take a moment on an Intel Mac.</p></div>}
+    <div className="model-body"><section className="model-viewport" aria-label="Interactive CAD viewport"><iframe key={attempt} ref={iframe} src="/editors/solidcraft/workspace.html?omnicraft=1&webgl=1" title="Model geometry engine" />
+      {!ready && <div className={`model-loading ${engineAttached ? 'model-configuring' : ''}`} role="status"><Box size={28} /><strong>{bootFailure ? 'Model could not start' : engineAttached ? 'Connecting to the viewport' : 'Starting the modeling engine'}</strong><p>{bootFailure ? error : engineAttached ? 'The CAD engine has loaded. Waiting for its command channel.' : 'Loading the actual CAD kernel. This can take a moment on an Intel Mac.'}</p>{bootFailure && <button onClick={() => setAttempt(value => value + 1)}>Reload Model</button>}</div>}
       {ready && showStartCard && !hasBodies && !state.active_sketch && <div className="model-start-card"><p>YOUR NEXT PART STARTS HERE</p><h2>From a shape<br />to something useful.</h2><span>Build a parametric part, open a design,<br />or start sketching in the viewport.</span><button disabled={blocked} onClick={newPart}><Plus size={15} />Create a part</button></div>}
       <div className="model-view-controls" aria-label="Camera views">{['iso', 'front', 'top', 'right'].map(view => <button key={view} disabled={blocked} onClick={() => void run('Changing view', async api => { await api.request('ui.view', { view }); })}>{view === 'iso' ? '3D' : view}</button>)}<button aria-label="Fit model in view" disabled={blocked} onClick={() => void run('Fitting model', async api => { await api.execute('view.fit', {}); })}><Maximize size={14} /></button></div>
     </section><aside className="model-properties" aria-label="Part properties"><div className="model-panel-title"><h2>Design details</h2><span>{state.units}</span></div><details open className="model-property-section"><summary>Dimensions</summary>{!parameters.length && <p>Create a parametric part to edit its dimensions here. Sketch and feature dimensions remain available in the viewport.</p>}{parameters.map(parameter => <label key={parameter.name}>{LABELS[parameter.name] || parameter.name}<div><input aria-label={`Model dimension ${parameter.name}`} disabled={blocked} value={edits[parameter.name] ?? String(parameter.expression ?? parameter.value ?? '')} onChange={event => setEdits(previous => ({ ...previous, [parameter.name]: event.target.value }))} /><span>{parameter.unit || 'mm'}</span></div></label>)}{!!changes && <button className="model-apply" disabled={blocked} onClick={() => void run('Updating dimensions', async api => { await api.execute('parameters.change', { changes: edits }); setEdits({}); setMessage('Dimensions rebuilt by the CAD kernel.'); })}><Check size={14} />Update dimensions</button>}</details>

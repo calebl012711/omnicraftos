@@ -12,7 +12,16 @@ try {
   page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, acceptDownloads: true });
   page.setDefaultTimeout(120000);page.on('dialog',dialog=>dialog.accept());
   const errors = []; page.on('pageerror', error => errors.push(error.message));
+  if (process.env.MODEL_FAIL_STARTUP === '1') await page.route('**/editors/solidcraft/model-engine-*.wasm', route => route.abort('failed'));
   await page.goto(base + '/?tool=model', { waitUntil: 'commit' });console.log('Model page committed');
+  if (process.env.MODEL_FAIL_STARTUP === '1') {
+    await page.getByRole('button', { name: 'Reload Model', exact: true }).waitFor();
+    const message = await page.getByRole('alert').innerText();
+    assert.match(message, /could not start|fetch|network|load/i);
+    await page.unroute('**/editors/solidcraft/model-engine-*.wasm');
+    await page.getByRole('button', { name: 'Reload Model', exact: true }).click();
+    report.tests.startupRecovery = { passed: true, actualNetworkFailureShown: true, error: message, reloadRequested: true };
+  }
   await page.getByRole('button', { name: 'New part', exact: true }).waitFor();
   await page.getByRole('button', { name: 'New part', exact: true }).click();console.log('Engine ready; new-part dialog opened');
   await page.getByLabel('New part name', { exact: true }).fill('Verified mounting plate');

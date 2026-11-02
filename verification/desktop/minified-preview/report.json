@@ -1,0 +1,53 @@
+{
+  "phase": "model-engine",
+  "at": "2026-11-02T14:44:40.909Z",
+  "environment": "Actual Tauri WebKit development view",
+  "url": "http://127.0.0.1:4173/",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+  "tests": {
+    "home": {
+      "passed": true,
+      "heading": "Make roomto create.",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    "capture": {
+      "passed": true,
+      "mediaRecorder": true,
+      "screenCaptureApi": true,
+      "cameraApi": true,
+      "mp4Reported": true,
+      "physicalDevicesTested": false
+    }
+  },
+  "passed": false,
+  "error": "The CAD engine loaded but did not respond while opening the viewport. Reload Model or use a supported desktop browser.×",
+  "stack": "@http://127.0.0.1:4173/:35:65\n@http://127.0.0.1:4173/:10:60",
+  "body": "OmniCraft OS\nMODEL\nUntitled part\nLoading…\nOpen\nSave project\nExport\nNew part\nSketch\nExtrude\nFillet\nChamfer\nMore tools\n\n\nThe CAD engine loaded but did not respond while opening the viewport. Reload Model or use a supported desktop browser.×\n\nModel could not start\nThe CAD engine loaded but did not respond while opening the viewport. Reload Model or use a supported desktop browser.\nReload Model\n3D\nFront\nTop\nRight\n\nDesign details\nMM\nDimensions\nCreate a parametric part to edit its dimensions here. Sketch and feature dimensions remain available in the viewport.\nFeature history 0\nYour sketches and modeling steps will appear here.\nMeasure\nRecent projects\nModel uses the SolidCraft engine.\nSolidCraft contributors · MIT.\nUpstream source & credit\nLoading the modeling engine…\n0 bodies · 0 features · mm",
+  "modelFrame": {
+    "src": "http://127.0.0.1:4173/editors/solidcraft/workspace.html?omnicraft=1&webgl=1",
+    "text": "",
+    "wasmApiPresent": true,
+    "visible": {
+      "x": 0,
+      "y": 178,
+      "width": 1185,
+      "height": 762,
+      "top": 178,
+      "right": 1185,
+      "bottom": 940,
+      "left": 0
+    },
+    "canvas": {
+      "x": 0,
+      "y": 0,
+      "width": 1185,
+      "height": 762,
+      "top": 0,
+      "right": 1185,
+      "bottom": 762,
+      "left": 0
+    },
+    "visibility": "hidden"
+  }
+}

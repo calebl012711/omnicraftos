@@ -286,6 +286,8 @@ export function App() {
   const [branding, setBranding] = useState<BrandingConfig>(() => loadBrandingConfig());
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [activeWorkspaceId, setActiveWorkspaceId] = useState<string>('riverstudio');
+  const [modelOpenFile, setModelOpenFile] = useState<File>();
+  const modelOpenLink = useMemo(() => modelOpenFile ? { id: crypto.randomUUID(), name: modelOpenFile.name.replace(/\.[^.]+$/, ''), file: modelOpenFile } : undefined, [modelOpenFile]);
   const [activeProjectId, setActiveProjectId] = useState<string | null>('proj-solidcraft-motor-mount');
   const [rendererMode, setRendererMode] = useState<RendererMode>('webgl');
   const [homeCategory, setHomeCategory] = useState<HomeCategoryFilter>('all');
@@ -340,27 +342,10 @@ export function App() {
   const [newProjectNotes, setNewProjectNotes] = useState<string>('');
   const [quickSwitchQuery, setQuickSwitchQuery] = useState<string>('');
 
-  const [benchmarkingVault, setBenchmarkingVault] = useState<boolean>(false);
-  const [vaultLatencyResult, setVaultLatencyResult] = useState<string | null>(null);
   const [assetCategoryFilter, setAssetCategoryFilter] = useState<
     'all' | 'cad' | 'video' | 'audio' | 'image' | 'docs'
   >('all');
   const pendingHandoffAssetRef = useRef<SharedAssetRecord | null>(null);
-
-  const runVaultLatencyBenchmark = () => {
-    setBenchmarkingVault(true);
-    const t0 = performance.now();
-    const testBuf = new Uint8Array(1024 * 1024);
-    for (let i = 0; i < testBuf.length; i += 256) {
-      testBuf[i] = i & 0xff;
-    }
-    const t1 = performance.now();
-    const elapsed = Math.max(0.01, Number((t1 - t0).toFixed(3)));
-    setTimeout(() => {
-      setBenchmarkingVault(false);
-      setVaultLatencyResult(`${elapsed} ms to allocate and touch a 1 MB test buffer. This is not a storage or transfer benchmark.`);
-    }, 380);
-  };
 
   const activeWorkspace = useMemo(
     () => WORKSPACES.find((w) => w.id === activeWorkspaceId) || WORKSPACES[0],
@@ -634,7 +619,7 @@ export function App() {
           showExportToast(notice);
           setEditorDirty(false);
           setStatusMessage(
-            `Saved "${fileName}" (${formatBytes(buffer.byteLength)}) to the Asset Vault.`
+            `Saved "${fileName}" (${formatBytes(buffer.byteLength)}) to the file library.`
           );
           await refreshLocalStores();
         }
@@ -669,13 +654,16 @@ export function App() {
     return url.pathname + url.search;
   }, [activeWorkspace, rendererMode]);
 
-  const openWorkspace = (workspaceId: string, projectId?: string | null) => {
+  const openWorkspace = (workspaceId: string, projectId?: string | null, nativeFile?: File) => {
     navigateWithViewTransition(() => {
       setEditorReady(false);
       setEditorDirty(false);
       setShowAutomationDrawer(false);
       setActiveWorkspaceId(workspaceId);
-      if (projectId !== undefined) {
+      setModelOpenFile(workspaceId === 'solidcraft' ? nativeFile : undefined);
+      if (nativeFile) {
+        setActiveProjectId(null);
+      } else if (projectId !== undefined) {
         setActiveProjectId(projectId);
       } else {
         const matchingProj = projects.find((p) => p.workspaceId === workspaceId);
@@ -707,6 +695,8 @@ export function App() {
 
   const returnToHome = (targetTab: NavTab = 'home') => {
     navigateWithViewTransition(() => {
+      document.querySelector('.mf-scroll-page')?.scrollTo(0, 0);
+      setModelOpenFile(undefined);
       setShowAutomationDrawer(false);
       setActiveTab(targetTab);
     }, 'backward');
@@ -783,6 +773,11 @@ export function App() {
   };
 
   const handleHandoffToStudio = async (workspaceId: string, asset: SharedAssetRecord) => {
+    if (workspaceId === 'solidcraft') {
+      if (asset.size > 100 * 1024 * 1024) { setStatusMessage('Open a model smaller than 100 MB in this browser.'); return; }
+      openWorkspace(workspaceId, null, new File([asset.bytes], asset.name, { type: asset.mimeType }));
+      return;
+    }
     if (activeWorkspace.id === workspaceId && activeTab === 'workspace') {
       await sendAssetIntoActiveEditor(asset);
     } else {
@@ -1173,7 +1168,7 @@ export function App() {
     a.download = `omnicraft-os-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    setStatusMessage('Exported the OmniCraft OS project and Asset Vault backup JSON. Capture takes and Music projects have separate export controls.');
+    setStatusMessage('Exported the OmniCraft OS project and file library backup JSON. Capture takes and Music projects have separate export controls.');
   };
 
   const handleImportFullBackup = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1342,7 +1337,7 @@ export function App() {
     setActiveProjectId(model.id); await refreshLocalStores();
   }
   const modelSnapshot = activeProject?.workspaceId === 'solidcraft' ? storedFiles.find(file => file.id === activeProject.storedSnapshotFileId) : undefined;
-  const modelProject = activeProject?.workspaceId === 'solidcraft' ? { id: activeProject.id, name: activeProject.name, file: modelSnapshot ? new File([modelSnapshot.bytes], modelSnapshot.name, { type: modelSnapshot.mimeType }) : undefined } : undefined;
+  const modelProject = modelOpenLink || (activeProject?.workspaceId === 'solidcraft' ? { id: activeProject.id, name: activeProject.name, file: modelSnapshot ? new File([modelSnapshot.bytes], modelSnapshot.name, { type: modelSnapshot.mimeType }) : undefined } : undefined);
 
   if (activeTab === 'workspace' && activeWorkspace.id === 'riverstudio') return <Recorder onBack={() => returnToHome('home')} />;
   if (activeTab === 'workspace' && activeWorkspace.id === 'solidcraft') return <React.Suspense fallback={<p>Loading Model…</p>}><ModelStudio onBack={() => returnToHome('home')} initialProject={modelProject} onSaved={saveModelProject} /></React.Suspense>;
@@ -1394,7 +1389,7 @@ export function App() {
               data-testid="nav-assets"
             >
               <HardDrive size={15} />
-              <span>Asset Vault ({assets.length})</span>
+              <span>Files ({assets.length})</span>
             </button>
             <button
               type="button"
@@ -1660,7 +1655,7 @@ export function App() {
                   data-testid="workspace-send-asset-select"
                 >
                   <option value="" disabled>
-                    Load from Asset Vault ({assets.length})...
+                    Load from Files ({assets.length})...
                   </option>
                   {assets.map((a) => (
                     <option key={a.id} value={a.id}>
@@ -1714,7 +1709,7 @@ export function App() {
                   type="button"
                   className="mf-btn mf-btn-sm"
                   onClick={() => returnToHome('assets')}
-                  title="Open Shared Asset Vault"
+                  title="Open file library"
                 >
                   <HardDrive size={13} />
                   <span>Vault ({assets.length})</span>
@@ -1826,7 +1821,7 @@ export function App() {
                     </div>
                     {capturedExports.length === 0 ? (
                       <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>
-                        Supported editor bridges can send files to the Asset Vault. Recorder and Music Studio downloads are managed inside their workspaces.
+                        Supported editor bridges can send files to the file library. Recorder and Music Studio downloads are managed inside their workspaces.
                       </p>
                     ) : (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -1986,102 +1981,13 @@ export function App() {
         {activeTab === 'assets' && (
           <div className="mf-scroll-page" data-testid="view-assets">
             <div className="mf-home-container">
-              {/* TILE 4: Bento Feature Hero Banner */}
-              <article className="mf-tile-vault-feature" data-testid="bento-tile-vault">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '14px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                    <h2 style={{ fontSize: '20px', fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
-                      Instant Cross-App Asset Vault
-                    </h2>
-                    <span className="mf-vault-badge">VAULT</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
-                    <span className="mf-badge tested" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      <Zap size={12} />
-                      <span>Local browser storage</span>
-                    </span>
-                    <span className="mf-badge tested" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      <HardDrive size={12} />
-                      <span>OPFS Active ({formatBytes(storageHealth.usageBytes)})</span>
-                    </span>
-                    <span className="mf-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      <ShieldCheck size={12} />
-                      <span>Zero Cloud Relays</span>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="mf-vault-hero-text">
-                  <div className="mf-vault-headline">A local library for your files</div>
-                  <div className="mf-vault-sub">
-                    Import files into this local library or receive exports from supported editor bridges. Capture and Music keep separate local projects and provide their own download controls. File handoff depends on the receiving editor’s import support.
-                  </div>
-                </div>
-
-                {/* Animated Stream Visual Pipeline */}
-                <div className="mf-vault-pipeline-visual">
-                  <div className="mf-pipeline-node file-source">
-                    <Radio size={20} className="mf-node-icon" style={{ color: '#e05a47' }} />
-                    <span className="mf-node-label">Capture / Model</span>
-                  </div>
-
-                  <div className="mf-pipeline-arrows">
-                    <div className="mf-arrow-track">
-                      <span className="mf-pulse-particle" />
-                    </div>
-                    <div className="mf-sync-status">
-                      <Zap size={11} />
-                      <span>Browser storage</span>
-                    </div>
-                  </div>
-
-                  <div className="mf-pipeline-node vault-target">
-                    <Database size={20} className="mf-node-icon" style={{ color: '#10b981' }} />
-                    <span className="mf-node-label">OPFS &amp; IDB Vault</span>
-                  </div>
-
-                  <div className="mf-pipeline-arrows">
-                    <div className="mf-arrow-track">
-                      <span className="mf-pulse-particle" />
-                    </div>
-                    <div className="mf-sync-status">
-                      <ArrowRight size={11} />
-                      <span>Instant Handoff</span>
-                    </div>
-                  </div>
-
-                  <div className="mf-pipeline-node file-source">
-                    <Video size={20} className="mf-node-icon" style={{ color: '#f43f5e' }} />
-                    <span className="mf-node-label">Studio Cut / FilmCraft</span>
-                  </div>
-                </div>
-
-                {/* Interactive Benchmark & Hardware Cluster */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
-                  <div className="mf-vault-bench-cluster" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                    <button
-                      type="button"
-                      className={`mf-bench-trigger-btn ${benchmarkingVault ? 'running' : ''}`}
-                      onClick={runVaultLatencyBenchmark}
-                      disabled={benchmarkingVault}
-                      data-testid="vault-bench-test-btn"
-                    >
-                      <Zap size={13} />
-                      <span>{benchmarkingVault ? 'Benchmarking Local Bus...' : 'Test Local Memory Bus Speed'}</span>
-                    </button>
-                    {vaultLatencyResult && (
-                      <div className="mf-bench-result-tag">
-                        <Check size={12} style={{ color: '#10b981' }} />
-                        <span>{vaultLatencyResult}</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="mf-vault-security-note">
-                    <ShieldCheck size={13} style={{ color: '#10b981' }} />
-                    <span>Unified Local-First Sandbox · No Accounts · Zero Cloud Lag</span>
-                  </div>
-                </div>
-              </article>
+              <section className="oc-library-intro" aria-labelledby="library-title">
+                <p className="oc-eyebrow">YOUR FILES</p>
+                <h2 id="library-title">A library for your next project.</h2>
+                <p>Keep source files and editor exports in this browser. Download a backup before clearing site data.</p>
+                <p>Format suggestions are a starting point. Each editor has its own import controls; Capture takes and Music projects have separate save and export controls.</p>
+                <span>{formatBytes(storageHealth.usageBytes)} used by this site · {storageHealth.persisted ? 'Persistent storage granted' : 'Browser-managed storage'}</span>
+              </section>
 
               {/* Filter Bar & Category Pills */}
               <div className="mf-section-header" style={{ marginTop: 0, marginBottom: '16px' }}>
@@ -2117,31 +2023,24 @@ export function App() {
                   />
                   <label className="mf-btn mf-btn-primary" style={{ cursor: 'pointer' }}>
                     <Upload size={14} />
-                    <span>Add File to Vault</span>
+                    <span>Import file</span>
                     <input
                       type="file"
                       style={{ display: 'none' }}
+                      aria-label="Import library file"
                       onChange={async (e) => {
-                        const file = e.target.files?.[0];
+                        const input = e.currentTarget;
+                        const file = input.files?.[0];
                         if (!file) return;
-                        const bytes = await file.arrayBuffer();
-                        await saveSharedAsset({
-                          id: `asset-${Date.now()}`,
-                          name: file.name,
-                          mimeType: file.type || 'application/octet-stream',
-                          size: bytes.byteLength,
-                          bytes,
-                          sourceWorkspaceId: 'user-upload',
-                          isBuiltInSample: false,
-                          compatibleWorkspaces: inferCompatibleWorkspaces(file.name),
-                          createdAt: new Date().toISOString(),
-                          description: 'User uploaded shared studio asset',
-                          latencyMs: 0,
-                          opfsSynced: true
-                        });
-                        await saveFileToOpfs(file.name, bytes);
-                        await refreshLocalStores();
-                        e.target.value = '';
+                        try {
+                          if (file.size > 128 * 1024 * 1024) throw new Error('Use a file under 128 MB in the library. Open larger media directly in its editor.');
+                          setStatusMessage(`Saving ${file.name} to the library…`);
+                          const bytes = await file.arrayBuffer();
+                          await saveSharedAsset({ id: `asset-${crypto.randomUUID()}`, name: file.name, mimeType: file.type || 'application/octet-stream', size: bytes.byteLength, bytes, sourceWorkspaceId: 'user-upload', isBuiltInSample: false, compatibleWorkspaces: inferCompatibleWorkspaces(file.name), createdAt: new Date().toISOString(), description: 'Imported source file' });
+                          await refreshLocalStores();
+                          setStatusMessage(`${file.name} saved in this browser.`);
+                        } catch (error) { setStatusMessage(`File import failed: ${(error as Error).message}`); }
+                        finally { input.value = ''; }
                       }}
                     />
                   </label>
@@ -2165,7 +2064,7 @@ export function App() {
                     ? 'Sample Asset'
                     : sourceWs
                     ? sourceWs.name
-                    : `From ${asset.sourceWorkspaceId}`;
+                    : asset.sourceWorkspaceId === 'user-upload' ? 'Imported file' : `From ${asset.sourceWorkspaceId}`;
 
                   return (
                     <article key={asset.id} className="mf-card" data-testid={`asset-card-${asset.id}`}>
@@ -2208,7 +2107,7 @@ export function App() {
                           </span>
                           <span className="mf-badge tested" style={{ fontSize: '10.5px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
                             <HardDrive size={10} />
-                            <span>OPFS Synced</span>
+                            <span>Saved in this browser</span>
                           </span>
                           <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
                             {new Date(asset.createdAt).toLocaleDateString()}
@@ -2227,10 +2126,10 @@ export function App() {
                               marginBottom: '6px'
                             }}
                           >
-                            Format Compatibility &amp; Live Handoff:
+                            Suggested workspaces:
                           </div>
                           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                            {asset.compatibleWorkspaces.slice(0, 4).map((wsId) => {
+                            {asset.compatibleWorkspaces.filter(id => id !== 'riverstudio').slice(0, 4).map((wsId) => {
                               const ws = WORKSPACES.find((w) => w.id === wsId);
                               if (!ws) return null;
                               return (
@@ -2239,7 +2138,7 @@ export function App() {
                                   type="button"
                                   className="mf-compat-pill"
                                   onClick={() => handleHandoffToStudio(wsId, asset)}
-                                  title={`Open ${asset.name} directly in ${ws.name}`}
+                                  title={`Try importing ${asset.name} in ${ws.name}; support depends on the editor`}
                                   data-testid={`handoff-btn-${asset.id}-${wsId}`}
                                 >
                                   <span>Open in {ws.name.split(' ')[0]}</span>
@@ -2348,14 +2247,14 @@ export function App() {
                 <div className="mf-card">
                   <div>
                     <span className="mf-card-category">Local-First Storage &amp; Hardware</span>
-                    <h3 className="mf-card-title">Single-Instance Memory Isolation</h3>
+                    <h3 className="mf-card-title">One active workspace</h3>
                     <p className="mf-card-desc">
-                      Entering an application mounts only that studio's WebAssembly/WebAudio engine and reclaims GPU/RAM buffers immediately when switching apps.
+                      Editors load when opened. Switching workspaces releases their interface; the browser controls when memory is reclaimed. Save your project before switching.
                     </p>
                   </div>
 
                   <div className="mf-code-block">
-                    {`IndexedDB + OPFS Usage: ${formatBytes(storageHealth.usageBytes)}\nBrowser Quota Estimate: ${formatBytes(storageHealth.quotaBytes)}\nOPFS Directory API: ${storageHealth.opfsAvailable ? 'Available (/opfs active)' : 'Unavailable'}\nPersistent Storage Grant: ${storageHealth.persisted ? 'Granted' : 'Best-Effort (Use JSON Backup)'}\nStored Snapshots/Exports: ${storedFiles.length}`}
+                    {`IndexedDB + OPFS Usage: ${formatBytes(storageHealth.usageBytes)}\nBrowser Quota Estimate: ${formatBytes(storageHealth.quotaBytes)}\nOPFS Directory API: ${storageHealth.opfsAvailable ? 'Available' : 'Unavailable'}\nPersistent Storage Grant: ${storageHealth.persisted ? 'Granted' : 'Best-Effort (Use JSON Backup)'}\nStored Snapshots/Exports: ${storedFiles.length}`}
                   </div>
                 </div>
               </div>
@@ -2457,7 +2356,7 @@ export function App() {
       {/* Bottom Studio Status Bar */}
       <footer className="mf-statusbar">
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span data-testid="status-bar-message">{statusMessage}</span>
+          <span role="status" aria-live="polite" data-testid="status-bar-message">{statusMessage}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <span>Vault: {formatBytes(storageHealth.usageBytes)}</span>
@@ -2733,7 +2632,7 @@ export function App() {
           <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
               <div>
-                <span className="mf-badge tested">✓ Saved to Local Asset Vault</span>
+                <span className="mf-badge tested">✓ Saved to file library</span>
                 <div style={{ fontWeight: 700, fontSize: '13.5px', marginTop: '4px' }}>
                   {latestToast.name} ({formatBytes(latestToast.size)})
                 </div>
@@ -2760,7 +2659,7 @@ export function App() {
                 }}
               >
                 <HardDrive size={12} />
-                <span>Open in Asset Vault</span>
+                <span>Open file library</span>
               </button>
               {latestToast.appId === 'riverstudio' && (
                 <button

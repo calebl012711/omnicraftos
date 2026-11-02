@@ -14,3 +14,5 @@ verification/**/*.m4a
 verification/**/*.wav
 verification/**/*.omnimusic
 staging/
+
+.omnicraft-build-cache/

@@ -1,0 +1,130 @@
+{
+  "id": "solidcraft",
+  "repo": "https://github.com/tangency-labs/solidcraft",
+  "pin": "56b77b405dc7c567854329a9511aa03e209caef7",
+  "started": "2026-11-02T12:35:41.734Z",
+  "finished": "2026-11-02T14:29:30.548Z",
+  "command": [
+    "trunk",
+    "build",
+    "--release",
+    "--dist",
+    "../../dist/verified-web"
+  ],
+  "exitCode": 0,
+  "overlay": "integration/patches/solidcraft-host-chrome.patch",
+  "overlaySha256": "5d81de49096a094e696d4771523f70c847a3aef747f6ddf472ca862cc5186e9d",
+  "stagedPath": "staging/solidcraft/56b77b405dc7c567854329a9511aa03e209caef7-omnicraft-5d81de49",
+  "artifacts": [
+    {
+      "file": "ATTRIBUTION.md",
+      "bytes": 219242,
+      "sha256": "889cc4fa02053b7c58ed6cf3f3c14363f98b329469b011c85e30d2a8d5d61e2c"
+    },
+    {
+      "file": "LICENSE-APACHE",
+      "bytes": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "file": "LICENSE-MIT",
+      "bytes": 1080,
+      "sha256": "1a26c1e94401d5d221896c74dd1c58d227edc64516da95aaac6f675567c8af63"
+    },
+    {
+      "file": "NOTICE",
+      "bytes": 2297,
+      "sha256": "09464b0c8f495c9e3c80d93fccf667056d1c2c306445d66101e4bed49494c54d"
+    },
+    {
+      "file": "THIRD-PARTY-LICENSES.txt",
+      "bytes": 903061,
+      "sha256": "2fea8f11569c7596cdc65b3d21801b8d57920c0ccdd3b905da38a071702ce48b"
+    },
+    {
+      "file": "build.json",
+      "bytes": 1116,
+      "sha256": "dea095fe568c45d9d3ab82d0cffcafdc095d2a0592e71319491622a6dcdea1ac"
+    },
+    {
+      "file": "fonts/BIZUDPGothic-Regular.ttf",
+      "bytes": 4669688,
+      "sha256": "258d7156c165f2ff774b6efee637c22c3b950de0d8a10e501137061bc8085d01"
+    },
+    {
+      "file": "fonts/CraftUI-SC.otf",
+      "bytes": 340604,
+      "sha256": "ab147a715a3f596f2dcde6e363ae7552cc6aa38d2b38ac521b876fddbbe787f5"
+    },
+    {
+      "file": "fonts/CraftUI-TC.otf",
+      "bytes": 381176,
+      "sha256": "6e0482aa78df0154db060742fd9ab0e0b09a6a2e1e6a708f6bbfa4e0fc50dd5c"
+    },
+    {
+      "file": "fonts/OFL.txt",
+      "bytes": 4408,
+      "sha256": "e753d7155d53c747d037a445e584c8ecfca6dd79846db610417e282a736b28bc"
+    },
+    {
+      "file": "fonts/craft-ui-sc/OFL.txt",
+      "bytes": 4557,
+      "sha256": "feaa534bc7fe8d307903a2cfb0d9ff7aad8e83b1dc8dbb9d41ed7c533d461849"
+    },
+    {
+      "file": "fonts/craft-ui-tc/OFL.txt",
+      "bytes": 4560,
+      "sha256": "f9c74d7fc3d9d7aa6243f3aa257de3e05115a926e6daf07296c2b5bdd8fa6dba"
+    },
+    {
+      "file": "icons/256x256/io.tangencylabs.solidcraft.png",
+      "bytes": 21402,
+      "sha256": "71a3e492720571cf572faa51d86a7ff75e9d7dea0916142b51de835bf857c5af"
+    },
+    {
+      "file": "icons/32x32/io.tangencylabs.solidcraft.png",
+      "bytes": 1615,
+      "sha256": "894552719c6bf8aa91f9d3ab3f1cb61836708f9ba00daf0324175ac82f16dfab"
+    },
+    {
+      "file": "icons/512x512/io.tangencylabs.solidcraft.png",
+      "bytes": 48726,
+      "sha256": "84fde8ef270f5b32afa2d661749b4778a205e7df980dd67795c10f7f4a69e15d"
+    },
+    {
+      "file": "index.html",
+      "bytes": 3518,
+      "sha256": "8c919e0ff841b9913027b58f1a6f8f4fa2fbf9d3ab5ecb26ee168c6c149a4a7e"
+    },
+    {
+      "file": "loading-fa23566dd89fa92b.css",
+      "bytes": 735,
+      "sha256": "6beeebe803106340480ebee6554cf7c1c33a2ce0410bcb42d7fd4f78e3dee7f2"
+    },
+    {
+      "file": "loading-logo.svg",
+      "bytes": 13375,
+      "sha256": "31d87162bb6a5a189bf60575981a1ef24c245d209783d9ad08b8318f66146e3d"
+    },
+    {
+      "file": "manifest.webmanifest",
+      "bytes": 617,
+      "sha256": "dfe478ab0f471db755846239088ce3e0231057c119f763b9a5309d2c5f6e8a9b"
+    },
+    {
+      "file": "solidcraft-web-6f48e3e598eb598f.js",
+      "bytes": 186323,
+      "sha256": "73b2e2e0112d65ceaef282d55d4e559c104acf4a66c26831d7a94f12dc061ed3"
+    },
+    {
+      "file": "solidcraft-web-6f48e3e598eb598f_bg.wasm",
+      "bytes": 99795192,
+      "sha256": "a1c4db0af38f50b4d63811e5edb2fbaec90211f27583c0fbb6054e1d3e3b7f28"
+    },
+    {
+      "file": "sw.js",
+      "bytes": 12685,
+      "sha256": "f07eb4129007f1f55cabaaf73839ccc2b539a357330821e2cc4f33a9a18c199d"
+    }
+  ]
+}

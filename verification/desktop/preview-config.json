@@ -1,0 +1,17 @@
+{
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "OmniCraft OS \u00b7 Verification",
+        "width": 1440,
+        "height": 1000,
+        "incognito": true
+      }
+    ]
+  },
+  "build": {
+    "devUrl": "http://127.0.0.1:4173"
+  },
+  "identifier": "studio.omnicraft.os.verification"
+}

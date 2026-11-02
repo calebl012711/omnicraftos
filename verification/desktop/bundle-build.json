@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-02T15:03:00Z",
+  "command": "npm run desktop:build -- --config verification/desktop/bundle-config.json",
+  "built": true,
+  "bundlePath": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/src-tauri/target/debug/bundle/macos/OmniCraft OS.app",
+  "bundleBytes": 344283888,
+  "signing": "Local ad-hoc signature; codesign --verify --deep --strict passed",
+  "identifier": "studio.omnicraft.os.verification",
+  "installedIntoApplications": false,
+  "notarized": false,
+  "published": false,
+  "runtimeReport": "verification/desktop/bundled/report.json",
+  "binaryBuiltAt": "2026-11-02T15:02:04.766379+00:00",
+  "recordedAt": "2026-11-02T15:16:06.551196+00:00"
+}

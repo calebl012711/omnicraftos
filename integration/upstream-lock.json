@@ -67,13 +67,14 @@
         "LICENSE-MIT"
       ],
       "cargoLockSha256": "f98682a8b466efb7205698adf526892aaacd6940fe2d2aa90a5f192e737e8048",
-      "artifactProvenance": "Built from the pinned official source with the reviewed host-chrome overlay. Release O3 + thin LTO and wasm-bindgen completed; optional Binaryen size minification omitted from the adopted 138786355-byte module. Artifact hashes in integration/builds/solidcraft.json.",
+      "artifactProvenance": "Fresh full Trunk release build from the pinned source and reviewed host-chrome overlay. Cargo O3 + thin LTO, wasm-bindgen and Binaryen wasm-opt -Oz completed; adopted module is 99795192 bytes. Hashes and full source build receipt are in integration/builds/.",
       "webBuild": {
         "sourceCommit": "56b77b405dc7c567854329a9511aa03e209caef7",
         "overlay": "integration/patches/solidcraft-host-chrome.patch",
         "overlaySha256": "5d81de49096a094e696d4771523f70c847a3aef747f6ddf472ca862cc5186e9d",
         "report": "integration/builds/solidcraft.json",
-        "optimization": "Release O3 + thin LTO; optional Binaryen size minification omitted"
+        "optimization": "Release O3 + thin LTO and Binaryen wasm-opt -Oz",
+        "fullSourceBuildReport": "integration/builds/solidcraft-source.json"
       }
     },
     {

@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-02T14:44:14.794Z",
+  "engine": "Source-built SolidCraft release WASM through the suite UI",
+  "tests": {
+    "library": {
+      "passed": true,
+      "saveThroughSuite": true,
+      "snapshotInBackup": true,
+      "reloadAndReopenThroughProjects": true,
+      "volumeMm3": 38400
+    },
+    "starters": {
+      "passed": true,
+      "blockVolumeMm3": 38400,
+      "cylinderVolumeMm3": 40209.910183836306,
+      "expectedCylinderVolumeMm3": 40212.385965949354,
+      "cameraViewButtons": true
+    }
+  },
+  "passed": true
+}

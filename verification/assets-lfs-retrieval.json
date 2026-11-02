@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-02T14:58:36.888Z",
+  "repository": "https://github.com/calebl012711/omnicraftos",
+  "binaryFiles": 1,
+  "resolved": [
+    {
+      "file": "public/editors/soundcraft/soundcraft-web-c5e10fa986cf471d_bg.wasm",
+      "revision": "3874ebe184f9584757888ff5cb27a29f5c5761ca",
+      "bytes": 17878437,
+      "sha256": "c42d90c58ff89080bda0e3a6feeac322060a6b6679d845950d951422e39f48cd"
+    }
+  ],
+  "passed": true
+}

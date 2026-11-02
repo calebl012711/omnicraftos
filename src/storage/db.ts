@@ -129,7 +129,7 @@ export async function deleteProject(projectId: string): Promise<void> {
 
 /**
  * Origin-Private File System (OPFS) Persistence Helpers
- * Enables synchronous-grade 0ms virtual file sharing across WASM & DOM runtimes.
+ * Optional disk copies; IndexedDB remains the library record store.
  */
 export async function saveFileToOpfs(fileName: string, bytes: ArrayBuffer | Uint8Array): Promise<boolean> {
   try {
@@ -246,10 +246,8 @@ export async function saveSharedAsset(asset: SharedAssetRecord): Promise<SharedA
   const db = await openDatabase();
   const record: SharedAssetRecord = {
     ...asset,
-    latencyMs: asset.latencyMs ?? 0,
-    opfsSynced: true
+    opfsSynced: await saveFileToOpfs(asset.name, asset.bytes)
   };
-  await saveFileToOpfs(record.name, record.bytes);
   return new Promise((resolve, reject) => {
     const tx = db.transaction('assets', 'readwrite');
     tx.objectStore('assets').put(record);

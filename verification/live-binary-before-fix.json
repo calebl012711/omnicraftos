@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-02T14:54:35.774264+00:00",
+  "readOnly": true,
+  "url": "https://omnicraftos.vercel.app/editors/solidcraft/model-engine-30d7d9f244d43e55.wasm",
+  "range": "0-179",
+  "responseBytes": 134,
+  "wasmMagic": false,
+  "unresolvedGitLfsPointer": true,
+  "pointerText": "version https://git-lfs.github.com/spec/v1\noid sha256:30d7d9f244d43e5554693a566d8cb2f824282070a75fd06cfe2ec31700e18fdf\nsize 138786355\n"
+}

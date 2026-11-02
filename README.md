@@ -10,6 +10,7 @@ Node.js 20+ and npm are required. Checked-in editor assets use Git LFS; a fresh 
 
 ```sh
 npm ci
+npm run assets:prepare
 npm run dev -- --host 127.0.0.1
 # http://127.0.0.1:5173
 # Standalone workspaces: /?tool=recorder, /?tool=model, /?tool=music
@@ -34,7 +35,7 @@ Model creates editable Plate, Block and Cylinder starters using real sketches/ex
 | Audio | Fresh SoundCraft source build boots. | No command API; editing/export workflow not verified. |
 | Other tools | Existing useful code and bundles preserved. | Individual workflows remain unverified. |
 
-Reports and exact limits: [implementation status](docs/IMPLEMENTATION_STATUS.md). The Tauri development app launches, but its overall workflow test did not pass; there is no verified installed release. See [desktop path](docs/DESKTOP.md). Browser and installed-app behavior are tested separately.
+Reports and exact limits: [implementation status](docs/IMPLEMENTATION_STATUS.md). A local macOS `.app` now builds and launches with embedded assets. Native editor/capture workflows are not yet verified; the visible-window test is blocked by a hidden WebKit view. See [desktop path](docs/DESKTOP.md). Browser and installed-app behavior are tested separately.
 
 ## Sources and updates
 
@@ -47,7 +48,7 @@ The canonical [integration lock](integration/upstream-lock.json) records officia
 | SoundCraft | [storytold/soundcraft](https://github.com/storytold/soundcraft) | `85ffa1f53ee6d04c4e99b66afd142bd4345d2009` |
 | Waveform Playlist | [naomiaro/waveform-playlist](https://github.com/naomiaro/waveform-playlist) | `d620a1d202b8033ec038b8c87cd307c3d7d2557b` |
 
-Model and Audio now use fresh pinned-source builds with hashes in `integration/builds/`. Model's reviewed Rust overlay hides duplicate application chrome; its adopted release module omits optional Binaryen size minification. Other Craft bundles are inherited, so a source pin is not proof of their exact binary provenance. Licenses and third-party notices remain under `public/licenses/` and each editor distribution.
+Model and Audio now use fresh pinned-source builds with hashes in `integration/builds/`. Model's reviewed Rust overlay hides duplicate application chrome; its full release build includes Binaryen size optimization. Other Craft bundles are inherited, so a source pin is not proof of their exact binary provenance. Licenses and third-party notices remain under `public/licenses/` and each editor distribution.
 
 ```sh
 npm run upstream:status
@@ -71,3 +72,9 @@ OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:music
 ```
 
 Tests need Chrome/Playwright; media validation also needs ffmpeg/ffprobe. Large verification media are ignored by Git. No upstream command publishes the app.
+
+## Binary assets in build checkouts
+
+`npm run build` runs an asset preparation hook first. A checkout containing Git LFS pointer text downloads only the missing binaries from this public repository at the exact build commit, checks their declared byte size and SHA-256, and atomically installs the verified bytes. A failed download or mismatched hash stops the build. Normal hydrated checkouts need no download. This prevents deploying pointer text as a WASM engine. `npm run assets:check` checks locally without downloading. Standard `git lfs pull` is also supported.
+
+Vercel can alternatively hydrate LFS during checkout through its [Git LFS project setting](https://vercel.com/docs/project-configuration/git-settings#git-large-file-storage-lfs). No project setting or manual deployment is changed by these scripts. Retrieval verification uses a temporary checkout and the public binary (`node scripts/verify-asset-build.mjs`); it downloads about 36 MB, verifies a correct object and rejects an incorrect hash.

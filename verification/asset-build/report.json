@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-02T15:17:30.023Z",
+  "sourceRevision": "3874ebe184f9584757888ff5cb27a29f5c5761ca",
+  "tests": {
+    "retrieval": {
+      "passed": true,
+      "actualPublicLfsArtifact": true,
+      "pointerReplacedOnlyAfterHashAndSizeVerified": true,
+      "artifact": {
+        "file": "public/editors/soundcraft/soundcraft-web-c5e10fa986cf471d_bg.wasm",
+        "revision": "3874ebe184f9584757888ff5cb27a29f5c5761ca",
+        "bytes": 17878437,
+        "sha256": "c42d90c58ff89080bda0e3a6feeac322060a6b6679d845950d951422e39f48cd"
+      }
+    },
+    "integrityFailure": {
+      "passed": true,
+      "wrongHashRejected": true,
+      "originalPointerPreserved": true,
+      "partialDownloadRemoved": true,
+      "error": "public/editors/soundcraft/soundcraft-web-c5e10fa986cf471d_bg.wasm: Artifact size or SHA-256 does not match the pinned LFS pointer. The original pointer was retained; no build was published."
+    }
+  },
+  "passed": true
+}

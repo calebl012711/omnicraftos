@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0.0",
+  "exportedAt": "2026-11-02T14:59:00.387Z",
+  "projects": [
+    {
+      "id": "proj-filmcraft-launch-cut",
+      "name": "Studio Calibration Reel (Video Cut)",
+      "workspaceId": "filmcraft",
+      "createdAt": "2026-11-02T14:58:58.066Z",
+      "updatedAt": "2026-11-02T14:58:58.066Z",
+      "nativeFileName": "calibration-reel.fcproj",
+      "storedSnapshotFileId": null,
+      "mediaReferences": [
+        {
+          "assetId": "sample-video-mp4",
+          "fileName": "mosaic-test-clip.mp4",
+          "mimeType": "video/mp4",
+          "byteLength": 249129,
+          "lastVerifiedAt": "2026-11-02T14:58:58.066Z"
+        }
+      ],
+      "notes": "Project setup referencing the sample clip. Create and save the timeline inside Cut.",
+      "tags": [
+        "Video",
+        "Timeline",
+        "Project setup"
+      ]
+    },
+    {
+      "id": "proj-photocraft-color-study",
+      "name": "Color Calibration Plate (Layered Photo)",
+      "workspaceId": "photocraft",
+      "createdAt": "2026-11-02T14:58:58.066Z",
+      "updatedAt": "2026-11-02T14:58:58.066Z",
+      "nativeFileName": "color-plate.pht",
+      "storedSnapshotFileId": null,
+      "mediaReferences": [
+        {
+          "assetId": "sample-image-png",
+          "fileName": "mosaic-test-image.png",
+          "mimeType": "image/png",
+          "byteLength": 2016,
+          "lastVerifiedAt": "2026-11-02T14:58:58.066Z"
+        }
+      ],
+      "notes": "Project setup referencing the sample image. Create and save the composition inside Photo.",
+      "tags": [
+        "Photo",
+        "Raster",
+        "Project setup"
+      ]
+    },
+    {
+      "id": "proj-solidcraft-motor-mount",
+      "name": "NEMA-17 Motor Adapter Plate (3D CAD)",
+      "workspaceId": "solidcraft",
+      "createdAt": "2026-11-02T14:58:58.066Z",
+      "updatedAt": "2026-11-02T14:58:58.066Z",
+      "nativeFileName": "motor_adapter_plate.sc",
+      "storedSnapshotFileId": null,
+      "mediaReferences": [],
+      "notes": "Project setup for a motor adapter concept. Open Model to create geometry and save a native project.",
+      "tags": [
+        "3D CAD",
+        "Parametric",
+        "Project setup"
+      ]
+    }
+  ],
+  "files": [],
+  "assets": [
+    {
+      "id": "asset-1008161e-a201-4aa6-8324-51beacff4440",
+      "name": "library-roundtrip.txt",
+      "mimeType": "text/plain",
+      "size": 56,
+      "sourceWorkspaceId": "user-upload",
+      "isBuiltInSample": false,
+      "compatibleWorkspaces": [
+        "wordcraft"
+      ],
+      "createdAt": "2026-11-02T14:58:58.508Z",
+      "description": "Imported source file",
+      "opfsSynced": false,
+      "base64Bytes": "T21uaUNyYWZ0IE9TIGxpYnJhcnkgcm91bmQgdHJpcApLbm93biBieXRlczogMDEyMzQ1Njc4OQo="
+    }
+  ]
+}

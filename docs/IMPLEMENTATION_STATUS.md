@@ -21,12 +21,14 @@ The home page combines the selected generated directions 1, 3 and 5: ivory, fore
 | `verification/capture-final/report.json` | Passed 62-second separate MP4 playback, independent decoding, source/audio routing, sampled timing, save/reload, folder writes, pause/source-ended, denial, low storage, interruption recovery and stalled encoder. |
 | `verification/capture-webm-final/report.json` | Passed the same latest short workflow/failure tests using actual VP8/Opus WebM. Duration was checked from real packet timestamps because streaming WebM omits its optional duration header. |
 | `verification/capture-long-verified/report.json` | Passed a 20-minute MP4 run using synthetic 640×360/30 fps inputs and real MediaRecorder/OPFS on the Intel MacBook Air. Distinct videos and mic audio independently decoded. |
-| `verification/model-host/report.json` | Passed the adopted source-built engine through Model: plate with five bores, parameter rebuild, undo/redo, SC save/reopen/import, STEP/STL exports. Independent mesh bounds and volume checked. |
-| `verification/model-library/report.json` | Passed suite-library native snapshot save, backup, reload and reopen; Block/Cylinder geometry measurements and camera view buttons. |
+| `verification/model-minified-final/report.json` | Passed the fully optimized adopted source-built engine through Model: plate with five bores, parameter rebuild, undo/redo, SC save/reopen/import, STEP/STL exports. Independent mesh bounds and volume checked. |
+| `verification/model-library-minified/report.json` | Passed suite-library native snapshot save, backup, reload and reopen; Block/Cylinder geometry measurements and camera view buttons. |
 | `verification/filmcraft-default-gpu/report.json` | Passed actual MP4 import, sequence/split, native save/reset/reopen and a four-second H.264/AAC MP4 render; full output independently decoded by ffmpeg. |
 | `verification/music/report.json` | Passed WAV import, arrangement, playback, persistence, injected mic/worklet recording, portable project backup and stereo WAV export. Exported samples checked for gain, pan, mute and solo. |
 | `verification/builds/soundcraft-runtime.json` | Actual fresh source-built runner booted. Full workflow explicitly unverified. |
-| `verification/desktop/development/report.json` | Actual Tauri/WebKit home and Capture route/capability checks passed; overall report failed at the subsequent CAD phase. No physical capture or installed-app workflow verified. |
+| `verification/desktop/bundled/report.json` | The actual local `.app` launches with embedded assets and passes home/Capture interface/capability checks. Native CAD rendering is blocked because WebKit reports the window hidden. Physical recording, native exports and installed persistence remain unverified. |
+| `verification/library-final/report.json` | Passed library import with actual IndexedDB fallback, reload and byte-identical download, accurate failed-OPFS state, injected database failure, backup/restore in a fresh context, and actual native SC handoff into Model. |
+| `verification/asset-build/report.json` | Passed retrieval of a real LFS artifact at a fixed commit and rejection of a mismatched SHA-256 while preserving its original pointer. |
 
 Capture device inputs are injected **only in the test harness**. Production contains no simulated source fallback. The 20-minute test sampled alignment at start, 10 minutes and end: 0, 0 and 0.1 seconds of difference at 0.1-second marker resolution. JS heap ranged approximately 4.5–5.8 MiB; this excludes native encoder/GPU memory. Resource sampling began partway through the run and sums RSS, which can double-count shared pages. These results establish neither frame-perfect hardware sync nor 720p/1080p long-session performance. Older failed long tests remain historical failures; the later passing run does not rewrite them.
 
@@ -36,7 +38,7 @@ Folder-export testing used real file writes to a test directory; the OS director
 
 | Integrated component | Official repository | Exact source revision | Adopted artifact status |
 | --- | --- | --- | --- |
-| Model / SolidCraft | https://github.com/tangency-labs/solidcraft | `56b77b405dc7c567854329a9511aa03e209caef7` | Fresh release O3 + thin LTO build plus reviewed host overlay; wasm-bindgen complete. Adopted module is 138,786,355 bytes before optional Binaryen size minification. |
+| Model / SolidCraft | https://github.com/tangency-labs/solidcraft | `56b77b405dc7c567854329a9511aa03e209caef7` | Fresh release O3 + thin LTO build plus reviewed host overlay; wasm-bindgen complete. Adopted module is 99,795,192 bytes after Binaryen size minification; the full Trunk pipeline completed. |
 | Audio / SoundCraft | https://github.com/storytold/soundcraft | `85ffa1f53ee6d04c4e99b66afd142bd4345d2009` | Fresh full Trunk release build adopted; boot verified. |
 | Cut / FilmCraft | https://github.com/storytold/filmcraft | `95cf47b883d2d2b2946c8c157822ee20835426a5` | Official source evaluated; inherited browser bundle retained and tested. Its exact binary provenance was not reproduced. |
 | Music / Waveform Playlist | https://github.com/naomiaro/waveform-playlist | `d620a1d202b8033ec038b8c87cd307c3d7d2557b` | Exact npm versions and lock integrity; 166 installed source-map entries matched this checkout. |
@@ -60,6 +62,8 @@ OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:model-library
 OMNICRAFT_URL=http://127.0.0.1:4173 CAPTURE_FORMAT=mp4 CAPTURE_SECONDS=62 npm run verify:recorder
 OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:music
 npm run verify:filmcraft
+npm run assets:check
+npm run verify:library
 npm run upstream:status
 npm run upstream:licenses
 npm run --silent upstream:check
@@ -69,6 +73,12 @@ Verification uses Chrome/Playwright; media checks require ffmpeg/ffprobe. Script
 
 ## Remaining work
 
-Physical-device and cross-browser capture; long high-resolution sessions; native picker interaction; broader CAD modeling/import formats; full workflows for the other retained editors; larger Film timelines; SoundCraft browser editing/export; and an installed desktop workflow remain incomplete. The current Model UI improves common workflows but does not establish that its full CAD capability exceeds upstream SolidCraft. Music is an audio foundation, with beat-making and piano roll deferred at the user's request.
+Physical-device and cross-browser capture; long high-resolution sessions; native picker interaction; broader CAD modeling/import formats; full workflows for the other retained editors; larger Film timelines; SoundCraft browser editing/export; and native desktop editor/capture workflows remain incomplete. The current Model UI improves common workflows but does not establish that its full CAD capability exceeds upstream SolidCraft. Music is an audio foundation, with beat-making and piano roll deferred at the user's request.
 
-The Tauri development app launches separately; there is no verified installable/offline release. Details and commands are in `docs/DESKTOP.md`. Project directories were backed up before major edits under the sibling `omnicraft-backups/2026-11-01/` and `2026-11-02/` folders.
+A local ad-hoc signed macOS `.app` now builds and launches from its bundle; it is not a verified release. Its home and Capture interface load embedded assets. WebKit reports the window hidden, blocking CAD frames. Native recording, downloads, offline behavior and persistence across app restarts remain unverified. Details and commands are in `docs/DESKTOP.md`. Project directories were backed up before major edits under the sibling `omnicraft-backups/2026-11-01/` and `2026-11-02/` folders.
+
+## Live binary delivery repair
+
+A read-only live-site check on 2026-11-02 found the CAD WASM URL returning a 134-byte Git LFS pointer, not the 138 MB module (`verification/live-binary-before-fix.json`). Local workflow evidence did not prove the deployed editor worked. The new `prebuild` hook checks public binary assets and, when a pointer is present, streams its actual bytes from this public GitHub repository at the exact build commit. It verifies both size and SHA-256 before replacing the pointer, and fails the build on mismatch. Already hydrated binaries are left intact. It changes no source pin, external project setting or deployment state. Live resolution must be checked independently after an authorized deployment.
+
+The new Files interface removes unsupported instant-transfer, unconditional OPFS-sync and immediate-memory-reclamation claims. Library records now report the actual optional OPFS write result. File imports display errors instead of an uncaught failure; library imports are limited to 128 MB to avoid loading long recordings fully into RAM. Capture is excluded from import suggestions because it records new sources rather than importing existing media.

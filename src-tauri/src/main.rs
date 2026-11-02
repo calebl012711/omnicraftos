@@ -24,6 +24,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             if std::env::var_os("OMNICRAFT_DESKTOP_PROBE_DIR").is_some()
                 && payload.event() == tauri::webview::PageLoadEvent::Finished
             {
+                // A GUI launched by the CLI can be occluded. The probe must
+                // exercise an actually visible view so WebKit drives CAD frames.
+                let window = webview.window();
+                let _ = window.unminimize();
+                let _ = window.show();
+                let _ = window.set_focus();
                 if let Err(error) = webview.eval(include_str!("../../scripts/desktop-probe.js")) {
                     eprintln!("Desktop verification script: {error}");
                 }

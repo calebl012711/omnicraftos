@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T14:16:45.800Z",
+  "checkedAt": "2026-11-02T15:03:18.253Z",
   "readOnly": true,
   "command": "status",
   "results": [
@@ -10,7 +10,7 @@
       "head": "56b77b405dc7c567854329a9511aa03e209caef7",
       "selectedLicense": "MIT",
       "localMatches": true,
-      "dirty": "M apps/solidcraft-web/src/main.rs",
+      "dirty": "",
       "status": "integrated"
     },
     {

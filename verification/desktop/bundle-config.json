@@ -1,0 +1,13 @@
+{
+  "identifier": "studio.omnicraft.os.verification",
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "OmniCraft OS \u00b7 Local verification",
+        "width": 1440,
+        "height": 1000
+      }
+    ]
+  }
+}

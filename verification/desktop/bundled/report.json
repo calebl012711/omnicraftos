@@ -1,0 +1,32 @@
+{
+  "phase": "model-visibility",
+  "at": "2026-11-02T15:03:15.644Z",
+  "environment": "Actual Tauri WebKit development view",
+  "url": "tauri://localhost",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+  "visibilityAtLoad": "hidden",
+  "tests": {
+    "home": {
+      "passed": true,
+      "heading": "Make roomto create.",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    "capture": {
+      "passed": true,
+      "mediaRecorder": true,
+      "screenCaptureApi": true,
+      "cameraApi": true,
+      "mp4Reported": true,
+      "physicalDevicesTested": false
+    }
+  },
+  "passed": false,
+  "error": "Timed out: visible native window",
+  "stack": "@tauri://localhost:11:18",
+  "documentVisibility": "hidden",
+  "body": "\nOmniCraft OS\n\nWorkspaces\n\nProjects (3)\n\nFiles (5)\n\nSettings\n\nResume Capture\n\nFind a tool\n⌘K\n\nNew Project\n\nEditors: light\nA HOME FOR YOUR NEXT IDEA\n\nMake room\nto create.\nA creative home for video, sound, images,\nand ideas. Start with something that’s yours.\n\nOpen the studio\nExplore workspaces\nYour tools. Your files. Your next beginning.\nRecording studio\nSCREEN + CAMERA\nScreen\nCamera\nA separate view.\nYour camera gets\nits own video file.\n\nSet up camera\nTwo views, kept separate\nOne recording session\nScreen\n\nMicrophone\nIllustrative workspace preview · example media\nOpen recorder\n01\nRecord\nScreen, camera, and your voice.\n02\nEdit\nGive your story its shape.\n03\nCompose\nBring your sounds together.\n04\nBuild\nTurn an idea into a part.\nA workspace for what’s next.\nStart with recording, music, CAD, or an upstream editor. Verification labels describe tested workflows; other tools remain available for exploration.\nAll workspaces\nVideo\nMusic & audio\nCAD\nPhoto & design\nDocuments\n\n\nMULTITRACK AUDIO\nMusic\nImport and arrange audio, record a microphone track, mix, save a project, and export WAV.\nSOME WORKFLOWS VERIFIED\n\n.wav · .omnimusic\n\nOpen workspace\n\nSCREEN AND CAMERA CAPTURE\nCapture\nCapture separate screen and camera files with detected MP4 or WebM encoders and incremental local storage.\nSOME WORKFLOWS VERIFIED\n\n.mp4 (when supported) · .webm · .m4a or .webm audio\n\nOpen workspace\n\nMULTI-TRACK ISO VIDEO & SCREEN-CAST EDITOR\nScene sketch\nExisting local experimental editor retained for evaluation.\nWORKFLOW VERIFICATION PENDING\n\n.webm (Master) · .webm (V1 Screen) · .webm (V2 Camera)\n\nOpen workspace\n\nGARAGEBAND-STYLE TRACK, SMART CHORDS, AMP RIG & LIVE LOOPS\nLoop sketch\nExisting local experimental editor retained for evaluation.\nWORKFLOW VERIFICATION PENDING\n\n.wav (Stereo Master) · .mid\n\nOpen workspace\n\nFL STUDIO-STYLE 16-STEP CHANNEL RACK, PIANO ROLL & MIXER\nBeat sketch\nExisting local experimental editor retained for evaluation.\nWORKFLOW VERIFICATION PENDING\n\n.wav (Master Beat) · .wav (Drums Stem) · .wav (808 Stem)\n\nOpen workspace\n\nPARAMETRIC 3D B-REP CAD (PRIMARY CAD)\nModel\nParametric 3D solid modeling, sketch constraints, extrusions, boolean features, assemblies, and STEP/STL manufacturing export.\nSOME WORKFLOWS VERIFIED\n\n.sc · .step · .stl\n\nOpen workspace\n\nNON-LINEAR VIDEO EDITING\nCut\nMulti-track timeline video editing, razor/trim operations, color scopes, keyframed effects, and WebCodecs MP4/MOV export.\nSOME WORKFLOWS VERIFIED\n\n.mp4 · .mov · .wav\n\nOpen workspace\n\nLAYERED RASTER & PHOTO EDITING\nPhoto\nNon-destructive layered raster editing, adjustment layers, brushes, masks, retouching, and PSD/PNG/JPEG/WebP/TIFF export.\nWORKFLOW VERIFICATION PENDING\n\n.png · .jpg · .webp\n\nOpen workspace\n\n2D TECHNICAL DRAFTING (DXF / DWG)\nDraft\n2D architectural and mechanical drafting, layers, dimensions, hatches, snaps, paper-space layouts, and DXF/DWG/PDF exchange.\nWORKFLOW VERIFICATION PENDING\n\n.dxf · .pdf · .svg\n\nOpen workspace\n\nVECTOR GRAPHICS & ILLUSTRATION\nVector\nBezier pen paths, boolean path operations, artboards, gradients, typography, and SVG/PDF/EPS/PNG export.\nWORKFLOW VERIFICATION PENDING\n\n.svg · .pdf · .png\n\nOpen workspace\n\nMOTION GRAPHICS & COMPOSITING\nMotion\nLayer- and node-based motion graphics, keyframe graph editor, particle emitters, chroma key, and VFX compositing.\nWORKFLOW VERIFICATION PENDING\n\n.mp4 · .webm · .png\n\nOpen workspace\n\nPHOTOGRAPHY & RAW DEVELOPMENT\nDevelop\nPhoto cataloging, ratings, non-destructive parametric tone curves, HSL color grading, and lens corrections.\nWORKFLOW VERIFICATION PENDING\n\n.jpg · .png · .tiff\n\nOpen workspace\n\nPAGE LAYOUT & DESKTOP PUBLISHING\nLayout\nMulti-page spreads, master pages, baseline grids, linked text frames, preflight checks, and print-ready PDF/IDML publishing.\nWORKFLOW VERIFICATION PENDING\n\n.pdf · .idml · .png\n\nOpen workspace\n\nPDF\nPDF READING, ANNOTATION & FORMS\nPDF\nPDF viewing, text editing, page reordering, redaction, form filling, digital signatures, and PDF/A export.\nWORKFLOW VERIFICATION PENDING\n\n.pdf · .png · .txt\n\nOpen workspace\n\nUI/UX DESIGN & PROTOTYPING\nInterface\nAuto-layout frames, reusable UI components, design tokens, interactive prototype noodles, and CSS/SVG inspection.\nWORKFLOW VERIFICATION PENDING\n\n.svg · .png · .pdf\n\nOpen workspace\n\nW\nWORD PROCESSING & LONG-FORM DOCUMENTS\nWrite\nStyled documents, headings, tables, footnotes, track changes, citations, and DOCX/ODT/PDF/Markdown export.\nWORKFLOW VERIFICATION PENDING\n\n.docx · .pdf · .md\n\nOpen workspace\n\nWAVEFORM & MULTITRACK AUDIO EDITING\nAudio\nDestructive waveform editing and non-destructive multitrack mixing, spectral display, EQ/dynamics, and WAV/FLAC/MP3 export.\nWORKFLOW VERIFICATION PENDING\n\n.wav · .flac · .mp3\n\nOpen workspace\n\nSLIDE DECKS & PRESENTATIONS\nPresent\nMaster slide layouts, speaker notes, slide transitions, vector diagrams, charts, and PPTX/PDF export.\nWORKFLOW VERIFICATION PENDING\n\n.pptx · .pdf · .png\n\nOpen workspace\n\nX\nSPREADSHEETS & FORMULA MODELING\nSheets\nFormula calculation engine, pivot tables, conditional formatting, charts, CSV/XLSX import, and XLSX/CSV/PDF export.\nWORKFLOW VERIFICATION PENDING\n\n.xlsx · .csv · .pdf\n\nOpen workspace\n\nIMPLICIT FIELD & LATTICE MODELING (SOURCE CHECKED OUT)\nField\nImplicit signed-distance-field (SDF) modeling, gyroid/TPMS lattices, and generative topology workflows.\nWORKFLOW VERIFICATION PENDING\n\n.stl · .obj\n\nOpen workspace\nCapture ready.\nVault: 422.8 KB\nDevelopment build · verify exports before use",
+  "modelFrame": {
+    "wasmApiPresent": false
+  }
+}

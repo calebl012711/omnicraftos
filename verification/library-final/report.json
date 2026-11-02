@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-02T14:58:53.216Z",
+  "environment": "Actual browser IndexedDB; OPFS failure injected at filesystem boundary",
+  "tests": {
+    "persistence": {
+      "passed": true,
+      "opfsUnavailable": true,
+      "realIndexedDBFallback": true,
+      "downloadBytesMatchAfterReload": true,
+      "backupBytesMatch": true,
+      "accurateOpfsState": true,
+      "mobileNoOverflow": true
+    },
+    "failedImport": {
+      "passed": true,
+      "quotaErrorInjectedAtIndexedDBWrite": true,
+      "noSuccessCard": true,
+      "errorDisplayed": true
+    },
+    "restore": {
+      "passed": true,
+      "freshBrowserContext": true,
+      "downloadedBytesMatch": true
+    },
+    "modelHandoff": {
+      "passed": true,
+      "nativeProjectTransferredFromLibrary": true,
+      "measuredVolumeMm3": 55413.5504411133
+    }
+  },
+  "passed": true
+}
