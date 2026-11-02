@@ -182,7 +182,7 @@ const REGISTERED_WORKSPACES: WorkspaceSpec[] = [
     verifiedWorkflowSummary:
       'Verified end-to-end: parametric sketch creation, rectangle & hole circle profile, solid extrusion of a 3D motor-adapter concept plate, OPFS save/reopen (/opfs/*.sc), and binary/ASCII STL + ISO-10303-21 STEP export via window.solidcraft.',
     roleNotes:
-      'Primary 3D CAD workspace in Mosaic Forge. Powered by the solidcore B-rep geometric kernel. Intentionally kept separate from CADCraft (which handles 2D DXF/DWG drafting).',
+      'Primary 3D CAD workspace in OmniCraft OS. Powered by the solidcore B-rep geometric kernel. Intentionally kept separate from CADCraft (which handles 2D DXF/DWG drafting).',
     accentColor: '#c87d55',
     iconKey: 'box'
   },
@@ -552,7 +552,7 @@ const REGISTERED_WORKSPACES: WorkspaceSpec[] = [
 
 // Checkout pins are read from the tracked lock, rather than duplicated display-only SHAs.
 // Legacy capability copy is retained above for compatibility; current launch metadata is bounded by evidence here.
-export const WORKSPACES: WorkspaceSpec[] = [
+const CURRENT_WORKSPACES: WorkspaceSpec[] = [
   {
     id: 'music', name: 'Music Studio', upstreamName: 'Waveform Playlist',
     upstreamRepo: 'https://github.com/naomiaro/waveform-playlist', category: 'Multitrack audio',
@@ -572,15 +572,16 @@ export const WORKSPACES: WorkspaceSpec[] = [
       purpose: 'Capture separate screen and camera files with detected MP4 or WebM encoders and incremental local storage.',
       nativeFormats: ['.json'], importFormats: [], exportFormats: ['.mp4 (when supported)', '.webm', '.m4a or .webm audio', '.json'],
       verificationStatus: 'partially tested', windowApiGlobal: null,
-      verifiedWorkflowSummary: '62-second automated synthetic-stream test: distinct playable videos, real audio routing, measured alignment, save/reload, pause/resume, denial, source-ended, storage pressure and interruption recovery. Physical devices and long-session tests remain pending.',
+      verifiedWorkflowSummary: '62-second automated synthetic-stream test: distinct playable videos, real audio routing, measured alignment, save/reload, pause/resume, denial, source-ended, storage pressure and interruption recovery. A later 20-minute 640×360 synthetic-stream MP4 test also passed. Physical-device and cross-browser tests remain pending.',
       roleNotes: 'Original MediaRecorder adapter using platform capture APIs. No simulated capture fallback. Microphone audio goes to camera plus separate audio; shared-source audio goes to screen.'
     };
     const source = upstreamLock.repositories.find(repo => repo.id === workspace.id);
     if (source) return {
       ...workspace, pinnedCommit: source.pinnedCommit || '', licenseDeclared: source.declaredLicense,
       licenseSelected: source.selectedLicense, verificationStatus: ['solidcraft', 'filmcraft'].includes(workspace.id) ? 'partially tested' : 'not tested',
+      windowApiGlobal: workspace.id === 'soundcraft' ? null : workspace.windowApiGlobal,
       editorUrl: workspace.id === 'solidcraft' ? '/editors/solidcraft/workspace.html' : workspace.editorUrl,
-      verifiedWorkflowSummary: workspace.id === 'solidcraft' ? 'Verified real engine: create a plate with five bores, save/reopen native SC, export STEP/STL, independently measure STL geometry. Fresh source build and cross-browser checks remain pending.' : workspace.id === 'filmcraft' ? 'Verified real editor: import MP4, create a sequence, split clips, save and reopen a native project. Rendered video export did not complete and is not verified.' : source.status === 'integrated' ? 'Upstream WASM bundle retained. Workflow verification is being rerun; a loaded interface alone does not establish export support.' : 'Pinned source retained; no browser bundle is integrated.'
+      verifiedWorkflowSummary: workspace.id === 'soundcraft' ? 'Built from the pinned official source and the actual web runner starts. No JavaScript command API is exposed by this upstream app. Its import/edit/export workflow and native-only microphone capture remain separate limitations; use Music for the verified browser audio workflow.' : workspace.id === 'solidcraft' ? 'Verified real engine: create a plate with five bores, save/reopen native SC, export STEP/STL, independently measure STL geometry. Source-built release engine with a reviewed host-chrome overlay. Model UI dimension edits, undo/redo, native reopening and STEP/STL measurements passed; cross-browser checks remain pending.' : workspace.id === 'filmcraft' ? 'Verified real editor: import MP4, create a sequence, split clips, save and reopen a native project. A separate four-second H.264/AAC MP4 render completed and independently decoded with ffmpeg. Longer timelines and cross-browser exports remain unverified.' : source.status === 'integrated' ? 'Upstream WASM bundle retained. Workflow verification is being rerun; a loaded interface alone does not establish export support.' : 'Pinned source retained; no browser bundle is integrated.'
     };
     return { ...workspace, upstreamRepo: '', upstreamName: 'Local experimental tool', pinnedCommit: 'local-source',
       verificationStatus: 'not tested', purpose: 'Existing local experimental editor retained for evaluation.',
@@ -588,6 +589,16 @@ export const WORKSPACES: WorkspaceSpec[] = [
       roleNotes: 'Preserved existing source. Requires individual workflow and export verification.' };
   })
 ];
+
+// Product workspace names are separate from the upstream identity, license and formats.
+const WORKSPACE_NAMES: Record<string, string> = {
+  riverstudio: 'Capture', solidcraft: 'Model', filmcraft: 'Cut', effectcraft: 'Motion',
+  photocraft: 'Photo', lightcraft: 'Develop', vectorcraft: 'Vector', designcraft: 'Layout',
+  soundcraft: 'Audio', music: 'Music', cadcraft: 'Draft', fieldcraft: 'Field',
+  pdfcraft: 'PDF', figcraft: 'Interface', wordcraft: 'Write', gridcraft: 'Sheets', deckcraft: 'Present',
+  studiocut: 'Scene sketch', bandforge: 'Loop sketch', flstudio: 'Beat sketch'
+};
+export const WORKSPACES: WorkspaceSpec[] = CURRENT_WORKSPACES.map(workspace => ({ ...workspace, name: WORKSPACE_NAMES[workspace.id] || workspace.name }));
 
 export interface BlockedRepoSpec {
   id: string;
@@ -608,7 +619,7 @@ export const BLOCKED_REPOSITORIES: BlockedRepoSpec[] = [
     licenseDeclared: 'GPL-3.0',
     status: 'blocked',
     reason:
-      'Licensed under strong copyleft GNU General Public License v3.0 (GPL-3.0). Excluded from checkout and distribution to preserve Mosaic Forge MIT/permissive licensing integrity.'
+      'Licensed under strong copyleft GNU General Public License v3.0 (GPL-3.0). Excluded from checkout and distribution to keep this distribution within its selected permissive-license scope.'
   },
   {
     id: 'anicraft',

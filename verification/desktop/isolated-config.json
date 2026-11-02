@@ -1,0 +1,13 @@
+{
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "OmniCraft OS \u00b7 Verification",
+        "width": 1440,
+        "height": 1000,
+        "incognito": true
+      }
+    ]
+  }
+}

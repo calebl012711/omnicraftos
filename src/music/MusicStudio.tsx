@@ -9,28 +9,27 @@ import '../recorder/recorder.css';
 import './music.css';
 
 function download(blob: Blob, name: string) { const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 30_000); }
-function stereoExportTracks(tracks: ClipTrack[]): ClipTrack[] {
-  // Upstream chooses offline output channels from source channel counts. Expand mono
-  // sources for this render so an all-mono session still exports the audible pan mix.
+function stereoExportInput(tracks: ClipTrack[], states: { volume: number; pan: number; muted: boolean; soloed: boolean }[]) {
+  // Upstream derives offline output channels from its audible input tracks. A silent
+  // stereo bus requests stereo output without changing mono source panning/gain.
+  // Duplicating a mono buffer into two channels would double its hard-panned level.
   const context = getGlobalAudioContext();
-  return tracks.map(track => ({ ...track, clips: track.clips.map(clip => {
-    if (clip.audioBuffer?.numberOfChannels !== 1) return clip;
-    const audioBuffer = context.createBuffer(2, clip.audioBuffer.length, clip.audioBuffer.sampleRate);
-    audioBuffer.copyToChannel(clip.audioBuffer.getChannelData(0), 0);
-    audioBuffer.copyToChannel(clip.audioBuffer.getChannelData(0), 1);
-    return { ...clip, audioBuffer };
-  }) }));
+  const bus = createTrack({ name: 'Stereo export bus', clips: [createClipFromSeconds({ audioBuffer: context.createBuffer(2, 1, context.sampleRate), startTime: 0 })] });
+  return {
+    tracks: [...tracks, bus],
+    states: [...states, { volume: 0, pan: 0, muted: false, soloed: states.some(state => state.soloed) }]
+  };
 }
-function MusicTrackControls({ index }: { index: number }) {
+function MusicTrackControls({ index, locked }: { index: number; locked: boolean }) {
   const { tracks, trackStates, playoutRef, isReady } = usePlaylistData();
   const controls = usePlaylistControls(); const { selectedTrackId } = usePlaylistState();
   const track = tracks[index], state = trackStates[index] || track;
   return <div className="music-track-controls">
-    <button aria-pressed={selectedTrackId === track.id} onClick={() => controls.setSelectedTrackId(track.id)}>{track.name}</button>
+    <button disabled={locked} aria-pressed={selectedTrackId === track.id} onClick={() => controls.setSelectedTrackId(track.id)}>{track.name}</button>
     <div><button aria-label={`Mute ${track.name}`} aria-pressed={state.muted} onClick={() => controls.setTrackMute(index, !state.muted)}>Mute</button><button aria-label={`Solo ${track.name}`} aria-pressed={state.soloed} onClick={() => controls.setTrackSolo(index, !state.soloed)}>Solo</button></div>
     <label>Volume<input aria-label={`Volume ${track.name}`} type="range" min="0" max="1" step="0.01" value={state.volume} onChange={e => controls.setTrackVolume(index, Number(e.target.value))} /></label>
     <label>Pan<input aria-label={`Pan ${track.name}`} type="range" min="-1" max="1" step="0.01" value={state.pan} onChange={e => controls.setTrackPan(index, Number(e.target.value))} /></label>
-    {track.clips.map((clip, n) => <label key={clip.id}>Clip {n + 1} start (seconds)<input aria-label={`Start ${track.name} clip ${n + 1}`} type="number" min="0" max="3600" step="0.1" disabled={!isReady} value={Number((clip.startSample / clip.sampleRate).toFixed(3))} onChange={e => { const time = Number(e.target.value); if (Number.isFinite(time) && time >= 0 && time <= 3600) playoutRef.current?.moveClip(track.id, clip.id, Math.round(time * clip.sampleRate) - clip.startSample); }} /></label>)}
+    {track.clips.map((clip, n) => <label key={clip.id}>Clip {n + 1} start (seconds)<input aria-label={`Start ${track.name} clip ${n + 1}`} type="number" min="0" max="3600" step="0.1" disabled={!isReady || locked} value={Number((clip.startSample / clip.sampleRate).toFixed(3))} onChange={e => { const time = Number(e.target.value); if (Number.isFinite(time) && time >= 0 && time <= 3600) playoutRef.current?.moveClip(track.id, clip.id, Math.round(time * clip.sampleRate) - clip.startSample); }} /></label>)}
   </div>;
 }
 function StudioControls({ tracks, setTracks }: { tracks: ClipTrack[]; setTracks: (tracks: ClipTrack[]) => void }) {
@@ -42,18 +41,29 @@ function StudioControls({ tracks, setTracks }: { tracks: ClipTrack[]; setTracks:
   const [saved, setSaved] = useState<MusicProject[]>([]);
   const [loading, setLoading] = useState(false);
   const [recordingStart, setRecordingStart] = useState(0);
+  const [finalizingRecording, setFinalizingRecording] = useState(false);
   const controls = usePlaylistControls();
   const { selectedTrackId } = usePlaylistState();
   const { currentTime, isPlaying, getPlaybackTime, getAudioContextTime } = usePlaybackAnimation();
   const { trackStates, isReady } = usePlaylistData();
   const recording = useIntegratedRecording(tracks, setTracks, selectedTrackId, { currentTime });
   const exporter = useExportWav();
-  const busy = loading || recording.isRecording || exporter.isExporting;
+  const busy = loading || finalizingRecording || recording.isRecording || exporter.isExporting;
+  async function finishRecording(limit = false) {
+    setFinalizingRecording(true);
+    try {
+      // The upstream type says void, but this hook returns its async stop handshake.
+      // Keep Save and Export disabled until the worklet buffer has become a clip.
+      await recording.stopRecording();
+      setMessage(limit ? 'Microphone take stopped at the two-minute foundation limit. Review the track, then save or export.' : 'Microphone stopped. Review the recorded clip before saving.');
+    } catch (e) { setError(`Could not finish recording: ${e}`); }
+    finally { setFinalizingRecording(false); }
+  }
   useEffect(() => {
-    if (recording.isRecording && recording.duration >= 120) {
-      recording.stopRecording(); setMessage('Microphone take stopped at the two-minute foundation limit. Save or export this take.');
+    if (recording.isRecording && recording.duration >= 120 && !finalizingRecording) {
+      void finishRecording(true);
     }
-  }, [recording.isRecording, recording.duration]);
+  }, [recording.isRecording, recording.duration, finalizingRecording]);
   useEffect(() => { void listMusic().then(setSaved).catch(e => setError(String(e))); window.parent.postMessage({ type: 'omnicraft:ready', appId: 'music', capabilities: { audio: true } }, location.origin); }, []);
   useEffect(() => {
     if (!click || !isPlaying) return;
@@ -77,6 +87,7 @@ function StudioControls({ tracks, setTracks }: { tracks: ClipTrack[]; setTracks:
       for (const file of Array.from(files)) {
         if (file.size > 32 * 1024 * 1024) throw new Error('Use an audio file smaller than 32 MB in this foundation.');
         const audioBuffer = await context.decodeAudioData(await file.arrayBuffer());
+        if (audioBuffer.numberOfChannels > 2) throw new Error('Import mono or stereo audio in this foundation.');
         added.push(createTrack({ name: file.name, clips: [createClipFromSeconds({ audioBuffer, startTime: 0, name: file.name })] }));
       }
       const next = [...tracks, ...added]; packProject(name, bpm, next, []); setTracks(next);
@@ -95,11 +106,11 @@ function StudioControls({ tracks, setTracks }: { tracks: ClipTrack[]; setTracks:
   }
   async function exportMix() {
     setError('');
-    try { await exporter.exportWav(stereoExportTracks(tracks), trackStates, { filename: name, bitDepth: 16 }); setMessage('Stereo WAV mix exported.'); }
+    try { const input = stereoExportInput(tracks, trackStates); await exporter.exportWav(input.tracks, input.states, { filename: name, bitDepth: 16 }); setMessage('Stereo WAV mix exported.'); }
     catch (e) { setError(String(e)); }
   }
   return <>
-    <header><div><p className="capture-eyebrow">OMNICRAFT OS / MUSIC</p><h1>Start with a sound.</h1><p>Multitrack audio powered by Waveform Playlist and Tone.js.</p></div><span className="capture-state">{recording.isRecording ? `Recording · ${recording.duration.toFixed(1)}s` : isPlaying ? 'Playing' : 'Stopped'}</span></header>
+    <header><div><p className="capture-eyebrow">OMNICRAFT OS / MUSIC</p><h1>Start with a sound.</h1><p>Multitrack audio powered by Waveform Playlist and Tone.js.</p></div><span className="capture-state">{finalizingRecording ? 'Finalizing take…' : recording.isRecording ? `Recording · ${recording.duration.toFixed(1)}s` : isPlaying ? 'Playing' : 'Stopped'}</span></header>
     {(error || recording.error || exporter.error) && <p className="capture-error" role="alert">{error || recording.error?.message || exporter.error}</p>}
     <div className="music-project"><label>Project name<input aria-label="Music project name" value={name} disabled={busy} onChange={e => setName(e.target.value)} /></label><button disabled={busy || !tracks.length} onClick={() => void save()}>Save project</button><label>Reopen project<select aria-label="Reopen music project" value="" disabled={busy} onChange={e => { const p = saved.find(s => s.name === e.target.value); if (p) void open(p); }}><option value="">Choose a saved project…</option>{saved.map(p => <option key={p.name} value={p.name}>{p.name}</option>)}</select></label>
       <button disabled={busy || !tracks.length} onClick={() => { try { download(new Blob([portableProject(packProject(name, bpm, tracks, trackStates))], { type: 'application/json' }), `${name}.omnimusic`); } catch (e) { setError(String(e)); } }}>Download project backup</button>
@@ -112,13 +123,13 @@ function StudioControls({ tracks, setTracks }: { tracks: ClipTrack[]; setTracks:
     <div className="capture-transport music-import"><label className="music-file">Import audio<input aria-label="Import music audio" type="file" accept="audio/*" multiple disabled={busy} onChange={e => { void addFiles(e.target.files); e.target.value = ''; }} /></label>
       <button disabled={busy || tracks.length >= 32} onClick={() => { const track = createTrack({ name: `Audio ${tracks.length + 1}` }); setTracks([...tracks, track]); controls.setSelectedTrackId(track.id); }}>Add recording track</button>
       <button disabled={busy} onClick={() => void recording.requestMicAccess().catch(e => setError(String(e)))}>Connect microphone</button>
-      <button disabled={!recording.hasPermission || !selectedTrackId || loading} onClick={() => { if (recording.isRecording) recording.stopRecording(); else { setError(''); setRecordingStart(Math.round(currentTime * 48000)); void recording.startRecording().then(started => { if (!started) setError('Microphone recording could not start. Check the input and permission, then reconnect it.'); }).catch(e => setError(String(e))); } }}>{recording.isRecording ? 'Stop microphone recording' : 'Record selected track'}</button>
+      <button disabled={!recording.hasPermission || !selectedTrackId || loading || finalizingRecording || exporter.isExporting} onClick={() => { if (recording.isRecording) void finishRecording(); else { setError(''); setRecordingStart(Math.round(currentTime * 48000)); void recording.startRecording().then(started => { if (!started) setError('Microphone recording could not start. Check the input and permission, then reconnect it.'); }).catch(e => setError(String(e))); } }}>{recording.isRecording ? 'Stop microphone recording' : 'Record selected track'}</button>
       <meter value={recording.level} max={1} aria-label="Music microphone level" />
       <button disabled={busy || !tracks.some(t => t.clips.length)} onClick={() => void exportMix()}>Export WAV mix</button>
     </div>
     <p role="status" className="capture-note">{message} {loading ? 'Loading…' : ''}</p>
     <p className="capture-note">Drag clips to move or trim them. Mixer controls affect playback and WAV export. Tempo sets the metronome; imported audio keeps its original speed. Short projects only: 64 MB decoded audio, 32 tracks, two-minute microphone takes. Exported WAV omits the metronome. Browser storage is local to this address; download a project backup before clearing it.</p>
-    <Waveform showClipHeaders renderTrackControls={index => <MusicTrackControls index={index} />} recordingState={recording.isRecording ? { isRecording: true, trackId: selectedTrackId || '', startSample: recordingStart, durationSamples: Math.round(recording.duration * 48000), peaks: recording.recordingPeaks, bits: 16 } : undefined} />
+    <Waveform showClipHeaders renderTrackControls={index => <MusicTrackControls index={index} locked={recording.isRecording || finalizingRecording} />} recordingState={recording.isRecording ? { isRecording: true, trackId: selectedTrackId || '', startSample: recordingStart, durationSamples: Math.round(recording.duration * 48000), peaks: recording.recordingPeaks, bits: 16 } : undefined} />
     <p className="capture-note music-credit">Waveform Playlist © Naomi Aro, MIT · Tone.js © Yotam Mann, MIT. SoundCraft remains available separately for its own session format.</p>
   </>;
 }

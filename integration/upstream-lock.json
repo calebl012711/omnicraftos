@@ -6,7 +6,7 @@
     {
       "id": "solidcraft",
       "name": "SolidCraft",
-      "workspaceTitle": "3D Parametric CAD",
+      "workspaceTitle": "Model",
       "category": "cad-3d",
       "role": "Primary 3D parametric B-rep CAD workspace (sketches, extrusions, revolves, fillets, assemblies, STEP/STL/3MF import & export, MCP/window.solidcraft automation).",
       "upstreamRepo": "tangency-labs/solidcraft",
@@ -16,7 +16,7 @@
       "selectedLicense": "MIT",
       "pinnedReleaseTag": "v0.29.0",
       "thirdPartyNotes": "Uses truck-* B-rep crates (Apache-2.0, RICOS Co. Ltd.), image RGBE adapter (MIT OR Apache-2.0), Liberation Sans & BIZ UDPGothic & CraftUI fonts (SIL OFL-1.1). See THIRD-PARTY-LICENSES.txt and NOTICE.",
-      "brandNotes": "Independent Tangency Labs project; loading logo replaced in Mosaic Forge shell with Mosaic Forge mark while preserving NOTICE and attribution.",
+      "brandNotes": "OmniCraft Model hosts the actual SolidCraft canvas, browser and feature history. Upstream licenses and attribution retained.",
       "integrationMode": "iframe-same-origin-js-api",
       "bridgeCapabilities": [
         "window.solidcraft.execute",
@@ -48,15 +48,17 @@
         ".dxf"
       ],
       "status": "integrated",
-      "verificationLevel": "not tested",
+      "verificationLevel": "partially tested",
       "buildCommand": "cd upstream/solidcraft/apps/solidcraft-web && trunk build --release --public-url ./",
-      "editorPath": "/editors/solidcraft/index.html",
+      "editorPath": "/?tool=model",
       "pinnedCommit": "56b77b405dc7c567854329a9511aa03e209caef7",
       "pinnedCommitDate": "2026-11-01T00:09:18+00:00",
       "pinnedBranch": "main",
       "checkedOut": true,
       "lastCheckedUtc": "2026-11-01T00:22:00Z",
-      "localPatches": [],
+      "localPatches": [
+        "integration/patches/solidcraft-host-chrome.patch"
+      ],
       "licenseFiles": [
         "LICENSE-APACHE",
         "ATTRIBUTION.md",
@@ -65,12 +67,19 @@
         "LICENSE-MIT"
       ],
       "cargoLockSha256": "f98682a8b466efb7205698adf526892aaacd6940fe2d2aa90a5f192e737e8048",
-      "artifactProvenance": "Inherited web bundle; source rebuild and runtime verification tracked separately in verification reports."
+      "artifactProvenance": "Built from the pinned official source with the reviewed host-chrome overlay. Release O3 + thin LTO and wasm-bindgen completed; optional Binaryen size minification omitted from the adopted 138786355-byte module. Artifact hashes in integration/builds/solidcraft.json.",
+      "webBuild": {
+        "sourceCommit": "56b77b405dc7c567854329a9511aa03e209caef7",
+        "overlay": "integration/patches/solidcraft-host-chrome.patch",
+        "overlaySha256": "5d81de49096a094e696d4771523f70c847a3aef747f6ddf472ca862cc5186e9d",
+        "report": "integration/builds/solidcraft.json",
+        "optimization": "Release O3 + thin LTO; optional Binaryen size minification omitted"
+      }
     },
     {
       "id": "filmcraft",
       "name": "FilmCraft",
-      "workspaceTitle": "Nonlinear Video Studio",
+      "workspaceTitle": "Cut",
       "category": "video",
       "role": "Timeline-based nonlinear video editing, trimming, razor cuts, audio mixing, color grading, and WebCodecs MP4/MOV/WebM export.",
       "upstreamRepo": "storytold/filmcraft",
@@ -121,7 +130,7 @@
         ".vtt"
       ],
       "status": "integrated",
-      "verificationLevel": "not tested",
+      "verificationLevel": "partially tested",
       "buildCommand": "cd upstream/filmcraft && cargo xtask web",
       "editorPath": "/editors/filmcraft/index.html",
       "pinnedCommit": "95cf47b883d2d2b2946c8c157822ee20835426a5",
@@ -142,7 +151,7 @@
     {
       "id": "photocraft",
       "name": "PhotoCraft",
-      "workspaceTitle": "Layered Image Editor",
+      "workspaceTitle": "Photo",
       "category": "photo",
       "role": "Raster & layered image editing, brushes, masks, adjustments, PSD/ORA/KRA/XCF/PNG/JPEG/WebP/TIFF import and export.",
       "upstreamRepo": "storytold/photocraft",
@@ -216,7 +225,7 @@
     {
       "id": "effectcraft",
       "name": "EffectCraft",
-      "workspaceTitle": "Motion & Compositing",
+      "workspaceTitle": "Motion",
       "category": "motion",
       "role": "Layer- and node-based motion graphics, keyframe animation, visual effects, and compositing with window.effectcraft automation API.",
       "upstreamRepo": "storytold/effectcraft",
@@ -281,7 +290,7 @@
     {
       "id": "lightcraft",
       "name": "LightCraft",
-      "workspaceTitle": "Photo Catalog & RAW Lab",
+      "workspaceTitle": "Develop",
       "category": "raw-photo",
       "role": "Non-destructive photo catalog, RAW development, tone curves, color grading, and ZIP library backup with Web Worker render offload.",
       "upstreamRepo": "storytold/lightcraft",
@@ -347,7 +356,7 @@
     {
       "id": "vectorcraft",
       "name": "VectorCraft",
-      "workspaceTitle": "Vector Illustration",
+      "workspaceTitle": "Vector",
       "category": "vector",
       "role": "Precision vector illustration, pen tool, boolean path operations, typography, and SVG/PDF/PNG/EPS workflow with window.vectorcraft API.",
       "upstreamRepo": "storytold/vectorcraft",
@@ -415,7 +424,7 @@
     {
       "id": "designcraft",
       "name": "DesignCraft",
-      "workspaceTitle": "Page Layout & Publishing",
+      "workspaceTitle": "Layout",
       "category": "publishing",
       "role": "Multi-page layout, master spreads, typography composition, IDML/INDD import (via indd-utils), and print-ready PDF export.",
       "upstreamRepo": "storytold/designcraft",
@@ -475,7 +484,7 @@
     {
       "id": "pdfcraft",
       "name": "PdfCraft",
-      "workspaceTitle": "PDF Reader & Editor",
+      "workspaceTitle": "PDF",
       "category": "pdf",
       "role": "PDF inspection, annotation, page organization, form filling, redaction, and signing with native ?host=parent postMessage bridge.",
       "upstreamRepo": "storytold/pdfcraft",
@@ -533,7 +542,7 @@
     {
       "id": "figcraft",
       "name": "FigCraft",
-      "workspaceTitle": "UI Design & Prototyping",
+      "workspaceTitle": "Interface",
       "category": "ui-design",
       "role": "Component-based interface design, auto-layout frames, design tokens, interactive prototyping, and window.figcraft automation API.",
       "upstreamRepo": "storytold/figcraft",
@@ -596,7 +605,7 @@
     {
       "id": "wordcraft",
       "name": "WordCraft",
-      "workspaceTitle": "Documents & Writing",
+      "workspaceTitle": "Write",
       "category": "documents",
       "role": "Rich document authoring, styles, tables, tracked changes, citations, and DOCX/ODT/RTF/PDF/Markdown support with ?host=parent postMessage bridge.",
       "upstreamRepo": "storytold/wordcraft",
@@ -659,7 +668,7 @@
     {
       "id": "soundcraft",
       "name": "SoundCraft",
-      "workspaceTitle": "Audio DAW & Mixing",
+      "workspaceTitle": "Audio",
       "category": "audio",
       "role": "Multitrack digital audio workstation, waveform editing, MIDI sequencing, synthesis, mixing console, and WebAudio playback.",
       "upstreamRepo": "storytold/soundcraft",
@@ -716,12 +725,18 @@
         "LICENSE-MIT"
       ],
       "cargoLockSha256": "54f6cfc944816e22c4fe5491167ded4d9904463e6d1eec2caeb854a9fa82bcde",
-      "artifactProvenance": "Inherited web bundle; source rebuild and runtime verification tracked separately in verification reports."
+      "artifactProvenance": "Fresh pinned-source release build adopted. Hashes in integration/builds/soundcraft.json. Runtime boot verified; import/edit/export workflow remains unverified.",
+      "webBuild": {
+        "sourceCommit": "85ffa1f53ee6d04c4e99b66afd142bd4345d2009",
+        "report": "integration/builds/soundcraft.json",
+        "runtimeBootReport": "verification/builds/soundcraft-runtime.json",
+        "workflowVerified": false
+      }
     },
     {
       "id": "deckcraft",
       "name": "DeckCraft",
-      "workspaceTitle": "Presentations & Decks",
+      "workspaceTitle": "Present",
       "category": "presentations",
       "role": "Slide deck authoring, master layouts, speaker notes, transitions, and PPTX/PDF/PNG import and export.",
       "upstreamRepo": "storytold/deckcraft",
@@ -779,7 +794,7 @@
     {
       "id": "gridcraft",
       "name": "GridCraft",
-      "workspaceTitle": "Spreadsheets & Data",
+      "workspaceTitle": "Sheets",
       "category": "spreadsheets",
       "role": "Formula engine, pivot tables, charts, number formatting, and XLSX/CSV/TSV/ODS/PDF support with native ?host=parent postMessage bridge.",
       "upstreamRepo": "storytold/gridcraft",
@@ -835,7 +850,7 @@
     {
       "id": "cadcraft",
       "name": "CADCraft",
-      "workspaceTitle": "2D CAD & Drafting",
+      "workspaceTitle": "Draft",
       "category": "cad-2d",
       "role": "2D technical drafting, layers, blocks, dimensions, command line, and DXF/DWG/PDF/SVG support with native ?host=parent postMessage bridge. Kept distinct from SolidCraft 3D parametric CAD.",
       "upstreamRepo": "storytold/cadcraft",
@@ -891,7 +906,7 @@
     {
       "id": "fieldcraft",
       "name": "FieldCraft",
-      "workspaceTitle": "FEA & CFD Simulation",
+      "workspaceTitle": "Field",
       "category": "simulation",
       "role": "Multiphasic structural FEA, heat transfer, and lattice Boltzmann CFD simulation companion to SolidCraft in the Tangency Labs ecosystem.",
       "upstreamRepo": "tangency-labs/fieldcraft",

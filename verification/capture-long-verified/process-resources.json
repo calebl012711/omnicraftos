@@ -1,0 +1,2452 @@
+{
+  "startedAt": "2026-11-02T12:47:12.460Z",
+  "rootPid": 89834,
+  "host": {
+    "platform": "darwin",
+    "release": "23.6.0",
+    "architecture": "x64",
+    "totalMemoryBytes": 17179869184,
+    "cpu": "Intel(R) Core(TM) i5-8210Y CPU @ 1.60GHz"
+  },
+  "method": "ps process tree sampled every 30 seconds. Summed RSS includes shared pages and is not unique physical memory. Host load includes other applications and source builds.",
+  "samples": [
+    {
+      "at": "2026-11-02T12:47:13.683Z",
+      "summedRssMiB": 659.75390625,
+      "cpuPercent": 72.6,
+      "hostLoad": [
+        312.41845703125,
+        174.36328125,
+        92.18701171875
+      ],
+      "hostFreeMemoryBytes": 79196160,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 85488,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 2.4,
+          "rssKiB": 136832,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 40.2,
+          "rssKiB": 69688,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34116,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24668,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30,
+          "rssKiB": 145952,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26876,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26356,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:47:45.338Z",
+      "summedRssMiB": 662.85546875,
+      "cpuPercent": 78.5,
+      "hostLoad": [
+        352.4970703125,
+        197.21533203125,
+        103.31396484375
+      ],
+      "hostFreeMemoryBytes": 113803264,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 85784,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 5.8,
+          "rssKiB": 138944,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.9,
+          "rssKiB": 69696,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34116,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24668,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.8,
+          "rssKiB": 146712,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26876,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26356,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:48:17.404Z",
+      "summedRssMiB": 667.0390625,
+      "cpuPercent": 71,
+      "hostLoad": [
+        394.455078125,
+        224.68994140625,
+        117.10009765625
+      ],
+      "hostFreeMemoryBytes": 17305600,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 85560,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.5,
+          "rssKiB": 140516,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 42.7,
+          "rssKiB": 70608,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34116,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24668,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 27.8,
+          "rssKiB": 148736,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26876,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26356,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:48:47.948Z",
+      "summedRssMiB": 681.16015625,
+      "cpuPercent": 76.9,
+      "hostLoad": [
+        387.4921875,
+        240.62744140625,
+        126.68408203125
+      ],
+      "hostFreeMemoryBytes": 450711552,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 85712,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 1.2,
+          "rssKiB": 138484,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 43.5,
+          "rssKiB": 78104,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34040,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24664,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 32.2,
+          "rssKiB": 157668,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26872,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26352,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:49:18.492Z",
+      "summedRssMiB": 683.671875,
+      "cpuPercent": 71.2,
+      "hostLoad": [
+        284.89453125,
+        230.01025390625,
+        126.798828125
+      ],
+      "hostFreeMemoryBytes": 232460288,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 86016,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.4,
+          "rssKiB": 140712,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41,
+          "rssKiB": 78104,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34040,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24664,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 29.8,
+          "rssKiB": 157708,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26872,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26352,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:49:48.990Z",
+      "summedRssMiB": 685.984375,
+      "cpuPercent": 73,
+      "hostLoad": [
+        228.19384765625,
+        221.58349609375,
+        127.3251953125
+      ],
+      "hostFreeMemoryBytes": 1387425792,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 85848,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.7,
+          "rssKiB": 143016,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.5,
+          "rssKiB": 78120,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24680,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.8,
+          "rssKiB": 157852,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26872,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26372,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:50:19.544Z",
+      "summedRssMiB": 688.76171875,
+      "cpuPercent": 72,
+      "hostLoad": [
+        180.99658203125,
+        211.0498046875,
+        126.78955078125
+      ],
+      "hostFreeMemoryBytes": 1774854144,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 86144,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 1,
+          "rssKiB": 144924,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.2,
+          "rssKiB": 78124,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24680,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 29.8,
+          "rssKiB": 158488,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26872,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26372,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:50:50.174Z",
+      "summedRssMiB": 690.69140625,
+      "cpuPercent": 73.4,
+      "hostLoad": [
+        127.81005859375,
+        195.6669921875,
+        124.15478515625
+      ],
+      "hostFreeMemoryBytes": 1938403328,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 86744,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.7,
+          "rssKiB": 146832,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.6,
+          "rssKiB": 78132,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24680,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 31.1,
+          "rssKiB": 157912,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26884,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26396,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:51:21.262Z",
+      "summedRssMiB": 692.92578125,
+      "cpuPercent": 70.2,
+      "hostLoad": [
+        197.62744140625,
+        204.4150390625,
+        130.15087890625
+      ],
+      "hostFreeMemoryBytes": 782229504,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87416,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 1.6,
+          "rssKiB": 148496,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 39.5,
+          "rssKiB": 78148,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24680,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 29.1,
+          "rssKiB": 157848,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26884,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26396,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:51:52.129Z",
+      "summedRssMiB": 695.8203125,
+      "cpuPercent": 72.5,
+      "hostLoad": [
+        265.7763671875,
+        220.3515625,
+        138.50390625
+      ],
+      "hostFreeMemoryBytes": 292560896,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87264,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.5,
+          "rssKiB": 150404,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.7,
+          "rssKiB": 78160,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24680,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.3,
+          "rssKiB": 159044,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26884,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26396,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:52:22.678Z",
+      "summedRssMiB": 697.89453125,
+      "cpuPercent": 77.5,
+      "hostLoad": [
+        227.68017578125,
+        216.43359375,
+        139.97705078125
+      ],
+      "hostFreeMemoryBytes": 1672019968,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0.1,
+          "rssKiB": 86836,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 4.1,
+          "rssKiB": 152308,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.7,
+          "rssKiB": 78184,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24684,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 31.6,
+          "rssKiB": 159664,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26884,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26396,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:52:53.211Z",
+      "summedRssMiB": 699.33203125,
+      "cpuPercent": 73.4,
+      "hostLoad": [
+        178.62890625,
+        205.568359375,
+        138.68359375
+      ],
+      "hostFreeMemoryBytes": 1737494528,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87076,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 2.4,
+          "rssKiB": 153996,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.5,
+          "rssKiB": 78204,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24684,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 29.5,
+          "rssKiB": 159188,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26884,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26396,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:53:23.598Z",
+      "summedRssMiB": 701.18359375,
+      "cpuPercent": 69.6,
+      "hostLoad": [
+        133.47998046875,
+        192.2275390625,
+        136.17431640625
+      ],
+      "hostFreeMemoryBytes": 1751293952,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87092,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 2.5,
+          "rssKiB": 155856,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 38.3,
+          "rssKiB": 78204,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24684,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 28.8,
+          "rssKiB": 159208,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26884,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26396,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:53:53.938Z",
+      "summedRssMiB": 703.05078125,
+      "cpuPercent": 75.9,
+      "hostLoad": [
+        94.73291015625,
+        177.216796875,
+        132.6728515625
+      ],
+      "hostFreeMemoryBytes": 1732771840,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87136,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 2.7,
+          "rssKiB": 157680,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 42.4,
+          "rssKiB": 78204,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24684,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.8,
+          "rssKiB": 159252,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28224,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26884,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26396,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:54:24.551Z",
+      "summedRssMiB": 705.71484375,
+      "cpuPercent": 77.8,
+      "hostLoad": [
+        76.88916015625,
+        165.0458984375,
+        129.80615234375
+      ],
+      "hostFreeMemoryBytes": 1494568960,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87224,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 5.4,
+          "rssKiB": 159644,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 40.9,
+          "rssKiB": 78204,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0.3,
+          "rssKiB": 24712,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.9,
+          "rssKiB": 159852,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28244,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0.1,
+          "rssKiB": 26896,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0.2,
+          "rssKiB": 26412,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:54:56.116Z",
+      "summedRssMiB": 707.86328125,
+      "cpuPercent": 75.5,
+      "hostLoad": [
+        165.59912109375,
+        177.55126953125,
+        135.5244140625
+      ],
+      "hostFreeMemoryBytes": 590090240,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87308,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 5.3,
+          "rssKiB": 161636,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 39.6,
+          "rssKiB": 78208,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24740,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77416,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.6,
+          "rssKiB": 159956,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28244,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26892,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26404,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:55:27.096Z",
+      "summedRssMiB": 709.3828125,
+      "cpuPercent": 70.3,
+      "hostLoad": [
+        254.103515625,
+        198.154296875,
+        144.7138671875
+      ],
+      "hostFreeMemoryBytes": 114388992,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87424,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.3,
+          "rssKiB": 163588,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 40.3,
+          "rssKiB": 78212,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34076,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24760,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77420,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 29.7,
+          "rssKiB": 159404,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28244,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26896,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26412,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:55:58.478Z",
+      "summedRssMiB": 692.70703125,
+      "cpuPercent": 77.9,
+      "hostLoad": [
+        309.21875,
+        216.76708984375,
+        153.30615234375
+      ],
+      "hostFreeMemoryBytes": 18919424,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0.3,
+          "rssKiB": 87672,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 7,
+          "rssKiB": 153256,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 39.7,
+          "rssKiB": 78040,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34044,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 19972,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 24748,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 77420,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.9,
+          "rssKiB": 152636,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28244,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26892,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26408,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:56:29.829Z",
+      "summedRssMiB": 704.359375,
+      "cpuPercent": 69.5,
+      "hostLoad": [
+        342.56201171875,
+        233.66357421875,
+        161.626953125
+      ],
+      "hostFreeMemoryBytes": 366694400,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87752,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.2,
+          "rssKiB": 156900,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 39.9,
+          "rssKiB": 79204,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34636,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 20864,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 25280,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 78264,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 29.4,
+          "rssKiB": 155272,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28692,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27492,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26908,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:57:00.596Z",
+      "summedRssMiB": 703.08984375,
+      "cpuPercent": 73.3,
+      "hostLoad": [
+        354.1650390625,
+        246.958984375,
+        168.9462890625
+      ],
+      "hostFreeMemoryBytes": 203165696,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87024,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 1.5,
+          "rssKiB": 155712,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.3,
+          "rssKiB": 79236,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34636,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 20864,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 25280,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 78264,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.5,
+          "rssKiB": 155856,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 28692,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27492,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26908,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:57:31.172Z",
+      "summedRssMiB": 705.3125,
+      "cpuPercent": 78.9,
+      "hostLoad": [
+        268.88671875,
+        237.66015625,
+        168.34423828125
+      ],
+      "hostFreeMemoryBytes": 418291712,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87184,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 3.4,
+          "rssKiB": 157656,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 42.9,
+          "rssKiB": 79252,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34636,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 20864,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 25280,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 78264,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 32.6,
+          "rssKiB": 155480,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 29220,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27492,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26912,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:58:01.746Z",
+      "summedRssMiB": 707.1796875,
+      "cpuPercent": 79.3,
+      "hostLoad": [
+        198.46533203125,
+        224.314453125,
+        165.95166015625
+      ],
+      "hostFreeMemoryBytes": 582389760,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87284,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 5.7,
+          "rssKiB": 159444,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 42.3,
+          "rssKiB": 79252,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34636,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 20864,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 25280,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 78264,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 31.3,
+          "rssKiB": 155504,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 29220,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27492,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26912,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:58:32.215Z",
+      "summedRssMiB": 709.1484375,
+      "cpuPercent": 70.6,
+      "hostLoad": [
+        156.28271484375,
+        210.51416015625,
+        163.2509765625
+      ],
+      "hostFreeMemoryBytes": 505257984,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87372,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 1,
+          "rssKiB": 161260,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 40.4,
+          "rssKiB": 79252,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34636,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 20864,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 25280,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 78264,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 29.2,
+          "rssKiB": 155616,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 29220,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27492,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26912,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:59:02.653Z",
+      "summedRssMiB": 711.75390625,
+      "cpuPercent": 73.3,
+      "hostLoad": [
+        165.77197265625,
+        207.11865234375,
+        163.62646484375
+      ],
+      "hostFreeMemoryBytes": 1452998656,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87528,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.8,
+          "rssKiB": 163116,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 42,
+          "rssKiB": 79252,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34636,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 20864,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 25288,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 78264,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 30.5,
+          "rssKiB": 156244,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 29220,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27500,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26924,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T12:59:33.544Z",
+      "summedRssMiB": 713.5234375,
+      "cpuPercent": 74.19999999999999,
+      "hostLoad": [
+        163.68701171875,
+        202.45703125,
+        163.43115234375
+      ],
+      "hostFreeMemoryBytes": 1133395968,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 0,
+          "rssKiB": 87700,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 1.3,
+          "rssKiB": 165288,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 41.9,
+          "rssKiB": 79252,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34636,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 20864,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 25288,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 78264,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 31,
+          "rssKiB": 155712,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 29220,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27500,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26924,
+          "executable": "Google Chrome Helper"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T13:00:04.179Z",
+      "summedRssMiB": 851.94921875,
+      "cpuPercent": 43.6,
+      "hostLoad": [
+        217.51123046875,
+        211.390625,
+        167.9951171875
+      ],
+      "hostFreeMemoryBytes": 802471936,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 5.2,
+          "rssKiB": 89356,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 0.1,
+          "rssKiB": 281000,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 18.1,
+          "rssKiB": 83412,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 34632,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 20860,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 25284,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89869,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 78260,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89871,
+          "parent": 89850,
+          "cpuPercent": 12.7,
+          "rssKiB": 173428,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89884,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 29216,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27488,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26920,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 94739,
+          "parent": 89834,
+          "cpuPercent": 7.5,
+          "rssKiB": 2540,
+          "executable": "(ffmpeg)"
+        }
+      ]
+    },
+    {
+      "at": "2026-11-02T13:00:35.138Z",
+      "summedRssMiB": 739.93359375,
+      "cpuPercent": 110,
+      "hostLoad": [
+        286.3896484375,
+        228.46435546875,
+        175.6748046875
+      ],
+      "hostFreeMemoryBytes": 709779456,
+      "processes": [
+        {
+          "pid": 89834,
+          "parent": 89808,
+          "cpuPercent": 1.6,
+          "rssKiB": 92780,
+          "executable": "node"
+        },
+        {
+          "pid": 89850,
+          "parent": 89834,
+          "cpuPercent": 30.8,
+          "rssKiB": 229032,
+          "executable": "Google Chrome"
+        },
+        {
+          "pid": 89858,
+          "parent": 89850,
+          "cpuPercent": 15.9,
+          "rssKiB": 93392,
+          "executable": "Google Chrome Helper (GPU)"
+        },
+        {
+          "pid": 89859,
+          "parent": 89850,
+          "cpuPercent": 2.2,
+          "rssKiB": 36340,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89863,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 21168,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89864,
+          "parent": 89850,
+          "cpuPercent": 1,
+          "rssKiB": 27752,
+          "executable": "Google Chrome Helper (Alerts)"
+        },
+        {
+          "pid": 89885,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 27756,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 89886,
+          "parent": 89850,
+          "cpuPercent": 0,
+          "rssKiB": 26920,
+          "executable": "Google Chrome Helper"
+        },
+        {
+          "pid": 94905,
+          "parent": 89850,
+          "cpuPercent": 32.4,
+          "rssKiB": 94664,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 94908,
+          "parent": 89850,
+          "cpuPercent": 13,
+          "rssKiB": 47036,
+          "executable": "Google Chrome Helper (Renderer)"
+        },
+        {
+          "pid": 94909,
+          "parent": 89850,
+          "cpuPercent": 13.1,
+          "rssKiB": 60852,
+          "executable": "(Google Chrome He)"
+        }
+      ]
+    }
+  ],
+  "endedAt": "2026-11-02T13:01:05.363Z"
+}

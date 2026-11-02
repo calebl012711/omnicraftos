@@ -18,10 +18,14 @@ export class CaptureSession {
   private startTime = 0;
   private stopTask?: Promise<void>;
   private cancelled = false;
+  private healthTimer?: ReturnType<typeof setInterval>;
+  private encodedAt = new Map<string, number>();
+  private started = new Set<MediaRecorder>();
+  private stopped = new Map<MediaRecorder, Promise<void>>();
   private listeners: { track: MediaStreamTrack; listener: () => void }[] = [];
   state: CaptureState = 'idle';
   constructor(private screen: MediaStream, private camera: MediaStream, private mic: MediaStream | null,
-    private options: { mime: string; test?: boolean; onChange: () => void; onError: (e: Error) => void; countdownMs?: number }) {
+    private options: { mime: string; test?: boolean; onChange: () => void; onError: (e: Error) => void; countdownMs?: number; videoRates?: { screen: number; camera: number }; stallTimeoutMs?: number }) {
     this.manifest = {
       version: 1, id: `take-${new Date().toISOString().replace(/[:.]/g, '-')}-${crypto.randomUUID().slice(0, 6)}`,
       createdAt: new Date().toISOString(), state: 'preparing', mode: options.test ? 'test' : 'capture', durationMs: 0,
@@ -46,10 +50,18 @@ export class CaptureSession {
         if (audioMime) streams.push({ kind: 'microphone', stream: new MediaStream(this.mic.getAudioTracks()), mime: audioMime });
       }
       for (const { kind, stream, mime } of streams) {
-        const recorder = new MediaRecorder(stream, { mimeType: mime, ...(kind !== 'microphone' ? { videoBitsPerSecond: kind === 'screen' ? 2_500_000 : 1_000_000 } : {}), audioBitsPerSecond: 128_000 });
+        const recorder = new MediaRecorder(stream, { mimeType: mime, ...(kind !== 'microphone' ? { videoBitsPerSecond: kind === 'screen' ? (this.options.videoRates?.screen ?? 2_500_000) : (this.options.videoRates?.camera ?? 1_000_000) } : {}), audioBitsPerSecond: 128_000 });
+        this.stopped.set(recorder, new Promise(resolve => recorder.addEventListener('stop', () => {
+          resolve();
+          if (this.state === 'recording' || this.state === 'paused') {
+            this.options.onError(new Error(`The ${kind} encoder stopped unexpectedly. Both views were stopped; check the saved take before using it.`));
+            this.manifest.state = 'interrupted'; void this.stop('encoder-ended');
+          }
+        }, { once: true })));
         const actualMime = recorder.mimeType || mime;
         this.store.register({ kind, name: `${kind}.${extension(actualMime)}`, mime: actualMime, bytes: 0, chunks: 0 });
         recorder.addEventListener('dataavailable', e => {
+          if (e.data.size) this.encodedAt.set(kind, performance.now());
           this.manifest.durationMs = this.startTime ? performance.now() - this.startTime : 0;
           this.store.append(kind, e.data); this.options.onChange();
         });
@@ -72,7 +84,16 @@ export class CaptureSession {
       this.startTime = performance.now();
       this.manifest.state = 'recording';
       this.event('common-start', new Date().toISOString());
-      for (const recorder of this.recorders) { recorder.start(1000); this.event('encoder-start-request', recorder.mimeType); }
+      for (const recorder of this.recorders) { recorder.start(1000); this.started.add(recorder); this.event('encoder-start-request', recorder.mimeType); }
+      for (const file of this.manifest.files) this.encodedAt.set(file.kind, this.startTime);
+      this.healthTimer = setInterval(() => {
+        if (this.state !== 'recording') return;
+        const stalled = [...this.encodedAt].find(([, at]) => performance.now() - at > (this.options.stallTimeoutMs ?? 15_000));
+        if (stalled) {
+          this.options.onError(new Error(`The ${stalled[0]} encoder stopped delivering data. This take was stopped to protect saved chunks. Reconnect your inputs and make a short test take.`));
+          this.manifest.state = 'interrupted'; void this.stop('encoder-stalled');
+        }
+      }, 2000);
       this.change('recording'); await this.store.saveManifest();
     } catch (e) {
       this.options.onError(e instanceof Error ? e : new Error(String(e)));
@@ -84,6 +105,7 @@ export class CaptureSession {
     const pause = this.state === 'recording';
     try {
       for (const recorder of this.recorders) pause ? recorder.pause() : recorder.resume();
+      if (!pause) for (const kind of this.encodedAt.keys()) this.encodedAt.set(kind, performance.now());
       this.event(pause ? 'pause' : 'resume'); this.manifest.state = pause ? 'paused' : 'recording';
       this.change(pause ? 'paused' : 'recording');
     } catch (e) { this.options.onError(new Error(String(e))); void this.stop('pause-error'); }
@@ -95,12 +117,16 @@ export class CaptureSession {
     return this.stopTask;
   }
   private async finish(reason: string) {
+    clearInterval(this.healthTimer);
     this.event('stop', reason); this.change('saving');
     for (const { track, listener } of this.listeners) track.removeEventListener('ended', listener);
-    await Promise.all(this.recorders.map(recorder => new Promise<void>(resolve => {
-      if (recorder.state === 'inactive') { resolve(); return; }
-      recorder.addEventListener('stop', () => resolve(), { once: true }); recorder.stop();
-    })));
+    await Promise.all(this.recorders.map(recorder => {
+      if (!this.started.has(recorder)) return Promise.resolve();
+      // A device can make the recorder inactive before its final data/stop events
+      // arrive. Always await that stop event so the final chunk is saved too.
+      if (recorder.state !== 'inactive') recorder.stop();
+      return this.stopped.get(recorder)!;
+    }));
     this.manifest.durationMs = this.startTime ? performance.now() - this.startTime : 0;
     await this.store.drain();
     if (!this.store.error && this.manifest.state !== 'interrupted') this.manifest.state = reason === 'user-stop' || reason === 'test-complete' ? 'complete' : 'interrupted';

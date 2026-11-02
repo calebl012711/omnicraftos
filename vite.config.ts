@@ -7,7 +7,7 @@ export default defineConfig({
   optimizeDeps: { exclude: ['@waveform-playlist/worklets'] },
   server: {
     port: 5173,
-    watch: { ignored: ['**/upstream/**', '**/brag-output/**', '**/design/**', '**/verification/**'] },
+    watch: { ignored: ['**/upstream/**', '**/brag-output/**', '**/design/**', '**/verification/**', '**/staging/**', '**/src-tauri/target/**', '**/src-tauri/gen/**', '**/tsconfig.tsbuildinfo'] },
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin'
     }

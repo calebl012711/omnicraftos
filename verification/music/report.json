@@ -1,8 +1,44 @@
 {
-  "at": "2026-11-02T01:51:36.196Z",
+  "at": "2026-11-02T13:10:19.926Z",
   "source": "Waveform Playlist actual npm runtime",
   "physicalMicrophone": false,
+  "audioOutput": "Silent software sink; physical speaker not tested",
   "tests": {
+    "mix": {
+      "passed": true,
+      "sourceRms": 0.08836856996744964,
+      "soloSource": 0.08836867958249574,
+      "silence": [
+        {
+          "rms": 0,
+          "peak": 0
+        },
+        {
+          "rms": 0,
+          "peak": 0
+        }
+      ],
+      "panned": [
+        {
+          "rms": 0.044172903592189075,
+          "peak": 0.062469482421875
+        },
+        {
+          "rms": 0,
+          "peak": 0
+        }
+      ],
+      "solo": [
+        {
+          "rms": 0,
+          "peak": 0
+        },
+        {
+          "rms": 0.02207898443255852,
+          "peak": 0.031219482421875
+        }
+      ]
+    },
     "audio": {
       "passed": true,
       "importedTracks": 2,
@@ -12,6 +48,40 @@
       "portableBackup": true,
       "syntheticMicrophone": true,
       "mixerAndArrangementPersistence": true,
+      "exportedSamples": {
+        "silence": [
+          {
+            "rms": 0,
+            "peak": 0
+          },
+          {
+            "rms": 0,
+            "peak": 0
+          }
+        ],
+        "panned": [
+          {
+            "rms": 0.044172903592189075,
+            "peak": 0.062469482421875
+          },
+          {
+            "rms": 0,
+            "peak": 0
+          }
+        ],
+        "solo": [
+          {
+            "rms": 0,
+            "peak": 0
+          },
+          {
+            "rms": 0.02207898443255852,
+            "peak": 0.031219482421875
+          }
+        ],
+        "sourceRms": 0.08836856996744964,
+        "soloSource": 0.08836867958249574
+      },
       "wav": {
         "streams": [
           {
@@ -29,8 +99,8 @@
             "r_frame_rate": "0/0",
             "avg_frame_rate": "0/0",
             "time_base": "1/48000",
-            "duration_ts": 148800,
-            "duration": "3.100000",
+            "duration_ts": 153600,
+            "duration": "3.200000",
             "bit_rate": "1536000",
             "disposition": {
               "default": 0,
@@ -62,9 +132,9 @@
           "nb_stream_groups": 0,
           "format_name": "wav",
           "format_long_name": "WAV / WAVE (Waveform Audio)",
-          "duration": "3.100000",
-          "size": "595244",
-          "bit_rate": "1536113",
+          "duration": "3.200000",
+          "size": "614444",
+          "bit_rate": "1536110",
           "probe_score": 99
         }
       }

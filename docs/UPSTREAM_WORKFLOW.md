@@ -22,3 +22,15 @@ Only after review passes, explicitly update the manifest pin, artifact hashes, p
 Rollback restores the previous reviewed outer commit and its matching bundle, adapter and manifest together on a separate branch/worktree. Keep current work intact; do not use `git reset --hard` over edits. A new editor may write a project format an older version cannot read, so open the backed-up pre-migration copy when rolling back. Keep recorded media outside disposable browser/test profiles.
 
 For supported primary Rust editors, `npm run upstream:build -- solidcraft` (substitute the component ID) verifies the exact pin and clean source tree, invokes the real source build, preserves its log, and stages a complete sibling bundle with license notices and SHA-256 hashes. It does not replace the currently integrated editor. Test that staged artifact before adopting it. Repeated builds do not overwrite an existing staged revision.
+
+## Current host overlay and build staging
+
+`integration/patches/solidcraft-host-chrome.patch` adds the `omnicraft=1` query flag to SolidCraft's existing embedded-chrome setting. It does not replace the canvas, geometry kernel, history or file APIs. The helper's `--overlay` option verifies the pin and clean checkout, applies this exact patch temporarily and reverses it in `finally`. Do not edit that source tree during the build. Inspect the patch and license changes before reapplying it to a new revision.
+
+The adopted Model module completed Cargo release optimization (O3 + thin LTO) and wasm-bindgen. `scripts/stage-cad-host.mjs` captured that completed output before optional Binaryen `wasm-opt -Oz` size minification. It validates the reviewed source diff and WebAssembly, refuses an existing output directory and records the exact phase, hashes and notices. This staging command neither changes source pins nor deploys. The 138,786,355-byte adopted module and adapter are declared in `integration/builds/solidcraft.json`; a later minified output is a different artifact and requires the same adoption/testing review.
+
+SoundCraft's fresh full Trunk build is recorded separately in `integration/builds/soundcraft.json`. Its successful boot does not certify editing or export. Existing inherited Craft bundles remain clearly distinguished from these two fresh source builds.
+
+After any bundle adoption, run `npm test`, `npm run build` and the relevant production-preview workflow tests. For Model use both `verify:model` (geometry/native/export) and `verify:model-library` (suite snapshot save/reopen/backup and other starters). Keep artifact, adapter, patch, license inventory and evidence changes together so rollback restores a matching set. Obtain review before changing pin or adopting another generated artifact; never automatically merge or deploy remote changes.
+
+The inherited SolidCraft offline manifest referred to the replaced module, so it was removed. Its worker URL now retires its own registration on activation without deleting cached data or project storage. Model does not register an offline worker; installed/offline support requires separate verification.

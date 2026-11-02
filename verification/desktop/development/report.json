@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-02T13:01:13.020Z",
+  "environment": "Actual Tauri WebKit development view",
+  "url": "http://127.0.0.1:5173/",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko)",
+  "tests": {
+    "home": {
+      "passed": true,
+      "heading": "Make roomto create.",
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    "capture": {
+      "passed": true,
+      "mediaRecorder": true,
+      "screenCaptureApi": true,
+      "cameraApi": true,
+      "mp4Reported": true,
+      "physicalDevicesTested": false
+    }
+  },
+  "passed": false,
+  "error": "@http://127.0.0.1:5173/:11:18"
+}

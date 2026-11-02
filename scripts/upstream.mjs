@@ -8,6 +8,7 @@ const command=process.argv[2]||'status';
 const id=process.argv.includes('--app')?process.argv[process.argv.indexOf('--app')+1]:null;
 if(!['status','check','licenses'].includes(command))throw Error('Read-only commands: status, check, licenses [--app id]. Updates are reviewed manually.');
 function git(dir,args){try{return execFileSync('git',['-C',dir,...args],{encoding:'utf8',stdio:['ignore','pipe','pipe'],timeout:15000}).trim();}catch{return null;}}
+if(id&&!manifest.repositories.some(repo=>repo.id===id))throw Error(`Unknown upstream component: ${id}`);
 const rows=[];
 for(const r of manifest.repositories.filter(r=>!id||id===r.id)){
  if(r.status==='blocked'){rows.push({id:r.id,status:'excluded',reason:r.thirdPartyNotes});continue;}

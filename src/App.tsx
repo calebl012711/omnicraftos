@@ -49,6 +49,7 @@ import {
   resetBrandingConfig,
   saveBrandingConfig
 } from './config/branding';
+import { Recorder } from './recorder/Recorder';
 import { StudioHero } from './components/StudioHero';
 import { AppIcon } from './components/icons/AppIcon';
 import {
@@ -84,6 +85,8 @@ import { isSameOriginEvent } from './utils/origin';
 type NavTab = 'home' | 'workspace' | 'projects' | 'assets' | 'settings';
 type RendererMode = 'auto' | 'webgl' | 'cpu';
 type HomeCategoryFilter = 'all' | 'broadcast' | 'daw' | 'cad' | 'design' | 'office';
+
+const ModelStudio = React.lazy(() => import('./cad/ModelStudio').then(module => ({ default: module.ModelStudio })));
 
 interface CapturedExportNotice {
   id: string;
@@ -284,7 +287,7 @@ export function App() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [activeWorkspaceId, setActiveWorkspaceId] = useState<string>('riverstudio');
   const [activeProjectId, setActiveProjectId] = useState<string | null>('proj-solidcraft-motor-mount');
-  const [rendererMode, setRendererMode] = useState<RendererMode>('auto');
+  const [rendererMode, setRendererMode] = useState<RendererMode>('webgl');
   const [homeCategory, setHomeCategory] = useState<HomeCategoryFilter>('all');
   const [homeSearch, setHomeSearch] = useState<string>('');
   const [themeMode, setThemeMode] = useState<'dark' | 'light' | 'light dark'>(() => {
@@ -1167,10 +1170,10 @@ export function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `mosaic-forge-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `omnicraft-os-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    setStatusMessage('Exported the OmniCraft OS project and Asset Vault backup JSON. Recorder and Music Studio files have separate export controls.');
+    setStatusMessage('Exported the OmniCraft OS project and Asset Vault backup JSON. Capture takes and Music projects have separate export controls.');
   };
 
   const handleImportFullBackup = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1328,6 +1331,21 @@ export function App() {
         w.purpose.toLowerCase().includes(q)
     );
   }, [quickSwitchQuery]);
+
+  async function saveModelProject(model: { id: string; name: string; file: File }) {
+    const now = new Date().toISOString();
+    const fileId = `model-snapshot-${model.id}`;
+    const previous = projects.find(project => project.id === model.id);
+    const fileName = `${model.name}.sc`;
+    await saveStoredFile({ id: fileId, projectId: model.id, name: fileName, mimeType: 'application/x-solidcraft', size: model.file.size, bytes: await model.file.arrayBuffer(), sourceWorkspaceId: 'solidcraft', kind: 'snapshot', createdAt: now });
+    await saveProject({ id: model.id, name: model.name, workspaceId: 'solidcraft', createdAt: previous?.createdAt || now, updatedAt: now, nativeFileName: fileName, storedSnapshotFileId: fileId, mediaReferences: previous?.mediaReferences || [], notes: previous?.notes || 'Native Model project. Open to resume the actual CAD design.', tags: previous?.tags || ['CAD', 'Native project'] });
+    setActiveProjectId(model.id); await refreshLocalStores();
+  }
+  const modelSnapshot = activeProject?.workspaceId === 'solidcraft' ? storedFiles.find(file => file.id === activeProject.storedSnapshotFileId) : undefined;
+  const modelProject = activeProject?.workspaceId === 'solidcraft' ? { id: activeProject.id, name: activeProject.name, file: modelSnapshot ? new File([modelSnapshot.bytes], modelSnapshot.name, { type: modelSnapshot.mimeType }) : undefined } : undefined;
+
+  if (activeTab === 'workspace' && activeWorkspace.id === 'riverstudio') return <Recorder onBack={() => returnToHome('home')} />;
+  if (activeTab === 'workspace' && activeWorkspace.id === 'solidcraft') return <React.Suspense fallback={<p>Loading Model…</p>}><ModelStudio onBack={() => returnToHome('home')} initialProject={modelProject} onSaved={saveModelProject} /></React.Suspense>;
 
   return (
     <div className="mf-shell oc-shell">
@@ -1585,11 +1603,11 @@ export function App() {
                 {/* Quick-Hop Studio Strip for 1-Click Pipeline Switching */}
                 <div className="mf-quick-hop-strip" aria-label="Quick Studio Pipeline Switcher">
                   {[
-                    { id: 'riverstudio', label: 'RiverCast ISO' },
-                    { id: 'studiocut', label: 'Studio Cut' },
-                    { id: 'bandforge', label: 'BandForge' },
-                    { id: 'flstudio', label: 'FruityForge 21' },
-                    { id: 'solidcraft', label: 'SolidCraft 3D' }
+                    { id: 'riverstudio', label: 'Capture' },
+                    { id: 'filmcraft', label: 'Cut' },
+                    { id: 'music', label: 'Music' },
+                    { id: 'photocraft', label: 'Photo' },
+                    { id: 'solidcraft', label: 'Model' }
                   ].map((hop) => (
                     <button
                       key={hop.id}
@@ -1848,7 +1866,7 @@ export function App() {
                 <div>
                   <h2>Local Studio Projects</h2>
                   <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--text-secondary)' }}>
-                    Stored in browser IndexedDB (<code>mosaic-forge-db</code>) with instant one-click launch into the target application.
+                    Model projects reopen from this library. Other editors keep their own native save/open controls. Download Capture takes separately.
                   </p>
                 </div>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -1867,7 +1885,7 @@ export function App() {
                     data-testid="export-backup-btn"
                   >
                     <Download size={14} />
-                    <span>Backup All (JSON)</span>
+                    <span>Back up library</span>
                   </button>
                   <label className="mf-btn" style={{ cursor: 'pointer' }}>
                     <Upload size={14} />
@@ -1899,7 +1917,7 @@ export function App() {
                           {proj.storedSnapshotFileId ? (
                             <span className="mf-badge tested">Snapshot Stored</span>
                           ) : (
-                            <span className="mf-badge partial">Live Workspace</span>
+                            <span className="mf-badge partial">Project setup</span>
                           )}
                         </div>
                         <h3 className="mf-card-title">{proj.name}</h3>
@@ -1916,7 +1934,7 @@ export function App() {
                           <div style={{ fontSize: '11.5px', marginBottom: '10px' }}>
                             {missingRefs.length === 0 ? (
                               <span style={{ color: 'var(--status-tested-fg)' }}>
-                                ✓ All {proj.mediaReferences.length} referenced media asset(s) verified
+                                {proj.mediaReferences.length} referenced asset(s) available in the library
                               </span>
                             ) : (
                               <span style={{ color: 'var(--status-blocked-fg)' }}>
@@ -1996,7 +2014,7 @@ export function App() {
                 <div className="mf-vault-hero-text">
                   <div className="mf-vault-headline">A local library for your files</div>
                   <div className="mf-vault-sub">
-                    Import files into this local library or receive exports from supported editor bridges. Recording Studio and Music Studio keep separate local projects and provide their own download controls. File handoff depends on the receiving editor’s import support.
+                    Import files into this local library or receive exports from supported editor bridges. Capture and Music keep separate local projects and provide their own download controls. File handoff depends on the receiving editor’s import support.
                   </div>
                 </div>
 
@@ -2004,7 +2022,7 @@ export function App() {
                 <div className="mf-vault-pipeline-visual">
                   <div className="mf-pipeline-node file-source">
                     <Radio size={20} className="mf-node-icon" style={{ color: '#e05a47' }} />
-                    <span className="mf-node-label">RiverCast / SolidCraft</span>
+                    <span className="mf-node-label">Capture / Model</span>
                   </div>
 
                   <div className="mf-pipeline-arrows">
@@ -2544,7 +2562,7 @@ export function App() {
           <input
             type="search"
             className="mf-input"
-            placeholder="Search 18 apps by name, category, or file format (.webm, .wav, .stl)..."
+            placeholder="Search workspaces by name, category, or file format…"
             value={quickSwitchQuery}
             onChange={(e) => setQuickSwitchQuery(e.target.value)}
             autoFocus

@@ -1,0 +1,13 @@
+--- a/apps/solidcraft-web/src/main.rs
++++ b/apps/solidcraft-web/src/main.rs
+@@ -960,7 +960,9 @@
+                         solidcraft_ui_egui::gpu::install_cpu_picture_renderer();
+                         let (sender, receiver) = std::sync::mpsc::channel();
+                         let mut app = SolveApp::new(Session::default(), services).with_control(receiver);
+-                        app.embedded = launch.embed;
++                        // OmniCraft supplies its own command and file toolbar. Keep the real
++                        // browser/history panels and modeling dialogs; persistence stays enabled.
++                        app.embedded = launch.embed || crate::query_flag(&query(), "omnicraft");
+                         // Listening before reading: settings another tab writes from now on are
+                         // newer than those read here.
+                         let other_tab_prefs = PrefsInbox::default();

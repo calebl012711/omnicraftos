@@ -103,52 +103,19 @@ describe('OmniCraft OS Suite Configuration & Architecture', () => {
     expect(isSameOriginEvent(fakeEmptyEvent)).toBe(false);
   });
 
-  it('validates SolidCraft 3D CAD and CADCraft 2D Drafting Bento engineering shells and OmniCraft OS protocols', async () => {
-    const fs = await import('fs');
-    const path = await import('path');
-
-    // 1. SolidCraft 3D CAD Audit
-    const solidcraftHtml = fs.readFileSync(path.resolve('public/editors/solidcraft/index.html'), 'utf-8');
-    const solidcraftCss = fs.readFileSync(path.resolve('public/editors/solidcraft/bento-cad-shell.css'), 'utf-8');
-    const solidcraftJs = fs.readFileSync(path.resolve('public/editors/solidcraft/bento-cad-shell.js'), 'utf-8');
-    const solidcraftWasmExists = fs.existsSync(path.resolve('public/editors/solidcraft/solidcraft-web-4b1d77a936edaef2_bg.wasm'));
-
-    expect(solidcraftHtml).toContain('bento-header');
-    expect(solidcraftHtml).toContain('bento-telemetry-strip');
-    expect(solidcraftHtml).toContain('bento_mesh_hud');
-    expect(solidcraftHtml).toContain('solidcraft_loading');
-    expect(solidcraftHtml).toContain('TILE 02 // 3D MESH HUD');
-    expect(solidcraftCss).toContain('--bento-font-sans');
-    expect(solidcraftCss).toContain('--bento-font-mono');
-    expect(solidcraftCss).toContain('--bento-border-subtle');
-    expect(solidcraftJs).toContain('omnicraft:theme-change');
-    expect(solidcraftJs).toContain('omnicraft:import-cad');
-    expect(solidcraftJs).toContain('omnicraft:export-ready');
-    expect(solidcraftWasmExists).toBe(true);
-
-    // 2. CADCraft 2D Drafting Audit
-    const cadcraftHtml = fs.readFileSync(path.resolve('public/editors/cadcraft/index.html'), 'utf-8');
-    const cadcraftCss = fs.readFileSync(path.resolve('public/editors/cadcraft/bento-cad-shell.css'), 'utf-8');
-    const cadcraftJs = fs.readFileSync(path.resolve('public/editors/cadcraft/bento-cad-shell.js'), 'utf-8');
-    const cadcraftWasmExists = fs.existsSync(path.resolve('public/editors/cadcraft/cadcraft-web-d9510b450a4355c9_bg.wasm'));
-
-    expect(cadcraftHtml).toContain('bento-header');
-    expect(cadcraftHtml).toContain('bento-telemetry-strip');
-    expect(cadcraftHtml).toContain('bento_drafting_hud');
-    expect(cadcraftHtml).toContain('cadcraft_loading');
-    expect(cadcraftHtml).toContain('TILE 02 // 2D DRAFTING HUD');
-    expect(cadcraftCss).toContain('--bento-font-sans');
-    expect(cadcraftCss).toContain('--bento-font-mono');
-    expect(cadcraftCss).toContain('--bento-border-subtle');
-    expect(cadcraftJs).toContain('omnicraft:theme-change');
-    expect(cadcraftJs).toContain('omnicraft:import-cad');
-    expect(cadcraftJs).toContain('omnicraft:export-ready');
-    expect(cadcraftWasmExists).toBe(true);
-
-    // 3. Bridge Audit
-    const bridgeJs = fs.readFileSync(path.resolve('public/editors/mosaic-forge-bridge.js'), 'utf-8');
-    expect(bridgeJs).toContain('omnicraft:export-ready');
-    expect(bridgeJs).toContain('omnicraft:import-cad');
-    expect(bridgeJs).toContain('omnicraft:theme-change');
+  it('ships the source-built CAD module and reviewed overlay declared by the integration lock', async () => {
+    const fs = await import('node:fs');
+    const { createHash } = await import('node:crypto');
+    const build = JSON.parse(fs.readFileSync('integration/builds/solidcraft.json', 'utf8'));
+    const lock = JSON.parse(fs.readFileSync('integration/upstream-lock.json', 'utf8'));
+    expect(build.sourceCommit).toBe(lock.repositories.find((repo: { id: string }) => repo.id === 'solidcraft').pinnedCommit);
+    expect(createHash('sha256').update(fs.readFileSync(build.overlay)).digest('hex')).toBe(build.overlaySha256);
+    for (const artifact of build.artifacts) {
+      const bytes = fs.readFileSync(`public/editors/solidcraft/${artifact.file}`);
+      expect(bytes.length).toBe(artifact.bytes);
+      expect(createHash('sha256').update(bytes).digest('hex')).toBe(artifact.sha256);
+    }
+    expect(fs.existsSync('public/editors/solidcraft/LICENSE-MIT')).toBe(true);
+    expect(fs.existsSync('public/editors/solidcraft/ATTRIBUTION.md')).toBe(true);
   });
 });

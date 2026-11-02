@@ -1,0 +1,287 @@
+{
+  "checkedAt": "2026-11-02T14:16:45.800Z",
+  "readOnly": true,
+  "command": "status",
+  "results": [
+    {
+      "id": "solidcraft",
+      "repo": "https://github.com/tangency-labs/solidcraft",
+      "pin": "56b77b405dc7c567854329a9511aa03e209caef7",
+      "head": "56b77b405dc7c567854329a9511aa03e209caef7",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "M apps/solidcraft-web/src/main.rs",
+      "status": "integrated"
+    },
+    {
+      "id": "filmcraft",
+      "repo": "https://github.com/storytold/filmcraft",
+      "pin": "95cf47b883d2d2b2946c8c157822ee20835426a5",
+      "head": "95cf47b883d2d2b2946c8c157822ee20835426a5",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "photocraft",
+      "repo": "https://github.com/storytold/photocraft",
+      "pin": "1f984bffb3793a284f861e4b753fc5da1ac5214d",
+      "head": "1f984bffb3793a284f861e4b753fc5da1ac5214d",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "effectcraft",
+      "repo": "https://github.com/storytold/effectcraft",
+      "pin": "f4f390b153dfc5970a05d3181ead9e67c56f23ad",
+      "head": "f4f390b153dfc5970a05d3181ead9e67c56f23ad",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "lightcraft",
+      "repo": "https://github.com/storytold/lightcraft",
+      "pin": "c50b74df9c427782acbebd3da53d4f21b597707a",
+      "head": "c50b74df9c427782acbebd3da53d4f21b597707a",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "vectorcraft",
+      "repo": "https://github.com/storytold/vectorcraft",
+      "pin": "433ddb593d7c75165fb4b8ae61022a671ed7bcdb",
+      "head": "433ddb593d7c75165fb4b8ae61022a671ed7bcdb",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "designcraft",
+      "repo": "https://github.com/storytold/designcraft",
+      "pin": "98d80160014a11f3455d7bb7e7e429c894f0ebe6",
+      "head": "98d80160014a11f3455d7bb7e7e429c894f0ebe6",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "pdfcraft",
+      "repo": "https://github.com/storytold/pdfcraft",
+      "pin": "eea00a6186546762d11d857666249672bff3fcad",
+      "head": "eea00a6186546762d11d857666249672bff3fcad",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "figcraft",
+      "repo": "https://github.com/storytold/figcraft",
+      "pin": "b0673ffc8b659c7d0b0b04dea80d8d2314afcc86",
+      "head": "b0673ffc8b659c7d0b0b04dea80d8d2314afcc86",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "wordcraft",
+      "repo": "https://github.com/storytold/wordcraft",
+      "pin": "6e0f7e79edabf5904ecb73104e809e6f053d9d27",
+      "head": "6e0f7e79edabf5904ecb73104e809e6f053d9d27",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "soundcraft",
+      "repo": "https://github.com/storytold/soundcraft",
+      "pin": "85ffa1f53ee6d04c4e99b66afd142bd4345d2009",
+      "head": "85ffa1f53ee6d04c4e99b66afd142bd4345d2009",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "deckcraft",
+      "repo": "https://github.com/storytold/deckcraft",
+      "pin": "82573331a8f2b87ccb536b9b66d55b90295f2111",
+      "head": "82573331a8f2b87ccb536b9b66d55b90295f2111",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "gridcraft",
+      "repo": "https://github.com/storytold/gridcraft",
+      "pin": "a85b1aea3a8a3369581a749d8da041e4db014504",
+      "head": "a85b1aea3a8a3369581a749d8da041e4db014504",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "cadcraft",
+      "repo": "https://github.com/storytold/cadcraft",
+      "pin": "5caaf73e3b065856f38e9cb58571e68edfbd2a59",
+      "head": "5caaf73e3b065856f38e9cb58571e68edfbd2a59",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated"
+    },
+    {
+      "id": "fieldcraft",
+      "repo": "https://github.com/tangency-labs/fieldcraft",
+      "pin": "6d9d17ea6f46cea87b184a26936d14312e60fede",
+      "head": "6d9d17ea6f46cea87b184a26936d14312e60fede",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "source-only"
+    },
+    {
+      "id": "craft-launcher",
+      "repo": "https://github.com/storytold/craft-launcher",
+      "pin": "48b1a04c188f1c9f06fc0a0ea1ad32b414208c4f",
+      "head": "48b1a04c188f1c9f06fc0a0ea1ad32b414208c4f",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "ecosystem-reference"
+    },
+    {
+      "id": "craft-libs",
+      "repo": "https://github.com/storytold/craft-libs",
+      "pin": "c39e435cc34417843793df240a0b38bac970179b",
+      "head": "c39e435cc34417843793df240a0b38bac970179b",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "ecosystem-library"
+    },
+    {
+      "id": "craft-fonts",
+      "repo": "https://github.com/storytold/craft-fonts",
+      "pin": "aced4137c022f1f587624d48e81ec77e1914a9cc",
+      "head": "aced4137c022f1f587624d48e81ec77e1914a9cc",
+      "selectedLicense": "MIT (code) + OFL-1.1 (fonts)",
+      "localMatches": true,
+      "dirty": "",
+      "status": "ecosystem-library"
+    },
+    {
+      "id": "craft-i18n",
+      "repo": "https://github.com/storytold/craft-i18n",
+      "pin": "cac2cf0c269d7581fcf38b4c6dbb247c1dfdf58c",
+      "head": "cac2cf0c269d7581fcf38b4c6dbb247c1dfdf58c",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "ecosystem-library"
+    },
+    {
+      "id": "craft-ai-integrations",
+      "repo": "https://github.com/storytold/craft-ai-integrations",
+      "pin": "e8f320321aac28174ec2f5b75cb8a6ab52139416",
+      "head": "e8f320321aac28174ec2f5b75cb8a6ab52139416",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "ecosystem-library"
+    },
+    {
+      "id": "indd-utils",
+      "repo": "https://github.com/storytold/indd-utils",
+      "pin": "136f973a9d5f1b3ef34e46e27f4a08af196efde7",
+      "head": "136f973a9d5f1b3ef34e46e27f4a08af196efde7",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "ecosystem-library"
+    },
+    {
+      "id": "solidcore",
+      "repo": "https://github.com/tangency-labs/solidcore",
+      "pin": "9fd5b93e396c6b4c3f7b8a536e5376e0c3da13f7",
+      "head": "9fd5b93e396c6b4c3f7b8a536e5376e0c3da13f7",
+      "selectedLicense": "Apache-2.0",
+      "localMatches": true,
+      "dirty": "",
+      "status": "ecosystem-library"
+    },
+    {
+      "id": "pcbcraft",
+      "status": "excluded",
+      "reason": "BLOCKED: Licensed under strong copyleft GNU General Public License v3.0 (GPL-3.0), which conflicts with Mosaic Forge's MIT / permissive licensing requirement. Excluded from checkout and distribution."
+    },
+    {
+      "id": "anicraft",
+      "status": "excluded",
+      "reason": "BLOCKED: Repository has 0 commits, 0 KB size, and no source or license file as of 2026-10-31."
+    },
+    {
+      "id": "webdaw",
+      "repo": "https://github.com/ai-music/webdaw",
+      "pin": "b892a3a5de4974d6844d11413524ddc597ce0961",
+      "head": "b892a3a5de4974d6844d11413524ddc597ce0961",
+      "selectedLicense": "Not incorporated",
+      "localMatches": true,
+      "dirty": "",
+      "status": "evaluated-candidate"
+    },
+    {
+      "id": "daw",
+      "repo": "https://github.com/dvir-drori/daw",
+      "pin": "5154f7dc19bddb431287606f316d0aa7b5e3aeed",
+      "head": "5154f7dc19bddb431287606f316d0aa7b5e3aeed",
+      "selectedLicense": "Not incorporated",
+      "localMatches": true,
+      "dirty": "",
+      "status": "evaluated-candidate"
+    },
+    {
+      "id": "contrast-recorder",
+      "repo": "https://github.com/contrastio/recorder",
+      "pin": "4cb8e882618cfe65d3aea5e9717982ca3ae16e69",
+      "head": "4cb8e882618cfe65d3aea5e9717982ca3ae16e69",
+      "selectedLicense": "Not incorporated",
+      "localMatches": true,
+      "dirty": "",
+      "status": "evaluated-candidate"
+    },
+    {
+      "id": "framecast",
+      "repo": "https://github.com/sahajamit/framecast",
+      "pin": "71f772b1ef48d4c4395a94f9aa7f050a350584b8",
+      "head": "71f772b1ef48d4c4395a94f9aa7f050a350584b8",
+      "selectedLicense": "Not incorporated",
+      "localMatches": true,
+      "dirty": "",
+      "status": "evaluated-candidate"
+    },
+    {
+      "id": "waveform-playlist",
+      "repo": "https://github.com/naomiaro/waveform-playlist",
+      "pin": "d620a1d202b8033ec038b8c87cd307c3d7d2557b",
+      "head": "d620a1d202b8033ec038b8c87cd307c3d7d2557b",
+      "selectedLicense": "MIT",
+      "localMatches": true,
+      "dirty": "",
+      "status": "integrated-library"
+    }
+  ]
+}

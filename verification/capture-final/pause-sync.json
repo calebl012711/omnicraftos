@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "id": "take-2026-11-02T13-22-07-112Z-646fac",
+  "createdAt": "2026-11-02T13:22:07.112Z",
+  "state": "interrupted",
+  "mode": "capture",
+  "durationMs": 6023.4000000059605,
+  "files": [
+    {
+      "kind": "screen",
+      "name": "screen.mp4",
+      "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+      "bytes": 48754,
+      "chunks": 2
+    },
+    {
+      "kind": "camera",
+      "name": "camera.mp4",
+      "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+      "bytes": 53168,
+      "chunks": 2
+    },
+    {
+      "kind": "microphone",
+      "name": "microphone.m4a",
+      "mime": "audio/mp4",
+      "bytes": 79468,
+      "chunks": 5
+    }
+  ],
+  "events": [
+    {
+      "type": "common-start",
+      "offsetMs": 0,
+      "detail": "2026-11-02T13:22:10.210Z"
+    },
+    {
+      "type": "encoder-start-request",
+      "offsetMs": 0.20000001788139343,
+      "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+    },
+    {
+      "type": "encoder-start-request",
+      "offsetMs": 0.20000001788139343,
+      "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+    },
+    {
+      "type": "encoder-start-request",
+      "offsetMs": 0.30000001192092896,
+      "detail": "audio/mp4"
+    },
+    {
+      "type": "screen-encoder-start",
+      "offsetMs": 43.5
+    },
+    {
+      "type": "camera-encoder-start",
+      "offsetMs": 44.20000001788139
+    },
+    {
+      "type": "microphone-encoder-start",
+      "offsetMs": 75.80000001192093
+    },
+    {
+      "type": "pause",
+      "offsetMs": 2701.4000000059605
+    },
+    {
+      "type": "resume",
+      "offsetMs": 3800.2000000178814
+    },
+    {
+      "type": "stop",
+      "offsetMs": 6011.5,
+      "detail": "source-ended"
+    }
+  ],
+  "routing": {
+    "screen": "Shared source audio only",
+    "camera": "Microphone",
+    "microphone": "Separate encoded audio file, also included in camera video"
+  }
+}

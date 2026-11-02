@@ -54,3 +54,7 @@ The reviewed Waveform Playlist checkout and packaged runtime versions are record
 | @dnd-kit/abstract | 0.5.0 | MIT |
 
 License texts for the integrated audio libraries are in `public/licenses/`. Existing Craft license, NOTICE, font and attribution files remain beside their bundles. GPL/AGPL candidates were not incorporated.
+
+## Adopted source builds
+
+Model now uses a fresh SolidCraft release build at the exact source pin above, with the reviewed `integration/patches/solidcraft-host-chrome.patch`. Audio now uses a fresh SoundCraft Trunk release build at its recorded pin. Artifact hashes, build phase and adapter hashes are in `integration/builds/solidcraft.json` and `integration/builds/soundcraft.json`. SolidCraft's adopted module completed O3 + thin LTO and wasm-bindgen; optional Binaryen size minification was omitted. This does not establish reproducibility or source identity for the other inherited Craft bundles. See the current implementation status for actual workflow evidence.

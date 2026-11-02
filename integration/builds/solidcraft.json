@@ -1,0 +1,29 @@
+{
+  "id": "solidcraft",
+  "sourceCommit": "56b77b405dc7c567854329a9511aa03e209caef7",
+  "upstream": "https://github.com/tangency-labs/solidcraft",
+  "overlay": "integration/patches/solidcraft-host-chrome.patch",
+  "overlaySha256": "5d81de49096a094e696d4771523f70c847a3aef747f6ddf472ca862cc5186e9d",
+  "stagedAt": "2026-11-02T13:57:34.831Z",
+  "stagedPath": "staging/solidcraft/56b77b405dc7c567854329a9511aa03e209caef7-host-release-30d7d9f244d4",
+  "buildCommand": "npm run upstream:build -- solidcraft --overlay",
+  "phase": "Completed release compilation (O3 + thin LTO) and wasm-bindgen 0.2.129; optional wasm-opt -Oz minification omitted from this staged copy.",
+  "fullTrunkPipelineComplete": false,
+  "validWebAssembly": true,
+  "artifacts": [
+    {
+      "file": "model-engine-30d7d9f244d43e55.wasm",
+      "bytes": 138786355,
+      "sha256": "30d7d9f244d43e5554693a566d8cb2f824282070a75fd06cfe2ec31700e18fdf"
+    },
+    {
+      "file": "model-engine-73b2e2e0112d65ce.js",
+      "bytes": 186323,
+      "sha256": "73b2e2e0112d65ceaef282d55d4e559c104acf4a66c26831d7a94f12dc061ed3"
+    }
+  ],
+  "adapter": {
+    "file": "public/editors/solidcraft/workspace.html",
+    "sha256": "14a90fc7c63d190682417d480dcb2809093e3f91010d4644f390eba067849f37"
+  }
+}

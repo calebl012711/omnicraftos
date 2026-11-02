@@ -1,0 +1,4649 @@
+{
+  "at": "2026-11-02T12:39:19.436Z",
+  "environment": "Chrome headless; synthetic MediaStreams injected at device boundary; real MediaRecorder and browser storage",
+  "physicalDevicesTested": false,
+  "seconds": 1200,
+  "tests": {
+    "encodedFiles": {
+      "passed": true,
+      "files": {
+        "screen": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-screen.mp4",
+        "camera": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-camera.mp4",
+        "microphone": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-microphone.m4a"
+      },
+      "manifest": {
+        "version": 1,
+        "id": "take-2026-11-02T12-39-25-579Z-8421c2",
+        "createdAt": "2026-11-02T12:39:25.580Z",
+        "state": "complete",
+        "mode": "capture",
+        "durationMs": 1204079.599999994,
+        "files": [
+          {
+            "kind": "screen",
+            "name": "screen.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 23853205,
+            "chunks": 356
+          },
+          {
+            "kind": "camera",
+            "name": "camera.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 24450421,
+            "chunks": 355
+          },
+          {
+            "kind": "microphone",
+            "name": "microphone.m4a",
+            "mime": "audio/mp4",
+            "bytes": 19415793,
+            "chunks": 1169
+          }
+        ],
+        "events": [
+          {
+            "type": "common-start",
+            "offsetMs": 0.09999999403953552,
+            "detail": "2026-11-02T12:39:28.695Z"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.4000000059604645,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.4000000059604645,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.5,
+            "detail": "audio/mp4"
+          },
+          {
+            "type": "camera-encoder-start",
+            "offsetMs": 46.5
+          },
+          {
+            "type": "screen-encoder-start",
+            "offsetMs": 46.69999998807907
+          },
+          {
+            "type": "microphone-encoder-start",
+            "offsetMs": 62.29999998211861
+          },
+          {
+            "type": "stop",
+            "offsetMs": 1204065.2999999821,
+            "detail": "user-stop"
+          }
+        ],
+        "routing": {
+          "screen": "Shared source audio only",
+          "camera": "Microphone",
+          "microphone": "Separate encoded audio file, also included in camera video"
+        }
+      },
+      "drifts": [
+        {
+          "t": 1,
+          "screen": 6.1,
+          "camera": 6.1,
+          "delta": 0
+        },
+        {
+          "t": 600,
+          "screen": 605.1,
+          "camera": 605.1,
+          "delta": 0
+        },
+        {
+          "t": 1198,
+          "screen": 1203.2,
+          "camera": 1203.1,
+          "delta": 0.10000000000013642
+        }
+      ],
+      "tones": {
+        "screen660": 0.049940019094391046,
+        "screen440": 0.000036333223388338805,
+        "camera440": 0.0500025090846139,
+        "camera660": 0.000033653784268721185,
+        "mic440": 0.04993756225819557
+      },
+      "probes": {
+        "screen": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "Constrained Baseline",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.42c01f",
+              "width": 640,
+              "height": 360,
+              "coded_width": 640,
+              "coded_height": 360,
+              "has_b_frames": 0,
+              "sample_aspect_ratio": "1:1",
+              "display_aspect_ratio": "16:9",
+              "pix_fmt": "yuvj420p",
+              "level": 31,
+              "color_range": "pc",
+              "color_space": "bt709",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "30000/1",
+              "avg_frame_rate": "270307500/9026711",
+              "time_base": "1/30000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 36122092,
+              "duration": "1204.069733",
+              "bit_rate": "46493",
+              "bits_per_raw_sample": "8",
+              "extradata_size": 33,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:32.000000Z",
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "AVC1 Coding"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 57480082,
+              "duration": "1197.501708",
+              "bit_rate": "107360",
+              "extradata_size": 2,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:32.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-screen.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "1204.069733",
+            "size": "23853205",
+            "bit_rate": "158483",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2avc1mp41",
+              "creation_time": "2026-11-02T12:39:32.000000Z"
+            }
+          }
+        },
+        "camera": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x1",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 57472983,
+              "duration": "1197.353813",
+              "bit_rate": "109519",
+              "extradata_size": 2,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:32.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "Constrained Baseline",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.42c01f",
+              "width": 640,
+              "height": 360,
+              "coded_width": 640,
+              "coded_height": 360,
+              "has_b_frames": 0,
+              "sample_aspect_ratio": "1:1",
+              "display_aspect_ratio": "16:9",
+              "pix_fmt": "yuvj420p",
+              "level": 31,
+              "color_range": "pc",
+              "color_space": "bt709",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x2",
+              "r_frame_rate": "30/1",
+              "avg_frame_rate": "1079430000/36104473",
+              "time_base": "1/30000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 36122510,
+              "duration": "1204.083667",
+              "bit_rate": "48336",
+              "bits_per_raw_sample": "8",
+              "extradata_size": 33,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:32.000000Z",
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "AVC1 Coding"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-camera.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "1204.083667",
+            "size": "24450421",
+            "bit_rate": "162449",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2avc1mp41",
+              "creation_time": "2026-11-02T12:39:32.000000Z"
+            }
+          }
+        },
+        "microphone": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "opus",
+              "codec_long_name": "Opus (Opus Interactive Audio Codec)",
+              "codec_type": "audio",
+              "codec_tag_string": "Opus",
+              "codec_tag": "0x7375704f",
+              "mime_codec_string": "opus",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 3840,
+              "id": "0x1",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 57793104,
+              "duration": "1204.023000",
+              "bit_rate": "132273",
+              "extradata_size": 19,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:29.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-microphone.m4a",
+            "nb_streams": 1,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "1204.023000",
+            "size": "19415793",
+            "bit_rate": "129006",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2vp09mp41",
+              "creation_time": "2026-11-02T12:39:29.000000Z"
+            }
+          }
+        }
+      },
+      "heapSamples": [
+        {
+          "heap": 5303562,
+          "at": 1793623174162,
+          "state": "recording"
+        },
+        {
+          "heap": 5252196,
+          "at": 1793623179170,
+          "state": "recording"
+        },
+        {
+          "heap": 5674562,
+          "at": 1793623184213,
+          "state": "recording"
+        },
+        {
+          "heap": 5418147,
+          "at": 1793623189229,
+          "state": "recording"
+        },
+        {
+          "heap": 5820593,
+          "at": 1793623194259,
+          "state": "recording"
+        },
+        {
+          "heap": 5591411,
+          "at": 1793623199263,
+          "state": "recording"
+        },
+        {
+          "heap": 5959045,
+          "at": 1793623204271,
+          "state": "recording"
+        },
+        {
+          "heap": 5736306,
+          "at": 1793623209282,
+          "state": "recording"
+        },
+        {
+          "heap": 5555533,
+          "at": 1793623214288,
+          "state": "recording"
+        },
+        {
+          "heap": 5855294,
+          "at": 1793623219295,
+          "state": "recording"
+        },
+        {
+          "heap": 6121055,
+          "at": 1793623224309,
+          "state": "recording"
+        },
+        {
+          "heap": 5380869,
+          "at": 1793623229319,
+          "state": "recording"
+        },
+        {
+          "heap": 4980573,
+          "at": 1793623234328,
+          "state": "recording"
+        },
+        {
+          "heap": 5174528,
+          "at": 1793623239351,
+          "state": "recording"
+        },
+        {
+          "heap": 5485375,
+          "at": 1793623244355,
+          "state": "recording"
+        },
+        {
+          "heap": 5698273,
+          "at": 1793623249360,
+          "state": "recording"
+        },
+        {
+          "heap": 5245970,
+          "at": 1793623254366,
+          "state": "recording"
+        },
+        {
+          "heap": 5473149,
+          "at": 1793623259373,
+          "state": "recording"
+        },
+        {
+          "heap": 5653718,
+          "at": 1793623264389,
+          "state": "recording"
+        },
+        {
+          "heap": 5135813,
+          "at": 1793623269398,
+          "state": "recording"
+        },
+        {
+          "heap": 5456244,
+          "at": 1793623274421,
+          "state": "recording"
+        },
+        {
+          "heap": 5694104,
+          "at": 1793623279433,
+          "state": "recording"
+        },
+        {
+          "heap": 5299620,
+          "at": 1793623284452,
+          "state": "recording"
+        },
+        {
+          "heap": 5500797,
+          "at": 1793623289461,
+          "state": "recording"
+        },
+        {
+          "heap": 5794893,
+          "at": 1793623294494,
+          "state": "recording"
+        },
+        {
+          "heap": 4972784,
+          "at": 1793623299565,
+          "state": "recording"
+        },
+        {
+          "heap": 5244865,
+          "at": 1793623304622,
+          "state": "recording"
+        },
+        {
+          "heap": 5464367,
+          "at": 1793623309641,
+          "state": "recording"
+        },
+        {
+          "heap": 5011202,
+          "at": 1793623314654,
+          "state": "recording"
+        },
+        {
+          "heap": 5279761,
+          "at": 1793623319707,
+          "state": "recording"
+        },
+        {
+          "heap": 5643876,
+          "at": 1793623324726,
+          "state": "recording"
+        },
+        {
+          "heap": 5188240,
+          "at": 1793623329764,
+          "state": "recording"
+        },
+        {
+          "heap": 5430933,
+          "at": 1793623334779,
+          "state": "recording"
+        },
+        {
+          "heap": 5631779,
+          "at": 1793623339789,
+          "state": "recording"
+        },
+        {
+          "heap": 5109948,
+          "at": 1793623344796,
+          "state": "recording"
+        },
+        {
+          "heap": 5353288,
+          "at": 1793623349805,
+          "state": "recording"
+        },
+        {
+          "heap": 5596201,
+          "at": 1793623354814,
+          "state": "recording"
+        },
+        {
+          "heap": 5093612,
+          "at": 1793623359845,
+          "state": "recording"
+        },
+        {
+          "heap": 5323664,
+          "at": 1793623364856,
+          "state": "recording"
+        },
+        {
+          "heap": 5398168,
+          "at": 1793623369865,
+          "state": "recording"
+        },
+        {
+          "heap": 5629608,
+          "at": 1793623374876,
+          "state": "recording"
+        },
+        {
+          "heap": 5167310,
+          "at": 1793623379881,
+          "state": "recording"
+        },
+        {
+          "heap": 5369426,
+          "at": 1793623384893,
+          "state": "recording"
+        },
+        {
+          "heap": 5637093,
+          "at": 1793623389900,
+          "state": "recording"
+        },
+        {
+          "heap": 5083992,
+          "at": 1793623394906,
+          "state": "recording"
+        },
+        {
+          "heap": 5325579,
+          "at": 1793623399912,
+          "state": "recording"
+        },
+        {
+          "heap": 5229048,
+          "at": 1793623404920,
+          "state": "recording"
+        },
+        {
+          "heap": 5545380,
+          "at": 1793623409926,
+          "state": "recording"
+        },
+        {
+          "heap": 5726567,
+          "at": 1793623414933,
+          "state": "recording"
+        },
+        {
+          "heap": 5244159,
+          "at": 1793623419940,
+          "state": "recording"
+        },
+        {
+          "heap": 5526810,
+          "at": 1793623424946,
+          "state": "recording"
+        },
+        {
+          "heap": 5095643,
+          "at": 1793623429955,
+          "state": "recording"
+        },
+        {
+          "heap": 5237179,
+          "at": 1793623434962,
+          "state": "recording"
+        },
+        {
+          "heap": 5275846,
+          "at": 1793623439973,
+          "state": "recording"
+        },
+        {
+          "heap": 5441184,
+          "at": 1793623444982,
+          "state": "recording"
+        },
+        {
+          "heap": 5613275,
+          "at": 1793623449989,
+          "state": "recording"
+        },
+        {
+          "heap": 5741762,
+          "at": 1793623455002,
+          "state": "recording"
+        },
+        {
+          "heap": 5192392,
+          "at": 1793623460007,
+          "state": "recording"
+        },
+        {
+          "heap": 5328843,
+          "at": 1793623465023,
+          "state": "recording"
+        },
+        {
+          "heap": 5548255,
+          "at": 1793623470047,
+          "state": "recording"
+        },
+        {
+          "heap": 4946115,
+          "at": 1793623475059,
+          "state": "recording"
+        },
+        {
+          "heap": 5087421,
+          "at": 1793623480071,
+          "state": "recording"
+        },
+        {
+          "heap": 5243657,
+          "at": 1793623485083,
+          "state": "recording"
+        },
+        {
+          "heap": 5393715,
+          "at": 1793623490090,
+          "state": "recording"
+        },
+        {
+          "heap": 5576796,
+          "at": 1793623495129,
+          "state": "recording"
+        },
+        {
+          "heap": 4981643,
+          "at": 1793623500137,
+          "state": "recording"
+        },
+        {
+          "heap": 5216094,
+          "at": 1793623505147,
+          "state": "recording"
+        },
+        {
+          "heap": 5430056,
+          "at": 1793623510154,
+          "state": "recording"
+        },
+        {
+          "heap": 4783780,
+          "at": 1793623515159,
+          "state": "recording"
+        },
+        {
+          "heap": 4932869,
+          "at": 1793623520168,
+          "state": "recording"
+        },
+        {
+          "heap": 5063783,
+          "at": 1793623525176,
+          "state": "recording"
+        },
+        {
+          "heap": 5218523,
+          "at": 1793623530181,
+          "state": "recording"
+        },
+        {
+          "heap": 5370112,
+          "at": 1793623535189,
+          "state": "recording"
+        },
+        {
+          "heap": 5474396,
+          "at": 1793623540198,
+          "state": "recording"
+        },
+        {
+          "heap": 4890669,
+          "at": 1793623545204,
+          "state": "recording"
+        },
+        {
+          "heap": 4965401,
+          "at": 1793623550213,
+          "state": "recording"
+        },
+        {
+          "heap": 5175827,
+          "at": 1793623555221,
+          "state": "recording"
+        },
+        {
+          "heap": 5287155,
+          "at": 1793623560229,
+          "state": "recording"
+        },
+        {
+          "heap": 5417093,
+          "at": 1793623565238,
+          "state": "recording"
+        },
+        {
+          "heap": 5423230,
+          "at": 1793623570243,
+          "state": "recording"
+        },
+        {
+          "heap": 5662915,
+          "at": 1793623575343,
+          "state": "recording"
+        },
+        {
+          "heap": 5186469,
+          "at": 1793623580370,
+          "state": "recording"
+        },
+        {
+          "heap": 5387431,
+          "at": 1793623585376,
+          "state": "recording"
+        },
+        {
+          "heap": 5475807,
+          "at": 1793623590384,
+          "state": "recording"
+        },
+        {
+          "heap": 4836916,
+          "at": 1793623595394,
+          "state": "recording"
+        },
+        {
+          "heap": 5029402,
+          "at": 1793623600401,
+          "state": "recording"
+        },
+        {
+          "heap": 5195345,
+          "at": 1793623605406,
+          "state": "recording"
+        },
+        {
+          "heap": 5113475,
+          "at": 1793623610413,
+          "state": "recording"
+        },
+        {
+          "heap": 5224175,
+          "at": 1793623615420,
+          "state": "recording"
+        },
+        {
+          "heap": 5375056,
+          "at": 1793623620427,
+          "state": "recording"
+        },
+        {
+          "heap": 5519714,
+          "at": 1793623625436,
+          "state": "recording"
+        },
+        {
+          "heap": 4875236,
+          "at": 1793623630442,
+          "state": "recording"
+        },
+        {
+          "heap": 5113745,
+          "at": 1793623635454,
+          "state": "recording"
+        },
+        {
+          "heap": 5298859,
+          "at": 1793623640459,
+          "state": "recording"
+        },
+        {
+          "heap": 5194627,
+          "at": 1793623645467,
+          "state": "recording"
+        },
+        {
+          "heap": 5413947,
+          "at": 1793623650474,
+          "state": "recording"
+        },
+        {
+          "heap": 5461436,
+          "at": 1793623655480,
+          "state": "recording"
+        },
+        {
+          "heap": 4825603,
+          "at": 1793623660489,
+          "state": "recording"
+        },
+        {
+          "heap": 4933185,
+          "at": 1793623665498,
+          "state": "recording"
+        },
+        {
+          "heap": 5083659,
+          "at": 1793623670504,
+          "state": "recording"
+        },
+        {
+          "heap": 5187038,
+          "at": 1793623675511,
+          "state": "recording"
+        },
+        {
+          "heap": 5282126,
+          "at": 1793623680521,
+          "state": "recording"
+        },
+        {
+          "heap": 5472104,
+          "at": 1793623685535,
+          "state": "recording"
+        },
+        {
+          "heap": 5622301,
+          "at": 1793623690549,
+          "state": "recording"
+        },
+        {
+          "heap": 5052605,
+          "at": 1793623695728,
+          "state": "recording"
+        },
+        {
+          "heap": 4973468,
+          "at": 1793623700734,
+          "state": "recording"
+        },
+        {
+          "heap": 5026988,
+          "at": 1793623705743,
+          "state": "recording"
+        },
+        {
+          "heap": 5172234,
+          "at": 1793623710774,
+          "state": "recording"
+        },
+        {
+          "heap": 5112920,
+          "at": 1793623715779,
+          "state": "recording"
+        },
+        {
+          "heap": 5277966,
+          "at": 1793623720785,
+          "state": "recording"
+        },
+        {
+          "heap": 5421749,
+          "at": 1793623725796,
+          "state": "recording"
+        },
+        {
+          "heap": 5586315,
+          "at": 1793623730815,
+          "state": "recording"
+        },
+        {
+          "heap": 4963802,
+          "at": 1793623735823,
+          "state": "recording"
+        },
+        {
+          "heap": 5118968,
+          "at": 1793623740828,
+          "state": "recording"
+        },
+        {
+          "heap": 5230044,
+          "at": 1793623745836,
+          "state": "recording"
+        },
+        {
+          "heap": 5152173,
+          "at": 1793623750846,
+          "state": "recording"
+        },
+        {
+          "heap": 5364597,
+          "at": 1793623755859,
+          "state": "recording"
+        },
+        {
+          "heap": 5505833,
+          "at": 1793623760875,
+          "state": "recording"
+        },
+        {
+          "heap": 4930395,
+          "at": 1793623765888,
+          "state": "recording"
+        },
+        {
+          "heap": 5129450,
+          "at": 1793623770926,
+          "state": "recording"
+        },
+        {
+          "heap": 5288114,
+          "at": 1793623775936,
+          "state": "recording"
+        },
+        {
+          "heap": 5473880,
+          "at": 1793623780945,
+          "state": "recording"
+        },
+        {
+          "heap": 5331995,
+          "at": 1793623785999,
+          "state": "recording"
+        },
+        {
+          "heap": 5537854,
+          "at": 1793623791023,
+          "state": "recording"
+        },
+        {
+          "heap": 4913922,
+          "at": 1793623796032,
+          "state": "recording"
+        },
+        {
+          "heap": 5217097,
+          "at": 1793623801056,
+          "state": "recording"
+        },
+        {
+          "heap": 5365887,
+          "at": 1793623806085,
+          "state": "recording"
+        },
+        {
+          "heap": 5508288,
+          "at": 1793623811092,
+          "state": "recording"
+        },
+        {
+          "heap": 5124689,
+          "at": 1793623816098,
+          "state": "recording"
+        },
+        {
+          "heap": 5324611,
+          "at": 1793623821103,
+          "state": "recording"
+        },
+        {
+          "heap": 5419322,
+          "at": 1793623826114,
+          "state": "recording"
+        },
+        {
+          "heap": 5585363,
+          "at": 1793623831123,
+          "state": "recording"
+        },
+        {
+          "heap": 4934232,
+          "at": 1793623836133,
+          "state": "recording"
+        },
+        {
+          "heap": 5078904,
+          "at": 1793623841140,
+          "state": "recording"
+        },
+        {
+          "heap": 5268402,
+          "at": 1793623846158,
+          "state": "recording"
+        },
+        {
+          "heap": 5192370,
+          "at": 1793623851195,
+          "state": "recording"
+        },
+        {
+          "heap": 5407954,
+          "at": 1793623856232,
+          "state": "recording"
+        },
+        {
+          "heap": 4868816,
+          "at": 1793623861238,
+          "state": "recording"
+        },
+        {
+          "heap": 5003105,
+          "at": 1793623866258,
+          "state": "recording"
+        },
+        {
+          "heap": 5180286,
+          "at": 1793623871264,
+          "state": "recording"
+        },
+        {
+          "heap": 5347343,
+          "at": 1793623876271,
+          "state": "recording"
+        },
+        {
+          "heap": 5537897,
+          "at": 1793623881278,
+          "state": "recording"
+        },
+        {
+          "heap": 5388612,
+          "at": 1793623886285,
+          "state": "recording"
+        },
+        {
+          "heap": 5454290,
+          "at": 1793623891302,
+          "state": "recording"
+        },
+        {
+          "heap": 5606528,
+          "at": 1793623896321,
+          "state": "recording"
+        },
+        {
+          "heap": 5002282,
+          "at": 1793623901328,
+          "state": "recording"
+        },
+        {
+          "heap": 5215444,
+          "at": 1793623906335,
+          "state": "recording"
+        },
+        {
+          "heap": 5355429,
+          "at": 1793623911342,
+          "state": "recording"
+        },
+        {
+          "heap": 5499047,
+          "at": 1793623916348,
+          "state": "recording"
+        },
+        {
+          "heap": 4855738,
+          "at": 1793623921356,
+          "state": "recording"
+        },
+        {
+          "heap": 5163060,
+          "at": 1793623926486,
+          "state": "recording"
+        },
+        {
+          "heap": 5364270,
+          "at": 1793623931499,
+          "state": "recording"
+        },
+        {
+          "heap": 5583219,
+          "at": 1793623936507,
+          "state": "recording"
+        },
+        {
+          "heap": 5009102,
+          "at": 1793623941566,
+          "state": "recording"
+        },
+        {
+          "heap": 5200050,
+          "at": 1793623946573,
+          "state": "recording"
+        },
+        {
+          "heap": 5381081,
+          "at": 1793623951619,
+          "state": "recording"
+        },
+        {
+          "heap": 4854416,
+          "at": 1793623956639,
+          "state": "recording"
+        },
+        {
+          "heap": 5006401,
+          "at": 1793623961649,
+          "state": "recording"
+        },
+        {
+          "heap": 5244042,
+          "at": 1793623966678,
+          "state": "recording"
+        },
+        {
+          "heap": 5316403,
+          "at": 1793623971698,
+          "state": "recording"
+        },
+        {
+          "heap": 5483010,
+          "at": 1793623976706,
+          "state": "recording"
+        },
+        {
+          "heap": 5672979,
+          "at": 1793623981716,
+          "state": "recording"
+        },
+        {
+          "heap": 4730436,
+          "at": 1793623986724,
+          "state": "recording"
+        },
+        {
+          "heap": 4929533,
+          "at": 1793623991738,
+          "state": "recording"
+        },
+        {
+          "heap": 5106836,
+          "at": 1793623996748,
+          "state": "recording"
+        },
+        {
+          "heap": 5314275,
+          "at": 1793624001754,
+          "state": "recording"
+        },
+        {
+          "heap": 5496801,
+          "at": 1793624006766,
+          "state": "recording"
+        },
+        {
+          "heap": 5650049,
+          "at": 1793624011781,
+          "state": "recording"
+        },
+        {
+          "heap": 5043604,
+          "at": 1793624016790,
+          "state": "recording"
+        },
+        {
+          "heap": 5084004,
+          "at": 1793624021802,
+          "state": "recording"
+        },
+        {
+          "heap": 5287702,
+          "at": 1793624026809,
+          "state": "recording"
+        },
+        {
+          "heap": 5434654,
+          "at": 1793624031823,
+          "state": "recording"
+        },
+        {
+          "heap": 5576846,
+          "at": 1793624036843,
+          "state": "recording"
+        },
+        {
+          "heap": 5683312,
+          "at": 1793624041850,
+          "state": "recording"
+        },
+        {
+          "heap": 5075474,
+          "at": 1793624046860,
+          "state": "recording"
+        },
+        {
+          "heap": 5295151,
+          "at": 1793624051873,
+          "state": "recording"
+        },
+        {
+          "heap": 5164104,
+          "at": 1793624056882,
+          "state": "recording"
+        },
+        {
+          "heap": 5294063,
+          "at": 1793624061890,
+          "state": "recording"
+        },
+        {
+          "heap": 5477593,
+          "at": 1793624066896,
+          "state": "recording"
+        },
+        {
+          "heap": 5499218,
+          "at": 1793624071905,
+          "state": "recording"
+        },
+        {
+          "heap": 4984888,
+          "at": 1793624076911,
+          "state": "recording"
+        },
+        {
+          "heap": 5125937,
+          "at": 1793624081923,
+          "state": "recording"
+        },
+        {
+          "heap": 5281094,
+          "at": 1793624086929,
+          "state": "recording"
+        },
+        {
+          "heap": 4972799,
+          "at": 1793624091935,
+          "state": "recording"
+        },
+        {
+          "heap": 5207166,
+          "at": 1793624096948,
+          "state": "recording"
+        },
+        {
+          "heap": 5359227,
+          "at": 1793624101955,
+          "state": "recording"
+        },
+        {
+          "heap": 5586067,
+          "at": 1793624106962,
+          "state": "recording"
+        },
+        {
+          "heap": 4987268,
+          "at": 1793624111970,
+          "state": "recording"
+        },
+        {
+          "heap": 5115959,
+          "at": 1793624116975,
+          "state": "recording"
+        },
+        {
+          "heap": 5280621,
+          "at": 1793624121980,
+          "state": "recording"
+        },
+        {
+          "heap": 5203164,
+          "at": 1793624126984,
+          "state": "recording"
+        },
+        {
+          "heap": 5334740,
+          "at": 1793624131990,
+          "state": "recording"
+        },
+        {
+          "heap": 5492532,
+          "at": 1793624136998,
+          "state": "recording"
+        },
+        {
+          "heap": 4955762,
+          "at": 1793624142006,
+          "state": "recording"
+        },
+        {
+          "heap": 5126726,
+          "at": 1793624147017,
+          "state": "recording"
+        },
+        {
+          "heap": 5313650,
+          "at": 1793624152027,
+          "state": "recording"
+        },
+        {
+          "heap": 5498472,
+          "at": 1793624157042,
+          "state": "recording"
+        },
+        {
+          "heap": 5440104,
+          "at": 1793624162083,
+          "state": "recording"
+        },
+        {
+          "heap": 4881498,
+          "at": 1793624167096,
+          "state": "recording"
+        },
+        {
+          "heap": 5035008,
+          "at": 1793624172101,
+          "state": "recording"
+        },
+        {
+          "heap": 5148272,
+          "at": 1793624177106,
+          "state": "recording"
+        },
+        {
+          "heap": 5334486,
+          "at": 1793624182115,
+          "state": "recording"
+        },
+        {
+          "heap": 5447367,
+          "at": 1793624187148,
+          "state": "recording"
+        },
+        {
+          "heap": 5597220,
+          "at": 1793624192228,
+          "state": "recording"
+        },
+        {
+          "heap": 5403029,
+          "at": 1793624197234,
+          "state": "recording"
+        },
+        {
+          "heap": 5592746,
+          "at": 1793624202239,
+          "state": "recording"
+        },
+        {
+          "heap": 5028178,
+          "at": 1793624207248,
+          "state": "recording"
+        },
+        {
+          "heap": 5214534,
+          "at": 1793624212261,
+          "state": "recording"
+        },
+        {
+          "heap": 5445437,
+          "at": 1793624217321,
+          "state": "recording"
+        },
+        {
+          "heap": 5627857,
+          "at": 1793624222329,
+          "state": "recording"
+        },
+        {
+          "heap": 4985256,
+          "at": 1793624227339,
+          "state": "recording"
+        },
+        {
+          "heap": 4881101,
+          "at": 1793624232410,
+          "state": "recording"
+        },
+        {
+          "heap": 5120091,
+          "at": 1793624237439,
+          "state": "recording"
+        },
+        {
+          "heap": 5216015,
+          "at": 1793624242444,
+          "state": "recording"
+        },
+        {
+          "heap": 5367764,
+          "at": 1793624247480,
+          "state": "recording"
+        },
+        {
+          "heap": 5463407,
+          "at": 1793624252496,
+          "state": "recording"
+        },
+        {
+          "heap": 5611975,
+          "at": 1793624257505,
+          "state": "recording"
+        },
+        {
+          "heap": 4808518,
+          "at": 1793624262515,
+          "state": "recording"
+        },
+        {
+          "heap": 4983808,
+          "at": 1793624267521,
+          "state": "recording"
+        },
+        {
+          "heap": 5174107,
+          "at": 1793624272532,
+          "state": "recording"
+        },
+        {
+          "heap": 5323213,
+          "at": 1793624277536,
+          "state": "recording"
+        },
+        {
+          "heap": 5428705,
+          "at": 1793624282543,
+          "state": "recording"
+        },
+        {
+          "heap": 5643912,
+          "at": 1793624287552,
+          "state": "recording"
+        },
+        {
+          "heap": 5021911,
+          "at": 1793624292562,
+          "state": "recording"
+        },
+        {
+          "heap": 5463054,
+          "at": 1793624297588,
+          "state": "recording"
+        },
+        {
+          "heap": 5601471,
+          "at": 1793624302610,
+          "state": "recording"
+        },
+        {
+          "heap": 4956936,
+          "at": 1793624307616,
+          "state": "recording"
+        },
+        {
+          "heap": 5171597,
+          "at": 1793624312622,
+          "state": "recording"
+        },
+        {
+          "heap": 5360810,
+          "at": 1793624317634,
+          "state": "recording"
+        },
+        {
+          "heap": 5544233,
+          "at": 1793624322642,
+          "state": "recording"
+        },
+        {
+          "heap": 5710258,
+          "at": 1793624327648,
+          "state": "recording"
+        },
+        {
+          "heap": 5503310,
+          "at": 1793624332658,
+          "state": "recording"
+        },
+        {
+          "heap": 4983373,
+          "at": 1793624337696,
+          "state": "recording"
+        },
+        {
+          "heap": 5219847,
+          "at": 1793624342701,
+          "state": "recording"
+        },
+        {
+          "heap": 5387101,
+          "at": 1793624347707,
+          "state": "recording"
+        },
+        {
+          "heap": 5598157,
+          "at": 1793624352712,
+          "state": "recording"
+        },
+        {
+          "heap": 5657323,
+          "at": 1793624357716,
+          "state": "recording"
+        },
+        {
+          "heap": 5052798,
+          "at": 1793624362724,
+          "state": "recording"
+        },
+        {
+          "heap": 4848431,
+          "at": 1793624367729,
+          "state": "recording"
+        },
+        {
+          "heap": 5079917,
+          "at": 1793624372735,
+          "state": "recording"
+        }
+      ]
+    },
+    "capture": {
+      "passed": true,
+      "files": {
+        "screen": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-screen.mp4",
+        "camera": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-camera.mp4",
+        "microphone": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-microphone.m4a"
+      },
+      "manifest": {
+        "version": 1,
+        "id": "take-2026-11-02T12-39-25-579Z-8421c2",
+        "createdAt": "2026-11-02T12:39:25.580Z",
+        "state": "complete",
+        "mode": "capture",
+        "durationMs": 1204079.599999994,
+        "files": [
+          {
+            "kind": "screen",
+            "name": "screen.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 23853205,
+            "chunks": 356
+          },
+          {
+            "kind": "camera",
+            "name": "camera.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 24450421,
+            "chunks": 355
+          },
+          {
+            "kind": "microphone",
+            "name": "microphone.m4a",
+            "mime": "audio/mp4",
+            "bytes": 19415793,
+            "chunks": 1169
+          }
+        ],
+        "events": [
+          {
+            "type": "common-start",
+            "offsetMs": 0.09999999403953552,
+            "detail": "2026-11-02T12:39:28.695Z"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.4000000059604645,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.4000000059604645,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.5,
+            "detail": "audio/mp4"
+          },
+          {
+            "type": "camera-encoder-start",
+            "offsetMs": 46.5
+          },
+          {
+            "type": "screen-encoder-start",
+            "offsetMs": 46.69999998807907
+          },
+          {
+            "type": "microphone-encoder-start",
+            "offsetMs": 62.29999998211861
+          },
+          {
+            "type": "stop",
+            "offsetMs": 1204065.2999999821,
+            "detail": "user-stop"
+          }
+        ],
+        "routing": {
+          "screen": "Shared source audio only",
+          "camera": "Microphone",
+          "microphone": "Separate encoded audio file, also included in camera video"
+        }
+      },
+      "drifts": [
+        {
+          "t": 1,
+          "screen": 6.1,
+          "camera": 6.1,
+          "delta": 0
+        },
+        {
+          "t": 600,
+          "screen": 605.1,
+          "camera": 605.1,
+          "delta": 0
+        },
+        {
+          "t": 1198,
+          "screen": 1203.2,
+          "camera": 1203.1,
+          "delta": 0.10000000000013642
+        }
+      ],
+      "tones": {
+        "screen660": 0.049940019094391046,
+        "screen440": 0.000036333223388338805,
+        "camera440": 0.0500025090846139,
+        "camera660": 0.000033653784268721185,
+        "mic440": 0.04993756225819557
+      },
+      "probes": {
+        "screen": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "Constrained Baseline",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.42c01f",
+              "width": 640,
+              "height": 360,
+              "coded_width": 640,
+              "coded_height": 360,
+              "has_b_frames": 0,
+              "sample_aspect_ratio": "1:1",
+              "display_aspect_ratio": "16:9",
+              "pix_fmt": "yuvj420p",
+              "level": 31,
+              "color_range": "pc",
+              "color_space": "bt709",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "30000/1",
+              "avg_frame_rate": "270307500/9026711",
+              "time_base": "1/30000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 36122092,
+              "duration": "1204.069733",
+              "bit_rate": "46493",
+              "bits_per_raw_sample": "8",
+              "extradata_size": 33,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:32.000000Z",
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "AVC1 Coding"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 57480082,
+              "duration": "1197.501708",
+              "bit_rate": "107360",
+              "extradata_size": 2,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:32.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-screen.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "1204.069733",
+            "size": "23853205",
+            "bit_rate": "158483",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2avc1mp41",
+              "creation_time": "2026-11-02T12:39:32.000000Z"
+            }
+          }
+        },
+        "camera": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x1",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 57472983,
+              "duration": "1197.353813",
+              "bit_rate": "109519",
+              "extradata_size": 2,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:32.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "Constrained Baseline",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.42c01f",
+              "width": 640,
+              "height": 360,
+              "coded_width": 640,
+              "coded_height": 360,
+              "has_b_frames": 0,
+              "sample_aspect_ratio": "1:1",
+              "display_aspect_ratio": "16:9",
+              "pix_fmt": "yuvj420p",
+              "level": 31,
+              "color_range": "pc",
+              "color_space": "bt709",
+              "color_transfer": "iec61966-2-1",
+              "color_primaries": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x2",
+              "r_frame_rate": "30/1",
+              "avg_frame_rate": "1079430000/36104473",
+              "time_base": "1/30000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 36122510,
+              "duration": "1204.083667",
+              "bit_rate": "48336",
+              "bits_per_raw_sample": "8",
+              "extradata_size": 33,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:32.000000Z",
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "AVC1 Coding"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-camera.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "1204.083667",
+            "size": "24450421",
+            "bit_rate": "162449",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2avc1mp41",
+              "creation_time": "2026-11-02T12:39:32.000000Z"
+            }
+          }
+        },
+        "microphone": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "opus",
+              "codec_long_name": "Opus (Opus Interactive Audio Codec)",
+              "codec_type": "audio",
+              "codec_tag_string": "Opus",
+              "codec_tag": "0x7375704f",
+              "mime_codec_string": "opus",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 3840,
+              "id": "0x1",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 57793104,
+              "duration": "1204.023000",
+              "bit_rate": "132273",
+              "extradata_size": 19,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "creation_time": "2026-11-02T12:39:29.000000Z",
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/caleblickteig/Documents/antigravity/joyful-pasteur/verification/capture-long-verified/take-2026-11-02T12-39-25-579Z-8421c2-microphone.m4a",
+            "nb_streams": 1,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "1204.023000",
+            "size": "19415793",
+            "bit_rate": "129006",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso6iso2vp09mp41",
+              "creation_time": "2026-11-02T12:39:29.000000Z"
+            }
+          }
+        }
+      },
+      "heapSamples": [
+        {
+          "heap": 5303562,
+          "at": 1793623174162,
+          "state": "recording"
+        },
+        {
+          "heap": 5252196,
+          "at": 1793623179170,
+          "state": "recording"
+        },
+        {
+          "heap": 5674562,
+          "at": 1793623184213,
+          "state": "recording"
+        },
+        {
+          "heap": 5418147,
+          "at": 1793623189229,
+          "state": "recording"
+        },
+        {
+          "heap": 5820593,
+          "at": 1793623194259,
+          "state": "recording"
+        },
+        {
+          "heap": 5591411,
+          "at": 1793623199263,
+          "state": "recording"
+        },
+        {
+          "heap": 5959045,
+          "at": 1793623204271,
+          "state": "recording"
+        },
+        {
+          "heap": 5736306,
+          "at": 1793623209282,
+          "state": "recording"
+        },
+        {
+          "heap": 5555533,
+          "at": 1793623214288,
+          "state": "recording"
+        },
+        {
+          "heap": 5855294,
+          "at": 1793623219295,
+          "state": "recording"
+        },
+        {
+          "heap": 6121055,
+          "at": 1793623224309,
+          "state": "recording"
+        },
+        {
+          "heap": 5380869,
+          "at": 1793623229319,
+          "state": "recording"
+        },
+        {
+          "heap": 4980573,
+          "at": 1793623234328,
+          "state": "recording"
+        },
+        {
+          "heap": 5174528,
+          "at": 1793623239351,
+          "state": "recording"
+        },
+        {
+          "heap": 5485375,
+          "at": 1793623244355,
+          "state": "recording"
+        },
+        {
+          "heap": 5698273,
+          "at": 1793623249360,
+          "state": "recording"
+        },
+        {
+          "heap": 5245970,
+          "at": 1793623254366,
+          "state": "recording"
+        },
+        {
+          "heap": 5473149,
+          "at": 1793623259373,
+          "state": "recording"
+        },
+        {
+          "heap": 5653718,
+          "at": 1793623264389,
+          "state": "recording"
+        },
+        {
+          "heap": 5135813,
+          "at": 1793623269398,
+          "state": "recording"
+        },
+        {
+          "heap": 5456244,
+          "at": 1793623274421,
+          "state": "recording"
+        },
+        {
+          "heap": 5694104,
+          "at": 1793623279433,
+          "state": "recording"
+        },
+        {
+          "heap": 5299620,
+          "at": 1793623284452,
+          "state": "recording"
+        },
+        {
+          "heap": 5500797,
+          "at": 1793623289461,
+          "state": "recording"
+        },
+        {
+          "heap": 5794893,
+          "at": 1793623294494,
+          "state": "recording"
+        },
+        {
+          "heap": 4972784,
+          "at": 1793623299565,
+          "state": "recording"
+        },
+        {
+          "heap": 5244865,
+          "at": 1793623304622,
+          "state": "recording"
+        },
+        {
+          "heap": 5464367,
+          "at": 1793623309641,
+          "state": "recording"
+        },
+        {
+          "heap": 5011202,
+          "at": 1793623314654,
+          "state": "recording"
+        },
+        {
+          "heap": 5279761,
+          "at": 1793623319707,
+          "state": "recording"
+        },
+        {
+          "heap": 5643876,
+          "at": 1793623324726,
+          "state": "recording"
+        },
+        {
+          "heap": 5188240,
+          "at": 1793623329764,
+          "state": "recording"
+        },
+        {
+          "heap": 5430933,
+          "at": 1793623334779,
+          "state": "recording"
+        },
+        {
+          "heap": 5631779,
+          "at": 1793623339789,
+          "state": "recording"
+        },
+        {
+          "heap": 5109948,
+          "at": 1793623344796,
+          "state": "recording"
+        },
+        {
+          "heap": 5353288,
+          "at": 1793623349805,
+          "state": "recording"
+        },
+        {
+          "heap": 5596201,
+          "at": 1793623354814,
+          "state": "recording"
+        },
+        {
+          "heap": 5093612,
+          "at": 1793623359845,
+          "state": "recording"
+        },
+        {
+          "heap": 5323664,
+          "at": 1793623364856,
+          "state": "recording"
+        },
+        {
+          "heap": 5398168,
+          "at": 1793623369865,
+          "state": "recording"
+        },
+        {
+          "heap": 5629608,
+          "at": 1793623374876,
+          "state": "recording"
+        },
+        {
+          "heap": 5167310,
+          "at": 1793623379881,
+          "state": "recording"
+        },
+        {
+          "heap": 5369426,
+          "at": 1793623384893,
+          "state": "recording"
+        },
+        {
+          "heap": 5637093,
+          "at": 1793623389900,
+          "state": "recording"
+        },
+        {
+          "heap": 5083992,
+          "at": 1793623394906,
+          "state": "recording"
+        },
+        {
+          "heap": 5325579,
+          "at": 1793623399912,
+          "state": "recording"
+        },
+        {
+          "heap": 5229048,
+          "at": 1793623404920,
+          "state": "recording"
+        },
+        {
+          "heap": 5545380,
+          "at": 1793623409926,
+          "state": "recording"
+        },
+        {
+          "heap": 5726567,
+          "at": 1793623414933,
+          "state": "recording"
+        },
+        {
+          "heap": 5244159,
+          "at": 1793623419940,
+          "state": "recording"
+        },
+        {
+          "heap": 5526810,
+          "at": 1793623424946,
+          "state": "recording"
+        },
+        {
+          "heap": 5095643,
+          "at": 1793623429955,
+          "state": "recording"
+        },
+        {
+          "heap": 5237179,
+          "at": 1793623434962,
+          "state": "recording"
+        },
+        {
+          "heap": 5275846,
+          "at": 1793623439973,
+          "state": "recording"
+        },
+        {
+          "heap": 5441184,
+          "at": 1793623444982,
+          "state": "recording"
+        },
+        {
+          "heap": 5613275,
+          "at": 1793623449989,
+          "state": "recording"
+        },
+        {
+          "heap": 5741762,
+          "at": 1793623455002,
+          "state": "recording"
+        },
+        {
+          "heap": 5192392,
+          "at": 1793623460007,
+          "state": "recording"
+        },
+        {
+          "heap": 5328843,
+          "at": 1793623465023,
+          "state": "recording"
+        },
+        {
+          "heap": 5548255,
+          "at": 1793623470047,
+          "state": "recording"
+        },
+        {
+          "heap": 4946115,
+          "at": 1793623475059,
+          "state": "recording"
+        },
+        {
+          "heap": 5087421,
+          "at": 1793623480071,
+          "state": "recording"
+        },
+        {
+          "heap": 5243657,
+          "at": 1793623485083,
+          "state": "recording"
+        },
+        {
+          "heap": 5393715,
+          "at": 1793623490090,
+          "state": "recording"
+        },
+        {
+          "heap": 5576796,
+          "at": 1793623495129,
+          "state": "recording"
+        },
+        {
+          "heap": 4981643,
+          "at": 1793623500137,
+          "state": "recording"
+        },
+        {
+          "heap": 5216094,
+          "at": 1793623505147,
+          "state": "recording"
+        },
+        {
+          "heap": 5430056,
+          "at": 1793623510154,
+          "state": "recording"
+        },
+        {
+          "heap": 4783780,
+          "at": 1793623515159,
+          "state": "recording"
+        },
+        {
+          "heap": 4932869,
+          "at": 1793623520168,
+          "state": "recording"
+        },
+        {
+          "heap": 5063783,
+          "at": 1793623525176,
+          "state": "recording"
+        },
+        {
+          "heap": 5218523,
+          "at": 1793623530181,
+          "state": "recording"
+        },
+        {
+          "heap": 5370112,
+          "at": 1793623535189,
+          "state": "recording"
+        },
+        {
+          "heap": 5474396,
+          "at": 1793623540198,
+          "state": "recording"
+        },
+        {
+          "heap": 4890669,
+          "at": 1793623545204,
+          "state": "recording"
+        },
+        {
+          "heap": 4965401,
+          "at": 1793623550213,
+          "state": "recording"
+        },
+        {
+          "heap": 5175827,
+          "at": 1793623555221,
+          "state": "recording"
+        },
+        {
+          "heap": 5287155,
+          "at": 1793623560229,
+          "state": "recording"
+        },
+        {
+          "heap": 5417093,
+          "at": 1793623565238,
+          "state": "recording"
+        },
+        {
+          "heap": 5423230,
+          "at": 1793623570243,
+          "state": "recording"
+        },
+        {
+          "heap": 5662915,
+          "at": 1793623575343,
+          "state": "recording"
+        },
+        {
+          "heap": 5186469,
+          "at": 1793623580370,
+          "state": "recording"
+        },
+        {
+          "heap": 5387431,
+          "at": 1793623585376,
+          "state": "recording"
+        },
+        {
+          "heap": 5475807,
+          "at": 1793623590384,
+          "state": "recording"
+        },
+        {
+          "heap": 4836916,
+          "at": 1793623595394,
+          "state": "recording"
+        },
+        {
+          "heap": 5029402,
+          "at": 1793623600401,
+          "state": "recording"
+        },
+        {
+          "heap": 5195345,
+          "at": 1793623605406,
+          "state": "recording"
+        },
+        {
+          "heap": 5113475,
+          "at": 1793623610413,
+          "state": "recording"
+        },
+        {
+          "heap": 5224175,
+          "at": 1793623615420,
+          "state": "recording"
+        },
+        {
+          "heap": 5375056,
+          "at": 1793623620427,
+          "state": "recording"
+        },
+        {
+          "heap": 5519714,
+          "at": 1793623625436,
+          "state": "recording"
+        },
+        {
+          "heap": 4875236,
+          "at": 1793623630442,
+          "state": "recording"
+        },
+        {
+          "heap": 5113745,
+          "at": 1793623635454,
+          "state": "recording"
+        },
+        {
+          "heap": 5298859,
+          "at": 1793623640459,
+          "state": "recording"
+        },
+        {
+          "heap": 5194627,
+          "at": 1793623645467,
+          "state": "recording"
+        },
+        {
+          "heap": 5413947,
+          "at": 1793623650474,
+          "state": "recording"
+        },
+        {
+          "heap": 5461436,
+          "at": 1793623655480,
+          "state": "recording"
+        },
+        {
+          "heap": 4825603,
+          "at": 1793623660489,
+          "state": "recording"
+        },
+        {
+          "heap": 4933185,
+          "at": 1793623665498,
+          "state": "recording"
+        },
+        {
+          "heap": 5083659,
+          "at": 1793623670504,
+          "state": "recording"
+        },
+        {
+          "heap": 5187038,
+          "at": 1793623675511,
+          "state": "recording"
+        },
+        {
+          "heap": 5282126,
+          "at": 1793623680521,
+          "state": "recording"
+        },
+        {
+          "heap": 5472104,
+          "at": 1793623685535,
+          "state": "recording"
+        },
+        {
+          "heap": 5622301,
+          "at": 1793623690549,
+          "state": "recording"
+        },
+        {
+          "heap": 5052605,
+          "at": 1793623695728,
+          "state": "recording"
+        },
+        {
+          "heap": 4973468,
+          "at": 1793623700734,
+          "state": "recording"
+        },
+        {
+          "heap": 5026988,
+          "at": 1793623705743,
+          "state": "recording"
+        },
+        {
+          "heap": 5172234,
+          "at": 1793623710774,
+          "state": "recording"
+        },
+        {
+          "heap": 5112920,
+          "at": 1793623715779,
+          "state": "recording"
+        },
+        {
+          "heap": 5277966,
+          "at": 1793623720785,
+          "state": "recording"
+        },
+        {
+          "heap": 5421749,
+          "at": 1793623725796,
+          "state": "recording"
+        },
+        {
+          "heap": 5586315,
+          "at": 1793623730815,
+          "state": "recording"
+        },
+        {
+          "heap": 4963802,
+          "at": 1793623735823,
+          "state": "recording"
+        },
+        {
+          "heap": 5118968,
+          "at": 1793623740828,
+          "state": "recording"
+        },
+        {
+          "heap": 5230044,
+          "at": 1793623745836,
+          "state": "recording"
+        },
+        {
+          "heap": 5152173,
+          "at": 1793623750846,
+          "state": "recording"
+        },
+        {
+          "heap": 5364597,
+          "at": 1793623755859,
+          "state": "recording"
+        },
+        {
+          "heap": 5505833,
+          "at": 1793623760875,
+          "state": "recording"
+        },
+        {
+          "heap": 4930395,
+          "at": 1793623765888,
+          "state": "recording"
+        },
+        {
+          "heap": 5129450,
+          "at": 1793623770926,
+          "state": "recording"
+        },
+        {
+          "heap": 5288114,
+          "at": 1793623775936,
+          "state": "recording"
+        },
+        {
+          "heap": 5473880,
+          "at": 1793623780945,
+          "state": "recording"
+        },
+        {
+          "heap": 5331995,
+          "at": 1793623785999,
+          "state": "recording"
+        },
+        {
+          "heap": 5537854,
+          "at": 1793623791023,
+          "state": "recording"
+        },
+        {
+          "heap": 4913922,
+          "at": 1793623796032,
+          "state": "recording"
+        },
+        {
+          "heap": 5217097,
+          "at": 1793623801056,
+          "state": "recording"
+        },
+        {
+          "heap": 5365887,
+          "at": 1793623806085,
+          "state": "recording"
+        },
+        {
+          "heap": 5508288,
+          "at": 1793623811092,
+          "state": "recording"
+        },
+        {
+          "heap": 5124689,
+          "at": 1793623816098,
+          "state": "recording"
+        },
+        {
+          "heap": 5324611,
+          "at": 1793623821103,
+          "state": "recording"
+        },
+        {
+          "heap": 5419322,
+          "at": 1793623826114,
+          "state": "recording"
+        },
+        {
+          "heap": 5585363,
+          "at": 1793623831123,
+          "state": "recording"
+        },
+        {
+          "heap": 4934232,
+          "at": 1793623836133,
+          "state": "recording"
+        },
+        {
+          "heap": 5078904,
+          "at": 1793623841140,
+          "state": "recording"
+        },
+        {
+          "heap": 5268402,
+          "at": 1793623846158,
+          "state": "recording"
+        },
+        {
+          "heap": 5192370,
+          "at": 1793623851195,
+          "state": "recording"
+        },
+        {
+          "heap": 5407954,
+          "at": 1793623856232,
+          "state": "recording"
+        },
+        {
+          "heap": 4868816,
+          "at": 1793623861238,
+          "state": "recording"
+        },
+        {
+          "heap": 5003105,
+          "at": 1793623866258,
+          "state": "recording"
+        },
+        {
+          "heap": 5180286,
+          "at": 1793623871264,
+          "state": "recording"
+        },
+        {
+          "heap": 5347343,
+          "at": 1793623876271,
+          "state": "recording"
+        },
+        {
+          "heap": 5537897,
+          "at": 1793623881278,
+          "state": "recording"
+        },
+        {
+          "heap": 5388612,
+          "at": 1793623886285,
+          "state": "recording"
+        },
+        {
+          "heap": 5454290,
+          "at": 1793623891302,
+          "state": "recording"
+        },
+        {
+          "heap": 5606528,
+          "at": 1793623896321,
+          "state": "recording"
+        },
+        {
+          "heap": 5002282,
+          "at": 1793623901328,
+          "state": "recording"
+        },
+        {
+          "heap": 5215444,
+          "at": 1793623906335,
+          "state": "recording"
+        },
+        {
+          "heap": 5355429,
+          "at": 1793623911342,
+          "state": "recording"
+        },
+        {
+          "heap": 5499047,
+          "at": 1793623916348,
+          "state": "recording"
+        },
+        {
+          "heap": 4855738,
+          "at": 1793623921356,
+          "state": "recording"
+        },
+        {
+          "heap": 5163060,
+          "at": 1793623926486,
+          "state": "recording"
+        },
+        {
+          "heap": 5364270,
+          "at": 1793623931499,
+          "state": "recording"
+        },
+        {
+          "heap": 5583219,
+          "at": 1793623936507,
+          "state": "recording"
+        },
+        {
+          "heap": 5009102,
+          "at": 1793623941566,
+          "state": "recording"
+        },
+        {
+          "heap": 5200050,
+          "at": 1793623946573,
+          "state": "recording"
+        },
+        {
+          "heap": 5381081,
+          "at": 1793623951619,
+          "state": "recording"
+        },
+        {
+          "heap": 4854416,
+          "at": 1793623956639,
+          "state": "recording"
+        },
+        {
+          "heap": 5006401,
+          "at": 1793623961649,
+          "state": "recording"
+        },
+        {
+          "heap": 5244042,
+          "at": 1793623966678,
+          "state": "recording"
+        },
+        {
+          "heap": 5316403,
+          "at": 1793623971698,
+          "state": "recording"
+        },
+        {
+          "heap": 5483010,
+          "at": 1793623976706,
+          "state": "recording"
+        },
+        {
+          "heap": 5672979,
+          "at": 1793623981716,
+          "state": "recording"
+        },
+        {
+          "heap": 4730436,
+          "at": 1793623986724,
+          "state": "recording"
+        },
+        {
+          "heap": 4929533,
+          "at": 1793623991738,
+          "state": "recording"
+        },
+        {
+          "heap": 5106836,
+          "at": 1793623996748,
+          "state": "recording"
+        },
+        {
+          "heap": 5314275,
+          "at": 1793624001754,
+          "state": "recording"
+        },
+        {
+          "heap": 5496801,
+          "at": 1793624006766,
+          "state": "recording"
+        },
+        {
+          "heap": 5650049,
+          "at": 1793624011781,
+          "state": "recording"
+        },
+        {
+          "heap": 5043604,
+          "at": 1793624016790,
+          "state": "recording"
+        },
+        {
+          "heap": 5084004,
+          "at": 1793624021802,
+          "state": "recording"
+        },
+        {
+          "heap": 5287702,
+          "at": 1793624026809,
+          "state": "recording"
+        },
+        {
+          "heap": 5434654,
+          "at": 1793624031823,
+          "state": "recording"
+        },
+        {
+          "heap": 5576846,
+          "at": 1793624036843,
+          "state": "recording"
+        },
+        {
+          "heap": 5683312,
+          "at": 1793624041850,
+          "state": "recording"
+        },
+        {
+          "heap": 5075474,
+          "at": 1793624046860,
+          "state": "recording"
+        },
+        {
+          "heap": 5295151,
+          "at": 1793624051873,
+          "state": "recording"
+        },
+        {
+          "heap": 5164104,
+          "at": 1793624056882,
+          "state": "recording"
+        },
+        {
+          "heap": 5294063,
+          "at": 1793624061890,
+          "state": "recording"
+        },
+        {
+          "heap": 5477593,
+          "at": 1793624066896,
+          "state": "recording"
+        },
+        {
+          "heap": 5499218,
+          "at": 1793624071905,
+          "state": "recording"
+        },
+        {
+          "heap": 4984888,
+          "at": 1793624076911,
+          "state": "recording"
+        },
+        {
+          "heap": 5125937,
+          "at": 1793624081923,
+          "state": "recording"
+        },
+        {
+          "heap": 5281094,
+          "at": 1793624086929,
+          "state": "recording"
+        },
+        {
+          "heap": 4972799,
+          "at": 1793624091935,
+          "state": "recording"
+        },
+        {
+          "heap": 5207166,
+          "at": 1793624096948,
+          "state": "recording"
+        },
+        {
+          "heap": 5359227,
+          "at": 1793624101955,
+          "state": "recording"
+        },
+        {
+          "heap": 5586067,
+          "at": 1793624106962,
+          "state": "recording"
+        },
+        {
+          "heap": 4987268,
+          "at": 1793624111970,
+          "state": "recording"
+        },
+        {
+          "heap": 5115959,
+          "at": 1793624116975,
+          "state": "recording"
+        },
+        {
+          "heap": 5280621,
+          "at": 1793624121980,
+          "state": "recording"
+        },
+        {
+          "heap": 5203164,
+          "at": 1793624126984,
+          "state": "recording"
+        },
+        {
+          "heap": 5334740,
+          "at": 1793624131990,
+          "state": "recording"
+        },
+        {
+          "heap": 5492532,
+          "at": 1793624136998,
+          "state": "recording"
+        },
+        {
+          "heap": 4955762,
+          "at": 1793624142006,
+          "state": "recording"
+        },
+        {
+          "heap": 5126726,
+          "at": 1793624147017,
+          "state": "recording"
+        },
+        {
+          "heap": 5313650,
+          "at": 1793624152027,
+          "state": "recording"
+        },
+        {
+          "heap": 5498472,
+          "at": 1793624157042,
+          "state": "recording"
+        },
+        {
+          "heap": 5440104,
+          "at": 1793624162083,
+          "state": "recording"
+        },
+        {
+          "heap": 4881498,
+          "at": 1793624167096,
+          "state": "recording"
+        },
+        {
+          "heap": 5035008,
+          "at": 1793624172101,
+          "state": "recording"
+        },
+        {
+          "heap": 5148272,
+          "at": 1793624177106,
+          "state": "recording"
+        },
+        {
+          "heap": 5334486,
+          "at": 1793624182115,
+          "state": "recording"
+        },
+        {
+          "heap": 5447367,
+          "at": 1793624187148,
+          "state": "recording"
+        },
+        {
+          "heap": 5597220,
+          "at": 1793624192228,
+          "state": "recording"
+        },
+        {
+          "heap": 5403029,
+          "at": 1793624197234,
+          "state": "recording"
+        },
+        {
+          "heap": 5592746,
+          "at": 1793624202239,
+          "state": "recording"
+        },
+        {
+          "heap": 5028178,
+          "at": 1793624207248,
+          "state": "recording"
+        },
+        {
+          "heap": 5214534,
+          "at": 1793624212261,
+          "state": "recording"
+        },
+        {
+          "heap": 5445437,
+          "at": 1793624217321,
+          "state": "recording"
+        },
+        {
+          "heap": 5627857,
+          "at": 1793624222329,
+          "state": "recording"
+        },
+        {
+          "heap": 4985256,
+          "at": 1793624227339,
+          "state": "recording"
+        },
+        {
+          "heap": 4881101,
+          "at": 1793624232410,
+          "state": "recording"
+        },
+        {
+          "heap": 5120091,
+          "at": 1793624237439,
+          "state": "recording"
+        },
+        {
+          "heap": 5216015,
+          "at": 1793624242444,
+          "state": "recording"
+        },
+        {
+          "heap": 5367764,
+          "at": 1793624247480,
+          "state": "recording"
+        },
+        {
+          "heap": 5463407,
+          "at": 1793624252496,
+          "state": "recording"
+        },
+        {
+          "heap": 5611975,
+          "at": 1793624257505,
+          "state": "recording"
+        },
+        {
+          "heap": 4808518,
+          "at": 1793624262515,
+          "state": "recording"
+        },
+        {
+          "heap": 4983808,
+          "at": 1793624267521,
+          "state": "recording"
+        },
+        {
+          "heap": 5174107,
+          "at": 1793624272532,
+          "state": "recording"
+        },
+        {
+          "heap": 5323213,
+          "at": 1793624277536,
+          "state": "recording"
+        },
+        {
+          "heap": 5428705,
+          "at": 1793624282543,
+          "state": "recording"
+        },
+        {
+          "heap": 5643912,
+          "at": 1793624287552,
+          "state": "recording"
+        },
+        {
+          "heap": 5021911,
+          "at": 1793624292562,
+          "state": "recording"
+        },
+        {
+          "heap": 5463054,
+          "at": 1793624297588,
+          "state": "recording"
+        },
+        {
+          "heap": 5601471,
+          "at": 1793624302610,
+          "state": "recording"
+        },
+        {
+          "heap": 4956936,
+          "at": 1793624307616,
+          "state": "recording"
+        },
+        {
+          "heap": 5171597,
+          "at": 1793624312622,
+          "state": "recording"
+        },
+        {
+          "heap": 5360810,
+          "at": 1793624317634,
+          "state": "recording"
+        },
+        {
+          "heap": 5544233,
+          "at": 1793624322642,
+          "state": "recording"
+        },
+        {
+          "heap": 5710258,
+          "at": 1793624327648,
+          "state": "recording"
+        },
+        {
+          "heap": 5503310,
+          "at": 1793624332658,
+          "state": "recording"
+        },
+        {
+          "heap": 4983373,
+          "at": 1793624337696,
+          "state": "recording"
+        },
+        {
+          "heap": 5219847,
+          "at": 1793624342701,
+          "state": "recording"
+        },
+        {
+          "heap": 5387101,
+          "at": 1793624347707,
+          "state": "recording"
+        },
+        {
+          "heap": 5598157,
+          "at": 1793624352712,
+          "state": "recording"
+        },
+        {
+          "heap": 5657323,
+          "at": 1793624357716,
+          "state": "recording"
+        },
+        {
+          "heap": 5052798,
+          "at": 1793624362724,
+          "state": "recording"
+        },
+        {
+          "heap": 4848431,
+          "at": 1793624367729,
+          "state": "recording"
+        },
+        {
+          "heap": 5079917,
+          "at": 1793624372735,
+          "state": "recording"
+        }
+      ],
+      "reopened": true,
+      "independentPlayback": true
+    },
+    "pauseAndEnded": {
+      "passed": true,
+      "manifest": {
+        "version": 1,
+        "id": "take-2026-11-02T13-00-13-340Z-e894f5",
+        "createdAt": "2026-11-02T13:00:13.340Z",
+        "state": "interrupted",
+        "mode": "capture",
+        "durationMs": 6191.9000000059605,
+        "files": [
+          {
+            "kind": "screen",
+            "name": "screen.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 52212,
+            "chunks": 2
+          },
+          {
+            "kind": "camera",
+            "name": "camera.mp4",
+            "mime": "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+            "bytes": 57222,
+            "chunks": 2
+          },
+          {
+            "kind": "microphone",
+            "name": "microphone.m4a",
+            "mime": "audio/mp4",
+            "bytes": 82369,
+            "chunks": 5
+          }
+        ],
+        "events": [
+          {
+            "type": "common-start",
+            "offsetMs": 0,
+            "detail": "2026-11-02T13:00:16.459Z"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.19999998807907104,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.5,
+            "detail": "video/mp4;codecs=avc1.42E01E,mp4a.40.2"
+          },
+          {
+            "type": "encoder-start-request",
+            "offsetMs": 0.5,
+            "detail": "audio/mp4"
+          },
+          {
+            "type": "camera-encoder-start",
+            "offsetMs": 40
+          },
+          {
+            "type": "screen-encoder-start",
+            "offsetMs": 41.19999998807907
+          },
+          {
+            "type": "microphone-encoder-start",
+            "offsetMs": 72
+          },
+          {
+            "type": "pause",
+            "offsetMs": 2890
+          },
+          {
+            "type": "resume",
+            "offsetMs": 3959.800000011921
+          },
+          {
+            "type": "stop",
+            "offsetMs": 6184.0999999940395,
+            "detail": "source-ended"
+          }
+        ],
+        "routing": {
+          "screen": "Shared source audio only",
+          "camera": "Microphone",
+          "microphone": "Separate encoded audio file, also included in camera video"
+        }
+      }
+    },
+    "interruptionRecovery": {
+      "passed": true
+    },
+    "denial": {
+      "passed": true,
+      "error": "Camera / microphone not connected: Test permission denied"
+    },
+    "storage": {
+      "passed": true,
+      "error": "Browser storage is nearly full. Recording stopped; saved chunks remain available."
+    }
+  },
+  "captureProgress": {
+    "elapsedSeconds": 1200,
+    "heapSamples": [
+      {
+        "heap": 5303562,
+        "at": 1793623174162,
+        "state": "recording"
+      },
+      {
+        "heap": 5252196,
+        "at": 1793623179170,
+        "state": "recording"
+      },
+      {
+        "heap": 5674562,
+        "at": 1793623184213,
+        "state": "recording"
+      },
+      {
+        "heap": 5418147,
+        "at": 1793623189229,
+        "state": "recording"
+      },
+      {
+        "heap": 5820593,
+        "at": 1793623194259,
+        "state": "recording"
+      },
+      {
+        "heap": 5591411,
+        "at": 1793623199263,
+        "state": "recording"
+      },
+      {
+        "heap": 5959045,
+        "at": 1793623204271,
+        "state": "recording"
+      },
+      {
+        "heap": 5736306,
+        "at": 1793623209282,
+        "state": "recording"
+      },
+      {
+        "heap": 5555533,
+        "at": 1793623214288,
+        "state": "recording"
+      },
+      {
+        "heap": 5855294,
+        "at": 1793623219295,
+        "state": "recording"
+      },
+      {
+        "heap": 6121055,
+        "at": 1793623224309,
+        "state": "recording"
+      },
+      {
+        "heap": 5380869,
+        "at": 1793623229319,
+        "state": "recording"
+      },
+      {
+        "heap": 4980573,
+        "at": 1793623234328,
+        "state": "recording"
+      },
+      {
+        "heap": 5174528,
+        "at": 1793623239351,
+        "state": "recording"
+      },
+      {
+        "heap": 5485375,
+        "at": 1793623244355,
+        "state": "recording"
+      },
+      {
+        "heap": 5698273,
+        "at": 1793623249360,
+        "state": "recording"
+      },
+      {
+        "heap": 5245970,
+        "at": 1793623254366,
+        "state": "recording"
+      },
+      {
+        "heap": 5473149,
+        "at": 1793623259373,
+        "state": "recording"
+      },
+      {
+        "heap": 5653718,
+        "at": 1793623264389,
+        "state": "recording"
+      },
+      {
+        "heap": 5135813,
+        "at": 1793623269398,
+        "state": "recording"
+      },
+      {
+        "heap": 5456244,
+        "at": 1793623274421,
+        "state": "recording"
+      },
+      {
+        "heap": 5694104,
+        "at": 1793623279433,
+        "state": "recording"
+      },
+      {
+        "heap": 5299620,
+        "at": 1793623284452,
+        "state": "recording"
+      },
+      {
+        "heap": 5500797,
+        "at": 1793623289461,
+        "state": "recording"
+      },
+      {
+        "heap": 5794893,
+        "at": 1793623294494,
+        "state": "recording"
+      },
+      {
+        "heap": 4972784,
+        "at": 1793623299565,
+        "state": "recording"
+      },
+      {
+        "heap": 5244865,
+        "at": 1793623304622,
+        "state": "recording"
+      },
+      {
+        "heap": 5464367,
+        "at": 1793623309641,
+        "state": "recording"
+      },
+      {
+        "heap": 5011202,
+        "at": 1793623314654,
+        "state": "recording"
+      },
+      {
+        "heap": 5279761,
+        "at": 1793623319707,
+        "state": "recording"
+      },
+      {
+        "heap": 5643876,
+        "at": 1793623324726,
+        "state": "recording"
+      },
+      {
+        "heap": 5188240,
+        "at": 1793623329764,
+        "state": "recording"
+      },
+      {
+        "heap": 5430933,
+        "at": 1793623334779,
+        "state": "recording"
+      },
+      {
+        "heap": 5631779,
+        "at": 1793623339789,
+        "state": "recording"
+      },
+      {
+        "heap": 5109948,
+        "at": 1793623344796,
+        "state": "recording"
+      },
+      {
+        "heap": 5353288,
+        "at": 1793623349805,
+        "state": "recording"
+      },
+      {
+        "heap": 5596201,
+        "at": 1793623354814,
+        "state": "recording"
+      },
+      {
+        "heap": 5093612,
+        "at": 1793623359845,
+        "state": "recording"
+      },
+      {
+        "heap": 5323664,
+        "at": 1793623364856,
+        "state": "recording"
+      },
+      {
+        "heap": 5398168,
+        "at": 1793623369865,
+        "state": "recording"
+      },
+      {
+        "heap": 5629608,
+        "at": 1793623374876,
+        "state": "recording"
+      },
+      {
+        "heap": 5167310,
+        "at": 1793623379881,
+        "state": "recording"
+      },
+      {
+        "heap": 5369426,
+        "at": 1793623384893,
+        "state": "recording"
+      },
+      {
+        "heap": 5637093,
+        "at": 1793623389900,
+        "state": "recording"
+      },
+      {
+        "heap": 5083992,
+        "at": 1793623394906,
+        "state": "recording"
+      },
+      {
+        "heap": 5325579,
+        "at": 1793623399912,
+        "state": "recording"
+      },
+      {
+        "heap": 5229048,
+        "at": 1793623404920,
+        "state": "recording"
+      },
+      {
+        "heap": 5545380,
+        "at": 1793623409926,
+        "state": "recording"
+      },
+      {
+        "heap": 5726567,
+        "at": 1793623414933,
+        "state": "recording"
+      },
+      {
+        "heap": 5244159,
+        "at": 1793623419940,
+        "state": "recording"
+      },
+      {
+        "heap": 5526810,
+        "at": 1793623424946,
+        "state": "recording"
+      },
+      {
+        "heap": 5095643,
+        "at": 1793623429955,
+        "state": "recording"
+      },
+      {
+        "heap": 5237179,
+        "at": 1793623434962,
+        "state": "recording"
+      },
+      {
+        "heap": 5275846,
+        "at": 1793623439973,
+        "state": "recording"
+      },
+      {
+        "heap": 5441184,
+        "at": 1793623444982,
+        "state": "recording"
+      },
+      {
+        "heap": 5613275,
+        "at": 1793623449989,
+        "state": "recording"
+      },
+      {
+        "heap": 5741762,
+        "at": 1793623455002,
+        "state": "recording"
+      },
+      {
+        "heap": 5192392,
+        "at": 1793623460007,
+        "state": "recording"
+      },
+      {
+        "heap": 5328843,
+        "at": 1793623465023,
+        "state": "recording"
+      },
+      {
+        "heap": 5548255,
+        "at": 1793623470047,
+        "state": "recording"
+      },
+      {
+        "heap": 4946115,
+        "at": 1793623475059,
+        "state": "recording"
+      },
+      {
+        "heap": 5087421,
+        "at": 1793623480071,
+        "state": "recording"
+      },
+      {
+        "heap": 5243657,
+        "at": 1793623485083,
+        "state": "recording"
+      },
+      {
+        "heap": 5393715,
+        "at": 1793623490090,
+        "state": "recording"
+      },
+      {
+        "heap": 5576796,
+        "at": 1793623495129,
+        "state": "recording"
+      },
+      {
+        "heap": 4981643,
+        "at": 1793623500137,
+        "state": "recording"
+      },
+      {
+        "heap": 5216094,
+        "at": 1793623505147,
+        "state": "recording"
+      },
+      {
+        "heap": 5430056,
+        "at": 1793623510154,
+        "state": "recording"
+      },
+      {
+        "heap": 4783780,
+        "at": 1793623515159,
+        "state": "recording"
+      },
+      {
+        "heap": 4932869,
+        "at": 1793623520168,
+        "state": "recording"
+      },
+      {
+        "heap": 5063783,
+        "at": 1793623525176,
+        "state": "recording"
+      },
+      {
+        "heap": 5218523,
+        "at": 1793623530181,
+        "state": "recording"
+      },
+      {
+        "heap": 5370112,
+        "at": 1793623535189,
+        "state": "recording"
+      },
+      {
+        "heap": 5474396,
+        "at": 1793623540198,
+        "state": "recording"
+      },
+      {
+        "heap": 4890669,
+        "at": 1793623545204,
+        "state": "recording"
+      },
+      {
+        "heap": 4965401,
+        "at": 1793623550213,
+        "state": "recording"
+      },
+      {
+        "heap": 5175827,
+        "at": 1793623555221,
+        "state": "recording"
+      },
+      {
+        "heap": 5287155,
+        "at": 1793623560229,
+        "state": "recording"
+      },
+      {
+        "heap": 5417093,
+        "at": 1793623565238,
+        "state": "recording"
+      },
+      {
+        "heap": 5423230,
+        "at": 1793623570243,
+        "state": "recording"
+      },
+      {
+        "heap": 5662915,
+        "at": 1793623575343,
+        "state": "recording"
+      },
+      {
+        "heap": 5186469,
+        "at": 1793623580370,
+        "state": "recording"
+      },
+      {
+        "heap": 5387431,
+        "at": 1793623585376,
+        "state": "recording"
+      },
+      {
+        "heap": 5475807,
+        "at": 1793623590384,
+        "state": "recording"
+      },
+      {
+        "heap": 4836916,
+        "at": 1793623595394,
+        "state": "recording"
+      },
+      {
+        "heap": 5029402,
+        "at": 1793623600401,
+        "state": "recording"
+      },
+      {
+        "heap": 5195345,
+        "at": 1793623605406,
+        "state": "recording"
+      },
+      {
+        "heap": 5113475,
+        "at": 1793623610413,
+        "state": "recording"
+      },
+      {
+        "heap": 5224175,
+        "at": 1793623615420,
+        "state": "recording"
+      },
+      {
+        "heap": 5375056,
+        "at": 1793623620427,
+        "state": "recording"
+      },
+      {
+        "heap": 5519714,
+        "at": 1793623625436,
+        "state": "recording"
+      },
+      {
+        "heap": 4875236,
+        "at": 1793623630442,
+        "state": "recording"
+      },
+      {
+        "heap": 5113745,
+        "at": 1793623635454,
+        "state": "recording"
+      },
+      {
+        "heap": 5298859,
+        "at": 1793623640459,
+        "state": "recording"
+      },
+      {
+        "heap": 5194627,
+        "at": 1793623645467,
+        "state": "recording"
+      },
+      {
+        "heap": 5413947,
+        "at": 1793623650474,
+        "state": "recording"
+      },
+      {
+        "heap": 5461436,
+        "at": 1793623655480,
+        "state": "recording"
+      },
+      {
+        "heap": 4825603,
+        "at": 1793623660489,
+        "state": "recording"
+      },
+      {
+        "heap": 4933185,
+        "at": 1793623665498,
+        "state": "recording"
+      },
+      {
+        "heap": 5083659,
+        "at": 1793623670504,
+        "state": "recording"
+      },
+      {
+        "heap": 5187038,
+        "at": 1793623675511,
+        "state": "recording"
+      },
+      {
+        "heap": 5282126,
+        "at": 1793623680521,
+        "state": "recording"
+      },
+      {
+        "heap": 5472104,
+        "at": 1793623685535,
+        "state": "recording"
+      },
+      {
+        "heap": 5622301,
+        "at": 1793623690549,
+        "state": "recording"
+      },
+      {
+        "heap": 5052605,
+        "at": 1793623695728,
+        "state": "recording"
+      },
+      {
+        "heap": 4973468,
+        "at": 1793623700734,
+        "state": "recording"
+      },
+      {
+        "heap": 5026988,
+        "at": 1793623705743,
+        "state": "recording"
+      },
+      {
+        "heap": 5172234,
+        "at": 1793623710774,
+        "state": "recording"
+      },
+      {
+        "heap": 5112920,
+        "at": 1793623715779,
+        "state": "recording"
+      },
+      {
+        "heap": 5277966,
+        "at": 1793623720785,
+        "state": "recording"
+      },
+      {
+        "heap": 5421749,
+        "at": 1793623725796,
+        "state": "recording"
+      },
+      {
+        "heap": 5586315,
+        "at": 1793623730815,
+        "state": "recording"
+      },
+      {
+        "heap": 4963802,
+        "at": 1793623735823,
+        "state": "recording"
+      },
+      {
+        "heap": 5118968,
+        "at": 1793623740828,
+        "state": "recording"
+      },
+      {
+        "heap": 5230044,
+        "at": 1793623745836,
+        "state": "recording"
+      },
+      {
+        "heap": 5152173,
+        "at": 1793623750846,
+        "state": "recording"
+      },
+      {
+        "heap": 5364597,
+        "at": 1793623755859,
+        "state": "recording"
+      },
+      {
+        "heap": 5505833,
+        "at": 1793623760875,
+        "state": "recording"
+      },
+      {
+        "heap": 4930395,
+        "at": 1793623765888,
+        "state": "recording"
+      },
+      {
+        "heap": 5129450,
+        "at": 1793623770926,
+        "state": "recording"
+      },
+      {
+        "heap": 5288114,
+        "at": 1793623775936,
+        "state": "recording"
+      },
+      {
+        "heap": 5473880,
+        "at": 1793623780945,
+        "state": "recording"
+      },
+      {
+        "heap": 5331995,
+        "at": 1793623785999,
+        "state": "recording"
+      },
+      {
+        "heap": 5537854,
+        "at": 1793623791023,
+        "state": "recording"
+      },
+      {
+        "heap": 4913922,
+        "at": 1793623796032,
+        "state": "recording"
+      },
+      {
+        "heap": 5217097,
+        "at": 1793623801056,
+        "state": "recording"
+      },
+      {
+        "heap": 5365887,
+        "at": 1793623806085,
+        "state": "recording"
+      },
+      {
+        "heap": 5508288,
+        "at": 1793623811092,
+        "state": "recording"
+      },
+      {
+        "heap": 5124689,
+        "at": 1793623816098,
+        "state": "recording"
+      },
+      {
+        "heap": 5324611,
+        "at": 1793623821103,
+        "state": "recording"
+      },
+      {
+        "heap": 5419322,
+        "at": 1793623826114,
+        "state": "recording"
+      },
+      {
+        "heap": 5585363,
+        "at": 1793623831123,
+        "state": "recording"
+      },
+      {
+        "heap": 4934232,
+        "at": 1793623836133,
+        "state": "recording"
+      },
+      {
+        "heap": 5078904,
+        "at": 1793623841140,
+        "state": "recording"
+      },
+      {
+        "heap": 5268402,
+        "at": 1793623846158,
+        "state": "recording"
+      },
+      {
+        "heap": 5192370,
+        "at": 1793623851195,
+        "state": "recording"
+      },
+      {
+        "heap": 5407954,
+        "at": 1793623856232,
+        "state": "recording"
+      },
+      {
+        "heap": 4868816,
+        "at": 1793623861238,
+        "state": "recording"
+      },
+      {
+        "heap": 5003105,
+        "at": 1793623866258,
+        "state": "recording"
+      },
+      {
+        "heap": 5180286,
+        "at": 1793623871264,
+        "state": "recording"
+      },
+      {
+        "heap": 5347343,
+        "at": 1793623876271,
+        "state": "recording"
+      },
+      {
+        "heap": 5537897,
+        "at": 1793623881278,
+        "state": "recording"
+      },
+      {
+        "heap": 5388612,
+        "at": 1793623886285,
+        "state": "recording"
+      },
+      {
+        "heap": 5454290,
+        "at": 1793623891302,
+        "state": "recording"
+      },
+      {
+        "heap": 5606528,
+        "at": 1793623896321,
+        "state": "recording"
+      },
+      {
+        "heap": 5002282,
+        "at": 1793623901328,
+        "state": "recording"
+      },
+      {
+        "heap": 5215444,
+        "at": 1793623906335,
+        "state": "recording"
+      },
+      {
+        "heap": 5355429,
+        "at": 1793623911342,
+        "state": "recording"
+      },
+      {
+        "heap": 5499047,
+        "at": 1793623916348,
+        "state": "recording"
+      },
+      {
+        "heap": 4855738,
+        "at": 1793623921356,
+        "state": "recording"
+      },
+      {
+        "heap": 5163060,
+        "at": 1793623926486,
+        "state": "recording"
+      },
+      {
+        "heap": 5364270,
+        "at": 1793623931499,
+        "state": "recording"
+      },
+      {
+        "heap": 5583219,
+        "at": 1793623936507,
+        "state": "recording"
+      },
+      {
+        "heap": 5009102,
+        "at": 1793623941566,
+        "state": "recording"
+      },
+      {
+        "heap": 5200050,
+        "at": 1793623946573,
+        "state": "recording"
+      },
+      {
+        "heap": 5381081,
+        "at": 1793623951619,
+        "state": "recording"
+      },
+      {
+        "heap": 4854416,
+        "at": 1793623956639,
+        "state": "recording"
+      },
+      {
+        "heap": 5006401,
+        "at": 1793623961649,
+        "state": "recording"
+      },
+      {
+        "heap": 5244042,
+        "at": 1793623966678,
+        "state": "recording"
+      },
+      {
+        "heap": 5316403,
+        "at": 1793623971698,
+        "state": "recording"
+      },
+      {
+        "heap": 5483010,
+        "at": 1793623976706,
+        "state": "recording"
+      },
+      {
+        "heap": 5672979,
+        "at": 1793623981716,
+        "state": "recording"
+      },
+      {
+        "heap": 4730436,
+        "at": 1793623986724,
+        "state": "recording"
+      },
+      {
+        "heap": 4929533,
+        "at": 1793623991738,
+        "state": "recording"
+      },
+      {
+        "heap": 5106836,
+        "at": 1793623996748,
+        "state": "recording"
+      },
+      {
+        "heap": 5314275,
+        "at": 1793624001754,
+        "state": "recording"
+      },
+      {
+        "heap": 5496801,
+        "at": 1793624006766,
+        "state": "recording"
+      },
+      {
+        "heap": 5650049,
+        "at": 1793624011781,
+        "state": "recording"
+      },
+      {
+        "heap": 5043604,
+        "at": 1793624016790,
+        "state": "recording"
+      },
+      {
+        "heap": 5084004,
+        "at": 1793624021802,
+        "state": "recording"
+      },
+      {
+        "heap": 5287702,
+        "at": 1793624026809,
+        "state": "recording"
+      },
+      {
+        "heap": 5434654,
+        "at": 1793624031823,
+        "state": "recording"
+      },
+      {
+        "heap": 5576846,
+        "at": 1793624036843,
+        "state": "recording"
+      },
+      {
+        "heap": 5683312,
+        "at": 1793624041850,
+        "state": "recording"
+      },
+      {
+        "heap": 5075474,
+        "at": 1793624046860,
+        "state": "recording"
+      },
+      {
+        "heap": 5295151,
+        "at": 1793624051873,
+        "state": "recording"
+      },
+      {
+        "heap": 5164104,
+        "at": 1793624056882,
+        "state": "recording"
+      },
+      {
+        "heap": 5294063,
+        "at": 1793624061890,
+        "state": "recording"
+      },
+      {
+        "heap": 5477593,
+        "at": 1793624066896,
+        "state": "recording"
+      },
+      {
+        "heap": 5499218,
+        "at": 1793624071905,
+        "state": "recording"
+      },
+      {
+        "heap": 4984888,
+        "at": 1793624076911,
+        "state": "recording"
+      },
+      {
+        "heap": 5125937,
+        "at": 1793624081923,
+        "state": "recording"
+      },
+      {
+        "heap": 5281094,
+        "at": 1793624086929,
+        "state": "recording"
+      },
+      {
+        "heap": 4972799,
+        "at": 1793624091935,
+        "state": "recording"
+      },
+      {
+        "heap": 5207166,
+        "at": 1793624096948,
+        "state": "recording"
+      },
+      {
+        "heap": 5359227,
+        "at": 1793624101955,
+        "state": "recording"
+      },
+      {
+        "heap": 5586067,
+        "at": 1793624106962,
+        "state": "recording"
+      },
+      {
+        "heap": 4987268,
+        "at": 1793624111970,
+        "state": "recording"
+      },
+      {
+        "heap": 5115959,
+        "at": 1793624116975,
+        "state": "recording"
+      },
+      {
+        "heap": 5280621,
+        "at": 1793624121980,
+        "state": "recording"
+      },
+      {
+        "heap": 5203164,
+        "at": 1793624126984,
+        "state": "recording"
+      },
+      {
+        "heap": 5334740,
+        "at": 1793624131990,
+        "state": "recording"
+      },
+      {
+        "heap": 5492532,
+        "at": 1793624136998,
+        "state": "recording"
+      },
+      {
+        "heap": 4955762,
+        "at": 1793624142006,
+        "state": "recording"
+      },
+      {
+        "heap": 5126726,
+        "at": 1793624147017,
+        "state": "recording"
+      },
+      {
+        "heap": 5313650,
+        "at": 1793624152027,
+        "state": "recording"
+      },
+      {
+        "heap": 5498472,
+        "at": 1793624157042,
+        "state": "recording"
+      },
+      {
+        "heap": 5440104,
+        "at": 1793624162083,
+        "state": "recording"
+      },
+      {
+        "heap": 4881498,
+        "at": 1793624167096,
+        "state": "recording"
+      },
+      {
+        "heap": 5035008,
+        "at": 1793624172101,
+        "state": "recording"
+      },
+      {
+        "heap": 5148272,
+        "at": 1793624177106,
+        "state": "recording"
+      },
+      {
+        "heap": 5334486,
+        "at": 1793624182115,
+        "state": "recording"
+      },
+      {
+        "heap": 5447367,
+        "at": 1793624187148,
+        "state": "recording"
+      },
+      {
+        "heap": 5597220,
+        "at": 1793624192228,
+        "state": "recording"
+      },
+      {
+        "heap": 5403029,
+        "at": 1793624197234,
+        "state": "recording"
+      },
+      {
+        "heap": 5592746,
+        "at": 1793624202239,
+        "state": "recording"
+      },
+      {
+        "heap": 5028178,
+        "at": 1793624207248,
+        "state": "recording"
+      },
+      {
+        "heap": 5214534,
+        "at": 1793624212261,
+        "state": "recording"
+      },
+      {
+        "heap": 5445437,
+        "at": 1793624217321,
+        "state": "recording"
+      },
+      {
+        "heap": 5627857,
+        "at": 1793624222329,
+        "state": "recording"
+      },
+      {
+        "heap": 4985256,
+        "at": 1793624227339,
+        "state": "recording"
+      },
+      {
+        "heap": 4881101,
+        "at": 1793624232410,
+        "state": "recording"
+      },
+      {
+        "heap": 5120091,
+        "at": 1793624237439,
+        "state": "recording"
+      },
+      {
+        "heap": 5216015,
+        "at": 1793624242444,
+        "state": "recording"
+      },
+      {
+        "heap": 5367764,
+        "at": 1793624247480,
+        "state": "recording"
+      },
+      {
+        "heap": 5463407,
+        "at": 1793624252496,
+        "state": "recording"
+      },
+      {
+        "heap": 5611975,
+        "at": 1793624257505,
+        "state": "recording"
+      },
+      {
+        "heap": 4808518,
+        "at": 1793624262515,
+        "state": "recording"
+      },
+      {
+        "heap": 4983808,
+        "at": 1793624267521,
+        "state": "recording"
+      },
+      {
+        "heap": 5174107,
+        "at": 1793624272532,
+        "state": "recording"
+      },
+      {
+        "heap": 5323213,
+        "at": 1793624277536,
+        "state": "recording"
+      },
+      {
+        "heap": 5428705,
+        "at": 1793624282543,
+        "state": "recording"
+      },
+      {
+        "heap": 5643912,
+        "at": 1793624287552,
+        "state": "recording"
+      },
+      {
+        "heap": 5021911,
+        "at": 1793624292562,
+        "state": "recording"
+      },
+      {
+        "heap": 5463054,
+        "at": 1793624297588,
+        "state": "recording"
+      },
+      {
+        "heap": 5601471,
+        "at": 1793624302610,
+        "state": "recording"
+      },
+      {
+        "heap": 4956936,
+        "at": 1793624307616,
+        "state": "recording"
+      },
+      {
+        "heap": 5171597,
+        "at": 1793624312622,
+        "state": "recording"
+      },
+      {
+        "heap": 5360810,
+        "at": 1793624317634,
+        "state": "recording"
+      },
+      {
+        "heap": 5544233,
+        "at": 1793624322642,
+        "state": "recording"
+      },
+      {
+        "heap": 5710258,
+        "at": 1793624327648,
+        "state": "recording"
+      },
+      {
+        "heap": 5503310,
+        "at": 1793624332658,
+        "state": "recording"
+      },
+      {
+        "heap": 4983373,
+        "at": 1793624337696,
+        "state": "recording"
+      },
+      {
+        "heap": 5219847,
+        "at": 1793624342701,
+        "state": "recording"
+      },
+      {
+        "heap": 5387101,
+        "at": 1793624347707,
+        "state": "recording"
+      },
+      {
+        "heap": 5598157,
+        "at": 1793624352712,
+        "state": "recording"
+      },
+      {
+        "heap": 5657323,
+        "at": 1793624357716,
+        "state": "recording"
+      },
+      {
+        "heap": 5052798,
+        "at": 1793624362724,
+        "state": "recording"
+      },
+      {
+        "heap": 4848431,
+        "at": 1793624367729,
+        "state": "recording"
+      },
+      {
+        "heap": 5079917,
+        "at": 1793624372735,
+        "state": "recording"
+      }
+    ]
+  },
+  "passed": true
+}

@@ -513,8 +513,8 @@ export async function ensureSeedData(): Promise<void> {
         nativeFileName: 'motor_adapter_plate.sc',
         storedSnapshotFileId: null,
         mediaReferences: [],
-        notes: 'Parametric 60x60x8mm motor mount concept plate with center shaft bore. Ready for STEP & STL manufacturing export.',
-        tags: ['3D CAD', 'Parametric', 'Verified Workflow']
+        notes: 'Project setup for a motor adapter concept. Open Model to create geometry and save a native project.',
+        tags: ['3D CAD', 'Parametric', 'Project setup']
       },
       {
         id: 'proj-filmcraft-launch-cut',
@@ -533,8 +533,8 @@ export async function ensureSeedData(): Promise<void> {
             lastVerifiedAt: now
           }
         ],
-        notes: 'Multi-track timeline project referencing mosaic-test-clip.mp4 with razor split and trim points.',
-        tags: ['Video', 'Timeline', 'Verified Workflow']
+        notes: 'Project setup referencing the sample clip. Create and save the timeline inside Cut.',
+        tags: ['Video', 'Timeline', 'Project setup']
       },
       {
         id: 'proj-photocraft-color-study',
@@ -553,8 +553,8 @@ export async function ensureSeedData(): Promise<void> {
             lastVerifiedAt: now
           }
         ],
-        notes: 'Layered raster composition using mosaic-test-image.png with non-destructive adjustments.',
-        tags: ['Photo', 'Raster', 'Verified Workflow']
+        notes: 'Project setup referencing the sample image. Create and save the composition inside Photo.',
+        tags: ['Photo', 'Raster', 'Project setup']
       }
     ];
     for (const proj of starterProjects) {
@@ -612,7 +612,7 @@ export async function importBackupBundle(bundle: BackupBundle): Promise<{
   assetsImported: number;
 }> {
   if (!bundle || typeof bundle !== 'object' || !Array.isArray(bundle.projects)) {
-    throw new Error('Invalid Mosaic Forge backup bundle.');
+    throw new Error('Invalid OmniCraft OS backup bundle.');
   }
 
   for (const project of bundle.projects) {

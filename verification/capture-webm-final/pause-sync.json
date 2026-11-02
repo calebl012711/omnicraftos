@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "id": "take-2026-11-02T14-22-33-798Z-bf0356",
+  "createdAt": "2026-11-02T14:22:33.798Z",
+  "state": "interrupted",
+  "mode": "capture",
+  "durationMs": 5962,
+  "files": [
+    {
+      "kind": "screen",
+      "name": "screen.webm",
+      "mime": "video/webm;codecs=vp8,opus",
+      "bytes": 141280,
+      "chunks": 6
+    },
+    {
+      "kind": "camera",
+      "name": "camera.webm",
+      "mime": "video/webm;codecs=vp8,opus",
+      "bytes": 147796,
+      "chunks": 6
+    },
+    {
+      "kind": "microphone",
+      "name": "microphone.m4a",
+      "mime": "audio/mp4",
+      "bytes": 78501,
+      "chunks": 5
+    }
+  ],
+  "events": [
+    {
+      "type": "common-start",
+      "offsetMs": 0,
+      "detail": "2026-11-02T14:22:36.880Z"
+    },
+    {
+      "type": "encoder-start-request",
+      "offsetMs": 0.10000002384185791,
+      "detail": "video/webm;codecs=vp8,opus"
+    },
+    {
+      "type": "encoder-start-request",
+      "offsetMs": 0.10000002384185791,
+      "detail": "video/webm;codecs=vp8,opus"
+    },
+    {
+      "type": "encoder-start-request",
+      "offsetMs": 0.30000001192092896,
+      "detail": "audio/mp4"
+    },
+    {
+      "type": "microphone-encoder-start",
+      "offsetMs": 69.80000001192093
+    },
+    {
+      "type": "camera-encoder-start",
+      "offsetMs": 82.30000001192093
+    },
+    {
+      "type": "screen-encoder-start",
+      "offsetMs": 84.2000000178814
+    },
+    {
+      "type": "pause",
+      "offsetMs": 2630.100000023842
+    },
+    {
+      "type": "resume",
+      "offsetMs": 3734.4000000059605
+    },
+    {
+      "type": "stop",
+      "offsetMs": 5952.9000000059605,
+      "detail": "source-ended"
+    }
+  ],
+  "routing": {
+    "screen": "Shared source audio only",
+    "camera": "Microphone",
+    "microphone": "Separate encoded audio file, also included in camera video"
+  }
+}

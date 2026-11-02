@@ -90,7 +90,7 @@ export class RecordingStore {
     return this.manifestQueue;
   }
   async drain() { await this.queue; await this.manifestQueue; }
-  async file(kind: string): Promise<Blob> {
+  async file(kind: string, onProgress?: (fraction: number) => void): Promise<Blob> {
     await this.drain();
     const file = this.files.get(kind)!;
     if (!file?.chunks) throw new Error(`No saved data for ${kind}.`);
@@ -98,16 +98,31 @@ export class RecordingStore {
       // Assemble by streaming disk chunks into a file, using at most one chunk at a time.
       const handle = await this.root.getFileHandle(file.name, { create: true });
       const existing = await handle.getFile();
-      if (existing.size === file.bytes && existing.size > 0) return existing;
+      if (existing.size === file.bytes && existing.size > 0) { onProgress?.(1); return existing; }
       const writer = await handle.createWritable();
       try {
-        for (let i = 0; i < file.chunks; i++) await writer.write(await this.get(`${kind}-${String(i).padStart(8, '0')}`));
+        for (let i = 0; i < file.chunks; i++) {
+          await writer.write(await this.get(`${kind}-${String(i).padStart(8, '0')}`));
+          if (i % Math.max(1, Math.floor(file.chunks / 100)) === 0 || i === file.chunks - 1) onProgress?.((i + 1) / file.chunks);
+        }
         await writer.close(); return handle.getFile();
       } catch (e) { await writer.abort().catch(() => {}); throw e; }
     }
     const parts: Blob[] = [];
-    for (let i = 0; i < file.chunks; i++) parts.push(await this.get(`${kind}-${String(i).padStart(8, '0')}`));
+    for (let i = 0; i < file.chunks; i++) { parts.push(await this.get(`${kind}-${String(i).padStart(8, '0')}`)); onProgress?.((i + 1) / file.chunks); }
     return new Blob(parts, { type: file.mime });
+  }
+  async writeTo(kind: string, writer: FileSystemWritableFileStream, onProgress?: (fraction: number) => void) {
+    await this.drain();
+    const file = this.files.get(kind);
+    if (!file?.chunks) throw new Error(`No saved data for ${kind}.`);
+    try {
+      for (let i = 0; i < file.chunks; i++) {
+        await writer.write(await this.get(`${kind}-${String(i).padStart(8, '0')}`));
+        if (i % Math.max(1, Math.floor(file.chunks / 100)) === 0 || i === file.chunks - 1) onProgress?.((i + 1) / file.chunks);
+      }
+      await writer.close();
+    } catch (error) { await writer.abort().catch(() => {}); throw error; }
   }
   async release() { await this.drain(); this.db?.close(); }
 }
