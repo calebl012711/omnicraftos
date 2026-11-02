@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-02T15:21:01.586Z",
+  "readOnly": true,
+  "url": "https://omnicraftos.vercel.app/editors/solidcraft/model-engine-a1c4db0af38f50b4.wasm",
+  "http": 206,
+  "contentType": "application/wasm",
+  "contentRange": "bytes 0-7/99795192",
+  "prefixHex": "0061736d01000000",
+  "actualWasm": true,
+  "gitCommit": "3386bd897768b5b12908c75515c42f0f379690f2",
+  "ci": [
+    {
+      "state": "success",
+      "context": "Vercel",
+      "url": "https://vercel.com/caleb-lickteig-s-projects/omnicraftos/HttY3Dzoya877qsbmdexKpxcsf79",
+      "at": "2026-11-02T15:19:26Z"
+    }
+  ]
+}
