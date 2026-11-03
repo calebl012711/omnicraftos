@@ -51,6 +51,8 @@ import {
 } from './config/branding';
 import { Recorder } from './recorder/Recorder';
 import { StudioHero } from './components/StudioHero';
+import { DesktopHome } from './components/DesktopHome';
+import { isDesktopShell } from './platform';
 import { AppIcon } from './components/icons/AppIcon';
 import {
   BLOCKED_REPOSITORIES,
@@ -219,7 +221,7 @@ function navigateWithViewTransition(updateDOM: () => void, direction: 'forward' 
   const doc = document as Document & {
     startViewTransition?: (arg: (() => void) | { update: () => void; types?: string[] }) => unknown;
   };
-  if (typeof doc.startViewTransition !== 'function') {
+  if (isDesktopShell() || window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof doc.startViewTransition !== 'function') {
     updateDOM();
     return;
   }
@@ -283,6 +285,7 @@ async function closeTopLayer(element: HTMLDialogElement | HTMLElement | null) {
 }
 
 export function App() {
+  const desktop = isDesktopShell();
   const [branding, setBranding] = useState<BrandingConfig>(() => loadBrandingConfig());
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [activeWorkspaceId, setActiveWorkspaceId] = useState<string>('riverstudio');
@@ -1343,7 +1346,7 @@ export function App() {
   if (activeTab === 'workspace' && activeWorkspace.id === 'solidcraft') return <React.Suspense fallback={<p>Loading Model…</p>}><ModelStudio onBack={() => returnToHome('home')} initialProject={modelProject} onSaved={saveModelProject} /></React.Suspense>;
 
   return (
-    <div className="mf-shell oc-shell">
+    <div className={`mf-shell oc-shell ${desktop ? 'oc-desktop-shell' : ''}`}>
       {/* WHEN NOT INSIDE AN APP: Render the Spacious Standalone Home Launcher Header */}
       {activeTab !== 'workspace' && (
         <header className="mf-topbar" aria-label="Primary Suite Navigation">
@@ -1371,7 +1374,7 @@ export function App() {
               data-testid="nav-home"
             >
               <Home size={15} />
-              <span>Workspaces</span>
+              <span>{desktop ? 'Home' : 'Workspaces'}</span>
             </button>
             <button
               type="button"
@@ -1464,7 +1467,8 @@ export function App() {
       {/* Main Content Area */}
       <main className="mf-main">
         {/* VIEW 1: STANDALONE HOME PAGE LAUNCHER */}
-        {activeTab === 'home' && (
+        {activeTab === 'home' && desktop && <div className="mf-scroll-page" data-testid="view-home"><div className="mf-home-container"><DesktopHome workspaces={WORKSPACES} projects={projects} onOpenWorkspace={openWorkspace} onOpenProject={(workspace, id) => openWorkspace(workspace, id)} onNewProject={() => newProjectDialogRef.current?.showModal()} onShowProjects={() => returnToHome('projects')} /></div></div>}
+        {activeTab === 'home' && !desktop && (
           <div className="mf-scroll-page" data-testid="view-home">
             <div className="mf-home-container">
               <StudioHero onOpenWorkspace={openWorkspace} />
@@ -2360,7 +2364,7 @@ export function App() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <span>Vault: {formatBytes(storageHealth.usageBytes)}</span>
-          <span>Development build · verify exports before use</span>
+          <span>{desktop ? 'Local workspace' : 'Development build · verify exports before use'}</span>
         </div>
       </footer>
 

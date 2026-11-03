@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-03T01:28:26.373Z",
+  "scope": "Headless frontend with Tauri runtime marker; WASM requests blocked",
+  "nativeApplicationLaunched": false,
+  "engineWorkflowsTested": false,
+  "tests": {
+    "launcher": {
+      "passed": true,
+      "appHome": true,
+      "noHero": true,
+      "noStartupEditor": true,
+      "realProjectDialog": true,
+      "search": true
+    },
+    "cadChrome": {
+      "passed": true,
+      "fullUpstreamChromeRequested": true,
+      "noDuplicateHostRibbon": true,
+      "noDuplicateProperties": true,
+      "librarySaveRetained": true
+    }
+  },
+  "passed": true
+}

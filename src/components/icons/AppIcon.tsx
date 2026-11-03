@@ -1,4 +1,6 @@
 import React from 'react';
+import { WORKSPACES } from '../../config/workspaces';
+const ICON_LABELS = new Map(WORKSPACES.map(workspace => [workspace.id, workspace.name]));
 
 export interface AppIconProps {
   id: string;
@@ -327,7 +329,7 @@ export const AppIcon: React.FC<AppIconProps> = ({ id, size = 40, className = '',
         ...style
       }}
       role="img"
-      aria-label={iconDef.title}
+      aria-label={ICON_LABELS.get(id) || iconDef.title}
     >
       <defs>
         <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
