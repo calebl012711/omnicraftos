@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-03T01:28:26.373Z",
+  "at": "2026-11-07T01:28:29.544Z",
   "scope": "Headless frontend with Tauri runtime marker; WASM requests blocked",
   "nativeApplicationLaunched": false,
   "engineWorkflowsTested": false,
@@ -14,6 +14,9 @@
     },
     "cadChrome": {
       "passed": true,
+      "openModelRoutesToCad": true,
+      "invalidFileRejected": true,
+      "engineFileImportTested": false,
       "fullUpstreamChromeRequested": true,
       "noDuplicateHostRibbon": true,
       "noDuplicateProperties": true,

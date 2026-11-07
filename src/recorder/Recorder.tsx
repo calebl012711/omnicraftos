@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, Camera, Check, Download, FolderDown, Mic, Monitor, Pause, Play, Radio, Square, Video } from 'lucide-react';
+import { ArrowLeft, Camera, Check, Download, FolderDown, Mic, Monitor, Pause, Play, Radio, Square, Trash2, Video, X } from 'lucide-react';
 import { CaptureSession, chooseVideoMime } from './engine';
 import { RecordingStore, recoverRecordings } from './storage';
 import './recorder.css';
@@ -51,8 +51,12 @@ export function Recorder({ onBack }: { onBack?: () => void } = {}) {
   const [countdown, setCountdown] = useState(3);
   const [level, setLevel] = useState(0);
   const [takes, setTakes] = useState<RecordingStore[]>([]);
+  const takeStores = useRef<RecordingStore[]>([]);
   const [exporting, setExporting] = useState('');
   const [previews, setPreviews] = useState<Record<string, string>>({});
+  const previewUrls = useRef<Record<string, string>>({});
+  const [renaming, setRenaming] = useState('');
+  const [takeName, setTakeName] = useState('');
   const session = useRef<CaptureSession | null>(null);
   const streams = useRef<MediaStream[]>([]);
   const testTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -64,8 +68,12 @@ export function Recorder({ onBack }: { onBack?: () => void } = {}) {
     if (navigator.mediaDevices?.enumerateDevices) setDevices(await navigator.mediaDevices.enumerateDevices());
   };
   useEffect(() => {
+    let disposed = false;
     void refreshDevices().catch(e => setError(String(e)));
-    void recoverRecordings().then(setTakes).catch(e => setError(`Recovery: ${e}`));
+    void recoverRecordings().then(recovered => {
+      if (disposed) { recovered.forEach(store => { void store.release().catch(() => {}); }); return; }
+      takeStores.current = recovered; setTakes(recovered);
+    }).catch(e => { if (!disposed) setError(`Recovery: ${e}`); });
     const deviceChange = () => { void refreshDevices().catch(() => {}); };
     navigator.mediaDevices?.addEventListener('devicechange', deviceChange);
     window.parent.postMessage({ type: 'omnicraft:ready', appId: 'riverstudio', capabilities: { recording: true } }, location.origin);
@@ -77,11 +85,15 @@ export function Recorder({ onBack }: { onBack?: () => void } = {}) {
     const pageHide = () => session.current?.dispose();
     window.addEventListener('beforeunload', beforeUnload); window.addEventListener('pagehide', pageHide);
     return () => {
+      disposed = true;
       navigator.mediaDevices?.removeEventListener('devicechange', deviceChange);
       window.removeEventListener('beforeunload', beforeUnload); window.removeEventListener('pagehide', pageHide);
       clearTimeout(testTimer.current); session.current?.dispose(); streams.current.forEach(s => s.getTracks().forEach(t => t.stop()));
+      Object.values(previewUrls.current).forEach(url => URL.revokeObjectURL(url));
+      takeStores.current.forEach(store => { void store.release().catch(() => {}); });
     };
   }, []);
+  useEffect(() => { takeStores.current = takes; }, [takes]);
   useEffect(() => {
     if (!busy) return;
     const timer = setInterval(() => { redraw(v => v + 1); if (session.current?.state === 'countdown') setCountdown(n => Math.max(1, n - 1)); }, 1000);
@@ -94,6 +106,7 @@ export function Recorder({ onBack }: { onBack?: () => void } = {}) {
     const source = audio.createMediaStreamSource(mic); const analyser = audio.createAnalyser();
     analyser.fftSize = 256; source.connect(analyser); const data = new Uint8Array(analyser.fftSize);
     const timer = setInterval(() => {
+      if (document.hidden) return;
       analyser.getByteTimeDomainData(data);
       setLevel(Math.min(1, Math.sqrt(data.reduce((sum, v) => sum + ((v - 128) / 128) ** 2, 0) / data.length) * 4));
     }, 100);
@@ -145,9 +158,36 @@ export function Recorder({ onBack }: { onBack?: () => void } = {}) {
       const file = store.files.get(kind)!;
       const blob = await store.file(kind, setExportProgress);
       const url = URL.createObjectURL(blob);
-      if (preview) setPreviews(previous => { if (previous[key]) URL.revokeObjectURL(previous[key]); return { ...previous, [key]: url }; });
+      if (preview) {
+        if (previewUrls.current[key]) URL.revokeObjectURL(previewUrls.current[key]);
+        previewUrls.current = { ...previewUrls.current, [key]: url };
+        setPreviews(previewUrls.current);
+      }
       else { const a = document.createElement('a'); a.href = url; a.download = `${store.manifest.id}-${file.name}`; a.click(); setNotice(`Download started: ${file.name}`); setTimeout(() => URL.revokeObjectURL(url), 60_000); }
     } catch (e) { setError(`Could not assemble saved recording: ${e}. Chunks have been retained.`); }
+    finally { setExporting(''); }
+  }
+  function closePlayback(key: string) {
+    if (previewUrls.current[key]) URL.revokeObjectURL(previewUrls.current[key]);
+    const remaining = { ...previewUrls.current }; delete remaining[key];
+    previewUrls.current = remaining; setPreviews(remaining);
+  }
+  async function renameTake(store: RecordingStore) {
+    setExporting(`${store.manifest.id}/rename`); setError('');
+    try { await store.rename(takeName); setRenaming(''); setTakes(current => [...current]); }
+    catch (error) { setError(`Could not rename take: ${error}`); }
+    finally { setExporting(''); }
+  }
+  async function deleteTake(store: RecordingStore) {
+    if (!window.confirm(`Delete ${store.manifest.title || 'this take'} and all its saved media from this browser? Download a copy first. This cannot be undone.`)) return;
+    setExporting(`${store.manifest.id}/delete`); setError(''); setNotice('');
+    try {
+      await store.remove();
+      Object.keys(previewUrls.current).filter(key => key.startsWith(`${store.manifest.id}/`)).forEach(closePlayback);
+      if (session.current?.store === store) session.current = null;
+      setTakes(current => current.filter(take => take !== store));
+      setNotice('Take deleted from browser storage.');
+    } catch (error) { setError(`Could not delete take: ${error}`); }
     finally { setExporting(''); }
   }
   function downloadManifest(store: RecordingStore) {
@@ -171,6 +211,7 @@ export function Recorder({ onBack }: { onBack?: () => void } = {}) {
     finally { setExporting(''); }
   }
   async function leave() {
+    if (exporting) { setError('Wait for the file operation to finish before leaving Capture.'); return; }
     if (busy && !window.confirm('Stop this take and return to OmniCraft OS? Saved chunks will stay in this browser.')) return;
     if (busy) await session.current?.stop();
     if (onBack) onBack(); else window.top!.location.href = '/';
@@ -205,12 +246,16 @@ export function Recorder({ onBack }: { onBack?: () => void } = {}) {
     </div></section></details>
     <p className="capture-note">Capture saves to browser storage each second. Keep the Mac awake and download after each take. The sync JSON records encoder starts and pause events; hardware sync is not guaranteed. Preview mirroring never changes the saved camera video.</p>
     <section className="capture-takes" aria-label="Saved takes"><div className="capture-takes-heading"><div><p className="capture-eyebrow">YOUR SESSION LIBRARY</p><h2>Saved takes</h2></div><span>{takes.length} {takes.length === 1 ? 'take' : 'takes'} in this browser</span></div>
-      {exporting && <div className="capture-export-progress" role="status"><span>Preparing files · {Math.round(exportProgress * 100)}%</span><progress value={exportProgress} max={1} /><small>Saved chunks stay in this browser. Long takes may take a moment to prepare.</small></div>}
+      {exporting && !/\/(rename|delete)$/.test(exporting) && <div className="capture-export-progress" role="status"><span>Preparing files · {Math.round(exportProgress * 100)}%</span><progress value={exportProgress} max={1} /><small>Saved chunks stay in this browser. Long takes may take a moment to prepare.</small></div>}
       {notice && <p className="capture-export-notice" role="status">{notice}</p>}
       {!takes.length && <div className="capture-library-empty"><FolderDown size={24} /><p>Your recordings will appear here.<br />Each take keeps your screen, camera, and available audio separate.</p></div>}
-      {takes.map(store => <article key={store.manifest.id} className="capture-take-card"><div className="capture-take-heading"><h3>{new Date(store.manifest.createdAt).toLocaleString()} <small>{store.manifest.mode === 'test' ? 'Test take · ' : ''}{store.manifest.state}</small></h3>{typeof (window as any).showDirectoryPicker === 'function' && <button disabled={!!exporting || busy} onClick={() => void saveFolder(store)}><FolderDown size={14} />Save all to folder</button>}</div>
+      {takes.map(store => <article key={store.manifest.id} className="capture-take-card" aria-label={store.manifest.title || `Take ${new Date(store.manifest.createdAt).toLocaleString()}`}>
+        <div className="capture-take-heading"><div><h3>{store.manifest.title || new Date(store.manifest.createdAt).toLocaleString()} <small>{store.manifest.mode === 'test' ? 'Test take · ' : ''}{store.manifest.state}</small></h3><p className="capture-take-meta">{duration(store.manifest.durationMs)} · {(store.manifest.files.reduce((total, file) => total + file.bytes, 0) / 1024 / 1024).toFixed(1)} MB{store.manifest.title ? ` · ${new Date(store.manifest.createdAt).toLocaleString()}` : ''}</p></div>
+          <div className="capture-take-actions"><button disabled={!!exporting || busy} onClick={() => { setRenaming(store.manifest.id); setTakeName(store.manifest.title || ''); }}>Rename take</button>{typeof (window as any).showDirectoryPicker === 'function' && <button disabled={!!exporting || busy} onClick={() => void saveFolder(store)}><FolderDown size={14} />Save all to folder</button>}<button disabled={!!exporting || busy} onClick={() => void deleteTake(store)} aria-label="Delete take"><Trash2 size={14} /></button></div>
+        </div>
+        {renaming === store.manifest.id && <form className="capture-rename" onSubmit={event => { event.preventDefault(); void renameTake(store); }}><label>Take name<input autoFocus maxLength={100} value={takeName} onChange={event => setTakeName(event.target.value)} /></label><button disabled={!!exporting} type="submit">Save name</button><button disabled={!!exporting} type="button" onClick={() => setRenaming('')}>Cancel</button></form>}
         {store.manifest.state === 'interrupted' && <p>Recovered saved chunks. Check playback before relying on this take.</p>}
-        <div className="capture-files">{store.manifest.files.filter(file => file.chunks).map(file => { const key = `${store.manifest.id}/${file.kind}`; return <div key={key}><strong>{file.kind === 'screen' ? <Monitor size={16} /> : file.kind === 'camera' ? <Camera size={16} /> : <Mic size={16} />}{file.name}</strong><span>{(file.bytes / 1024 / 1024).toFixed(2)} MB · {file.chunks} saved chunks</span><div className="capture-file-actions"><button disabled={!!exporting || busy} onClick={() => void exportFile(store, file.kind)}><Download size={13} />Download {file.kind}</button><button disabled={!!exporting || busy} onClick={() => void exportFile(store, file.kind, true)}>Check playback</button></div>{previews[key] && (file.kind === 'microphone' ? <audio src={previews[key]} controls /> : <video src={previews[key]} controls playsInline />)}</div>; })}</div>
+        <div className="capture-files">{store.manifest.files.filter(file => file.chunks).map(file => { const key = `${store.manifest.id}/${file.kind}`; return <div key={key}><strong>{file.kind === 'screen' ? <Monitor size={16} /> : file.kind === 'camera' ? <Camera size={16} /> : <Mic size={16} />}{file.name}</strong><span>{(file.bytes / 1024 / 1024).toFixed(2)} MB · {file.chunks} saved chunks</span><div className="capture-file-actions"><button disabled={!!exporting || busy} onClick={() => void exportFile(store, file.kind)}><Download size={13} />Download {file.kind}</button><button disabled={!!exporting || busy} onClick={() => previews[key] ? closePlayback(key) : void exportFile(store, file.kind, true)}>{previews[key] ? <><X size={12} />Close playback</> : 'Check playback'}</button></div>{previews[key] && (file.kind === 'microphone' ? <audio src={previews[key]} controls /> : <video src={previews[key]} controls playsInline />)}</div>; })}</div>
         <button className="capture-sync-download" onClick={() => downloadManifest(store)}>Download sync JSON</button>
       </article>)}
     </section>

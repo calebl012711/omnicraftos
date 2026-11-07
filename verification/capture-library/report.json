@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-07T01:20:32.333Z",
+  "physicalDevicesTested": false,
+  "nativeAppLaunched": false,
+  "tests": {
+    "opfs": {
+      "passed": true,
+      "realSeparateVideosDecoded": true,
+      "nameSurvivedReload": true,
+      "playbackUrlRevoked": true,
+      "deleteCancelled": true,
+      "deletedMediaRemovedFromStorage": true,
+      "otherTakeRetained": true
+    },
+    "indexeddb": {
+      "passed": true,
+      "realSeparateVideosDecoded": true,
+      "nameSurvivedReload": true,
+      "playbackUrlRevoked": true,
+      "deleteCancelled": true,
+      "deletedMediaRemovedFromStorage": true,
+      "otherTakeRetained": true
+    }
+  },
+  "passed": true
+}

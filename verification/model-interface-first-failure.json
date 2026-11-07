@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-07T01:23:15.847Z",
+  "engine": "Actual SolidCraft WASM",
+  "tests": {},
+  "passed": false,
+  "error": "locator.evaluate: TypeError: Cannot read properties of undefined (reading 'execute')\n    at eval (eval at evaluate (:370:30), <anonymous>:1:25)\n    at UtilityScript.evaluate (<anonymous>:372:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at measure (/Users/caleblickteig/Documents/antigravity/joyful-pasteur/scripts/verify-model.mjs:31:47)\n    at /Users/caleblickteig/Documents/antigravity/joyful-pasteur/scripts/verify-model.mjs:94:29",
+  "body": "OmniCraft OS\nMODEL\ninterface-c57aff55-e058-4a57-b1b6-51b65695464e\nLoading…\nFull CAD workspace\nOpen\nSave project\nExport\nNew part\nSketch\nExtrude\nFillet\nChamfer\nMore tools\nStarting the modeling engine\n\nLoading the actual CAD kernel. This can take a moment on an Intel Mac.\n\n3D\nFront\nTop\nRight\nDesign details\nMM\nDimensions\nWidth / diameter\nmm\nDepth\nmm\nThickness\nmm\nCenter bore diameter\nmm\nMounting hole diameter\nmm\nHole inset from edge\nmm\nFeature history 4\n01\nBase profile\n02\nBase extrusion\n03\nHole profiles\n04\nThrough holes\nMeasure\nRecent projects\n\nModel uses the SolidCraft engine.\nSolidCraft contributors · MIT.\nUpstream source & credit\n\nNative project reopened from the suite library.\n1 body · 4 features · mm"
+}

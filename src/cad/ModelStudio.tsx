@@ -9,7 +9,7 @@ const DEFAULT_DIMENSIONS = { part_width: 80, part_depth: 60, part_thickness: 8, 
 const EMPTY: CadState = { name: 'Untitled part', bodies: [], timeline: [], params: [], selection: [], dirty: false, revision: 0, undo: 0, redo: 0, active_sketch: null, units: 'mm' };
 export interface ModelProjectLink { id: string; name: string; file?: File; }
 export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () => void; initialProject?: ModelProjectLink; onSaved?: (project: { id: string; name: string; file: File }) => Promise<void> } = {}) {
-  const nativeChrome = isDesktopShell();
+  const [nativeChrome, setNativeChrome] = useState(() => isDesktopShell() || new URLSearchParams(location.search).get('cad') === 'full');
   const documentId = useRef(initialProject?.id || crypto.randomUUID());
   const initial = useRef(initialProject);
   const newDocument = useRef(false);
@@ -52,6 +52,7 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
     let cancelled = false, pending = false, initialized = false;
     engine.current = undefined; lastRevision.current = '';
     setReady(false); setEngineAttached(false); setBootFailure(false); setError('');
+    setState(EMPTY); setParameters([]); setCommands([]); setEdits({});
     async function startup<T>(task: Promise<T>, label: string): Promise<T> {
       let deadline: ReturnType<typeof setTimeout>;
       try { return await Promise.race([task, new Promise<never>((_, reject) => { deadline = setTimeout(() => reject(new Error(`The CAD engine loaded but did not respond while ${label}. Reload Model or use a supported desktop browser.`)), 20000); })]); }
@@ -82,12 +83,29 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
       finally { pending = false; }
     }, nativeChrome ? 3000 : 1200);
     return () => { cancelled = true; clearInterval(timer); };
-  }, [attempt]);
+  }, [attempt, nativeChrome]);
   async function run(label: string, task: (api: CadEngine) => Promise<void>) {
     if (!engine.current || busy) return;
     setBusy(label); setError('');
     try { await task(engine.current); await refresh(true); }
     catch (e) { setError((e as Error).message || String(e)); }
+    finally { setBusy(''); }
+  }
+  async function switchInterface() {
+    const api = engine.current;
+    if (!api || busy) return;
+    setBusy('Switching CAD interface'); setError('');
+    try {
+      // Serialize the actual engine document before remounting its canvas.
+      // This preserves sketches, parameters and bodies across interface modes.
+      const current = await api.inspect();
+      const filename = `interface-${crypto.randomUUID()}.sc`;
+      // The upstream Save As operation can adopt the temporary filename as the
+      // design name. A native JSON export preserves the complete named design.
+      await api.execute('file.export', { path: `/opfs/${filename}`, format: 'json' });
+      initial.current = { id: documentId.current, name: current.name, file: await readEngineFile(filename) };
+      setReady(false); setNativeChrome(value => !value);
+    } catch (error) { setError(error instanceof Error ? error.message : String(error)); }
     finally { setBusy(''); }
   }
   async function leave() {
@@ -164,10 +182,10 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
   const hasBodies = !!state.bodies.length;
   const changes = Object.keys(edits).length;
   return <main className={`model-studio ${nativeChrome ? 'model-native-chrome' : ''}`}>
-    {nativeChrome ? <header className="model-native-hostbar"><button className="model-back" onClick={leave}><ArrowLeft size={14} />OmniCraft OS</button><span>Model</span><div><button disabled={blocked} onClick={newPart}><Plus size={14} />Quick part</button><button disabled={blocked} onClick={() => void save()}><Save size={14} />Save to Projects</button></div></header> : (<header className="model-header"><button className="model-back" onClick={leave}><ArrowLeft size={15} />OmniCraft OS</button><div className="model-document-title"><Box size={19} /><div><span>MODEL</span><h1>{state.name || 'Untitled part'}</h1></div><span className="model-save-state">{state.dirty ? 'Unsaved changes' : ready ? 'No unsaved changes' : 'Loading…'}</span></div><div className="model-file-actions"><label className="model-open"><FolderOpen size={15} />Open<input aria-label="Open model file" type="file" accept=".sc,.solidcraft,.step,.stp,.stl" disabled={blocked} onChange={event => { void openFile(event.target.files?.[0]); event.target.value = ''; }} /></label><button disabled={blocked} onClick={() => void save()}><Save size={15} />Save project</button><details className="model-export-menu"><summary><Download size={15} />Export<ChevronDown size={12} /></summary><div><button disabled={blocked} onClick={() => void save(true)}>Native project (.sc)</button><button disabled={blocked || !hasBodies} onClick={() => void exportPart('step')}>STEP · editable solid</button><button disabled={blocked || !hasBodies} onClick={() => void exportPart('stl')}>STL · print mesh</button></div></details></div></header>)}
+    {nativeChrome ? <header className="model-native-hostbar"><button className="model-back" onClick={leave}><ArrowLeft size={14} />OmniCraft OS</button><span>Model</span><div><span role="status" className="model-native-status">{busy || (ready ? `${state.name} · ${state.dirty ? 'Unsaved changes' : 'Saved in engine'}` : 'Loading CAD…')}</span><button disabled={blocked} onClick={() => void switchInterface()}>Guided workspace</button><button disabled={blocked} onClick={newPart}><Plus size={14} />Quick part</button><button disabled={blocked} onClick={() => void save()}><Save size={14} />Save to Projects</button></div></header> : (<header className="model-header"><button className="model-back" onClick={leave}><ArrowLeft size={15} />OmniCraft OS</button><div className="model-document-title"><Box size={19} /><div><span>MODEL</span><h1>{state.name || 'Untitled part'}</h1></div><span className="model-save-state">{state.dirty ? 'Unsaved changes' : ready ? 'No unsaved changes' : 'Loading…'}</span></div><div className="model-file-actions"><button disabled={blocked} onClick={() => void switchInterface()}>Full CAD workspace</button><label className="model-open"><FolderOpen size={15} />Open<input aria-label="Open model file" type="file" accept=".sc,.solidcraft,.step,.stp,.stl" disabled={blocked} onChange={event => { void openFile(event.target.files?.[0]); event.target.value = ''; }} /></label><button disabled={blocked} onClick={() => void save()}><Save size={15} />Save project</button><details className="model-export-menu"><summary><Download size={15} />Export<ChevronDown size={12} /></summary><div><button disabled={blocked} onClick={() => void save(true)}>Native project (.sc)</button><button disabled={blocked || !hasBodies} onClick={() => void exportPart('step')}>STEP · editable solid</button><button disabled={blocked || !hasBodies} onClick={() => void exportPart('stl')}>STL · print mesh</button></div></details></div></header>)}
     {!nativeChrome && <nav className="model-toolbar" aria-label="Modeling tools"><button className="model-new" disabled={blocked} onClick={newPart}><Plus size={15} />New part</button><span className="model-divider" />{[['sketch.create', 'Sketch', Pencil], ['solid.extrude', 'Extrude', Box], ['solid.fillet', 'Fillet', Circle], ['solid.chamfer', 'Chamfer', Box]].map(([id, label, Icon]) => { const Component = Icon as typeof Box; return <button key={String(id)} disabled={blocked} onClick={() => startTool(String(id))}><Component size={15} />{String(label)}</button>; })}{state.active_sketch != null && <><button disabled={blocked} onClick={() => startTool('sketch.line')}>Line</button><button disabled={blocked} onClick={() => startTool('sketch.rectangle.two_point')}>Rectangle</button><button disabled={blocked} onClick={() => startTool('sketch.circle.center')}>Circle</button><button disabled={blocked} onClick={() => void run('Finishing sketch', async api => { await api.execute('sketch.finish', {}); })}><Check size={14} />Finish sketch</button></>}<button disabled={blocked} onClick={() => commandDialog.current?.showModal()}><Search size={15} />More tools</button><span className="model-toolbar-space" /><button aria-label="Undo model edit" disabled={blocked || !state.undo} onClick={() => void run('Undo', async api => { await api.execute('edit.undo', {}); setEdits({}); })}><Undo2 size={16} /></button><button aria-label="Redo model edit" disabled={blocked || !state.redo} onClick={() => void run('Redo', async api => { await api.execute('edit.redo', {}); setEdits({}); })}><Redo2 size={16} /></button></nav>}
     {error && <div className="model-error" role="alert">{error}<button onClick={() => setError('')} aria-label="Dismiss modeling error">×</button></div>}
-    <div className="model-body"><section className="model-viewport" aria-label="Interactive CAD viewport"><iframe key={attempt} ref={iframe} src={nativeChrome ? "/editors/solidcraft/workspace.html?webgl=1" : "/editors/solidcraft/workspace.html?omnicraft=1&webgl=1"} title="Model geometry engine" />
+    <div className="model-body"><section className="model-viewport" aria-label="Interactive CAD viewport"><iframe key={`${attempt}/${nativeChrome}`} ref={iframe} src={nativeChrome ? "/editors/solidcraft/workspace.html?webgl=1" : "/editors/solidcraft/workspace.html?omnicraft=1&webgl=1"} title="Model geometry engine" />
       {!ready && <div className={`model-loading ${engineAttached ? 'model-configuring' : ''}`} role="status"><Box size={28} /><strong>{bootFailure ? 'Model could not start' : engineAttached ? 'Connecting to the viewport' : 'Starting the modeling engine'}</strong><p>{bootFailure ? error : engineAttached ? 'The CAD engine has loaded. Waiting for its command channel.' : 'Loading the actual CAD kernel. This can take a moment on an Intel Mac.'}</p>{bootFailure && <button onClick={() => setAttempt(value => value + 1)}>Reload Model</button>}</div>}
       {!nativeChrome && ready && showStartCard && !hasBodies && !state.active_sketch && <div className="model-start-card"><p>YOUR NEXT PART STARTS HERE</p><h2>From a shape<br />to something useful.</h2><span>Build a parametric part, open a design,<br />or start sketching in the viewport.</span><button disabled={blocked} onClick={newPart}><Plus size={15} />Create a part</button></div>}
       {!nativeChrome && <div className="model-view-controls" aria-label="Camera views">{['iso', 'front', 'top', 'right'].map(view => <button key={view} disabled={blocked} onClick={() => void run('Changing view', async api => { await api.request('ui.view', { view }); })}>{view === 'iso' ? '3D' : view}</button>)}<button aria-label="Fit model in view" disabled={blocked} onClick={() => void run('Fitting model', async api => { await api.execute('view.fit', {}); })}><Maximize size={14} /></button></div>}

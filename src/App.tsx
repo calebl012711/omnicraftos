@@ -1467,7 +1467,7 @@ export function App() {
       {/* Main Content Area */}
       <main className="mf-main">
         {/* VIEW 1: STANDALONE HOME PAGE LAUNCHER */}
-        {activeTab === 'home' && desktop && <div className="mf-scroll-page" data-testid="view-home"><div className="mf-home-container"><DesktopHome workspaces={WORKSPACES} projects={projects} onOpenWorkspace={openWorkspace} onOpenProject={(workspace, id) => openWorkspace(workspace, id)} onNewProject={() => newProjectDialogRef.current?.showModal()} onShowProjects={() => returnToHome('projects')} /></div></div>}
+        {activeTab === 'home' && desktop && <div className="mf-scroll-page" data-testid="view-home"><div className="mf-home-container"><DesktopHome workspaces={WORKSPACES} projects={projects} onOpenWorkspace={openWorkspace} onOpenProject={(workspace, id) => openWorkspace(workspace, id)} onNewProject={() => newProjectDialogRef.current?.showModal()} onShowProjects={() => returnToHome('projects')} onOpenModel={file => openWorkspace('solidcraft', null, file)} /></div></div>}
         {activeTab === 'home' && !desktop && (
           <div className="mf-scroll-page" data-testid="view-home">
             <div className="mf-home-container">

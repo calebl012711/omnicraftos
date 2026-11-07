@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowRight, FilePlus2, FolderOpen, Search } from 'lucide-react';
 import type { WorkspaceSpec } from '../config/workspaces';
 import type { SuiteProject } from '../storage/db';
@@ -12,16 +12,27 @@ interface Props {
   onOpenProject: (workspaceId: string, projectId: string) => void;
   onNewProject: () => void;
   onShowProjects: () => void;
+  onOpenModel: (file: File) => void;
 }
 const ORDER = ['riverstudio', 'solidcraft', 'filmcraft', 'photocraft', 'vectorcraft', 'effectcraft', 'lightcraft', 'music'];
-export function DesktopHome({ workspaces, projects, onOpenWorkspace, onOpenProject, onNewProject, onShowProjects }: Props) {
+export function DesktopHome({ workspaces, projects, onOpenWorkspace, onOpenProject, onNewProject, onShowProjects, onOpenModel }: Props) {
   const [query, setQuery] = useState('');
-  const saved = projects.filter(project => project.storedSnapshotFileId).slice(0, 6);
+  const [error, setError] = useState('');
+  const openInput = useRef<HTMLInputElement>(null);
+  const saved = projects.filter(project => project.storedSnapshotFileId).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 6);
   const tools = workspaces.filter(tool => !['studiocut', 'bandforge', 'flstudio'].includes(tool.id))
     .filter(tool => `${tool.name} ${tool.category} ${tool.nativeFormats.join(' ')}`.toLowerCase().includes(query.toLowerCase()))
     .sort((a, b) => (ORDER.includes(a.id) ? ORDER.indexOf(a.id) : 100) - (ORDER.includes(b.id) ? ORDER.indexOf(b.id) : 100));
   return <section className="desktop-home" aria-labelledby="desktop-home-title">
-    <div className="desktop-home-heading"><div><h1 id="desktop-home-title">Home</h1><p>Open a project or choose a workspace.</p></div><button onClick={onNewProject}><FilePlus2 size={15} />New project</button></div>
+    <div className="desktop-home-heading"><div><h1 id="desktop-home-title">Home</h1><p>Open a project or choose a workspace.</p></div><div className="desktop-home-actions"><button onClick={() => openInput.current?.click()}><FolderOpen size={15} />Open model</button><button onClick={onNewProject}><FilePlus2 size={15} />New project</button></div></div>
+    <input ref={openInput} className="desktop-file-input" aria-label="Open a model from disk" type="file" accept=".sc,.solidcraft,.step,.stp,.stl" onChange={event => {
+      const file = event.target.files?.[0]; event.target.value = '';
+      if (!file) return;
+      if (file.size > 100 * 1024 * 1024) { setError('Choose a model smaller than 100 MB.'); return; }
+      if (!/\.(sc|solidcraft|step|stp|stl)$/i.test(file.name)) { setError('Choose a native SC project, STEP solid, or STL mesh.'); return; }
+      setError(''); onOpenModel(file);
+    }} />
+    {error && <p role="alert">{error}</p>}
     <div className="desktop-home-body">
       <section className="desktop-recent" aria-labelledby="desktop-recent-title"><div className="desktop-section-heading"><h2 id="desktop-recent-title">Recent projects</h2><button onClick={onShowProjects}>View all<ArrowRight size={13} /></button></div>
         {saved.length ? <div className="desktop-project-list">{saved.map(project => <button key={project.id} onClick={() => onOpenProject(project.workspaceId, project.id)}><AppIcon id={project.workspaceId} size={29} /><span><strong>{project.name}</strong><small>{workspaces.find(tool => tool.id === project.workspaceId)?.name} · {new Date(project.updatedAt).toLocaleDateString()}</small></span><ArrowRight size={14} /></button>)}</div> : <div className="desktop-empty"><FolderOpen size={27} strokeWidth={1.3} /><strong>No saved projects yet</strong><p>Save a Model design to add it to your project library. Recordings are kept inside Capture.</p><button onClick={() => onOpenWorkspace('solidcraft')}>Start a model<ArrowRight size={13} /></button></div>}

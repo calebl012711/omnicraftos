@@ -1,7 +1,7 @@
 export interface RecordingFile { name: string; kind: string; mime: string; bytes: number; chunks: number; error?: string; }
 export interface SessionManifest {
   version: 1; id: string; createdAt: string; state: 'preparing' | 'recording' | 'paused' | 'complete' | 'interrupted';
-  mode: 'capture' | 'test'; durationMs: number; files: RecordingFile[];
+  mode: 'capture' | 'test'; durationMs: number; files: RecordingFile[]; title?: string;
   events: { type: string; offsetMs: number; detail?: string }[];
   routing: { screen: string; camera: string; microphone: string };
 }
@@ -125,6 +125,33 @@ export class RecordingStore {
     } catch (error) { await writer.abort().catch(() => {}); throw error; }
   }
   async release() { await this.drain(); this.db?.close(); }
+  async rename(title: string) {
+    if (!['complete', 'interrupted'].includes(this.manifest.state)) throw new Error('Finish this take before renaming it.');
+    const previous = this.manifest.title;
+    this.manifest.title = title.trim().slice(0, 100) || undefined;
+    try { await this.saveManifest(); }
+    catch (error) { this.manifest.title = previous; throw error; }
+  }
+  async remove() {
+    if (!['complete', 'interrupted'].includes(this.manifest.state)) throw new Error('Finish this take before deleting it.');
+    // A take interrupted by a failed write must still be deletable to free space.
+    await this.drain().catch(() => {});
+    if (this.root) {
+      const root = await navigator.storage.getDirectory();
+      const recordings = await root.getDirectoryHandle('omnicraft-recordings');
+      await recordings.removeEntry(this.manifest.id, { recursive: true });
+    } else {
+      await new Promise<void>((resolve, reject) => {
+        const transaction = this.db!.transaction('chunks', 'readwrite');
+        const prefix = `${this.manifest.id}/`;
+        transaction.objectStore('chunks').delete(IDBKeyRange.bound(prefix, `${prefix}\uffff`));
+        transaction.oncomplete = () => resolve();
+        transaction.onerror = () => reject(transaction.error);
+        transaction.onabort = () => reject(transaction.error);
+      });
+      this.db?.close();
+    }
+  }
 }
 
 export async function recoverRecordings(): Promise<RecordingStore[]> {

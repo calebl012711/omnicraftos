@@ -22,7 +22,11 @@ npm run preview -- --host 127.0.0.1
 
 Capture requires localhost or HTTPS and permission. It offers MP4 only when a compatible encoder is reported, otherwise explaining the playable WebM alternative. Screen audio stays on the screen video; microphone audio goes to the camera video and a separate audio file. Chunks save incrementally to OPFS, with IndexedDB fallback and interrupted-take recovery. Download takes before clearing this origin's storage. Balanced and light presets suit slower hardware; actual resolution appears under each connected preview.
 
+Saved takes can be named, reopened for playback, and deleted after confirmation. Closing playback releases its media URL. Deleting a take removes its local chunks and assembled files; downloaded copies are unaffected. Names persist in the sync JSON and survive reload.
+
 Model creates editable Plate, Block and Cylinder starters using real sketches/extrusions. It supports dimension changes, upstream modeling commands, undo/redo, native `.sc` save/reopen, STEP and STL exports. In the suite, Save project stores the actual native snapshot in Projects and library backups. Other editors retain their own native save/open controls; Capture takes are downloaded separately.
+
+Full CAD workspace opens SolidCraft's actual ribbon and controls. Guided workspace returns to the simplified interface. Switching saves and reopens the native design so geometry and parameters survive, with a fresh undo history. Tauri starts with the full interface and a compact project home; its updated native bundle still needs a separate build and native verification.
 
 ## Verified scope
 
@@ -67,6 +71,8 @@ With production preview running:
 OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:shell
 OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:model
 OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:model-library
+OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:capture-library
+OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:desktop-home
 OMNICRAFT_URL=http://127.0.0.1:4173 CAPTURE_FORMAT=mp4 CAPTURE_SECONDS=62 npm run verify:recorder
 OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:music
 ```

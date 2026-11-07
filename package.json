@@ -16,6 +16,8 @@
     "upstream:overlays": "node scripts/upstream-manager.mjs verify-overlays",
     "upstream:apply-overlays": "node scripts/upstream-manager.mjs apply-overlays",
     "verify:recorder": "node scripts/verify-recorder.mjs",
+    "verify:capture-library": "node scripts/verify-capture-library.mjs",
+    "verify:desktop-home": "node scripts/verify-desktop-home.mjs",
     "verify:editors": "node scripts/verify-upstream-workflows.mjs",
     "verify:music": "node scripts/verify-music.mjs",
     "desktop:dev": "tauri dev --no-watch",

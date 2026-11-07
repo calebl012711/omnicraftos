@@ -28,9 +28,12 @@ try {
   await page.getByLabel('Find a workspace', { exact: true }).fill('nonexistent-tool');
   await page.getByText('No matching workspace.', { exact: true }).waitFor();
   await page.getByLabel('Find a workspace', { exact: true }).fill('');
+  assert.ok(await page.getByRole('button', { name: 'Open model', exact: true }).isVisible());
+  await page.getByLabel('Open a model from disk', { exact: true }).setInputFiles({ name: 'notes.txt', mimeType: 'text/plain', buffer: Buffer.from('not a model') });
+  await page.getByRole('alert').filter({ hasText: 'Choose a native SC project' }).waitFor();
   await page.screenshot({ path: `${output}/home.png` });
   report.tests.launcher = { passed: true, appHome: true, noHero: true, noStartupEditor: true, realProjectDialog: true, search: true };
-  await page.getByTestId('desktop-open-solidcraft').click();
+  await page.getByLabel('Open a model from disk', { exact: true }).setInputFiles({ name: 'fixture.sc', mimeType: 'application/x-solidcraft', buffer: Buffer.from('UI handoff fixture; engine requests remain blocked') });
   const frame = page.locator('iframe[title="Model geometry engine"]'); await frame.waitFor();
   const src = new URL(await frame.getAttribute('src'), base);
   assert.equal(src.searchParams.has('omnicraft'), false);
@@ -39,7 +42,7 @@ try {
   assert.equal(await page.locator('.model-toolbar').count(), 0);
   assert.equal(await page.locator('.model-properties').count(), 0);
   assert.ok(await page.getByRole('button', { name: 'Save to Projects', exact: true }).isVisible());
-  report.tests.cadChrome = { passed: true, fullUpstreamChromeRequested: true, noDuplicateHostRibbon: true, noDuplicateProperties: true, librarySaveRetained: true };
+  report.tests.cadChrome = { passed: true, openModelRoutesToCad: true, invalidFileRejected: true, engineFileImportTested: false, fullUpstreamChromeRequested: true, noDuplicateHostRibbon: true, noDuplicateProperties: true, librarySaveRetained: true };
   report.passed = true;
 } catch (error) { report.passed = false; report.error = String(error.stack || error); process.exitCode = 1; console.error(error); }
 finally { await fs.writeFile(`${output}/report.json`, JSON.stringify(report, null, 2)); await browser.close(); }
