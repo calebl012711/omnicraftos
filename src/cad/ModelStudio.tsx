@@ -156,12 +156,14 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
       // Reusing the design's private native path preserves its upstream name.
       // Never write back to a source file on the user's computer.
       const privateName = current.path?.startsWith('/opfs/') ? current.path.slice('/opfs/'.length) : '';
-      const filename = privateName && !privateName.includes('/') && /\.(sc|solidcraft)$/i.test(privateName) ? privateName : `model-${crypto.randomUUID()}.sc`;
+      const reusePrivatePath = !!privateName && !privateName.includes('/') && /\.(sc|solidcraft)$/i.test(privateName);
+      const filename = reusePrivatePath ? privateName : `model-${crypto.randomUUID()}.sc`;
       let previousModified: number | undefined;
       try { const root = await navigator.storage.getDirectory(); previousModified = (await (await root.getFileHandle(filename)).getFile()).lastModified; }
       catch (error) { if ((error as DOMException).name !== 'NotFoundError') throw error; }
       if ((await api.execute('document.revision', {})).document_id !== binding.engineId) throw new Error('The active design changed before saving. No project snapshot was replaced; select the design and try again.');
-      const [, after] = await Promise.all([api.execute('file.save', { path: `/opfs/${filename}` }), api.execute('document.revision', {})]);
+      // Let the engine resolve its own current path atomically when reusing it.
+      const [, after] = await Promise.all([api.execute('file.save', reusePrivatePath ? {} : { path: `/opfs/${filename}` }), api.execute('document.revision', {})]);
       if (after.document_id !== binding.engineId) throw new Error('The active design changed while saving. No project snapshot was replaced; select the design and try again.');
       const file = await readEngineFile(filename, previousModified);
       setRecent(rememberModel({ id: binding.projectId, name: currentName, path: `/opfs/${filename}`, at: new Date().toISOString() }));
