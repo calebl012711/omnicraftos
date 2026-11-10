@@ -1510,5 +1510,6 @@
         "url": "https://github.com/clauderic/dnd-kit"
       }
     }
-  }
+  },
+  "desktopPackagesLock": "integration/desktop-lock.json"
 }

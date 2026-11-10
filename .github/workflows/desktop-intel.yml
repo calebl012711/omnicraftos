@@ -1,0 +1,89 @@
+name: Build Intel Mac package
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload_bundle:
+        description: Keep a downloadable bundle for one day (uses artifact storage)
+        type: boolean
+        default: false
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-intel-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    # Standard public-repository runner, never a larger/paid runner.
+    if: github.event.repository.private == false
+    runs-on: macos-15-intel
+    timeout-minutes: 45
+    env:
+      CARGO_BUILD_JOBS: '2'
+      RAYON_NUM_THREADS: '2'
+      CARGO_TARGET_DIR: ${{ github.workspace }}/staging/desktop-ci-target
+      DESKTOP_TARGET: x86_64-apple-darwin
+      MACOSX_DEPLOYMENT_TARGET: '11.0'
+      NODE_OPTIONS: --max-old-space-size=2048
+      GOMAXPROCS: '2'
+    steps:
+      - name: Check out the requested revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          # The prebuild hook verifies and hydrates LFS pointers at this commit.
+          lfs: false
+      - name: Set up the checked Node version
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '26.3.0'
+          package-manager-cache: false
+      - name: Set up the checked Rust version
+        run: |
+          rustup toolchain install 1.99.1 --profile minimal --target x86_64-apple-darwin
+          rustup override set 1.99.1
+          rustc --version
+          cargo --version
+      - name: Install locked dependencies and verify notices
+        run: |
+          npm ci
+          cargo fetch --manifest-path src-tauri/Cargo.toml --locked --target x86_64-apple-darwin
+          npm run desktop:notices
+          npm run verify:desktop-notices
+          git diff --exit-code -- src-tauri/Cargo.lock package-lock.json
+      - name: Run serial unit checks
+        run: npm test
+      - name: Build the app without launching it
+        run: |
+          unset OMNICRAFT_DESKTOP_PROBE_DIR
+          npx --no-install tauri build --debug --bundles app --ci -- --locked
+      - name: Verify Intel package, signature and bundled notices
+        run: node scripts/finalize-desktop-package.mjs "staging/desktop-ci-target/debug/bundle/macos/OmniCraft OS.app"
+      - name: Archive the app when requested
+        if: inputs.upload_bundle
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent "staging/desktop-ci-target/debug/bundle/macos/OmniCraft OS.app" "verification/desktop-package/OmniCraft-OS-Intel.zip"
+          node -e "if(require('fs').statSync('verification/desktop-package/OmniCraft-OS-Intel.zip').size>400*1024*1024)throw Error('Bundle exceeds the 400 MB artifact cap')"
+      - name: Retain the requested bundle for one day
+        if: inputs.upload_bundle
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: OmniCraft-OS-Intel-${{ github.sha }}
+          path: |
+            verification/desktop-package/OmniCraft-OS-Intel.zip
+            verification/desktop-package/report.json
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+      - name: Write package scope to the run summary
+        if: always()
+        run: |
+          echo 'This workflow does not launch the app, publish a release, or deploy a website.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'A successful build proves package construction, Intel architecture, retained notices and an ad-hoc signature. Native workflows remain unverified.' >> "$GITHUB_STEP_SUMMARY"
+          if test -f verification/desktop-package/report.json; then
+            cat verification/desktop-package/report.json >> "$GITHUB_STEP_SUMMARY"
+          fi

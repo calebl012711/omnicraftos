@@ -2,7 +2,8 @@
 // through an APFS clone so the previous app and executable stay intact.
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawn, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
+import { spawnBuild } from './lib/build-process.mjs';
 const root = process.cwd();
 const target = path.join(root, 'staging/desktop-low-impact-target');
 const cached = path.join(root, 'src-tauri/target');
@@ -25,6 +26,6 @@ delete env.OMNICRAFT_DESKTOP_PROBE_DIR;
 const cli = path.join(root, 'node_modules/@tauri-apps/cli/tauri.js');
 const job = lowPriority(process.execPath, [cli, 'build', '--debug', '--bundles', 'app', ...process.argv.slice(2)]);
 console.log('Building with one Cargo worker and low CPU priority. The app will not be opened.');
-const child = spawn(job.command, job.args, { cwd: root, env, stdio: 'inherit' });
+const child = spawnBuild(job.command, job.args, { cwd: root, env, stdio: 'inherit' });
 child.on('error', error => { console.error(error.message); process.exitCode = 1; });
 child.on('exit', (code, signal) => { process.exitCode = code ?? 1; if (signal) console.error(`Build ended with ${signal}`); });

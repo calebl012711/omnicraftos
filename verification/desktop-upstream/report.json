@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-11-10T03:56:14.602Z",
+  "readOnly": true,
+  "source": "Official crates.io API",
+  "results": [
+    {
+      "name": "tao",
+      "pinnedVersion": "0.37.2",
+      "registryChecksum": "d5777b06fe6435126ae8d816eba269e050e1e10d302cf5461e9c49eccabc3548",
+      "repository": "https://github.com/tauri-apps/tao",
+      "publisherVcs": {
+        "git": {
+          "sha1": "2d9b2ba15247879787878ae565e350bcc1b9f622",
+          "dirty": true
+        },
+        "path_in_vcs": ""
+      },
+      "latestStableVersion": "0.37.2",
+      "status": "same-version",
+      "releaseUrl": "https://crates.io/crates/tao/0.37.2"
+    },
+    {
+      "name": "tauri-runtime-wry",
+      "pinnedVersion": "2.12.3",
+      "registryChecksum": "e1aa9d8b7a120f879f44fdc1053f7b7dbf416bf0bbc6a72b714dec46b782b52f",
+      "repository": "https://github.com/tauri-apps/tauri",
+      "publisherVcs": {
+        "git": {
+          "sha1": "993038c49185307dfc895ab7657d77ca0d5ed7c7"
+        },
+        "path_in_vcs": "crates/tauri-runtime-wry"
+      },
+      "latestStableVersion": "2.12.3",
+      "status": "same-version",
+      "releaseUrl": "https://crates.io/crates/tauri-runtime-wry/2.12.3"
+    },
+    {
+      "name": "tauri",
+      "pinnedVersion": "2.12.5",
+      "registryChecksum": "5fb0244332cfb9cee7e2a568bf5da29a36ed8fdbd717f6f47a66b6b7b358c072",
+      "repository": "https://github.com/tauri-apps/tauri",
+      "publisherVcs": {
+        "git": {
+          "sha1": "993038c49185307dfc895ab7657d77ca0d5ed7c7"
+        },
+        "path_in_vcs": "crates/tauri"
+      },
+      "latestStableVersion": "2.12.5",
+      "status": "same-version",
+      "releaseUrl": "https://crates.io/crates/tauri/2.12.5"
+    },
+    {
+      "name": "wry",
+      "pinnedVersion": "0.57.1",
+      "registryChecksum": "759c50ddad0ef9913bb5496cb9d509a50433a3b78cb0238d61105526589cf0e9",
+      "repository": "https://github.com/tauri-apps/wry",
+      "publisherVcs": {
+        "git": {
+          "sha1": "2446feadae623d6f2ac8d2136e3ccef3d7197e0e",
+          "dirty": true
+        },
+        "path_in_vcs": ""
+      },
+      "latestStableVersion": "0.57.2",
+      "status": "different-version-review-required",
+      "releaseUrl": "https://crates.io/crates/wry/0.57.2"
+    }
+  ],
+  "commandExitCode": 0,
+  "lockFilesUnchanged": true
+}

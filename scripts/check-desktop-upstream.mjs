@@ -8,6 +8,7 @@ for (const component of lock.components) {
     const response = await fetch(`https://crates.io/api/v1/crates/${encodeURIComponent(component.name)}`, { headers: { 'User-Agent': 'OmniCraftOS-read-only-upstream-check (https://github.com/calebl012711/omnicraftos)' }, signal: AbortSignal.timeout(15000) });
     if (!response.ok) throw Error(`crates.io HTTP ${response.status}`);
     const data = await response.json();
+    if (typeof data.crate?.max_stable_version !== 'string' || !/^\d+\.\d+\.\d+(?:\+[0-9A-Za-z.-]+)?$/.test(data.crate.max_stable_version)) throw Error('crates.io returned no valid stable version');
     row.latestStableVersion = data.crate.max_stable_version;
     row.status = row.latestStableVersion === row.pinnedVersion ? 'same-version' : 'different-version-review-required';
     row.releaseUrl = `https://crates.io/crates/${component.name}/${row.latestStableVersion}`;

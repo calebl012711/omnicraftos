@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "target": "x86_64-apple-darwin",
+  "cargoLockSha256": "40cf3f967ba26544ceef93d73a6435fe89f6baf3c088cd4e74c2cb060aade194",
+  "sourceOfTruth": "Cargo.lock checksums verified against the original cached crate archives; no builds or downloads.",
+  "components": [
+    {
+      "name": "tao",
+      "version": "0.37.2",
+      "registryChecksum": "d5777b06fe6435126ae8d816eba269e050e1e10d302cf5461e9c49eccabc3548",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/tauri-apps/tao",
+      "declaredLicense": "Apache-2.0",
+      "authors": [
+        "Tauri Programme within The Commons Conservancy",
+        "The winit contributors"
+      ],
+      "publisherVcs": {
+        "git": {
+          "sha1": "2d9b2ba15247879787878ae565e350bcc1b9f622",
+          "dirty": true
+        },
+        "path_in_vcs": ""
+      },
+      "sourceUrl": "https://crates.io/crates/tao/0.37.2",
+      "notices": [
+        {
+          "file": "tao-0.37.2/LICENSE",
+          "sha256": "6dc0e068dcf3a5bc8e054205b85b7720e1d49265bbc64bf515d2cf79197df69a"
+        },
+        {
+          "file": "tao-0.37.2/LICENSE.spdx",
+          "sha256": "02b6448337b757772d90e5f31caaa0f9e6afaad2221c01771d0a3deaa4d4196c"
+        }
+      ],
+      "selectedLicense": "Apache-2.0"
+    },
+    {
+      "name": "tauri-runtime-wry",
+      "version": "2.12.3",
+      "registryChecksum": "e1aa9d8b7a120f879f44fdc1053f7b7dbf416bf0bbc6a72b714dec46b782b52f",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/tauri-apps/tauri",
+      "declaredLicense": "Apache-2.0 OR MIT",
+      "authors": [
+        "Tauri Programme within The Commons Conservancy"
+      ],
+      "publisherVcs": {
+        "git": {
+          "sha1": "993038c49185307dfc895ab7657d77ca0d5ed7c7"
+        },
+        "path_in_vcs": "crates/tauri-runtime-wry"
+      },
+      "sourceUrl": "https://crates.io/crates/tauri-runtime-wry/2.12.3",
+      "notices": [
+        {
+          "file": "tauri-runtime-wry-2.12.3/LICENSE-APACHE-2.0",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "file": "tauri-runtime-wry-2.12.3/LICENSE-MIT",
+          "sha256": "9dd42ea92cff2ede5cd477cbfcce051b2d0115c0ac7f368ee88cb545055dff1d"
+        }
+      ],
+      "selectedLicense": "MIT"
+    },
+    {
+      "name": "tauri",
+      "version": "2.12.5",
+      "registryChecksum": "5fb0244332cfb9cee7e2a568bf5da29a36ed8fdbd717f6f47a66b6b7b358c072",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/tauri-apps/tauri",
+      "declaredLicense": "Apache-2.0 OR MIT",
+      "authors": [
+        "Tauri Programme within The Commons Conservancy"
+      ],
+      "publisherVcs": {
+        "git": {
+          "sha1": "993038c49185307dfc895ab7657d77ca0d5ed7c7"
+        },
+        "path_in_vcs": "crates/tauri"
+      },
+      "sourceUrl": "https://crates.io/crates/tauri/2.12.5",
+      "notices": [
+        {
+          "file": "tauri-2.12.5/LICENSE-APACHE-2.0",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "file": "tauri-2.12.5/LICENSE-MIT",
+          "sha256": "9dd42ea92cff2ede5cd477cbfcce051b2d0115c0ac7f368ee88cb545055dff1d"
+        }
+      ],
+      "selectedLicense": "MIT"
+    },
+    {
+      "name": "wry",
+      "version": "0.57.1",
+      "registryChecksum": "759c50ddad0ef9913bb5496cb9d509a50433a3b78cb0238d61105526589cf0e9",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/tauri-apps/wry",
+      "declaredLicense": "Apache-2.0 OR MIT",
+      "authors": [
+        "Tauri Programme within The Commons Conservancy"
+      ],
+      "publisherVcs": {
+        "git": {
+          "sha1": "2446feadae623d6f2ac8d2136e3ccef3d7197e0e",
+          "dirty": true
+        },
+        "path_in_vcs": ""
+      },
+      "sourceUrl": "https://crates.io/crates/wry/0.57.1",
+      "notices": [
+        {
+          "file": "wry-0.57.1/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+        },
+        {
+          "file": "wry-0.57.1/LICENSE-MIT",
+          "sha256": "ef88893533af22ffbb68ceef0724ba1389518df26165a34f3c99ad30b884df4f"
+        },
+        {
+          "file": "wry-0.57.1/LICENSE.spdx",
+          "sha256": "26235c41e314fb0da35b33b2bb5bcbc4dd523839f8eeca52efcd43586f441fb5"
+        }
+      ],
+      "selectedLicense": "MIT"
+    }
+  ],
+  "fullInventory": "public/licenses/desktop/inventory.json",
+  "sourceIdentityLimit": "Publisher VCS metadata is retained verbatim. A dirty flag means the Git revision alone does not identify the packaged source; the registry checksum pins the actual package."
+}

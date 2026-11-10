@@ -58,12 +58,16 @@ Model and Audio now use fresh pinned-source builds with hashes in `integration/b
 npm run upstream:status
 npm run upstream:licenses
 npm run --silent upstream:check
+npm run desktop:upstream-check
+npm run verify:desktop-notices
 node scripts/upstream.mjs check --app solidcraft
 # Build an existing clean pinned checkout into staging; does not adopt/deploy:
 npm run upstream:build -- solidcraft --overlay
 ```
 
 Read-only checks never merge, change pins or deploy. Follow the [review, test, apply and rollback procedure](docs/UPSTREAM_WORKFLOW.md). Consult [candidate evaluations](docs/CANDIDATE_EVALUATION.md) before adding another tool.
+
+The desktop dependency inventory now records the actual locked Cargo archives and 434 notice files. A manual Intel Mac packaging workflow is prepared under `.github/workflows/desktop-intel.yml` so compilation can happen away from the laptop. It has not completed a hosted build and does not deploy, create a release or open the app. See [desktop build instructions and limits](docs/DESKTOP.md).
 
 With production preview running:
 

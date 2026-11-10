@@ -1,0 +1,7 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
+Source form of this dependency is available at:
+https://static.crates.io/crates/selectors/selectors-0.38.0.crate
+Cargo.lock SHA-256 of that source archive: 8adfa1c298912827b8a28b223b3b874357397ae706e6190acd9bf28cee99114d

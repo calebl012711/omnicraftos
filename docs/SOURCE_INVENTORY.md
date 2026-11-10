@@ -58,3 +58,29 @@ License texts for the integrated audio libraries are in `public/licenses/`. Exis
 ## Adopted source builds
 
 Model now uses a fresh SolidCraft release build at the exact source pin above, with the reviewed `integration/patches/solidcraft-host-chrome.patch`. Audio now uses a fresh SoundCraft Trunk release build at its recorded pin. Artifact hashes, build phase and adapter hashes are in `integration/builds/solidcraft.json` and `integration/builds/soundcraft.json`. SolidCraft's adopted module completed O3 + thin LTO, wasm-bindgen and Binaryen size minification; the full build receipt is in integration/builds/solidcraft-source.json. This does not establish reproducibility or source identity for the other inherited Craft bundles. See the current implementation status for actual workflow evidence.
+
+## Desktop shell dependencies
+
+The desktop component lock is `integration/desktop-lock.json`, referenced by the main integration lock. The original registry archives are checked against `src-tauri/Cargo.lock`; their package metadata and notice files are then read directly from those verified archives. This requires cached crates and runs no compiler. The full target graph contains 240 packages, including build dependencies; this is not a claim that all 240 are linked into the executable.
+
+| Component | Official source | Package version | Publisher Git revision | Selected license |
+| --- | --- | --- | --- | --- |
+| Tauri | https://github.com/tauri-apps/tauri | 2.12.5 | `993038c49185307dfc895ab7657d77ca0d5ed7c7` | MIT |
+| Tauri Wry runtime | https://github.com/tauri-apps/tauri | 2.12.3 | `993038c49185307dfc895ab7657d77ca0d5ed7c7` | MIT |
+| Wry | https://github.com/tauri-apps/wry | 0.57.1 | `2446feadae623d6f2ac8d2136e3ccef3d7197e0e` | MIT |
+| Tao | https://github.com/tauri-apps/tao | 0.37.2 | `2d9b2ba15247879787878ae565e350bcc1b9f622` | Apache-2.0 |
+
+Wry and Tao's publisher metadata reports a modified checkout. Their Git revision alone therefore does not identify their packaged source; the registry checksums in the desktop lock pin the actual archives. No changes are made to these dependencies by this integration.
+
+The distributable inventory is `public/licenses/desktop/inventory.json`. It records 434 retained notice files, authors, repository URLs, versions, checksums and publisher metadata. Fourteen published archives omit standalone license files. Their reviewed supplements are limited to the exact versions and revisions in `integration/desktop-notice-overrides.json`: the pinned upstream licensing policy, full selected license text and source references are retained. `selectors` also retains its original MPL notice and the URL/checksum for obtaining its exact source archive. Supplemental text sources and their hashes are recorded separately in `integration/desktop-notice-sources/sources.json`.
+
+```sh
+# Read-only validation of the distributable files; no compiler or network:
+npm run verify:desktop-notices
+# Read-only check of the four core desktop package versions:
+npm run desktop:upstream-check
+# Regenerate from the locked, already cached crates; no compilation/downloads:
+npm run desktop:notices
+```
+
+For a fresh developer machine, `cargo fetch --manifest-path src-tauri/Cargo.toml --locked --target x86_64-apple-darwin` populates the source cache without compiling. Review notice overrides, lock changes and source provenance before adopting any update. Missing notices, changed checksums and unreviewed override versions fail validation.

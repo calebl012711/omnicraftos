@@ -40,3 +40,15 @@ OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:desktop-home
 OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:capture-library
 OMNICRAFT_URL=http://127.0.0.1:4173 npm run verify:model
 ```
+
+## Manual build away from the laptop
+
+`.github/workflows/desktop-intel.yml` prepares an Intel package on GitHub's standard `macos-15-intel` runner. It has only a manual trigger, read-only repository permissions, pinned action commits, Node 26.3.0 and Rust 1.99.1. It does not open the app, create releases or deploy the website. It is prepared but has not yet completed a hosted build; YAML validation is not proof of a successful package.
+
+The workflow installs locked dependencies, regenerates and verifies the desktop notices, runs serial unit checks, and builds a debug `.app`. `scripts/finalize-desktop-package.mjs` then verifies Intel architecture, copies accessible license texts into `Contents/Resources/ThirdPartyNotices`, verifies those copies and checks the renewed ad-hoc signature. It records the binary hash, workspace revision at inspection, frontend workspace hashes and explicit native-testing limits in `verification/desktop-package/report.json`. The build job and compiler logs establish the compiled revision; static inspection alone does not extract or prove the identity of embedded frontend assets. The finalizer accepts only a staging bundle, preserving the older app.
+
+To use it after the workflow is available on GitHub, select **Actions → Build Intel Mac package → Run workflow**. Leave `upload_bundle` false for a build-only check. Enable it to retain a downloadable ZIP for one day, capped at 400 MB. Artifact storage counts against the account quota; no paid runner or persistent build cache is selected. Standard public-repository runner compute is covered by [GitHub's hosted-runner policy](https://docs.github.com/en/actions/reference/runners/github-hosted-runners); [artifact storage has separate limits](https://docs.github.com/en/billing/concepts/product-billing/github-actions).
+
+Hosted construction and signature checks do not verify native recording, CAD rendering/export, installation, offline operation or persistence. Those checks remain deferred under the user's instruction to keep the Mac app closed. The current laptop build was stopped; no updated bundle is claimed from it.
+
+The local build wrapper now forwards cancellation to its own process group and terminates remaining build descendants before exiting. `node scripts/verify-build-cancellation.mjs` checks this with sleeping fixture processes, including a descendant that ignores `SIGTERM`; it launches no compiler or app.
