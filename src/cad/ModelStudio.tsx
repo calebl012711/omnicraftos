@@ -11,11 +11,13 @@ export interface ModelProjectLink { id: string; name: string; file?: File; }
 export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () => void; initialProject?: ModelProjectLink; onSaved?: (project: { id: string; name: string; file: File }) => Promise<void> } = {}) {
   const [nativeChrome, setNativeChrome] = useState(() => isDesktopShell() || new URLSearchParams(location.search).get('cad') === 'full');
   const documentId = useRef(initialProject?.id || crypto.randomUUID());
+  const documentBindings = useRef(new Map<string, string>());
   const initial = useRef(initialProject);
   const newDocument = useRef(false);
   const iframe = useRef<HTMLIFrameElement>(null);
   const engine = useRef<CadEngine>();
   const lastRevision = useRef('');
+  const lastEngineDocument = useRef('');
   const partDialog = useRef<HTMLDialogElement>(null);
   const commandDialog = useRef<HTMLDialogElement>(null);
   const [showStartCard, setShowStartCard] = useState(true);
@@ -37,11 +39,23 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
   const [search, setSearch] = useState('');
   const [measure, setMeasure] = useState<any>();
   const [selectedFeature, setSelectedFeature] = useState<any>();
+  useEffect(() => { if (iframe.current) iframe.current.inert = !!busy; }, [busy]);
+
+  async function bindDocument(api: CadEngine, preferredId?: string) {
+    const identity = await api.execute('document.revision', {});
+    if (typeof identity?.document_id !== 'string' || !identity.document_id || typeof identity.revision !== 'number') throw new Error('The CAD engine could not identify this design. No project snapshot was replaced.');
+    const projectId = preferredId || documentBindings.current.get(identity.document_id) || crypto.randomUUID();
+    documentBindings.current.set(identity.document_id, projectId);
+    documentId.current = projectId;
+    return { engineId: identity.document_id as string, projectId, revision: identity.revision as number };
+  }
 
   async function refresh(full = false) {
     const api = engine.current; if (!api) return;
-    const next = await api.inspect(); setState(next);
-    const key = `${next.revision}/${JSON.stringify(next.selection)}/${next.active_sketch}`;
+    const [next, identity] = await Promise.all([api.inspect(), api.execute('document.revision', {})]); setState(next);
+    if (lastEngineDocument.current && lastEngineDocument.current !== identity.document_id) { setEdits({}); setMeasure(undefined); setSelectedFeature(undefined); }
+    lastEngineDocument.current = identity.document_id;
+    const key = `${identity.document_id}/${identity.revision}/${JSON.stringify(next.selection)}/${next.active_sketch}`;
     if (!nativeChrome && (full || key !== lastRevision.current)) {
       lastRevision.current = key;
       const [list, values] = await Promise.all([api.commands(), api.execute('parameters.list', { filter: 'user' })]);
@@ -50,7 +64,7 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
   }
   useEffect(() => {
     let cancelled = false, pending = false, initialized = false;
-    engine.current = undefined; lastRevision.current = '';
+    engine.current = undefined; lastRevision.current = ''; lastEngineDocument.current = '';
     setReady(false); setEngineAttached(false); setBootFailure(false); setError('');
     setState(EMPTY); setParameters([]); setCommands([]); setEdits({});
     async function startup<T>(task: Promise<T>, label: string): Promise<T> {
@@ -74,6 +88,7 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
             }
             if (initial.current?.file) { await openEngineFile(api, iframe.current!, initial.current.file); setMessage('Native project reopened from the suite library.'); }
             else { setMessage('Ready. Start a part or open your design.'); if (initial.current && !nativeChrome) partDialog.current?.showModal(); }
+            await startup(bindDocument(api, initial.current?.id || documentId.current), 'identifying the design');
             initialized = true; if (!cancelled) setReady(true);
           } else if (iframe.current?.contentDocument?.getElementById('error')?.textContent) throw Error(iframe.current.contentDocument.getElementById('error')!.textContent!);
           else if (performance.now() - started > 120000) throw Error('The modeling engine is taking longer than expected. Reload this workspace or try another desktop browser.');
@@ -96,52 +111,75 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
     if (!api || busy) return;
     setBusy('Switching CAD interface'); setError('');
     try {
+      const ui = await api.request('ui.inspect', {});
+      if (ui.file_busy || ui.file_picker_busy) throw new Error('Finish opening or saving the file before switching interfaces.');
+      const tabs = await api.request('ui.documents', {});
+      if (!Array.isArray(tabs.documents) || !Number.isInteger(tabs.active)) throw new Error('The CAD engine could not inspect its open designs. Keep this interface open and save your designs first.');
+      if (tabs.documents.some((tab: { dirty?: boolean }, index: number) => index !== tabs.active && tab.dirty)) throw new Error('Save or close other unsaved designs before switching interfaces. All design tabs have been kept open.');
+      const binding = await bindDocument(api);
       // Serialize the actual engine document before remounting its canvas.
       // This preserves sketches, parameters and bodies across interface modes.
       const current = await api.inspect();
       const filename = `interface-${crypto.randomUUID()}.sc`;
       // The upstream Save As operation can adopt the temporary filename as the
       // design name. A native JSON export preserves the complete named design.
-      await api.execute('file.export', { path: `/opfs/${filename}`, format: 'json' });
-      initial.current = { id: documentId.current, name: current.name, file: await readEngineFile(filename) };
+      const [, captured] = await Promise.all([api.execute('file.export', { path: `/opfs/${filename}`, format: 'json' }), api.execute('document.revision', {})]);
+      const file = await readEngineFile(filename);
+      const [latest, finalTabs] = await Promise.all([api.execute('document.revision', {}), api.request('ui.documents', {})]);
+      if (captured.document_id !== binding.engineId || latest.document_id !== binding.engineId || latest.revision !== binding.revision) throw new Error('The design changed while preparing the interface. Your current design and tabs have been kept open; try again when the edit finishes.');
+      if (!Array.isArray(finalTabs.documents) || finalTabs.documents.some((tab: { dirty?: boolean }, index: number) => index !== finalTabs.active && tab.dirty)) throw new Error('Save or close other unsaved designs before switching interfaces. All design tabs have been kept open.');
+      initial.current = { id: binding.projectId, name: current.name, file };
       setReady(false); setNativeChrome(value => !value);
     } catch (error) { setError(error instanceof Error ? error.message : String(error)); }
     finally { setBusy(''); }
   }
   async function leave() {
+    if (busy) { setError('Wait for the current modeling operation to finish before leaving.'); return; }
     let dirty = state.dirty;
     const liveApi = engine.current || (iframe.current?.contentWindow as (Window & { solidcraft?: CadEngine }) | null)?.solidcraft;
     if (liveApi) {
       let timeout: ReturnType<typeof setTimeout>;
-      try { const current = await Promise.race([liveApi.inspect(), new Promise<never>((_, reject) => { timeout = setTimeout(() => reject(new Error('CAD response timed out')), 2000); })]); dirty = current.dirty; }
+      try { const [current, tabs] = await Promise.race([Promise.all([liveApi.inspect(), liveApi.request('ui.documents', {})]), new Promise<never>((_, reject) => { timeout = setTimeout(() => reject(new Error('CAD response timed out')), 2000); })]); dirty = current.dirty || !Array.isArray(tabs.documents) || tabs.documents.some((tab: { dirty?: boolean }) => tab.dirty); }
       catch { dirty = true; }
       finally { clearTimeout(timeout!); }
     }
-    if (dirty && !window.confirm('Leave this design? Save a project copy first if you want to keep these changes.')) return;
+    if (dirty && !window.confirm('Leave Model? One or more open designs may have unsaved changes. Save each design you want to keep before leaving.')) return;
     if (onBack) onBack(); else window.top!.location.href = '/';
   }
   async function save(download = false) {
     await run('Saving project', async api => {
-      const currentName = (await api.inspect()).name || state.name;
-      const filename = `model-${crypto.randomUUID()}.sc`;
-      await api.execute('file.save', { path: `/opfs/${filename}` });
-      const file = await readEngineFile(filename);
-      setRecent(rememberModel({ id: documentId.current, name: currentName, path: `/opfs/${filename}`, at: new Date().toISOString() }));
-      if (onSaved) await onSaved({ id: documentId.current, name: currentName, file });
+      const ui = await api.request('ui.inspect', {});
+      if (ui.file_busy || ui.file_picker_busy) throw new Error('Finish opening or saving the file before saving to Projects.');
+      const binding = await bindDocument(api);
+      const current = await api.inspect();
+      const currentName = current.name || state.name;
+      // Reusing the design's private native path preserves its upstream name.
+      // Never write back to a source file on the user's computer.
+      const privateName = current.path?.startsWith('/opfs/') ? current.path.slice('/opfs/'.length) : '';
+      const filename = privateName && !privateName.includes('/') && /\.(sc|solidcraft)$/i.test(privateName) ? privateName : `model-${crypto.randomUUID()}.sc`;
+      let previousModified: number | undefined;
+      try { const root = await navigator.storage.getDirectory(); previousModified = (await (await root.getFileHandle(filename)).getFile()).lastModified; }
+      catch (error) { if ((error as DOMException).name !== 'NotFoundError') throw error; }
+      if ((await api.execute('document.revision', {})).document_id !== binding.engineId) throw new Error('The active design changed before saving. No project snapshot was replaced; select the design and try again.');
+      const [, after] = await Promise.all([api.execute('file.save', { path: `/opfs/${filename}` }), api.execute('document.revision', {})]);
+      if (after.document_id !== binding.engineId) throw new Error('The active design changed while saving. No project snapshot was replaced; select the design and try again.');
+      const file = await readEngineFile(filename, previousModified);
+      setRecent(rememberModel({ id: binding.projectId, name: currentName, path: `/opfs/${filename}`, at: new Date().toISOString() }));
+      if (onSaved) await onSaved({ id: binding.projectId, name: currentName, file });
       if (download) downloadModel(file, `${currentName.replace(/[^\p{L}\p{N} ._-]/gu, '_') || 'part'}.sc`);
       setMessage(download ? 'Native project download started. Your browser copy is also saved.' : 'Project saved in this browser. Download a backup before clearing browser storage.');
     });
   }
   async function openSaved(path: string) {
     if (state.dirty && !window.confirm('Open another design and discard these unsaved changes?')) return;
-    await run('Opening project', async api => { await openEngineFile(api, iframe.current!, await readEngineFile(path.split('/').pop()!)); await api.execute('view.fit', {}); documentId.current = recent.find(item => item.path === path)?.id || crypto.randomUUID(); setEdits({}); setMessage('Project reopened from browser storage.'); });
+    await run('Opening project', async api => { await openEngineFile(api, iframe.current!, await readEngineFile(path.split('/').pop()!)); await api.execute('view.fit', {}); await bindDocument(api, recent.find(item => item.path === path)?.id || crypto.randomUUID()); setEdits({}); setMessage('Project reopened from browser storage.'); });
   }
   async function openFile(file?: File) {
     if (!file) return;
     if (file.size > 100 * 1024 * 1024) { setError('Open a project smaller than 100 MB on this browser workspace.'); return; }
     if (state.dirty && !window.confirm('Open this file and discard unsaved changes?')) return;
     await run('Opening file', async api => {
-      await openEngineFile(api, iframe.current!, file); await api.execute('view.fit', {}); documentId.current = crypto.randomUUID(); setEdits({}); setMessage(`Opened ${file.name}.`);
+      await openEngineFile(api, iframe.current!, file); await api.execute('view.fit', {}); await bindDocument(api, crypto.randomUUID()); setEdits({}); setMessage(`Opened ${file.name}.`);
     });
   }
   async function exportPart(format: 'step' | 'stl') {
@@ -161,7 +199,9 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
     }
     if (state.dirty && !window.confirm('Create a new part and discard the unsaved design?')) return;
     await run('Creating part', async api => {
-      await createStarter(api, shape, name.trim() || 'Untitled part', values); if (newDocument.current) documentId.current = crypto.randomUUID(); newDocument.current = false; setEdits({}); partDialog.current?.close(); setMessage('Part created. Edit dimensions or keep modeling with the tools above.');
+      await bindDocument(api);
+      const projectId = newDocument.current ? crypto.randomUUID() : documentId.current;
+      await createStarter(api, shape, name.trim() || 'Untitled part', values); await bindDocument(api, projectId); newDocument.current = false; setEdits({}); partDialog.current?.close(); setMessage('Part created. Edit dimensions or keep modeling with the tools above.');
     });
   }
   function startTool(command: string) { setShowStartCard(false); const capability = commands.find(item => item.id === command); if (capability && !capability.enabled) { setError(capability.disabled_reason || 'Select the geometry this tool needs in the viewport first.'); return; } void run('Opening tool', async api => { await api.request('ui.start', { command }); setMessage('Use the viewport and the modeling dialog to complete the tool.'); commandDialog.current?.close(); }); }
@@ -185,7 +225,7 @@ export function ModelStudio({ onBack, initialProject, onSaved }: { onBack?: () =
     {nativeChrome ? <header className="model-native-hostbar"><button className="model-back" onClick={leave}><ArrowLeft size={14} />OmniCraft OS</button><span>Model</span><div><span role="status" className="model-native-status">{busy || (ready ? `${state.name} · ${state.dirty ? 'Unsaved changes' : 'Saved in engine'}` : 'Loading CAD…')}</span><button disabled={blocked} onClick={() => void switchInterface()}>Guided workspace</button><button disabled={blocked} onClick={newPart}><Plus size={14} />Quick part</button><button disabled={blocked} onClick={() => void save()}><Save size={14} />Save to Projects</button></div></header> : (<header className="model-header"><button className="model-back" onClick={leave}><ArrowLeft size={15} />OmniCraft OS</button><div className="model-document-title"><Box size={19} /><div><span>MODEL</span><h1>{state.name || 'Untitled part'}</h1></div><span className="model-save-state">{state.dirty ? 'Unsaved changes' : ready ? 'No unsaved changes' : 'Loading…'}</span></div><div className="model-file-actions"><button disabled={blocked} onClick={() => void switchInterface()}>Full CAD workspace</button><label className="model-open"><FolderOpen size={15} />Open<input aria-label="Open model file" type="file" accept=".sc,.solidcraft,.step,.stp,.stl" disabled={blocked} onChange={event => { void openFile(event.target.files?.[0]); event.target.value = ''; }} /></label><button disabled={blocked} onClick={() => void save()}><Save size={15} />Save project</button><details className="model-export-menu"><summary><Download size={15} />Export<ChevronDown size={12} /></summary><div><button disabled={blocked} onClick={() => void save(true)}>Native project (.sc)</button><button disabled={blocked || !hasBodies} onClick={() => void exportPart('step')}>STEP · editable solid</button><button disabled={blocked || !hasBodies} onClick={() => void exportPart('stl')}>STL · print mesh</button></div></details></div></header>)}
     {!nativeChrome && <nav className="model-toolbar" aria-label="Modeling tools"><button className="model-new" disabled={blocked} onClick={newPart}><Plus size={15} />New part</button><span className="model-divider" />{[['sketch.create', 'Sketch', Pencil], ['solid.extrude', 'Extrude', Box], ['solid.fillet', 'Fillet', Circle], ['solid.chamfer', 'Chamfer', Box]].map(([id, label, Icon]) => { const Component = Icon as typeof Box; return <button key={String(id)} disabled={blocked} onClick={() => startTool(String(id))}><Component size={15} />{String(label)}</button>; })}{state.active_sketch != null && <><button disabled={blocked} onClick={() => startTool('sketch.line')}>Line</button><button disabled={blocked} onClick={() => startTool('sketch.rectangle.two_point')}>Rectangle</button><button disabled={blocked} onClick={() => startTool('sketch.circle.center')}>Circle</button><button disabled={blocked} onClick={() => void run('Finishing sketch', async api => { await api.execute('sketch.finish', {}); })}><Check size={14} />Finish sketch</button></>}<button disabled={blocked} onClick={() => commandDialog.current?.showModal()}><Search size={15} />More tools</button><span className="model-toolbar-space" /><button aria-label="Undo model edit" disabled={blocked || !state.undo} onClick={() => void run('Undo', async api => { await api.execute('edit.undo', {}); setEdits({}); })}><Undo2 size={16} /></button><button aria-label="Redo model edit" disabled={blocked || !state.redo} onClick={() => void run('Redo', async api => { await api.execute('edit.redo', {}); setEdits({}); })}><Redo2 size={16} /></button></nav>}
     {error && <div className="model-error" role="alert">{error}<button onClick={() => setError('')} aria-label="Dismiss modeling error">×</button></div>}
-    <div className="model-body"><section className="model-viewport" aria-label="Interactive CAD viewport"><iframe key={`${attempt}/${nativeChrome}`} ref={iframe} src={nativeChrome ? "/editors/solidcraft/workspace.html?webgl=1" : "/editors/solidcraft/workspace.html?omnicraft=1&webgl=1"} title="Model geometry engine" />
+    <div className="model-body"><section className="model-viewport" aria-label="Interactive CAD viewport" aria-busy={!!busy} style={{ pointerEvents: busy ? 'none' : undefined }}><iframe key={`${attempt}/${nativeChrome}`} ref={iframe} src={nativeChrome ? "/editors/solidcraft/workspace.html?webgl=1" : "/editors/solidcraft/workspace.html?omnicraft=1&webgl=1"} title="Model geometry engine" />
       {!ready && <div className={`model-loading ${engineAttached ? 'model-configuring' : ''}`} role="status"><Box size={28} /><strong>{bootFailure ? 'Model could not start' : engineAttached ? 'Connecting to the viewport' : 'Starting the modeling engine'}</strong><p>{bootFailure ? error : engineAttached ? 'The CAD engine has loaded. Waiting for its command channel.' : 'Loading the actual CAD kernel. This can take a moment on an Intel Mac.'}</p>{bootFailure && <button onClick={() => setAttempt(value => value + 1)}>Reload Model</button>}</div>}
       {!nativeChrome && ready && showStartCard && !hasBodies && !state.active_sketch && <div className="model-start-card"><p>YOUR NEXT PART STARTS HERE</p><h2>From a shape<br />to something useful.</h2><span>Build a parametric part, open a design,<br />or start sketching in the viewport.</span><button disabled={blocked} onClick={newPart}><Plus size={15} />Create a part</button></div>}
       {!nativeChrome && <div className="model-view-controls" aria-label="Camera views">{['iso', 'front', 'top', 'right'].map(view => <button key={view} disabled={blocked} onClick={() => void run('Changing view', async api => { await api.request('ui.view', { view }); })}>{view === 'iso' ? '3D' : view}</button>)}<button aria-label="Fit model in view" disabled={blocked} onClick={() => void run('Fitting model', async api => { await api.execute('view.fit', {}); })}><Maximize size={14} /></button></div>}

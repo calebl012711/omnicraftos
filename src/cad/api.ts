@@ -1,14 +1,14 @@
 export interface CadCommand { id: string; label: string; panel: string; tab: string; enabled: boolean; disabled_reason?: string; }
-export interface CadState { name: string; dirty: boolean; revision: number; undo: number; redo: number; bodies: any[]; timeline: any[]; params: any[]; selection: any[]; active_sketch: unknown; units: string; }
+export interface CadState { name: string; path?: string | null; dirty: boolean; revision: number; undo: number; redo: number; bodies: any[]; timeline: any[]; params: any[]; selection: any[]; active_sketch: unknown; units: string; }
 export interface CadEngine { execute(command: string, params?: Record<string, unknown>): Promise<any>; request(method: string, params?: Record<string, unknown>): Promise<any>; inspect(): Promise<CadState>; commands(): Promise<CadCommand[]>; }
 export interface SavedModel { id?: string; name: string; path: string; at: string; }
 export function getSavedModels(): SavedModel[] { try { return JSON.parse(localStorage.getItem('omnicraft-models-v1') || '[]'); } catch { return []; } }
 export function rememberModel(value: SavedModel) { const entries = [value, ...getSavedModels().filter(item => (item.id || item.path) !== (value.id || value.path))].slice(0, 30); localStorage.setItem('omnicraft-models-v1', JSON.stringify(entries)); return entries; }
-export async function readEngineFile(name: string): Promise<File> {
+export async function readEngineFile(name: string, previousModified?: number): Promise<File> {
   const root = await navigator.storage.getDirectory();
   const until = performance.now() + 60000;
   while (performance.now() < until) {
-    try { const file = await (await root.getFileHandle(name)).getFile(); if (file.size > 100) return file; } catch { /* Engine writes are asynchronous; wait for the completed file. */ }
+    try { const file = await (await root.getFileHandle(name)).getFile(); if (file.size > 100 && (previousModified === undefined || file.lastModified !== previousModified)) return file; } catch { /* Engine writes are asynchronous; wait for the completed file. */ }
     await new Promise(resolve => setTimeout(resolve, 100));
   }
   throw new Error('The engine has not finished writing the file. Your model is still open; try again.');

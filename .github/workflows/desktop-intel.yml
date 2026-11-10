@@ -17,7 +17,53 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  browser:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      NODE_OPTIONS: --max-old-space-size=2048
+      GOMAXPROCS: '2'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          lfs: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '26.3.0'
+          package-manager-cache: false
+      - name: Prepare the actual editor assets and frontend
+        run: |
+          npm ci
+          npm run assets:prepare
+          npm run verify:frontend-notices
+          npm run verify:desktop-notices
+          npm test
+          npm run build
+      - name: Verify real CAD project and document-tab workflows
+        run: |
+          npx --no-install playwright install --with-deps chromium
+          export CHROME_PATH="$(node -e 'process.stdout.write(require("@playwright/test").chromium.executablePath())')"
+          export OMNICRAFT_SOFTWARE_WEBGL=1
+          mkdir -p verification/model-library-ci
+          node_modules/.bin/vite preview --host 127.0.0.1 --port 4173 --strictPort > verification/model-library-ci/server.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          node --input-type=module -e 'for(let i=0;i<40;i++){try{const r=await fetch("http://127.0.0.1:4173");if(r.ok)process.exit(0);}catch{}await new Promise(r=>setTimeout(r,250));}process.exit(1);'
+          OMNICRAFT_URL=http://127.0.0.1:4173 MODEL_LIBRARY_OUTPUT=verification/model-library-ci npm run verify:model-library
+      - name: Retain browser workflow evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: OmniCraft-browser-check-${{ github.sha }}
+          path: |
+            verification/model-library-ci/report.json
+            verification/model-library-ci/*.png
+          if-no-files-found: ignore
+          retention-days: 1
   package:
+    needs: browser
     # Standard public-repository runner, never a larger/paid runner.
     if: github.event.repository.private == false
     runs-on: macos-15-intel
