@@ -1,0 +1,23 @@
+{
+  "runId": 42755247676,
+  "jobId": 129628035129,
+  "url": "https://github.com/calebl012711/omnicraftos/actions/runs/42755247676",
+  "commit": "c7874cf4ad1f2062b3a39dc351a97dc04e23a2ef",
+  "status": "completed",
+  "conclusion": "failure",
+  "stage": "Run serial unit checks",
+  "cause": "The source-built CAD asset test found a 133-byte Git LFS pointer instead of the 99,795,192-byte module. Asset preparation must run before unit checks.",
+  "noticeChecksPassed": true,
+  "appBuildStarted": false,
+  "nativeAppLaunched": false,
+  "logEvidence": [
+    "2026-11-10T04:23:09.3773190Z      → expected 133 to be 99795192 // Object.is equality",
+    "2026-11-10T04:23:10.7881960Z  FAIL  src/__tests__/mosaic-forge.test.ts > OmniCraft OS Suite Configuration & Architecture > ships the source-built CAD module and reviewed overlay declared by the integration lock",
+    "2026-11-10T04:23:10.7956780Z AssertionError: expected 133 to be 99795192 // Object.is equality",
+    "2026-11-10T04:23:10.8093180Z - Expected",
+    "2026-11-10T04:23:10.8164930Z + Received",
+    "2026-11-10T04:23:10.9898220Z ##[error]AssertionError: expected 133 to be 99795192 // Object.is equality",
+    "- Expected",
+    "+ Received"
+  ]
+}

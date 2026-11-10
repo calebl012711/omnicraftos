@@ -58,7 +58,11 @@ jobs:
           npm run verify:desktop-notices
           git diff --exit-code -- src-tauri/Cargo.lock package-lock.json
       - name: Run serial unit checks
-        run: npm test
+        # Source-artifact checks must see real bytes, not checkout's LFS pointers.
+        # Keep validation strict instead of skipping the artifact test.
+        run: |
+          npm run assets:prepare
+          npm test
       - name: Build the app without launching it
         run: |
           unset OMNICRAFT_DESKTOP_PROBE_DIR
