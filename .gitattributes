@@ -2,3 +2,7 @@
 *.wasm filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.webm filter=lfs diff=lfs merge=lfs -text
+# Notice hashes describe the original bytes, across checkout platforms.
+public/licenses/desktop/** -text
+public/licenses/frontend/** -text
+integration/desktop-notice-sources/** -text

@@ -16,10 +16,12 @@ const binary = path.join(bundle, 'Contents/MacOS', binaryName);
 const architecture = execFileSync('/usr/bin/lipo', ['-archs', binary], { encoding: 'utf8' }).trim();
 assert.equal(architecture, 'x86_64', 'This package is for the Intel MacBook Air.');
 execFileSync(process.execPath, ['scripts/verify-desktop-notices.mjs'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['scripts/frontend-notices.mjs', '--check'], { stdio: 'inherit' });
 const notices = path.join(bundle, 'Contents/Resources/ThirdPartyNotices');
 await fs.rm(notices, { recursive: true, force: true });
 await fs.cp('public/licenses', notices, { recursive: true });
 execFileSync(process.execPath, ['scripts/verify-desktop-notices.mjs', path.join(notices, 'desktop')], { stdio: 'inherit' });
+execFileSync(process.execPath, ['scripts/frontend-notices.mjs', '--check', path.join(notices, 'frontend')], { stdio: 'inherit' });
 execFileSync('/usr/bin/codesign', ['--force', '--deep', '--sign', '-', bundle], { stdio: 'inherit' });
 execFileSync('/usr/bin/codesign', ['--verify', '--deep', '--strict', bundle], { stdio: 'inherit' });
 async function hashFile(file) {
@@ -35,6 +37,7 @@ const report = {
   bundle: path.relative(root, bundle), identifier: plist('CFBundleIdentifier'), version: plist('CFBundleShortVersionString'), architecture,
   binary: { bytes: (await fs.stat(binary)).size, sha256: await hashFile(binary) },
   frontendWorkspaceAssets: frontend, cargoLockSha256: await hashFile('src-tauri/Cargo.lock'), noticeInventorySha256: await hashFile(path.join(notices, 'desktop/inventory.json')),
+  frontendNoticeInventorySha256: await hashFile(path.join(notices, 'frontend/inventory.json')),
   sourceIdentityVerifiedByStaticInspection: false,
   provenanceLimit: 'Workspace revision and frontend hashes are inspection context. The build job and compiler logs must establish which revision was compiled; static inspection alone does not prove embedded-source identity.',
   noticeFilesVerified: true, adHocSignatureVerified: true, nativeAppLaunched: false, nativeWorkflowsVerified: false,

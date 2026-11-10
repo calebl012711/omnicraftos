@@ -51,6 +51,8 @@ jobs:
       - name: Install locked dependencies and verify notices
         run: |
           npm ci
+          npm run frontend:notices
+          npm run verify:frontend-notices
           cargo fetch --manifest-path src-tauri/Cargo.toml --locked --target x86_64-apple-darwin
           npm run desktop:notices
           npm run verify:desktop-notices

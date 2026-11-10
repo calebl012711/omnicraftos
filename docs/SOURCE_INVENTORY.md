@@ -84,3 +84,9 @@ npm run desktop:notices
 ```
 
 For a fresh developer machine, `cargo fetch --manifest-path src-tauri/Cargo.toml --locked --target x86_64-apple-darwin` populates the source cache without compiling. Review notice overrides, lock changes and source provenance before adopting any update. Missing notices, changed checksums and unreviewed override versions fail validation.
+
+## Frontend runtime notices
+
+`public/licenses/frontend/inventory.json` records all 48 installed non-development npm packages, their locked tarball integrity values, metadata attribution and 49 retained notice files. This includes React, React DOM, Scheduler, Lucide and the audio/UI libraries and their runtime dependencies. The inventory is deliberately broader than the final emitted bundle. Installed metadata is checked against `package-lock.json`; copied-file hashes do not independently establish byte identity of the entire installed package with its original tarball.
+
+The exact locked `react-async-hook@4.0.0` tarball declares MIT in its README and metadata but omits a standalone license file. Its original declaration, author, source URL and integrity are retained alongside the full standard MIT text, with a guard limited to that reviewed version/integrity. New missing notices require review. `npm run frontend:notices` regenerates these files from an existing `npm ci` installation; `npm run verify:frontend-notices` checks the lock and retained hashes without compilation or network access. The package finalizer verifies both Cargo and frontend notices after copying them into the app.

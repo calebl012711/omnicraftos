@@ -26,6 +26,8 @@
     "desktop:notices": "node scripts/desktop-notices.mjs",
     "desktop:upstream-check": "node scripts/check-desktop-upstream.mjs",
     "verify:desktop-notices": "node scripts/verify-desktop-notices.mjs",
+    "frontend:notices": "node scripts/frontend-notices.mjs",
+    "verify:frontend-notices": "node scripts/frontend-notices.mjs --check",
     "upstream:build": "node scripts/build-upstream.mjs",
     "verify:filmcraft": "node scripts/verify-filmcraft.mjs",
     "verify:audio-source": "node scripts/verify-audio-source.mjs",
